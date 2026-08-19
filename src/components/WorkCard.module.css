@@ -1,0 +1,58 @@
+.card {
+  display: block;
+  border: 1px solid var(--border-strong);
+  background: var(--panel);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.thumb {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-strong);
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.thumb[data-category="web"] {
+  background-color: #1a1610;
+}
+
+.thumb[data-category="3dweb"] {
+  background-color: #10161d;
+}
+
+.thumb[data-category="app"] {
+  background-color: #161014;
+}
+
+.thumb span {
+  color: var(--text-soft);
+}
+
+.body {
+  padding: 22px 22px 26px;
+}
+
+.tag {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.summary {
+  font-size: 13px;
+  color: var(--text-soft);
+}

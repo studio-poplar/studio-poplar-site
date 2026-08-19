@@ -1,0 +1,61 @@
+.layout {
+  display: grid;
+  gap: 40px;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 0.4fr 0.6fr;
+    align-items: start;
+  }
+}
+
+.infoCard {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 28px 26px;
+}
+
+.infoCard .mono {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.infoCard p {
+  font-size: 13.5px;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.infoCard a {
+  display: block;
+  font-size: 15px;
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.infoCard a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.snsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snsList a {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--text-soft);
+}
+
+.snsList a:hover {
+  color: var(--accent);
+}

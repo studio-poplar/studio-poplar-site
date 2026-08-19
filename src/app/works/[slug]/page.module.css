@@ -1,0 +1,153 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel-deep), var(--bg));
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding: 72px 0 56px;
+  }
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+.tag {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: clamp(26px, 5vw, 42px);
+  margin-bottom: 24px;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.metaRow div {
+  border-top: 1px solid var(--border-strong);
+  padding-top: 10px;
+  min-width: 120px;
+}
+
+.thumb {
+  height: 220px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: var(--panel-deep);
+}
+
+@media (min-width: 640px) {
+  .thumb {
+    height: 320px;
+  }
+}
+
+.body {
+  display: grid;
+  gap: 40px;
+}
+
+@media (min-width: 860px) {
+  .body {
+    grid-template-columns: 0.7fr 0.3fr;
+  }
+}
+
+.overview p {
+  color: var(--text-soft);
+  font-size: 15px;
+  margin-bottom: 40px;
+  max-width: 64ch;
+}
+
+.storySection {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+}
+
+.storySection:first-of-type {
+  border-top: none;
+}
+
+.storySection h2 {
+  font-size: 17px;
+  margin-bottom: 12px;
+}
+
+.storySection p {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebarCard {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 22px 20px;
+}
+
+.sidebarCard .mono {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.sidebarCard ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebarCard li {
+  font-size: 13px;
+  color: var(--text-soft);
+  padding-left: 14px;
+  position: relative;
+}
+
+.sidebarCard li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.footNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+}

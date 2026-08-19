@@ -1,0 +1,42 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel-deep), var(--bg));
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding: 88px 0 64px;
+  }
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(242, 241, 237, 0.035) 0px,
+    rgba(242, 241, 237, 0.035) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+}
+
+.title {
+  font-size: clamp(28px, 5vw, 44px);
+  margin-top: 16px;
+}
+
+.description {
+  margin-top: 18px;
+  color: var(--text-soft);
+  max-width: 56ch;
+  font-size: 15px;
+}

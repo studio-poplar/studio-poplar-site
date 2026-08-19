@@ -1,0 +1,139 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 13, 16, 0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .bar {
+    height: 76px;
+  }
+}
+
+.logo {
+  font-family: var(--font-logo), sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .logo {
+    font-size: 19px;
+  }
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav {
+  display: none;
+  margin-right: auto;
+  margin-left: 48px;
+}
+
+.nav ul {
+  display: flex;
+  gap: 32px;
+}
+
+.nav a {
+  color: var(--text-soft);
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+.nav a.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.contactCta {
+  display: none;
+  border: 1px solid var(--text);
+  padding: 9px 20px;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.contactCta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.menuToggle {
+  border: 1px solid var(--border-strong);
+  padding: 8px 14px;
+}
+
+@media (min-width: 860px) {
+  .nav {
+    display: block;
+  }
+
+  .contactCta {
+    display: inline-flex;
+  }
+
+  .menuToggle {
+    display: none;
+  }
+}
+
+.mobileNav {
+  overflow: hidden;
+  max-height: 0;
+  border-top: 1px solid transparent;
+  transition: max-height 0.25s ease;
+}
+
+.mobileNav[data-open="true"] {
+  max-height: 320px;
+  border-top-color: var(--border);
+}
+
+.mobileNav ul {
+  padding: 8px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileNav a {
+  display: block;
+  padding: 12px 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 860px) {
+  .mobileNav {
+    display: none;
+  }
+}

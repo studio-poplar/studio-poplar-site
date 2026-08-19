@@ -1,0 +1,29 @@
+.pillars {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.plans {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .plans {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.note {
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--text-soft);
+}

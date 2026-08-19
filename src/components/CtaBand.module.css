@@ -1,0 +1,21 @@
+.cta {
+  background: var(--panel-deep);
+  padding: 72px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 640px) {
+  .cta {
+    padding: 104px 0;
+  }
+}
+
+.inner {
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(24px, 4.5vw, 40px);
+  max-width: 20ch;
+  margin: 24px auto 32px;
+}

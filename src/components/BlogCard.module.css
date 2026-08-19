@@ -1,0 +1,35 @@
+.card {
+  display: block;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 28px 26px 30px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+
+.excerpt {
+  font-size: 13.5px;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.readMore {
+  pointer-events: none;
+}

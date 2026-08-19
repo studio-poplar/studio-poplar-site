@@ -1,0 +1,64 @@
+.plan {
+  position: relative;
+  border: 1px solid var(--border-strong);
+  background: var(--panel);
+  padding: 32px 26px 34px;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan[data-recommended="true"] {
+  border-color: var(--accent);
+}
+
+.badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 5px 12px;
+}
+
+.name {
+  font-size: 22px;
+  margin: 10px 0 8px;
+}
+
+.tagline {
+  font-size: 13.5px;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.priceNote {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  color: var(--text-soft);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.features li {
+  font-size: 13.5px;
+  color: var(--text);
+  padding-left: 18px;
+  position: relative;
+}
+
+.features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 9px;
+  height: 1px;
+  background: var(--accent);
+}
