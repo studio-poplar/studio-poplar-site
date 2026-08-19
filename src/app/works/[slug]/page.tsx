@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import RegMarks from "@/components/RegMarks";
 import CtaBand from "@/components/CtaBand";
+import WorkTypeBadge from "@/components/WorkTypeBadge";
 import { getWorkBySlug, works, WORK_CATEGORY_LABELS } from "@/data/works";
 import styles from "./page.module.css";
 
@@ -44,7 +45,10 @@ export default async function WorkDetailPage(props: PageProps<"/works/[slug]">) 
           <Link href="/works" className={styles.back}>
             ← WORKS一覧へ戻る
           </Link>
-          <span className={`mono ${styles.tag}`}>{WORK_CATEGORY_LABELS[work.category]}</span>
+          <div className={styles.badgeRow}>
+            <span className={`mono ${styles.tag}`}>{WORK_CATEGORY_LABELS[work.category]}</span>
+            <WorkTypeBadge type={work.type} />
+          </div>
           <h1 className={styles.title}>{work.title}</h1>
           <div className={`${styles.metaRow} mono`}>
             <div>

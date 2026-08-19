@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { trackEvent } from "@/lib/gtag";
 import styles from "./SiteHeader.module.css";
 
 const NAV_LINKS = [
@@ -38,7 +39,11 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <Link href="/contact" className={styles.contactCta}>
+        <Link
+          href="/contact"
+          className={styles.contactCta}
+          onClick={() => trackEvent("contact_click", { location: "header" })}
+        >
           お問い合わせ
         </Link>
 
@@ -63,7 +68,13 @@ export default function SiteHeader() {
             </li>
           ))}
           <li>
-            <Link href="/contact" onClick={() => setOpen(false)}>
+            <Link
+              href="/contact"
+              onClick={() => {
+                setOpen(false);
+                trackEvent("contact_click", { location: "header_mobile" });
+              }}
+            >
               CONTACT
             </Link>
           </li>

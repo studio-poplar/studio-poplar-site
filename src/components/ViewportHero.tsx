@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import RegMarks from "./RegMarks";
+import { trackEvent } from "@/lib/gtag";
 import styles from "./ViewportHero.module.css";
 
 export default function ViewportHero() {
@@ -18,13 +21,14 @@ export default function ViewportHero() {
             新規事業や個人開業の&ldquo;らしさ&rdquo;を、Webとアプリという構造物に落とし込む制作スタジオです。ブランドの骨格から仕上げまでを一貫して設計します。
           </p>
           <div className={styles.ctas}>
-            <Link href="/contact" className="btn-primary">
+            <Link href="/contact" className="btn-primary" onClick={() => trackEvent("hero_cta_click")}>
               まずは相談する →
             </Link>
-            <Link href="/works" className="btn-ghost">
-              制作実績を見る
-            </Link>
           </div>
+          <p className={styles.ctaNote}>相談は無料です。まずは事業の構造からお聞きします。</p>
+          <Link href="/works" className={`btn-ghost ${styles.secondaryLink}`}>
+            制作実績を見る
+          </Link>
         </div>
 
         <div className={styles.viewport} aria-hidden="true">

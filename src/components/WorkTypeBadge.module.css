@@ -1,0 +1,19 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+  color: var(--text-soft);
+}
+
+.badge[data-type="mock"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.badge[data-type="client"] {
+  border-color: var(--axis-z);
+  color: var(--axis-z);
+}

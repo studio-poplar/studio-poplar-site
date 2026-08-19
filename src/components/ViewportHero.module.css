@@ -47,6 +47,17 @@
   align-items: center;
 }
 
+.ctaNote {
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+
+.secondaryLink {
+  display: inline-block;
+  margin-top: 24px;
+}
+
 /* --- viewport panel --- */
 .viewport {
   position: relative;

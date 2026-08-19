@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { trackEvent } from "@/lib/gtag";
 import styles from "./SiteFooter.module.css";
 
 const NAV_LINKS = [
@@ -24,7 +27,12 @@ export default function SiteFooter() {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href}>{link.label}</Link>
+                <Link
+                  href={link.href}
+                  onClick={link.href === "/contact" ? () => trackEvent("contact_click", { location: "footer" }) : undefined}
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>

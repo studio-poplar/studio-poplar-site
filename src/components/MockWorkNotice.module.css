@@ -1,0 +1,18 @@
+.notice {
+  border: 1px solid var(--border-strong);
+  background: var(--panel);
+  padding: 24px 26px;
+  margin-bottom: 40px;
+}
+
+.notice .mono {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.body {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-soft);
+  max-width: 72ch;
+}

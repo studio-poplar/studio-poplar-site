@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
+import { trackEvent } from "@/lib/gtag";
 import styles from "./ContactForm.module.css";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xoeayveb";
@@ -24,6 +25,7 @@ export default function ContactForm() {
 
       if (response.ok) {
         setStatus("success");
+        trackEvent("form_submit");
         formRef.current?.reset();
       } else {
         setStatus("error");

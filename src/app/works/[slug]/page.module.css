@@ -23,10 +23,15 @@
   color: var(--accent);
 }
 
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
 .tag {
   color: var(--accent);
-  display: block;
-  margin-bottom: 14px;
 }
 
 .title {

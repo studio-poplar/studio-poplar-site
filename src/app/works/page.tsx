@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import WorksFilter from "@/components/WorksFilter";
 import CtaBand from "@/components/CtaBand";
+import MockWorkNotice from "@/components/MockWorkNotice";
 import { works } from "@/data/works";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function WorksPage() {
 
       <section className="section" style={{ borderBottom: "none" }}>
         <div className="wrap">
+          <MockWorkNotice />
           <WorksFilter works={works} />
         </div>
       </section>

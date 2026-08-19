@@ -1,4 +1,5 @@
 export type WorkCategory = "web" | "3dweb" | "app";
+export type WorkType = "mock" | "client";
 
 export const WORK_CATEGORY_LABELS: Record<WorkCategory, string> = {
   web: "WEB",
@@ -6,9 +7,15 @@ export const WORK_CATEGORY_LABELS: Record<WorkCategory, string> = {
   app: "APP",
 };
 
+export const WORK_TYPE_LABELS: Record<WorkType, string> = {
+  mock: "MOCK WORK",
+  client: "CLIENT WORK",
+};
+
 export type Work = {
   slug: string;
   category: WorkCategory;
+  type: WorkType;
   title: string;
   client: string;
   year: string;
@@ -24,6 +31,7 @@ export const works: Work[] = [
   {
     slug: "tabikoyomi-coffee",
     category: "web",
+    type: "mock",
     title: "旅暦珈琲 コーポレートサイト",
     client: "旅暦珈琲（個人焙煎所）",
     year: "2026",
@@ -51,6 +59,7 @@ export const works: Work[] = [
   {
     slug: "nagi-subscription-inn",
     category: "3dweb",
+    type: "mock",
     title: "凪 NAGI サブスクリプション民宿サイト",
     client: "凪 NAGI（コンセプト企画）",
     year: "2026",
@@ -78,6 +87,7 @@ export const works: Work[] = [
   {
     slug: "shindan-app",
     category: "app",
+    type: "mock",
     title: "診断型アプリケーション",
     client: "診断型アプリ（コンセプト企画）",
     year: "2026",

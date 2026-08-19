@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Zen_Kaku_Gothic_New, Space_Grotesk, IBM_Plex_Sans_JP, IBM_Plex_Mono } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const zenKaku = Zen_Kaku_Gothic_New({
@@ -56,6 +57,7 @@ export const metadata: Metadata = {
     description:
       "新規事業・個人開業の“顔”となるWEBサイト／3Dモデリング活用WEBサイト／アプリを設計・制作します。",
   },
+  verification: process.env.GSC_VERIFICATION ? { google: process.env.GSC_VERIFICATION } : undefined,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -71,6 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <GoogleAnalytics />
       </body>
     </html>
   );

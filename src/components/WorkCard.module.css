@@ -11,6 +11,7 @@
 }
 
 .thumb {
+  position: relative;
   height: 180px;
   display: flex;
   align-items: center;
@@ -19,6 +20,12 @@
   background-image: linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+.thumbBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 .thumb[data-category="web"] {
