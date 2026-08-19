@@ -1,18 +1,42 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import styles from "./ContactForm.module.css";
 
-export default function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xoeayveb";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+type Status = "idle" | "submitting" | "success" | "error";
+
+export default function ContactForm() {
+  const [status, setStatus] = useState<Status>("idle");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setStatus("submitting");
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: new FormData(event.currentTarget),
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        formRef.current?.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} noValidate>
+    <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
+      <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
       <div className={styles.field}>
         <label htmlFor="name">
           お名前 <span className={styles.required}>必須</span>
@@ -56,14 +80,15 @@ export default function ContactForm() {
         </label>
       </div>
 
-      <button type="submit" className={`btn-primary ${styles.submit}`}>
-        送信する →
+      <button type="submit" className={`btn-primary ${styles.submit}`} disabled={status === "submitting"}>
+        {status === "submitting" ? "送信中…" : "送信する →"}
       </button>
 
       <p className={styles.note} role="status">
-        {submitted
-          ? "送信フォームは現在準備中です。恐れ入りますが下記メールアドレスへ直接ご連絡ください。"
-          : "※ 現在フォームからの送信機能は準備中です。お急ぎの場合は下記メールアドレスへ直接ご連絡ください。"}
+        {status === "success" && "送信しました。お問い合わせありがとうございます。折り返しご連絡いたします。"}
+        {status === "error" &&
+          "送信に失敗しました。お手数ですが下記メールアドレスへ直接ご連絡ください。"}
+        {status === "idle" && "※ ご入力いただいた内容は info@studiopoplar.com へ届きます。"}
       </p>
     </form>
   );
