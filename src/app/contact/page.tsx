@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageMasthead from "@/components/PageMasthead";
 import ContactForm from "@/components/ContactForm";
 import styles from "./page.module.css";
 
@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero
-        index="CONTACT"
+      <PageMasthead
         eyebrow="START A PROJECT"
         title="お問い合わせ"
         description="新規事業・個人開業のご相談から、WEB制作／3Dモデリング活用WEB制作／アプリ制作のご相談まで、お気軽にお問い合わせください。"
@@ -22,13 +21,11 @@ export default function ContactPage() {
         <div className="wrap">
           <div className={styles.layout}>
             <div className={styles.infoCard}>
-              <span className="mono">CONTACT INFO</span>
+              <span className="eyebrow en">CONTACT INFO</span>
               <p>フォームまたはメールにて承っております。内容を確認の上、担当より折り返しご連絡いたします。</p>
               <a href="mailto:info@studiopoplar.com">info@studiopoplar.com</a>
               <div className={styles.snsList}>
-                <span className="mono" style={{ color: "var(--text-soft)" }}>
-                  SOCIAL
-                </span>
+                <span className={`en ${styles.snsLabel}`}>SOCIAL</span>
                 <a href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener">
                   Instagram
                 </a>

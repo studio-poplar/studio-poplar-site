@@ -1,0 +1,43 @@
+.post {
+  padding: 44px 0;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 100px;
+}
+
+.post:first-child {
+  padding-top: 0;
+}
+
+.post:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.meta {
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+
+.cat {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.title {
+  font-size: clamp(20px, 3vw, 26px);
+  margin-bottom: 20px;
+}
+
+.post p {
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  max-width: 64ch;
+}
+
+.post p + p {
+  margin-top: 14px;
+}

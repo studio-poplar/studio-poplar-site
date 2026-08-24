@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/gtag";
@@ -16,12 +16,22 @@ const NAV_LINKS = [
 export default function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [solid, setSolid] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setSolid(window.scrollY > 60);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${solid ? styles.solid : ""}`}>
       <div className={`wrap ${styles.bar}`}>
         <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
-          STUDIO <span>POPLAR</span>
+          STUDIO POPLAR
         </Link>
 
         <nav className={styles.nav} aria-label="メインナビゲーション">
@@ -39,23 +49,28 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <Link
-          href="/contact"
-          className={styles.contactCta}
-          onClick={() => trackEvent("contact_click", { location: "header" })}
-        >
-          お問い合わせ
-        </Link>
+        <div className={styles.barRight}>
+          <Link
+            href="/contact"
+            className={styles.contactCta}
+            onClick={() => trackEvent("contact_click", { location: "header" })}
+          >
+            お問い合わせ
+          </Link>
 
-        <button
-          type="button"
-          className={styles.menuToggle}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="mono">{open ? "CLOSE" : "MENU"}</span>
-        </button>
+          <button
+            type="button"
+            className={styles.menuToggle}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "メニューを閉じる" : "メニューを開く"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
 
       <div id="mobile-nav" className={styles.mobileNav} data-open={open} inert={!open}>

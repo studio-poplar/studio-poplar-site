@@ -2,18 +2,22 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 3px 9px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
   border: 1px solid var(--border-strong);
-  background: var(--bg);
-  color: var(--text-soft);
+  color: var(--ink-soft);
 }
 
 .badge[data-type="mock"] {
-  border-color: var(--accent);
+  border-color: var(--accent-line);
   color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .badge[data-type="client"] {
-  border-color: var(--axis-z);
-  color: var(--axis-z);
+  border-color: var(--ink);
+  color: var(--ink);
 }

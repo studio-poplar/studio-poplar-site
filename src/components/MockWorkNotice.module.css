@@ -1,18 +1,22 @@
 .notice {
   border: 1px solid var(--border-strong);
-  background: var(--panel);
+  background: var(--panel-soft);
   padding: 24px 26px;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 
-.notice .mono {
+.label {
   display: block;
   margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
 }
 
 .body {
   font-size: 13.5px;
   line-height: 1.8;
-  color: var(--text-soft);
+  color: var(--ink-soft);
   max-width: 72ch;
 }

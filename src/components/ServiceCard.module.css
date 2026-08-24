@@ -1,0 +1,77 @@
+.card {
+  position: relative;
+  background: var(--bg);
+  padding: 40px 32px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.04);
+  will-change: transform;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.25s ease, border-color 0.25s ease;
+}
+
+.card:global(.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover {
+  background: var(--panel-soft);
+  border-color: var(--border-strong);
+}
+
+.num {
+  position: absolute;
+  top: 32px;
+  right: 28px;
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--border-strong);
+  line-height: 1;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.description {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.items {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.items li {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding-left: 16px;
+  position: relative;
+}
+
+.items li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}

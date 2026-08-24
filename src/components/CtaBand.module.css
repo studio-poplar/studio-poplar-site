@@ -1,21 +1,18 @@
 .cta {
-  background: var(--panel-deep);
-  padding: 72px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-@media (min-width: 640px) {
-  .cta {
-    padding: 104px 0;
-  }
-}
-
-.inner {
+  background: var(--ink);
+  color: #fff;
+  padding: 110px 0;
   text-align: center;
 }
 
+.cta :global(.eyebrow) {
+  color: var(--accent);
+}
+
 .title {
-  font-size: clamp(24px, 4.5vw, 40px);
+  font-family: var(--font-en), sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 5vw, 52px);
   max-width: 20ch;
-  margin: 24px auto 32px;
+  margin: 18px auto 36px;
 }

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
-import BlogCard from "@/components/BlogCard";
+import PageMasthead from "@/components/PageMasthead";
+import BlogPostFull from "@/components/BlogPostFull";
 import CtaBand from "@/components/CtaBand";
 import { blogPosts } from "@/data/blog";
-import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "BLOG",
@@ -13,20 +12,13 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <PageHero
-        index="BLOG"
-        eyebrow="NOTES"
-        title="BLOG"
-        description="制作の考え方や事例、Studio Poplarの視点をお届けします。"
-      />
+      <PageMasthead eyebrow="NOTES" title="BLOG" description="制作の考え方や事例、Studio Poplarの視点をお届けします。" />
 
       <section className="section" style={{ borderBottom: "none" }}>
-        <div className="wrap">
-          <div className={styles.grid}>
-            {blogPosts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
-            ))}
-          </div>
+        <div className="wrap" style={{ maxWidth: 720 }}>
+          {blogPosts.map((post) => (
+            <BlogPostFull key={post.slug} post={post} />
+          ))}
         </div>
       </section>
 

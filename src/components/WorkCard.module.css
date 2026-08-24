@@ -1,65 +1,74 @@
 .card {
   display: block;
-  border: 1px solid var(--border-strong);
-  background: var(--panel);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.04);
+  will-change: transform;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
+}
+
+.card:global(.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
+  border-color: var(--border-strong);
 }
 
 .thumb {
-  position: relative;
   height: 180px;
+  background: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid var(--border-strong);
-  background-image: linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.thumbBadge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
-.thumb[data-category="web"] {
-  background-color: #1a1610;
+  position: relative;
 }
 
 .thumb[data-category="3dweb"] {
-  background-color: #10161d;
+  background: #0f1a24;
 }
 
 .thumb[data-category="app"] {
-  background-color: #161014;
+  background: #1c1420;
 }
 
-.thumb span {
-  color: var(--text-soft);
+.thumb span.en {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.badgeWrap {
+  position: absolute;
+  top: 12px;
+  left: 12px;
 }
 
 .body {
-  padding: 22px 22px 26px;
+  padding: 24px 22px 26px;
 }
 
 .tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   color: var(--accent);
   display: block;
   margin-bottom: 8px;
 }
 
 .title {
-  font-size: 17px;
+  font-size: 16.5px;
   margin-bottom: 8px;
 }
 
 .summary {
   font-size: 13px;
-  color: var(--text-soft);
+  color: var(--ink-soft);
 }

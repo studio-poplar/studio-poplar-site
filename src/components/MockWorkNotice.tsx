@@ -3,7 +3,7 @@ import styles from "./MockWorkNotice.module.css";
 export default function MockWorkNotice() {
   return (
     <div className={styles.notice}>
-      <span className="mono" style={{ color: "var(--accent)" }}>
+      <span className={`en ${styles.label}`}>
         MOCK WORK — 構造設計力を示すための自主制作事例
       </span>
       <p className={styles.body}>

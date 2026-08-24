@@ -59,8 +59,13 @@ export default function ContactForm() {
       </div>
 
       <div className={styles.field}>
-        <label htmlFor="category">お問い合わせ種別</label>
-        <select id="category" name="category" defaultValue="web">
+        <label htmlFor="category">
+          お問い合わせ種別 <span className={styles.required}>必須</span>
+        </label>
+        <select id="category" name="category" defaultValue="" required>
+          <option value="" disabled>
+            選択してください
+          </option>
           <option value="web">WEB制作について</option>
           <option value="3dweb">3Dモデリング活用WEB制作について</option>
           <option value="app">アプリ制作について</option>

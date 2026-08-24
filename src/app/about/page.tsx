@@ -1,89 +1,67 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
+import ServiceCard from "@/components/ServiceCard";
+import AboutBlock from "@/components/AboutBlock";
+import Credentials from "@/components/Credentials";
 import CtaBand from "@/components/CtaBand";
-import styles from "./page.module.css";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "ABOUT",
   description:
-    "Studio Poplarについて。事業やお店の“らしさ”を構造として捉え、新規事業・個人開業の立ち上げに伴走する制作スタジオの考え方と体制をご紹介します。",
+    "Studio Poplarについて。事業やお店の“らしさ”を構造として捉え、新規事業・個人開業の立ち上げに伴走する制作スタジオの考え方をご紹介します。",
 };
 
-const FLOW_STEPS = [
-  { title: "ヒアリング", body: "事業の目的・ターゲット・強みを言語化します。" },
-  { title: "構造設計", body: "情報設計とサイトマップ、動線を組み立てます。" },
-  { title: "デザイン", body: "ビューポート思考でUIを具体化します。" },
-  { title: "実装", body: "レスポンシブ・アクセシビリティに配慮し構築します。" },
-  { title: "公開・運用", body: "公開後の改善や更新にも伴走します。" },
+const OVERVIEW_CREDENTIALS = [
+  { k: "FOCUS", v: "事業の骨格設計" },
+  { k: "APPROACH", v: "Web × App × Brand" },
+  { k: "STYLE", v: "構想から実装まで" },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        index="ABOUT"
-        eyebrow="OUR STRUCTURE"
+      <PageMasthead
+        eyebrow="ABOUT"
         title="事業の構造を、見立てる。"
         description="Studio Poplarは、装飾よりも先に構造を設計する制作スタジオです。新規事業・個人開業の立ち上げに伴走し、Webとアプリという形で事業の輪郭を描きます。"
       />
 
       <section className="section">
         <div className="wrap">
-          <SectionHead index="01" label="PHILOSOPHY" title="装飾ではなく、構造として捉える" />
-          <div className={styles.philosophy}>
-            <blockquote className={styles.quote}>
-              &ldquo;ものごとの構造を見立てる力で、
-              <br />
-              事業の伝わり方を設計する。&rdquo;
-            </blockquote>
-            <div className={styles.copy}>
-              <p>
-                事業やお店の魅力は、色やレイアウトといった装飾の前に、誰に・何を・どの順番で伝えるかという構造でほとんど決まります。Studio
-                Poplarは、その構造をソフトウェアのビューポートを組み立てるように設計します。
-              </p>
-              <p>
-                新規事業や個人開業では、事業の“顔”となるWebサイトやアプリが唯一の接点になることも少なくありません。骨格から仕上げまでを一貫して設計することで、立ち上げ期から信頼を積み上げられる状態を目指します。
-              </p>
-            </div>
-          </div>
+          <Reveal>
+            <AboutBlock
+              index="01 — PHILOSOPHY"
+              quote="“ものごとの構造を見立てる力で、事業の伝わり方を設計する。”"
+              body="事業やお店の魅力は、色やレイアウトといった装飾の前に、誰に・何を・どの順番で伝えるかという構造でほとんど決まります。Studio Poplarは、その構造をソフトウェアの設計図を組み立てるように設計します。新規事業や個人開業では、事業の顔となるWebサイトやアプリが唯一の接点になることも少なくありません。骨格から仕上げまでを一貫して設計することで、立ち上げ期から信頼を積み上げられる状態を目指します。"
+            />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section soft">
+        <div className="wrap">
+          <Reveal>
+            <AboutBlock
+              index="02 — OVERVIEW"
+              quote="事業の骨格を見つけ、伝わる形にする。"
+              body="Studio Poplarは、事業やお店の“らしさ”を表面的なデザインではなく、その根底にある構造から捉えます。何を届け、誰に選ばれ、どう続いていくのか。その骨格を整理し、Webとアプリを通じて伝わる形へと設計します。"
+            />
+          </Reveal>
+          <Credentials items={OVERVIEW_CREDENTIALS} />
         </div>
       </section>
 
       <section className="section">
         <div className="wrap">
-          <SectionHead index="02" label="PROFILE" title="運営体制" />
-          <div className={styles.credentials}>
-            <div className={styles.credCard}>
-              <span className="mono">FOCUS</span>
-              <h3>新規事業・開業支援</h3>
-              <p>新規事業や個人開業を検討する事業者を対象に、Web・アプリの設計から制作までを支援します。</p>
-            </div>
-            <div className={styles.credCard}>
-              <span className="mono">BASE</span>
-              <h3>横浜</h3>
-              <p>横浜を拠点に活動。対応エリアは全国のWeb・アプリ制作案件を中心としています。</p>
-            </div>
-            <div className={styles.credCard}>
-              <span className="mono">TEAM</span>
-              <h3>2〜5名体制</h3>
-              <p>少人数体制だからこそ、事業の背景まで理解した上での提案・実装を行います。</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap">
-          <SectionHead index="03" label="FLOW" title="制作の流れ" description="ヒアリングから公開後の運用まで、一貫して伴走します。" />
-          <div className={styles.flow}>
-            {FLOW_STEPS.map((step, index) => (
-              <div className={styles.flowStep} key={step.title}>
-                <span className={styles.num}>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </div>
-            ))}
+          <Reveal className="section-head">
+            <SectionHead index="03" label="TARGET" title="こんな方を支援しています" />
+          </Reveal>
+          <div className="grid-3">
+            <ServiceCard tag="STARTUP" title="新規事業担当者" description="事業アイデアを整理し、立ち上げまで伴走してほしい方" revealDelay={50} />
+            <ServiceCard tag="FREELANCE" title="個人事業主" description="開業準備や集客導線を整えたい方" revealDelay={140} />
+            <ServiceCard tag="SMALL BUSINESS" title="小規模事業者" description="Webや業務の仕組みを見直し、事業成長につなげたい方" revealDelay={230} />
           </div>
         </div>
       </section>

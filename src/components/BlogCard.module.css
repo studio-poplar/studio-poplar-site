@@ -1,35 +1,47 @@
 .card {
   display: block;
+  background: var(--bg);
+  padding: 26px 24px;
   border: 1px solid var(--border);
-  background: var(--panel);
-  padding: 28px 26px 30px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.04);
+  will-change: transform;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.25s ease, border-color 0.25s ease;
+}
+
+.card:global(.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
+  background: var(--panel-soft);
+  border-color: var(--border-strong);
 }
 
 .meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  color: var(--text-soft);
-  margin-bottom: 16px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+
+.cat {
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .title {
-  font-size: 19px;
-  margin-bottom: 12px;
+  font-size: 15.5px;
+  margin-bottom: 10px;
 }
 
 .excerpt {
-  font-size: 13.5px;
-  color: var(--text-soft);
-  margin-bottom: 20px;
-}
-
-.readMore {
-  pointer-events: none;
+  font-size: 12.5px;
+  color: var(--ink-soft);
 }

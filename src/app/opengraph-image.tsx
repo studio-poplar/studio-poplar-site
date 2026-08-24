@@ -14,13 +14,13 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0b0d10",
+          background: "#141414",
           padding: "72px",
           color: "#f2f1ed",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 4, color: "#9a9ca3" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 4, color: "#9a9a95" }}>
           <span>WEB / 3D MODEL WEB / APP</span>
           <span>DESIGN STUDIO</span>
         </div>
@@ -31,7 +31,7 @@ export default function Image() {
           </span>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 20, letterSpacing: 4, color: "#9a9ca3" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 20, letterSpacing: 4, color: "#9a9a95" }}>
           <span>YOKOHAMA, JAPAN</span>
           <span>STUDIOPOPLAR.COM</span>
         </div>

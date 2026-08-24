@@ -1,27 +1,33 @@
+"use client";
+
+import { useCard } from "@/lib/useCard";
 import styles from "./PlanCard.module.css";
 
 type PlanCardProps = {
+  code: string;
   name: string;
-  tagline: string;
-  features: string[];
-  recommended?: boolean;
+  description: string;
+  price: string;
+  delivery: string;
+  revealDelay?: number;
 };
 
-export default function PlanCard({ name, tagline, features, recommended }: PlanCardProps) {
+export default function PlanCard({ code, name, description, price, delivery, revealDelay = 0 }: PlanCardProps) {
+  const ref = useCard<HTMLDivElement>(revealDelay);
+
   return (
-    <div className={styles.plan} data-recommended={recommended}>
-      {recommended && <span className={`mono ${styles.badge}`}>RECOMMENDED</span>}
-      <span className="mono" style={{ color: "var(--accent)" }}>
-        PLAN
-      </span>
+    <div className={styles.card} ref={ref}>
+      <span className={`en ${styles.code}`}>{code}</span>
       <h3 className={styles.name}>{name}</h3>
-      <p className={styles.tagline}>{tagline}</p>
-      <span className={styles.priceNote}>お見積り致します</span>
-      <ul className={styles.features}>
-        {features.map((feature) => (
-          <li key={feature}>{feature}</li>
-        ))}
-      </ul>
+      <p className={styles.description}>{description}</p>
+      <div className={styles.stat}>
+        <span className="en">価格</span>
+        <strong>{price}</strong>
+      </div>
+      <div className={styles.stat}>
+        <span className="en">納期</span>
+        <strong>{delivery}</strong>
+      </div>
     </div>
   );
 }

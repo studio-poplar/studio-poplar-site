@@ -1,34 +1,21 @@
 import type { Metadata } from "next";
-import { Zen_Kaku_Gothic_New, Space_Grotesk, IBM_Plex_Sans_JP, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, Noto_Sans_JP } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
-const zenKaku = Zen_Kaku_Gothic_New({
-  variable: "--font-heading",
+const archivo = Archivo({
+  variable: "--font-en",
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: ["500", "700", "900"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-logo",
+const notoSansJP = Noto_Sans_JP({
+  variable: "--font-jp",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const plexSansJP = IBM_Plex_Sans_JP({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "700", "900"],
   display: "swap",
 });
 
@@ -62,10 +49,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="ja"
-      className={`${zenKaku.variable} ${spaceGrotesk.variable} ${plexSansJP.variable} ${plexMono.variable}`}
-    >
+    <html lang="ja" className={`${archivo.variable} ${notoSansJP.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           本文へスキップ

@@ -17,9 +17,7 @@ export default function SiteFooter() {
     <footer className={styles.footer}>
       <div className={`wrap ${styles.top}`}>
         <div>
-          <div className={styles.logo}>
-            STUDIO <span>POPLAR</span>
-          </div>
+          <div className={styles.logo}>STUDIO POPLAR</div>
           <p className={styles.tagline}>WEB / 3D MODEL WEB / APP DESIGN STUDIO — YOKOHAMA</p>
         </div>
 
@@ -39,7 +37,7 @@ export default function SiteFooter() {
         </nav>
 
         <div className={styles.sns}>
-          <span className="mono">SOCIAL</span>
+          <span className={`en ${styles.snsLabel}`}>SOCIAL</span>
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener">
             Instagram
           </a>
@@ -51,8 +49,8 @@ export default function SiteFooter() {
       </div>
 
       <div className={`wrap ${styles.bottom}`}>
-        <span className="mono">© {new Date().getFullYear()} STUDIO POPLAR</span>
-        <span className="mono">YOKOHAMA, JAPAN</span>
+        <span className="en">© {new Date().getFullYear()} STUDIO POPLAR</span>
+        <span className="en">YOKOHAMA, JAPAN</span>
       </div>
     </footer>
   );

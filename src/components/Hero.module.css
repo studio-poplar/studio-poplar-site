@@ -1,0 +1,121 @@
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.15) 35%, rgba(20, 20, 20, 0.9) 100%),
+    radial-gradient(circle at 30% 20%, rgba(227, 168, 87, 0.14), transparent 55%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eyebrow {
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.05s;
+}
+
+.title {
+  font-family: var(--font-en), sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 11vw, 148px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.16s;
+}
+
+.lead {
+  font-size: clamp(15px, 2vw, 17px);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 42ch;
+  margin: 28px auto 0;
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.34s;
+}
+
+.ctas {
+  margin-top: 44px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.46s;
+}
+
+.scrollcue {
+  position: relative;
+  z-index: 2;
+  margin-top: 64px;
+  font-family: var(--font-en), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.55s;
+}
+
+.line {
+  width: 1px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.line::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: scrollline 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollline {
+  0% {
+    top: -100%;
+  }
+  60% {
+    top: 100%;
+  }
+  100% {
+    top: 100%;
+  }
+}

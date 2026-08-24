@@ -1,0 +1,29 @@
+.masthead {
+  background: var(--ink);
+  color: #fff;
+  padding: 180px 0 64px;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .masthead {
+    padding: 140px 0 48px;
+  }
+}
+
+.masthead :global(.eyebrow) {
+  color: var(--accent);
+}
+
+.title {
+  font-family: var(--font-en), sans-serif;
+  font-weight: 900;
+  font-size: clamp(34px, 6vw, 64px);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 56ch;
+  margin-top: 18px;
+  font-size: 14.5px;
+}

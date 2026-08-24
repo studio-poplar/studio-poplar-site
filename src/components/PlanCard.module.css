@@ -1,64 +1,61 @@
-.plan {
+.card {
   position: relative;
-  border: 1px solid var(--border-strong);
-  background: var(--panel);
-  padding: 32px 26px 34px;
-  display: flex;
-  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.04);
+  will-change: transform;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
 }
 
-.plan[data-recommended="true"] {
-  border-color: var(--accent);
+.card:global(.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.badge {
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  background: var(--accent);
-  color: var(--bg);
-  padding: 5px 12px;
+.card:hover {
+  border-color: var(--border-strong);
+}
+
+.code {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
 }
 
 .name {
-  font-size: 22px;
-  margin: 10px 0 8px;
+  font-size: 19px;
+  margin: 12px 0 10px;
 }
 
-.tagline {
-  font-size: 13.5px;
-  color: var(--text-soft);
+.description {
+  font-size: 13px;
+  color: var(--ink-soft);
   margin-bottom: 20px;
 }
 
-.priceNote {
-  font-family: var(--font-mono), monospace;
-  font-size: 12px;
-  color: var(--text-soft);
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.features {
+.stat {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
 }
 
-.features li {
-  font-size: 13.5px;
-  color: var(--text);
-  padding-left: 18px;
-  position: relative;
+.stat span {
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
 }
 
-.features li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 9px;
-  width: 9px;
-  height: 1px;
-  background: var(--accent);
+.stat strong {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 14px;
 }
