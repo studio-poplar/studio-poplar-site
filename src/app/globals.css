@@ -140,8 +140,8 @@ select:focus-visible,
 .eyebrow {
   font-family: var(--font-en), sans-serif;
   font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.12em;
+  font-size: 19px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
   display: inline-block;
@@ -222,13 +222,6 @@ select:focus-visible,
 
 .section-head h2 {
   font-size: clamp(26px, 3.6vw, 40px);
-}
-
-.section-head p {
-  color: var(--ink-soft);
-  max-width: 56ch;
-  font-size: 14.5px;
-  margin-top: 16px;
 }
 
 /* --- card grids --- */

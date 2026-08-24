@@ -29,12 +29,7 @@ export default function Home() {
       <section className="section">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead
-              index="01"
-              label="SERVICE"
-              title="3つの構造で、事業をかたちにする"
-              description="どの領域も「使う人の動線」から逆算して設計します。見た目だけでなく、問い合わせや購買につながる構造を重視。"
-            />
+            <SectionHead index="01" label="SERVICE" title="3つの構造で、事業をかたちにする" />
           </Reveal>
           <div className="grid-3">
             <ServiceCard num="A" tag="WEB" title="WEB制作" description="新規事業・個人開業の顔となるコーポレートサイト／LP。ブランドの言語化から設計します。" revealDelay={50} />
@@ -47,7 +42,7 @@ export default function Home() {
       <section className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="02" label="WORKS" title="制作実績" description="3つの領域から代表的な事例をピックアップ。すべて構造設計力を示すための自主制作（MOCK WORK）です。" />
+            <SectionHead index="02" label="WORKS" title="制作実績" />
           </Reveal>
           <div className={`grid-3 ${styles.worksGrid}`}>
             {previewWorks.map((work, i) => (
@@ -74,7 +69,7 @@ export default function Home() {
       <section className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="04" label="BLOG" title="BLOG" description="制作の考え方や事例、Studio Poplarの視点をお届けします。" />
+            <SectionHead index="04" label="BLOG" title="BLOG" />
           </Reveal>
           <div className="grid-3">
             {previewPosts.map((post, i) => (

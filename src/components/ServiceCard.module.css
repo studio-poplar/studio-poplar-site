@@ -37,6 +37,10 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  padding: 5px 16px;
   margin-bottom: 14px;
 }
 

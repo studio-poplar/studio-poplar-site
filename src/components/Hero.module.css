@@ -73,6 +73,18 @@
   animation-delay: 0.46s;
 }
 
+.ctas :global(.btn-ghost) {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.ctas :global(.btn-ghost:hover) {
+  background: #fff;
+  color: var(--ink);
+  border-color: #fff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
 .scrollcue {
   position: relative;
   z-index: 2;

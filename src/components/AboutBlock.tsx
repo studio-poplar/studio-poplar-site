@@ -9,11 +9,9 @@ type AboutBlockProps = {
 export default function AboutBlock({ index, quote, body }: AboutBlockProps) {
   return (
     <div className={styles.grid}>
+      <span className={`eyebrow ${styles.eyebrow}`}>{index}</span>
       <p className={styles.quote}>{quote}</p>
-      <div className={styles.copy}>
-        <span className="eyebrow">{index}</span>
-        <p>{body}</p>
-      </div>
+      <p className={styles.body}>{body}</p>
     </div>
   );
 }
