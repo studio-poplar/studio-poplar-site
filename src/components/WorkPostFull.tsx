@@ -25,6 +25,11 @@ export default function WorkPostFull({ work }: { work: Work }) {
           </div>
         ))}
       </div>
+      {work.url && (
+        <a href={work.url} target="_blank" rel="noreferrer noopener" className={styles.siteLink}>
+          サイトを見る →
+        </a>
+      )}
     </article>
   );
 }

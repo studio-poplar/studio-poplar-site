@@ -1,5 +1,5 @@
 export type WorkCategory = "web" | "3dweb" | "app";
-export type WorkType = "mock" | "client";
+export type WorkType = "mock" | "demo" | "client";
 
 export const WORK_CATEGORY_LABELS: Record<WorkCategory, string> = {
   web: "WEB",
@@ -9,6 +9,7 @@ export const WORK_CATEGORY_LABELS: Record<WorkCategory, string> = {
 
 export const WORK_TYPE_LABELS: Record<WorkType, string> = {
   mock: "MOCK WORK",
+  demo: "DEMO WORK",
   client: "CLIENT WORK",
 };
 
@@ -25,9 +26,68 @@ export type Work = {
   role: string[];
   stack: string[];
   sections: { heading: string; body: string }[];
+  url?: string;
 };
 
 export const works: Work[] = [
+  {
+    slug: "the-gallery",
+    category: "web",
+    type: "client",
+    title: "THE GALLERY — バーチャル美術館サイト",
+    client: "バーチャル美術館プロジェクト",
+    year: "2026",
+    summary: "浮世絵を中心とした江戸期日本美術を、フィルタリングとKen Burnsスライドショーで巡れるバーチャル美術館。",
+    thumbLabel: "VIRTUAL MUSEUM",
+    overview:
+      "作家・時代・流派で絞り込める作品グリッドと、静止画に動きを与えるKen Burns演出のスライドショーを軸にした、実在の江戸期日本美術（浮世絵・琳派・狩野派など22点）を紹介するバーチャル美術館サイトです。ビルド不要の単一HTMLという制約の中で機能を積み上げ、運営者自身がノーコードで作品・作家情報を更新できる専用管理画面まで構築しました。",
+    role: ["情報設計", "UI/UXデザイン", "フロントエンド実装", "簡易CMS構築"],
+    stack: ["静的サイト構築", "UIデザイン", "GitHub API連携"],
+    sections: [
+      {
+        heading: "課題",
+        body: "実在の美術作品を、単なる画像一覧ではなく“巡る体験”として見せつつ、開発者なしで運営者が作品を追加・更新できる仕組みも必要でした。",
+      },
+      {
+        heading: "アプローチ",
+        body: "作家・時代・流派のフィルタリングとKen Burnsスライドショーで鑑賞体験を設計。その後、専用の管理画面（admin.html）を構築し、GitHub APIを通じてブラウザから直接コンテンツを保存できるようにしました。",
+      },
+      {
+        heading: "成果",
+        body: "バックエンドを持たない静的サイトでありながら、運営者がコードに触れずに作品・作家情報を更新できる状態を実現。実際に公開・運用中のサイトです。",
+      },
+    ],
+    url: "https://studio-poplar.github.io/THE-GALLERY/",
+  },
+  {
+    slug: "bokuheki",
+    category: "web",
+    type: "demo",
+    title: "墨壁 -BOKUHEKI- コーポレートサイト",
+    client: "灰谷左官店（架空企業／制作デモ）",
+    year: "2026",
+    summary: "左官職人集団の“らしさ”を、質感と間（ま）を大切にしたデザインで伝えるコーポレートサイト。",
+    thumbLabel: "CORPORATE SITE",
+    overview:
+      "伝統的な左官技術（黒漆喰・土壁）を手がける職人集団という設定のもと、素材の質感と間（ま）を大切にしたデザインを、詳細な実装指示書に基づき忠実にNext.jsへ移植した制作事例です。架空企業のポートフォリオ用デモである旨はサイト内にも明記しています。",
+    role: ["デザイン移植・実装", "アニメーション実装", "コンポーネント設計"],
+    stack: ["Next.js", "TypeScript", "CSS設計"],
+    sections: [
+      {
+        heading: "課題",
+        body: "詳細な実装指示書で規定された静的HTML/CSS/JSのプロトタイプを、デザインやコピーを一切解釈し直さずにNext.jsの本番実装へ移植する必要がありました。",
+      },
+      {
+        heading: "アプローチ",
+        body: "デザイントークン・フォント・鏝（こて）のストローク描画アニメーションやフィルムグレイン演出まで、指示書の仕様に忠実に沿ってコンポーネント単位で再構築しました。",
+      },
+      {
+        heading: "成果",
+        body: "コンセプト・実績・会社概要・お問い合わせを含む全5ページを、プロトタイプの意図を損なわずに本番品質で実装。実際に公開しているデモサイトです。",
+      },
+    ],
+    url: "https://bokuheki.vercel.app/",
+  },
   {
     slug: "tabikoyomi-coffee",
     category: "web",
