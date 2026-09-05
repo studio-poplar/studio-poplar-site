@@ -27,7 +27,8 @@
   margin-bottom: 4px;
 }
 
-.option {
+.option,
+.planOption {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -39,16 +40,23 @@
   transition: border-color 0.2s ease;
 }
 
-.option:has(input:checked) {
+.planOption {
+  align-items: flex-start;
+}
+
+.option:has(input:checked),
+.planOption:has(input:checked) {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
 
-.option input {
+.option input,
+.planOption input {
   accent-color: var(--accent);
   width: 16px;
   height: 16px;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .optionLabel {
@@ -62,6 +70,25 @@
   font-weight: 700;
   color: var(--ink-soft);
   white-space: nowrap;
+}
+
+.planBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.planHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.planDetail {
+  font-size: 12px;
+  color: var(--ink-faint);
 }
 
 .result {
@@ -83,6 +110,22 @@
 .resultPrice {
   display: block;
   font-size: clamp(28px, 5vw, 40px);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.resultSuffix {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+.resultQuote {
+  display: block;
+  font-size: clamp(18px, 3vw, 22px);
   font-weight: 900;
   color: var(--ink);
   margin-bottom: 12px;

@@ -2,14 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  DRONE_MENUS,
-  DRONE_TIME_OPTIONS,
-  DRONE_ZONE_OPTIONS,
-  DRONE_DELIVERY_OPTIONS,
-  type DroneMenu,
-  type DroneOption,
-} from "@/data/drone-quote";
+import { DRONE_PLANS, DRONE_ZONES, DRONE_ADDONS } from "@/data/drone-quote";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./DroneQuoteCalculator.module.css";
 
@@ -17,106 +10,113 @@ function formatYen(value: number) {
   return `¥${value.toLocaleString("ja-JP")}`;
 }
 
-function OptionGroup<T extends { id: string; label: string }>({
-  legend,
-  name,
-  items,
-  selectedId,
-  onChange,
-  priceOf,
-}: {
-  legend: string;
-  name: string;
-  items: T[];
-  selectedId: string;
-  onChange: (id: string) => void;
-  priceOf: (item: T) => string;
-}) {
-  return (
-    <fieldset className={styles.group}>
-      <legend>{legend}</legend>
-      {items.map((item) => (
-        <label key={item.id} className={styles.option}>
-          <input
-            type="radio"
-            name={name}
-            value={item.id}
-            checked={selectedId === item.id}
-            onChange={() => onChange(item.id)}
-          />
-          <span className={styles.optionLabel}>{item.label}</span>
-          <span className={styles.optionPrice}>{priceOf(item)}</span>
-        </label>
-      ))}
-    </fieldset>
-  );
-}
-
 export default function DroneQuoteCalculator() {
-  const [menuId, setMenuId] = useState(DRONE_MENUS[0].id);
-  const [timeId, setTimeId] = useState(DRONE_TIME_OPTIONS[0].id);
-  const [zoneId, setZoneId] = useState(DRONE_ZONE_OPTIONS[0].id);
-  const [deliveryId, setDeliveryId] = useState(DRONE_DELIVERY_OPTIONS[0].id);
+  const [planId, setPlanId] = useState(DRONE_PLANS[0].id);
+  const [zoneId, setZoneId] = useState(DRONE_ZONES[0].id);
+  const [addonIds, setAddonIds] = useState<Set<string>>(new Set());
 
-  const menu = DRONE_MENUS.find((m) => m.id === menuId) as DroneMenu;
-  const time = DRONE_TIME_OPTIONS.find((t) => t.id === timeId) as DroneOption;
-  const zone = DRONE_ZONE_OPTIONS.find((z) => z.id === zoneId) as DroneOption;
-  const delivery = DRONE_DELIVERY_OPTIONS.find((d) => d.id === deliveryId) as DroneOption;
+  const plan = DRONE_PLANS.find((p) => p.id === planId)!;
+  const zone = DRONE_ZONES.find((z) => z.id === zoneId)!;
+  const selectedAddons = DRONE_ADDONS.filter((a) => addonIds.has(a.id));
 
-  const total = menu.basePrice + time.addPrice + zone.addPrice + delivery.addPrice;
+  const isCustomPlan = plan.basePrice === null;
+  const isCustomZone = zone.addPrice === null;
+  const addonTotal = selectedAddons.reduce((sum, a) => sum + a.addPrice, 0);
+  const total = !isCustomPlan ? plan.basePrice! + (isCustomZone ? 0 : zone.addPrice!) + addonTotal : 0;
+
+  function toggleAddon(id: string) {
+    setAddonIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
 
   const contactHref = useMemo(() => {
-    const summary = [
+    const lines = [
       "【ドローン撮影 自動見積りより】",
-      `撮影メニュー: ${menu.label}`,
-      `撮影時間: ${time.label}`,
-      `撮影場所: ${zone.label}`,
-      `納品形式: ${delivery.label}`,
-      `概算金額: ${formatYen(total)}〜`,
-      "",
-      "上記内容でご相談したいです。",
-    ].join("\n");
-    return `/contact?${new URLSearchParams({ message: summary }).toString()}`;
-  }, [menu, time, zone, delivery, total]);
+      `プラン: ${plan.label}`,
+      `撮影エリア: ${zone.label}`,
+      `オプション: ${selectedAddons.length > 0 ? selectedAddons.map((a) => a.label).join("、") : "なし"}`,
+    ];
+    if (isCustomPlan) {
+      lines.push("概算金額: 個別見積り希望");
+    } else {
+      lines.push(`概算金額: ${formatYen(total)}〜${isCustomZone ? "（＋エリア交通費は別途お見積り）" : ""}`);
+    }
+    lines.push("", "上記内容でご相談したいです。");
+    return `/contact?${new URLSearchParams({ message: lines.join("\n") }).toString()}`;
+  }, [plan, zone, selectedAddons, isCustomPlan, isCustomZone, total]);
 
   return (
     <div className={styles.calc}>
-      <OptionGroup
-        legend="撮影メニュー"
-        name="drone-menu"
-        items={DRONE_MENUS}
-        selectedId={menuId}
-        onChange={setMenuId}
-        priceOf={(item) => `${formatYen(item.basePrice)}〜`}
-      />
-      <OptionGroup
-        legend="撮影時間・拘束時間"
-        name="drone-time"
-        items={DRONE_TIME_OPTIONS}
-        selectedId={timeId}
-        onChange={setTimeId}
-        priceOf={(item) => (item.addPrice > 0 ? `+${formatYen(item.addPrice)}` : "±0")}
-      />
-      <OptionGroup
-        legend="撮影場所（横浜からの距離）"
-        name="drone-zone"
-        items={DRONE_ZONE_OPTIONS}
-        selectedId={zoneId}
-        onChange={setZoneId}
-        priceOf={(item) => (item.addPrice > 0 ? `+${formatYen(item.addPrice)}` : "±0")}
-      />
-      <OptionGroup
-        legend="納品形式"
-        name="drone-delivery"
-        items={DRONE_DELIVERY_OPTIONS}
-        selectedId={deliveryId}
-        onChange={setDeliveryId}
-        priceOf={(item) => (item.addPrice > 0 ? `+${formatYen(item.addPrice)}` : "±0")}
-      />
+      <fieldset className={styles.group}>
+        <legend>プラン</legend>
+        {DRONE_PLANS.map((item) => (
+          <label key={item.id} className={styles.planOption}>
+            <input
+              type="radio"
+              name="drone-plan"
+              value={item.id}
+              checked={planId === item.id}
+              onChange={() => setPlanId(item.id)}
+            />
+            <span className={styles.planBody}>
+              <span className={styles.planHead}>
+                <span className={styles.optionLabel}>{item.label}</span>
+                <span className={styles.optionPrice}>{item.basePrice === null ? "要相談" : `${formatYen(item.basePrice)}〜`}</span>
+              </span>
+              <span className={styles.planDetail}>{item.detail}</span>
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.group}>
+        <legend>撮影エリア（横浜からの距離）</legend>
+        {DRONE_ZONES.map((item) => (
+          <label key={item.id} className={styles.option}>
+            <input
+              type="radio"
+              name="drone-zone"
+              value={item.id}
+              checked={zoneId === item.id}
+              onChange={() => setZoneId(item.id)}
+            />
+            <span className={styles.optionLabel}>{item.label}</span>
+            <span className={styles.optionPrice}>
+              {item.addPrice === null ? "別途お見積り" : item.addPrice > 0 ? `+${formatYen(item.addPrice)}` : "±0"}
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.group}>
+        <legend>オプション追加（複数選択可）</legend>
+        {DRONE_ADDONS.map((item) => (
+          <label key={item.id} className={styles.option}>
+            <input type="checkbox" checked={addonIds.has(item.id)} onChange={() => toggleAddon(item.id)} />
+            <span className={styles.planBody}>
+              <span className={styles.planHead}>
+                <span className={styles.optionLabel}>{item.label}</span>
+                <span className={styles.optionPrice}>{`+${formatYen(item.addPrice)}`}</span>
+              </span>
+              {item.detail && <span className={styles.planDetail}>{item.detail}</span>}
+            </span>
+          </label>
+        ))}
+      </fieldset>
 
       <div className={styles.result}>
         <span className={`en ${styles.resultLabel}`}>概算お見積り</span>
-        <strong className={styles.resultPrice}>{formatYen(total)}〜</strong>
+        {isCustomPlan ? (
+          <strong className={styles.resultQuote}>内容により個別にお見積りします</strong>
+        ) : (
+          <strong className={styles.resultPrice}>
+            {formatYen(total)}〜{isCustomZone && <span className={styles.resultSuffix}>＋交通費別途</span>}
+          </strong>
+        )}
         <p className={styles.resultNote}>
           ※ こちらは目安の概算金額です。正式な金額は内容確認後にあらためてお見積りいたします。
         </p>

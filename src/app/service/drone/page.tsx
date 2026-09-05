@@ -29,6 +29,17 @@ export default function DronePage() {
           </div>
 
           <DroneQuoteCalculator />
+
+          <div className={styles.cancelPolicy}>
+            <span className={`en ${styles.cancelLabel}`}>キャンセルポリシー（案）</span>
+            <ul>
+              <li>天候不良・機体トラブルなど当方都合による日程変更・中止：費用負担なし</li>
+              <li>お客様都合による撮影日2週間前までの変更・キャンセル：費用負担なし</li>
+              <li>撮影日7〜13日前までのキャンセル：お見積金額の30%</li>
+              <li>撮影日2〜6日前までのキャンセル：お見積金額の50%</li>
+              <li>撮影当日のキャンセル：お見積金額の全額</li>
+            </ul>
+          </div>
         </div>
       </section>
 
