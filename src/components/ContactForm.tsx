@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./ContactForm.module.css";
 
@@ -11,6 +12,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const formRef = useRef<HTMLFormElement>(null);
+  const prefilledMessage = useSearchParams().get("message") ?? "";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -77,7 +79,7 @@ export default function ContactForm() {
         <label htmlFor="message">
           お問い合わせ内容 <span className={styles.required}>必須</span>
         </label>
-        <textarea id="message" name="message" rows={7} required />
+        <textarea id="message" name="message" rows={7} required defaultValue={prefilledMessage} />
       </div>
 
       <div className={styles.checkboxField}>
