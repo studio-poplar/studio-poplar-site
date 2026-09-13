@@ -23,7 +23,7 @@ export default function ContactPage() {
           <div className={styles.layout}>
             <div className={styles.infoCard}>
               <span className="eyebrow en">CONTACT INFO</span>
-              <p>フォームまたはメールにて承っております。内容を確認の上、担当より折り返しご連絡いたします。</p>
+              <p>フォームまたはメールにて承っております。24時間以内を目安に、担当より折り返しご連絡いたします。</p>
               <a href="mailto:info@studiopoplar.com">info@studiopoplar.com</a>
               <div className={styles.snsList}>
                 <span className={`en ${styles.snsLabel}`}>SOCIAL</span>

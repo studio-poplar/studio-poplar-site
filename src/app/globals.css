@@ -181,14 +181,14 @@ select:focus-visible,
 }
 
 .btn-primary {
-  background: var(--ink);
-  color: var(--bg);
-  border: 1px solid var(--ink);
+  background: var(--brand);
+  color: var(--ink);
+  border: 1px solid var(--brand);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(23, 23, 26, 0.25);
+  box-shadow: 0 8px 18px rgba(124, 136, 115, 0.4);
 }
 
 .btn-primary:active {

@@ -15,7 +15,9 @@ export default function Hero() {
         <p className={styles.subtitle}>
           伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
         </p>
-        <p className={styles.lead}>頭の中にあることを、そのまま伝えるのは難しい。話を聞きながら、サイトや写真、アプリのかたちにしていく。</p>
+        <p className={styles.lead}>
+          新規事業やお店を始めるとき、頭の中にあることをそのまま伝えるのは難しい。話を聞きながら、サイトや写真、アプリのかたちにしていく。
+        </p>
         <ul className={styles.facts}>
           <li>
             <span className="en">WEB</span>5万円〜
