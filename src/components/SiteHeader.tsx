@@ -29,51 +29,53 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <header className={`${styles.header} ${solid ? styles.solid : ""}`}>
-      <div className={`wrap ${styles.bar}`}>
-        <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
-          <LogoMark className={styles.logoMark} />
-          STUDIO POPLAR
-        </Link>
-
-        <nav className={styles.nav} aria-label="メインナビゲーション">
-          <ul>
-            {NAV_LINKS.map((link) => {
-              const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
-              return (
-                <li key={link.href}>
-                  <Link href={link.href} aria-current={active ? "page" : undefined} className={active ? styles.active : undefined}>
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <div className={styles.barRight}>
-          <Link
-            href="/contact"
-            className={styles.contactCta}
-            onClick={() => trackEvent("contact_click", { location: "header" })}
-          >
-            お問い合わせ
+    <>
+      <header className={`${styles.header} ${solid ? styles.solid : ""}`}>
+        <div className={`wrap ${styles.bar}`}>
+          <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
+            <LogoMark className={styles.logoMark} />
+            STUDIO POPLAR
           </Link>
 
-          <button
-            type="button"
-            className={styles.menuToggle}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? "メニューを閉じる" : "メニューを開く"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          <nav className={styles.nav} aria-label="メインナビゲーション">
+            <ul>
+              {NAV_LINKS.map((link) => {
+                const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+                return (
+                  <li key={link.href}>
+                    <Link href={link.href} aria-current={active ? "page" : undefined} className={active ? styles.active : undefined}>
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className={styles.barRight}>
+            <Link
+              href="/contact"
+              className={styles.contactCta}
+              onClick={() => trackEvent("contact_click", { location: "header" })}
+            >
+              お問い合わせ
+            </Link>
+
+            <button
+              type="button"
+              className={styles.menuToggle}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? "メニューを閉じる" : "メニューを開く"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       <div id="mobile-nav" className={styles.mobileNav} data-open={open} inert={!open}>
         <ul>
@@ -97,6 +99,6 @@ export default function SiteHeader() {
           </li>
         </ul>
       </div>
-    </header>
+    </>
   );
 }
