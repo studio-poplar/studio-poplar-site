@@ -1,14 +1,17 @@
 :root {
-  --bg: #ffffff;
-  --panel-soft: #f3f3f4;
-  --ink: #17171a;
-  --ink-soft: #6b6b70;
-  --ink-faint: #a2a2a6;
-  --accent: #3d3d42;
-  --accent-soft: rgba(23, 23, 26, 0.05);
-  --accent-line: rgba(23, 23, 26, 0.22);
-  --border: rgba(23, 23, 26, 0.1);
-  --border-strong: rgba(23, 23, 26, 0.22);
+  --bg: #faf9f6;
+  --panel-soft: #f2f0ec;
+  --ink: #1c1a17;
+  --ink-soft: #6e6a63;
+  --ink-faint: #86817a;
+  --accent: #47433e;
+  --accent-soft: rgba(71, 67, 62, 0.06);
+  --accent-line: rgba(71, 67, 62, 0.24);
+  --border: rgba(28, 26, 23, 0.1);
+  --border-strong: rgba(28, 26, 23, 0.22);
+  --brand: #7c8873;
+  --brand-soft: rgba(124, 136, 115, 0.14);
+  --brand-line: rgba(124, 136, 115, 0.4);
   --radius: 2px;
 
   --font-en: "Space Grotesk", sans-serif;
@@ -82,7 +85,7 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--brand);
   outline-offset: 3px;
   border-radius: var(--radius);
 }

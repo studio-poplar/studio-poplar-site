@@ -143,7 +143,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--ink);
+  background: var(--brand);
   animation: scrollline 1.8s ease-in-out infinite;
 }
 

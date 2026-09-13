@@ -64,7 +64,7 @@
 }
 
 .footerNav a:hover {
-  color: var(--ink);
+  color: var(--brand);
 }
 
 .sns {
@@ -88,7 +88,7 @@
 }
 
 .sns a:hover {
-  color: var(--ink);
+  color: var(--brand);
 }
 
 .bottom {

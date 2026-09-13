@@ -71,7 +71,7 @@
 
 .nav a:hover,
 .nav a.active {
-  color: var(--accent);
+  color: var(--brand);
 }
 
 .barRight {

@@ -6,7 +6,7 @@ export default function LogoMark({ className }: { className?: string }) {
         fill="currentColor"
       />
       <path d="M20 15C20 22 20 30 20 38" stroke="var(--bg, #fff)" strokeWidth="1" />
-      <line x1="20" y1="38" x2="20" y2="41.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="20" y1="38" x2="20" y2="41.5" stroke="var(--brand, currentColor)" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   );
 }
