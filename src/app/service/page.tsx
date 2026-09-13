@@ -4,7 +4,7 @@ import SectionHead from "@/components/SectionHead";
 import ServiceCard from "@/components/ServiceCard";
 import WebQuoteCalculator from "@/components/WebQuoteCalculator";
 import AppQuoteCalculator from "@/components/AppQuoteCalculator";
-import PhotoVideoPlanCard from "@/components/PhotoVideoPlanCard";
+import PhotoVideoQuoteCalculator from "@/components/PhotoVideoQuoteCalculator";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
@@ -86,18 +86,12 @@ export default function ServicePage() {
           </div>
 
           <div className={styles.photoVideoWrap}>
-            <PhotoVideoPlanCard
-              code="PLAN-C"
-              name="写真・動画撮影"
-              description="言葉だけでは伝わらない雰囲気を残したい方に。"
-              tiers={[
-                { name: "Light", content: "プロフィール・スナップ撮影", time: "2時間", price: "4万円〜", setPrice: "2万円〜" },
-                { name: "Standard", content: "商品・店舗・イベント撮影", time: "半日（4時間）", price: "8万円〜", setPrice: "4万円〜" },
-                { name: "Premium", content: "撮影＋SNS/PR用ショート動画編集込み", time: "1日（8時間）", price: "16万円〜", setPrice: "8万円〜" },
-              ]}
-              notes={["データ納品はWeb用・SNS用・印刷用にあわせて書き出します。", "セット割引価格は、WEB制作・アプリ制作のいずれかをご契約いただいた方が対象です。"]}
-              revealDelay={230}
-            />
+            <div className={styles.planHeader}>
+              <span className={`en ${styles.planCode}`}>PLAN-C</span>
+              <h3>写真・動画撮影</h3>
+              <p>言葉だけでは伝わらない雰囲気を残したい方に。下記の選択に応じて概算金額が自動で変わります。</p>
+            </div>
+            <PhotoVideoQuoteCalculator />
           </div>
 
           <p className={styles.note}>※ 上記は基本プランの目安です。ページ数や機能要件によって変動します。詳細はお問い合わせください。</p>
@@ -135,7 +129,7 @@ export default function ServicePage() {
               </div>
               <div>
                 <h3>デザイン案の修正には対応してもらえますか？</h3>
-                <p>制作フェーズ内で複数回の確認・修正機会を設けています。回数や範囲は契約時にすり合わせます。</p>
+                <p>基本プランに、デザイン確認・修正2回までを含みます。3回目以降の大幅な修正は別途ご相談となります。</p>
               </div>
               <div>
                 <h3>公開後の運用サポートはありますか？</h3>

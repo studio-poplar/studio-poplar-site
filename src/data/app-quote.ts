@@ -5,12 +5,13 @@ export type AppTier = {
   label: string;
   basePrice: number | null; // null = 個別見積り（要相談）
   detail: string;
+  delivery: string;
 };
 
 export const APP_TIERS: AppTier[] = [
-  { id: "light", label: "Light（〜10画面）", basePrice: 100000, detail: "小規模なアプリに" },
-  { id: "standard", label: "Standard（11〜20画面）", basePrice: 180000, detail: "機能が複数ある中規模アプリに" },
-  { id: "large", label: "Large（21画面以上）", basePrice: null, detail: "大規模・複雑な機能を持つアプリに" },
+  { id: "light", label: "Light（〜10画面）", basePrice: 100000, detail: "小規模なアプリに", delivery: "最短2週間" },
+  { id: "standard", label: "Standard（11〜20画面）", basePrice: 180000, detail: "機能が複数ある中規模アプリに", delivery: "最短3週間" },
+  { id: "large", label: "Large（21画面以上）", basePrice: null, detail: "大規模・複雑な機能を持つアプリに", delivery: "要相談" },
 ];
 
 export type AppOption = {

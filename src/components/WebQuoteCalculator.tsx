@@ -33,6 +33,7 @@ export default function WebQuoteCalculator() {
     const lines = [
       "【WEB制作 自動見積りより】",
       `ページ規模: ${tier.label}`,
+      `納期目安: ${tier.delivery}`,
       `追加機能: ${selectedOptions.length > 0 ? selectedOptions.map((o) => o.label).join("、") : "なし"}`,
       isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}〜`,
       "",
@@ -53,7 +54,9 @@ export default function WebQuoteCalculator() {
                 <span className={styles.optionLabel}>{item.label}</span>
                 <span className={styles.optionPrice}>{item.basePrice === null ? "要相談" : `${formatYen(item.basePrice)}〜`}</span>
               </span>
-              <span className={styles.optionDetail}>{item.detail}</span>
+              <span className={styles.optionDetail}>
+                {item.detail}／納期目安: {item.delivery}
+              </span>
             </span>
           </label>
         ))}
@@ -81,6 +84,17 @@ export default function WebQuoteCalculator() {
         <Link href={contactHref} className="btn-primary" onClick={() => trackEvent("contact_click", { location: "web_quote" })}>
           この内容で問い合わせる →
         </Link>
+      </div>
+
+      <div className={styles.scope}>
+        <p>
+          <strong>含まれるもの：</strong>
+          ヒアリング〜公開までの制作一式／ドメイン取得・初年度のサーバー費用／デザイン確認2回まで
+        </p>
+        <p>
+          <strong>含まれないもの：</strong>
+          2年目以降のドメイン・サーバー更新費用／原稿・写真素材のご用意（別途ご相談も可能です）／3回目以降の大幅な修正
+        </p>
       </div>
     </div>
   );

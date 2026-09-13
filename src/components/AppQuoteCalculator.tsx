@@ -23,6 +23,7 @@ export default function AppQuoteCalculator() {
     const lines = [
       "【アプリ制作 自動見積りより】",
       `画面規模: ${tier.label}`,
+      `納期目安: ${tier.delivery}`,
       `バックエンド連携: ${backend.label}`,
       isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}〜`,
       "",
@@ -43,7 +44,9 @@ export default function AppQuoteCalculator() {
                 <span className={styles.optionLabel}>{item.label}</span>
                 <span className={styles.optionPrice}>{item.basePrice === null ? "要相談" : `${formatYen(item.basePrice)}〜`}</span>
               </span>
-              <span className={styles.optionDetail}>{item.detail}</span>
+              <span className={styles.optionDetail}>
+                {item.detail}／納期目安: {item.delivery}
+              </span>
             </span>
           </label>
         ))}
@@ -71,6 +74,17 @@ export default function AppQuoteCalculator() {
         <Link href={contactHref} className="btn-primary" onClick={() => trackEvent("contact_click", { location: "app_quote" })}>
           この内容で問い合わせる →
         </Link>
+      </div>
+
+      <div className={styles.scope}>
+        <p>
+          <strong>含まれるもの：</strong>
+          要件整理〜リリースまでの制作一式／デザイン確認2回まで
+        </p>
+        <p>
+          <strong>含まれないもの：</strong>
+          アプリストア（App Store／Google Play）の登録費用・審査対応／原稿・素材のご用意（別途ご相談も可能です）／3回目以降の大幅な修正
+        </p>
       </div>
     </div>
   );

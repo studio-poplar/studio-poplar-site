@@ -123,8 +123,35 @@
   margin-bottom: 10px;
 }
 
+.resultDiscountNote {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: 12px;
+}
+
 .resultNote {
   font-size: 11.5px;
   color: var(--ink-faint);
   margin-bottom: 20px;
+}
+
+.scope {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scope p {
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--ink-faint);
+}
+
+.scope strong {
+  color: var(--ink-soft);
+  font-weight: 700;
 }

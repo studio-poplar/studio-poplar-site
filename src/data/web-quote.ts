@@ -5,12 +5,13 @@ export type WebTier = {
   label: string;
   basePrice: number | null; // null = 個別見積り（要相談）
   detail: string;
+  delivery: string;
 };
 
 export const WEB_TIERS: WebTier[] = [
-  { id: "light", label: "Light（〜5ページ）", basePrice: 50000, detail: "コーポレートサイト・LPなど小規模なサイトに" },
-  { id: "standard", label: "Standard（6〜10ページ）", basePrice: 80000, detail: "複数ページ構成のサイトに" },
-  { id: "large", label: "Large（11ページ以上）", basePrice: null, detail: "大規模サイト・オウンドメディアなど" },
+  { id: "light", label: "Light（〜5ページ）", basePrice: 50000, detail: "コーポレートサイト・LPなど小規模なサイトに", delivery: "最短1週間" },
+  { id: "standard", label: "Standard（6〜10ページ）", basePrice: 80000, detail: "複数ページ構成のサイトに", delivery: "最短2週間" },
+  { id: "large", label: "Large（11ページ以上）", basePrice: null, detail: "大規模サイト・オウンドメディアなど", delivery: "要相談" },
 ];
 
 export type WebOption = {
