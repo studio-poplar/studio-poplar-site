@@ -67,11 +67,6 @@ export default function ServicePage() {
             <SectionHead index="02" label="PLAN" title="制作プラン" />
           </Reveal>
 
-          <div className={styles.estimateNotice}>
-            <span className="en">概算目安・仮価格です</span>
-            <p>以下の金額は現時点の概算目安です。正式な金額はお問い合わせ・ヒアリング後にあらためてご案内します。</p>
-          </div>
-
           <div className={styles.planGrid}>
             <div>
               <div className={styles.planHeader}>
