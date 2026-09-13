@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const FLOW_STEPS = [
-  "まずはお問い合わせ・ヒアリング",
+  "まずはオンラインで、代表・伊藤が直接ヒアリング",
   "サイト構成・写真プランなど、具体案を提示",
   "制作・撮影",
   "公開・納品",
@@ -66,6 +66,12 @@ export default function ServicePage() {
           <Reveal className="section-head">
             <SectionHead index="02" label="PLAN" title="制作プラン" />
           </Reveal>
+
+          <div className={styles.estimateNotice}>
+            <span className="en">概算目安・仮価格です</span>
+            <p>以下の金額は現時点の概算目安です。正式な金額はお問い合わせ・ヒアリング後にあらためてご案内します。</p>
+          </div>
+
           <div className={styles.planGrid}>
             <div>
               <div className={styles.planHeader}>
@@ -132,12 +138,20 @@ export default function ServicePage() {
                 <p>基本プランに、デザイン確認・修正2回までを含みます。3回目以降の大幅な修正は別途ご相談となります。</p>
               </div>
               <div>
-                <h3>公開後の運用サポートはありますか？</h3>
-                <p>軽微な更新や不具合対応から、継続的な保守・改善まで、必要に応じて別途ご相談いただけます。</p>
+                <h3>公開後の運用サポート・保守費用はどのくらいですか？</h3>
+                <p>月額の固定契約は設けていません。更新・保守が必要になったタイミングで、その都度内容に応じてお見積りします。</p>
               </div>
               <div>
                 <h3>写真・動画だけの依頼はできますか？</h3>
                 <p>可能です。WEB制作・アプリ制作と組み合わせる場合は、セット割引価格（半額）が適用されます。</p>
+              </div>
+              <div>
+                <h3>支払い条件について教えてください</h3>
+                <p>ご契約時に着手金として半額、納品時に残金をお支払いいただいております。</p>
+              </div>
+              <div>
+                <h3>打ち合わせはオンライン・対面どちらですか？</h3>
+                <p>オンライン打合せ（Zoom・Google Meetなど）を基本としています。</p>
               </div>
             </div>
           </div>

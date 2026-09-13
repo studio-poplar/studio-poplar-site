@@ -77,6 +77,7 @@ export default function AppQuoteCalculator() {
       </div>
 
       <div className={styles.scope}>
+        <span className={`en ${styles.scopeLabel}`}>ご確認ください</span>
         <p>
           <strong>含まれるもの：</strong>
           要件整理からリリースまでの制作一式／デザイン確認2回まで

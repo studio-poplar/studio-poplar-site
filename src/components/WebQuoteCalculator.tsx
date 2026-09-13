@@ -87,6 +87,7 @@ export default function WebQuoteCalculator() {
       </div>
 
       <div className={styles.scope}>
+        <span className={`en ${styles.scopeLabel}`}>ご確認ください</span>
         <p>
           <strong>含まれるもの：</strong>
           ヒアリングから公開までの制作一式／デザイン確認2回まで
