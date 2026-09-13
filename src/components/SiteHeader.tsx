@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/gtag";
+import LogoMark from "./LogoMark";
 import styles from "./SiteHeader.module.css";
 
 const NAV_LINKS = [
@@ -31,6 +32,7 @@ export default function SiteHeader() {
     <header className={`${styles.header} ${solid ? styles.solid : ""}`}>
       <div className={`wrap ${styles.bar}`}>
         <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
+          <LogoMark className={styles.logoMark} />
           STUDIO POPLAR
         </Link>
 

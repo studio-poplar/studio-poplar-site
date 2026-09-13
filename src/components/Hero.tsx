@@ -14,6 +14,17 @@ export default function Hero() {
         <p className={styles.lead}>
           事業を始めるとき、頭の中にあることをそのまま人に伝えるのは難しい。まずはお話をうかがい、直接確かめながら、サイトや写真、アプリのかたちにしていく。
         </p>
+        <ul className={styles.facts}>
+          <li>
+            <span className="en">WEB</span>5万円〜
+          </li>
+          <li>
+            <span className="en">APP</span>10万円〜
+          </li>
+          <li>
+            <span className="en">PHOTO &amp; VIDEO</span>4万円〜
+          </li>
+        </ul>
         <div className={styles.ctas}>
           <Link href="/contact" className="btn-primary" onClick={() => trackEvent("hero_cta_click")}>
             まずは相談する →

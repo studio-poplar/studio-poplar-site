@@ -17,11 +17,21 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-en), sans-serif;
   font-weight: 700;
   font-size: 20px;
   color: var(--ink);
   margin-bottom: 10px;
+}
+
+.logoMark {
+  width: 18px;
+  height: 19px;
+  color: var(--ink);
+  flex-shrink: 0;
 }
 
 .tagline {

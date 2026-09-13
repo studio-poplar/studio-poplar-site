@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { trackEvent } from "@/lib/gtag";
+import LogoMark from "./LogoMark";
 import styles from "./SiteFooter.module.css";
 
 const NAV_LINKS = [
@@ -17,7 +18,10 @@ export default function SiteFooter() {
     <footer className={styles.footer}>
       <div className={`wrap ${styles.top}`}>
         <div>
-          <div className={styles.logo}>STUDIO POPLAR</div>
+          <div className={styles.logo}>
+            <LogoMark className={styles.logoMark} />
+            STUDIO POPLAR
+          </div>
           <p className={styles.tagline}>WEB / APP / PHOTO &amp; VIDEO DESIGN STUDIO — YOKOHAMA</p>
           <p className={styles.overview}>
             Studio Poplar（スタジオポプラ）は、WEBサイト制作・アプリ開発・写真動画撮影を行う、横浜を拠点とする制作スタジオです。

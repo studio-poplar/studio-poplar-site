@@ -25,12 +25,22 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-family: var(--font-en), sans-serif;
   font-weight: 700;
   font-size: 17px;
   letter-spacing: 0.02em;
   color: var(--ink);
   white-space: nowrap;
+}
+
+.logoMark {
+  width: 16px;
+  height: 17px;
+  color: var(--ink);
+  flex-shrink: 0;
 }
 
 .nav {
