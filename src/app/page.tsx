@@ -82,7 +82,7 @@ export default function Home() {
             <AboutBlock
               index="03 — ABOUT"
               quote="伝えたいことは、伝わるとは限らない。"
-              body="新しい事業ほど、伝えたいことが多く、言葉にしづらい瞬間がある。Studio Poplarは、代表の伊藤が直接ヒアリングして感覚を言葉にしたうえで、サイトやアプリ、写真・映像のかたちに落とし込む。装飾より、“本当に伝えたかったこと”とのズレのなさを優先する。"
+              body="新しい事業ほど、伝えたいことは多く、言葉にしづらい。Studio Poplarは、代表・伊藤の直接ヒアリングを通じて、“本当に伝えたかったこと”とのズレなく、サイトやアプリ、写真・映像に落とし込む。"
             />
           </Reveal>
           <Credentials items={ABOUT_CREDENTIALS} />
