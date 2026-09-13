@@ -72,31 +72,73 @@
 }
 
 .flow {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 860px) {
   .flow {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    flex-direction: row;
+    gap: 0;
   }
 }
 
 .flow li {
+  position: relative;
+  flex: 1;
+  background: var(--ink);
+  color: var(--bg);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border-strong);
-  font-size: 14px;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 28px 40px;
+  min-height: 130px;
+}
+
+@media (min-width: 860px) {
+  .flow li {
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%, 26px 50%);
+    margin-left: -22px;
+    padding: 32px 34px 32px 50px;
+  }
+
+  .flow li:first-child {
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%);
+    margin-left: 0;
+    padding-left: 32px;
+  }
+}
+
+.flow li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@media (min-width: 860px) {
+  .flow li:not(:last-child)::after {
+    display: none;
+  }
 }
 
 .flowNum {
-  font-size: 13px;
+  font-size: 26px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.flowText {
+  font-size: 14.5px;
+  line-height: 1.6;
 }
 
 .faq {

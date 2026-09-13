@@ -113,7 +113,7 @@ export default function ServicePage() {
             {FLOW_STEPS.map((step, i) => (
               <li key={step}>
                 <span className={`en ${styles.flowNum}`}>{String(i + 1).padStart(2, "0")}</span>
-                <span>{step}</span>
+                <span className={styles.flowText}>{step}</span>
               </li>
             ))}
           </ol>
