@@ -23,25 +23,26 @@
 
 .thumb {
   height: 180px;
-  background: var(--ink);
+  background: var(--panel-soft);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  border-bottom: 1px solid var(--border);
 }
 
 .thumb[data-category="3dweb"] {
-  background: #202024;
+  background: #ececee;
 }
 
 .thumb[data-category="app"] {
-  background: #26262a;
+  background: #eeeeef;
 }
 
 .thumb span.en {
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--ink-faint);
 }
 
 .badgeWrap {

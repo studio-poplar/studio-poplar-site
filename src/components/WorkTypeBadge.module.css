@@ -3,29 +3,30 @@
   align-items: center;
   gap: 6px;
   padding: 3px 10px;
+  font-family: var(--font-en), sans-serif;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-strong);
+  color: var(--ink-soft);
+  background: var(--bg);
 }
 
 .badge[data-type="mock"] {
-  border-color: rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.55);
-  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--accent-line);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .badge[data-type="client"] {
-  border-color: #fff;
-  color: var(--ink);
-  background: #fff;
+  border-color: var(--ink);
+  color: var(--bg);
+  background: var(--ink);
 }
 
 .badge[data-type="demo"] {
-  border-color: rgba(255, 255, 255, 0.32);
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
+  color: var(--ink-soft);
+  background: var(--bg);
 }

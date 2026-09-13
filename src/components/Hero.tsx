@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import CubeField from "./CubeField";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
   return (
     <section className={styles.hero}>
-      <CubeField />
       <div className={`wrap ${styles.inner}`}>
         <span className={`eyebrow en ${styles.eyebrow}`}>WEB / APP / PHOTO &amp; VIDEO DESIGN</span>
         <h1 className={styles.title}>STUDIO POPLAR.</h1>

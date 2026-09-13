@@ -15,7 +15,7 @@
 
 .thumb {
   height: 200px;
-  background: var(--ink);
+  background: var(--panel-soft);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,20 +23,21 @@
   gap: 14px;
   position: relative;
   margin-bottom: 24px;
+  border: 1px solid var(--border);
 }
 
 .thumb :global(.en) {
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--ink-faint);
 }
 
 .thumb[data-category="3dweb"] {
-  background: #202024;
+  background: #ececee;
 }
 
 .thumb[data-category="app"] {
-  background: #26262a;
+  background: #eeeeef;
 }
 
 .meta {

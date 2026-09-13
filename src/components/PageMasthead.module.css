@@ -1,28 +1,25 @@
 .masthead {
-  background: var(--ink);
-  color: #fff;
-  padding: 180px 0 64px;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 180px 0 56px;
   text-align: left;
+  border-bottom: 1px solid var(--border);
 }
 
 @media (max-width: 640px) {
   .masthead {
-    padding: 140px 0 48px;
+    padding: 140px 0 40px;
   }
-}
-
-.masthead :global(.eyebrow) {
-  color: rgba(255, 255, 255, 0.75);
 }
 
 .title {
   font-family: var(--font-en), sans-serif;
-  font-weight: 900;
-  font-size: clamp(34px, 6vw, 64px);
+  font-weight: 700;
+  font-size: clamp(32px, 5.6vw, 60px);
 }
 
 .description {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--ink-soft);
   max-width: 56ch;
   margin-top: 18px;
   font-size: 14.5px;

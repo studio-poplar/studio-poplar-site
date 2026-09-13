@@ -1,28 +1,14 @@
 .cta {
-  background: var(--ink);
-  color: #fff;
+  background: var(--panel-soft);
+  color: var(--ink);
   padding: 110px 0;
   text-align: center;
 }
 
-.cta :global(.eyebrow) {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.cta :global(.btn-primary) {
-  background: #fff;
-  color: var(--ink);
-  border-color: #fff;
-}
-
-.cta :global(.btn-primary:hover) {
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
-}
-
 .title {
   font-family: var(--font-en), sans-serif;
-  font-weight: 900;
-  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 700;
+  font-size: clamp(26px, 4.6vw, 48px);
   max-width: 20ch;
   margin: 18px auto 36px;
 }
