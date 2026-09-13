@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCard } from "@/lib/useCard";
+import { useReveal } from "@/lib/useReveal";
 import { PHOTO_VIDEO_TIERS, SET_DISCOUNT_RATE } from "@/data/photo-video-quote";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./PhotoVideoQuoteCalculator.module.css";
@@ -22,7 +22,7 @@ const CONTACT_HREF = `/contact?${new URLSearchParams({
 }).toString()}`;
 
 export default function PhotoVideoQuoteCalculator({ revealDelay = 0 }: { revealDelay?: number }) {
-  const ref = useCard<HTMLDivElement>(revealDelay);
+  const ref = useReveal<HTMLDivElement>(revealDelay);
 
   return (
     <div className={styles.card} ref={ref}>

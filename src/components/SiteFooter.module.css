@@ -3,15 +3,16 @@
   color: var(--ink-soft);
 }
 
-.top {
+.footer .top {
   display: grid;
   gap: 36px;
-  padding: 64px 0 40px;
+  padding-top: 92px;
+  padding-bottom: 40px;
   border-top: 1px solid var(--border);
 }
 
 @media (min-width: 760px) {
-  .top {
+  .footer .top {
     grid-template-columns: 1.2fr 1fr 1fr;
   }
 }
@@ -91,12 +92,13 @@
   color: var(--brand);
 }
 
-.bottom {
+.footer .bottom {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 22px 0 32px;
+  padding-top: 22px;
+  padding-bottom: 32px;
   border-top: 1px solid var(--border);
   font-size: 10.5px;
   letter-spacing: 0.05em;

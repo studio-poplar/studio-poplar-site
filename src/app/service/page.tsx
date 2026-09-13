@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const FLOW_STEPS = [
-  "まずはオンラインで、代表・伊藤が直接ヒアリング",
+  "まずはオンラインにてお打ち合わせ",
   "サイト構成・写真プランなど、具体案を提示",
   "制作・撮影",
   "公開・納品",
@@ -26,14 +26,14 @@ export default function ServicePage() {
     <>
       <PageMasthead
         eyebrow="THREE THINGS"
-        title="できることは3つです。"
+        title="3つのかたちで、伝わる。"
         description="話を聞きながら、サイト・アプリ・写真や映像のかたちにしていきます。"
       />
 
       <section className="section">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="01" label="AREAS" title="対応領域" />
+            <SectionHead index="01" label="AREAS" title="扱う、3つの手段。" />
           </Reveal>
           <div className="grid-3">
             <ServiceCard

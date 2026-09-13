@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+.cta :global(.btn-primary) {
+  background: #94a887;
+  border-color: #94a887;
+}
+
+.cta :global(.btn-primary:hover) {
+  box-shadow: 0 8px 18px rgba(148, 168, 135, 0.45);
+}
+
 .title {
   font-family: var(--font-en), sans-serif;
   font-weight: 700;

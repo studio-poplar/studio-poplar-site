@@ -87,8 +87,8 @@
 .flow li {
   position: relative;
   flex: 1;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--brand);
+  color: var(--ink);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,8 +118,8 @@
   bottom: 12px;
   width: 10px;
   height: 10px;
-  border-right: 2px solid rgba(255, 255, 255, 0.5);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  border-right: 2px solid rgba(28, 26, 23, 0.4);
+  border-bottom: 2px solid rgba(28, 26, 23, 0.4);
   transform: translateX(-50%) rotate(45deg);
 }
 
@@ -133,7 +133,7 @@
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(28, 26, 23, 0.45);
 }
 
 .flowText {

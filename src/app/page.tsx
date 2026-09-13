@@ -4,19 +4,11 @@ import SectionHead from "@/components/SectionHead";
 import ServiceRow from "@/components/ServiceRow";
 import WorkCard from "@/components/WorkCard";
 import BlogCard from "@/components/BlogCard";
-import AboutBlock from "@/components/AboutBlock";
-import Credentials from "@/components/Credentials";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import { works } from "@/data/works";
 import { blogPosts } from "@/data/blog";
 import styles from "./page.module.css";
-
-const ABOUT_CREDENTIALS = [
-  { k: "FOCUS", v: "伝わるアウトプット" },
-  { k: "APPROACH", v: "Web × App × Photo/Video" },
-  { k: "STYLE", v: "対話から、かたちに" },
-];
 
 export default function Home() {
   const previewWorks = works.slice(0, 3);
@@ -29,7 +21,7 @@ export default function Home() {
       <section className="section">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="01" label="SERVICE" title="できることは3つです" />
+            <SectionHead index="01" label="SERVICE" title="3つのかたちで、伝わる。" />
           </Reveal>
           <div>
             <ServiceRow
@@ -76,23 +68,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" id="about">
-        <div className="wrap">
-          <Reveal>
-            <AboutBlock
-              index="03 — ABOUT"
-              quote="伝えたいことは、伝わるとは限らない。"
-              body="新しい事業ほど、伝えたいことは多く、言葉にしづらい。Studio Poplarは、代表・伊藤の直接ヒアリングを通じて、“本当に伝えたかったこと”とのズレなく、サイトやアプリ、写真・映像に落とし込む。"
-            />
-          </Reveal>
-          <Credentials items={ABOUT_CREDENTIALS} />
-        </div>
-      </section>
-
       <section className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="04" label="BLOG" title="BLOG" />
+            <SectionHead index="03" label="BLOG" title="BLOG" />
           </Reveal>
           <div className="grid-3">
             {previewPosts.map((post, i) => (
