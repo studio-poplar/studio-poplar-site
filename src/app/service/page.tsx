@@ -3,23 +3,30 @@ import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
 import ServiceCard from "@/components/ServiceCard";
 import PlanCard from "@/components/PlanCard";
+import PhotoVideoPlanCard from "@/components/PhotoVideoPlanCard";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "SERVICE",
-  description:
-    "Studio PoplarのSERVICEページ。WEB制作、3Dモデリング活用WEB制作、アプリ制作の3領域と、制作プランの構成・価格帯をご案内します。",
+  description: "Studio PoplarのSERVICEページ。WEB制作、アプリ制作、写真・動画撮影の3領域と、制作プランの構成・価格帯をご案内します。",
 };
+
+const FLOW_STEPS = [
+  "まずはお問い合わせ・ヒアリング",
+  "サイト構成・写真プランなど、具体案を提示",
+  "制作・撮影",
+  "公開・納品",
+];
 
 export default function ServicePage() {
   return (
     <>
       <PageMasthead
-        eyebrow="THREE STRUCTURES"
-        title="3つの構造で、事業をかたちにする。"
-        description="WEB制作／3Dモデリング活用WEB制作／アプリ制作の3領域から、事業のフェーズに合わせて構造を設計します。"
+        eyebrow="THREE THINGS"
+        title="できることは3つです。"
+        description="話を聞きながら、サイト・アプリ・写真や映像のかたちにしていきます。"
       />
 
       <section className="section">
@@ -31,22 +38,22 @@ export default function ServicePage() {
             <ServiceCard
               num="A"
               tag="WEB"
-              title="WEB制作"
-              description="ヒアリング・要件整理／情報設計・ワイヤーフレーム／UIデザイン／レスポンシブコーディング／公開・基本SEO設定"
+              title="サイトをつくる"
+              description="ヒアリング／構成・ワイヤーフレーム／デザイン／コーディング／公開"
               revealDelay={50}
             />
             <ServiceCard
               num="B"
-              tag="3D WEB"
-              title="3Dモデリング活用WEB制作"
-              description="3Dモデリング（空間・プロダクト）／Web上での3Dビジュアル実装／インタラクション設計／パフォーマンス最適化"
+              tag="APP"
+              title="仕組みをつくる"
+              description="要件整理／画面設計／デザイン／開発・テスト／リリース"
               revealDelay={140}
             />
             <ServiceCard
               num="C"
-              tag="APP"
-              title="アプリ制作"
-              description="要件定義・画面設計／UI/UXデザイン／プロトタイプ開発／実装・テスト／リリース・運用サポート"
+              tag="PHOTO & VIDEO"
+              title="見せ方をつくる"
+              description="撮影プランの相談／撮影／レタッチ・編集／納品"
               revealDelay={230}
             />
           </div>
@@ -58,58 +65,66 @@ export default function ServicePage() {
           <Reveal className="section-head">
             <SectionHead index="02" label="PLAN" title="制作プラン" />
           </Reveal>
-          <div className="grid-3">
+          <div className={styles.planGrid}>
             <PlanCard
               code="PLAN-A"
               name="WEB制作"
-              description="小規模なコーポレートサイト・LPの制作に。"
-              target="新規事業の立ち上げ・個人開業で、まず“顔”となるサイトが必要な方"
-              items={[
-                "ヒアリング・要件整理",
-                "ページ構成・ワイヤーフレーム設計",
-                "UIデザイン（〜5ページ想定）",
-                "レスポンシブコーディング",
-                "公開・基本SEO設定",
-              ]}
+              description="小さなサイトやページが必要な方に。"
+              target="これから事業を始める方、まず“顔”になるサイトが欲しい方"
+              items={["ヒアリング", "構成設計", "デザイン（〜5ページ）", "コーディング", "公開"]}
               price="5万円〜"
               delivery="最短1週間"
               revealDelay={50}
             />
             <PlanCard
               code="PLAN-B"
-              name="3Dモデリング活用WEB制作"
-              description="空間・プロダクトを3Dで見せるWebサイト制作に。"
-              target="空間や商品の質感を、写真だけでは伝えきれない事業者の方"
-              items={[
-                "ヒアリング・コンセプト設計",
-                "3Dモデリング（空間・プロダクト）",
-                "Web上での3Dビジュアル実装",
-                "インタラクション設計・パフォーマンス最適化",
-                "公開・基本SEO設定",
-              ]}
-              price="15万円〜"
+              name="アプリ制作"
+              description="予約や会員管理の仕組みが欲しい方に。"
+              target="日々の運用をラクにしたい方"
+              items={["要件整理", "画面設計", "デザイン", "開発・テスト", "リリース"]}
+              price="10万円〜"
               delivery="最短2週間"
               revealDelay={140}
             />
-            <PlanCard
+          </div>
+
+          <div className={styles.photoVideoWrap}>
+            <PhotoVideoPlanCard
               code="PLAN-C"
-              name="アプリ制作"
-              description="会員・予約・診断など運用を支えるアプリ制作に。"
-              target="会員管理や予約、診断フローなど、事業の運用を仕組み化したい方"
-              items={[
-                "要件定義・画面設計",
-                "UI/UXデザイン",
-                "プロトタイプ開発",
-                "実装・テスト",
-                "リリース・運用サポート",
+              name="写真・動画撮影"
+              description="言葉だけでは伝わらない雰囲気を残したい方に。"
+              tiers={[
+                { name: "Light", content: "プロフィール・スナップ撮影", time: "2時間", price: "4万円〜" },
+                { name: "Standard", content: "商品・店舗・イベント撮影", time: "半日（4時間）", price: "8万円〜" },
+                { name: "Premium", content: "撮影＋SNS/PR用ショート動画編集込み", time: "1日（8時間）", price: "16万円〜" },
               ]}
-              price="10万円〜"
-              delivery="最短2週間"
+              notes={["データ納品はWeb用・SNS用・印刷用にあわせて書き出します。", "Web制作とのセット依頼は、別途割引を個別にご相談ください。"]}
               revealDelay={230}
             />
           </div>
-          <p className={styles.note}>※ 上記は基本プランの目安です。ページ数や機能要件によって変動します。詳細はお問い合わせください。</p>
 
+          <p className={styles.note}>※ 上記は基本プランの目安です。ページ数や機能要件によって変動します。詳細はお問い合わせください。</p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <SectionHead index="03" label="FLOW" title="ご依頼の流れ" />
+          </Reveal>
+          <ol className={styles.flow}>
+            {FLOW_STEPS.map((step, i) => (
+              <li key={step}>
+                <span className={`en ${styles.flowNum}`}>{String(i + 1).padStart(2, "0")}</span>
+                <span>{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section soft">
+        <div className="wrap">
           <div className={styles.faq}>
             <span className="eyebrow en">FAQ</span>
             <div className={styles.faqList}>
@@ -128,6 +143,10 @@ export default function ServicePage() {
               <div>
                 <h3>公開後の運用サポートはありますか？</h3>
                 <p>軽微な更新や不具合対応から、継続的な保守・改善まで、必要に応じて別途ご相談いただけます。</p>
+              </div>
+              <div>
+                <h3>写真・動画だけの依頼はできますか？</h3>
+                <p>可能です。Web制作と組み合わせる場合は、別途セット割引をご相談いただけます。</p>
               </div>
             </div>
           </div>

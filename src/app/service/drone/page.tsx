@@ -16,7 +16,7 @@ export default function DronePage() {
       <PageMasthead
         eyebrow="OPTIONAL SERVICE"
         title="ドローン撮影オプション"
-        description="WEB制作・3Dモデリング活用WEB制作の素材となる空撮写真・映像を、企画から撮影までワンストップでご提供します。"
+        description="写真・動画撮影メニューの一つとして、空撮による素材撮影を企画から撮影までワンストップでご提供します。"
       />
 
       <section className="section" style={{ borderBottom: "none" }}>

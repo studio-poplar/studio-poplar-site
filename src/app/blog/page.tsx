@@ -6,7 +6,7 @@ import { blogPosts } from "@/data/blog";
 
 export const metadata: Metadata = {
   title: "BLOG",
-  description: "Studio Poplarのブログ。WEB制作・3Dモデリング活用WEB制作・アプリ制作に関する考え方や事例をお届けします。",
+  description: "Studio Poplarのブログ。WEB制作・アプリ制作・写真動画撮影に関する考え方や事例をお届けします。",
 };
 
 export default function BlogPage() {

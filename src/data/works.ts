@@ -32,13 +32,13 @@ export type Work = {
 export const works: Work[] = [
   {
     slug: "the-gallery",
-    category: "web",
+    category: "3dweb",
     type: "client",
     title: "THE GALLERY — バーチャル美術館サイト",
     client: "バーチャル美術館プロジェクト",
     year: "2026",
-    summary: "浮世絵を中心とした江戸期日本美術を、フィルタリングとKen Burnsスライドショーで巡れるバーチャル美術館。",
-    thumbLabel: "VIRTUAL MUSEUM",
+    summary: "3Dモデリングを使った空間表現の一例。空間や質感を伝えたいご相談があれば、個別に対応も可能です。",
+    thumbLabel: "3D VISUAL EXPERIMENT",
     overview:
       "作家・時代・流派で絞り込める作品グリッドと、静止画に動きを与えるKen Burns演出のスライドショーを軸にした、実在の江戸期日本美術（浮世絵・琳派・狩野派など22点）を紹介するバーチャル美術館サイトです。ビルド不要の単一HTMLという制約の中で機能を積み上げ、運営者自身がノーコードで作品・作家情報を更新できる専用管理画面まで構築しました。",
     role: ["情報設計", "UI/UXデザイン", "フロントエンド実装", "簡易CMS構築"],

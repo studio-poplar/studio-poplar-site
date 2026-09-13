@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Studio Poplar — WEB / 3D MODEL WEB / APP DESIGN STUDIO";
+export const alt = "Studio Poplar — WEB / APP / PHOTO & VIDEO DESIGN STUDIO";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -21,13 +21,13 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, letterSpacing: 4, color: "#9a9a95" }}>
-          <span>WEB / 3D MODEL WEB / APP</span>
+          <span>WEB / APP / PHOTO &amp; VIDEO</span>
           <span>DESIGN STUDIO</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span style={{ fontSize: 96, fontWeight: 700, letterSpacing: 2 }}>
-            STUDIO <span style={{ color: "#e3a857" }}>POPLAR</span>
+            STUDIO POPLAR
           </span>
         </div>
 

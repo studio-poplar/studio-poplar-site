@@ -10,19 +10,18 @@ export default function Hero() {
     <section className={styles.hero}>
       <CubeField />
       <div className={`wrap ${styles.inner}`}>
-        <span className={`eyebrow en ${styles.eyebrow}`}>WEB / 3D WEB / APP DESIGN</span>
-        <h1 className={styles.title}>
-          STUDIO
-          <br />
-          POPLAR.
-        </h1>
-        <p className={styles.lead}>事業の構造を見立てる力で、新規事業・個人開業の輪郭を描く制作スタジオです。</p>
+        <span className={`eyebrow en ${styles.eyebrow}`}>WEB / APP / PHOTO &amp; VIDEO DESIGN</span>
+        <h1 className={styles.title}>STUDIO POPLAR.</h1>
+        <p className={styles.subtitle}>伝えたいことを、伝わる形に。</p>
+        <p className={styles.lead}>
+          事業を始めるとき、頭の中にあることをそのまま人に伝えるのは難しい。まずはお話をうかがい、直接確かめながら、サイトや写真、アプリのかたちにしていく。
+        </p>
         <div className={styles.ctas}>
           <Link href="/contact" className="btn-primary" onClick={() => trackEvent("hero_cta_click")}>
             まずは相談する →
           </Link>
           <Link href="/works" className="btn-ghost">
-            制作実績を見る
+            実績を見る
           </Link>
         </div>
       </div>

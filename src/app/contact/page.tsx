@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "CONTACT",
-  description: "Studio Poplarへのお問い合わせはこちらから。WEB制作・3Dモデリング活用WEB制作・アプリ制作のご相談を承ります。",
+  description: "Studio Poplarへのお問い合わせはこちらから。WEB制作・アプリ制作・写真動画撮影のご相談を承ります。",
 };
 
 export default function ContactPage() {
@@ -15,7 +15,7 @@ export default function ContactPage() {
       <PageMasthead
         eyebrow="START A PROJECT"
         title="お問い合わせ"
-        description="新規事業・個人開業のご相談から、WEB制作／3Dモデリング活用WEB制作／アプリ制作のご相談まで、お気軽にお問い合わせください。"
+        description="新規事業・個人開業のご相談から、WEB制作／アプリ制作／写真・動画撮影のご相談まで、お気軽にお問い合わせください。"
       />
 
       <section className="section" style={{ borderBottom: "none" }}>

@@ -13,9 +13,9 @@ import { blogPosts } from "@/data/blog";
 import styles from "./page.module.css";
 
 const ABOUT_CREDENTIALS = [
-  { k: "FOCUS", v: "事業の骨格設計" },
-  { k: "APPROACH", v: "Web × App × Brand" },
-  { k: "STYLE", v: "構想から実装まで" },
+  { k: "FOCUS", v: "伝わるアウトプット" },
+  { k: "APPROACH", v: "Web × App × Photo/Video" },
+  { k: "STYLE", v: "対話から、かたちに" },
 ];
 
 export default function Home() {
@@ -29,12 +29,12 @@ export default function Home() {
       <section className="section">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="01" label="SERVICE" title="3つの構造で、事業をかたちにする" />
+            <SectionHead index="01" label="SERVICE" title="できることは3つです" />
           </Reveal>
           <div className="grid-3">
-            <ServiceCard num="A" tag="WEB" title="WEB制作" description="新規事業・個人開業の顔となるコーポレートサイト／LP。ブランドの言語化から設計します。" revealDelay={50} />
-            <ServiceCard num="B" tag="3D WEB" title="3Dモデリング活用WEB制作" description="空間・プロダクトを3Dで見せるWebサイト。体験としての説得力で、他社と差をつけます。" revealDelay={140} />
-            <ServiceCard num="C" tag="APP" title="アプリ制作" description="会員・予約・診断など、事業の運用を支えるアプリを設計・開発します。" revealDelay={230} />
+            <ServiceCard num="A" tag="WEB" title="サイトをつくる" description="はじめての開業やお店の“顔”になるサイトを、話を聞きながらつくります。" revealDelay={50} />
+            <ServiceCard num="B" tag="APP" title="仕組みをつくる" description="予約や会員管理、診断など、日々の運用をラクにする仕組みをつくります。" revealDelay={140} />
+            <ServiceCard num="C" tag="PHOTO & VIDEO" title="見せ方をつくる" description="写真や映像で、言葉だけでは伝わらない雰囲気を伝えます。" revealDelay={230} />
           </div>
         </div>
       </section>
@@ -60,7 +60,11 @@ export default function Home() {
       <section className="section" id="about">
         <div className="wrap">
           <Reveal>
-            <AboutBlock index="03 — ABOUT" quote="事業の骨格を見つけ、伝わる形にする。" body="Studio Poplarは、事業やお店の“らしさ”を表面的なデザインではなく、その根底にある構造から捉えます。何を届け、誰に選ばれ、どう続いていくのか。その骨格を整理し、Webとアプリを通じて伝わる形へと設計します。" />
+            <AboutBlock
+              index="03 — ABOUT"
+              quote="伝えたいことは、伝わるとは限らない。"
+              body="新しい事業ほど、伝えたいことが多く、言葉にしづらい瞬間がある。Studio Poplarは、代表の伊藤が直接ヒアリングして感覚を言葉にしたうえで、サイトやアプリ、写真・映像のかたちに落とし込む。装飾より、“本当に伝えたかったこと”とのズレのなさを優先する。"
+            />
           </Reveal>
           <Credentials items={ABOUT_CREDENTIALS} />
         </div>

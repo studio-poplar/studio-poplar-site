@@ -69,6 +69,11 @@
 
 .nav a:hover,
 .nav a.active {
+  color: #fff;
+}
+
+.header.solid .nav a:hover,
+.header.solid .nav a.active {
   color: var(--accent);
 }
 
@@ -190,7 +195,7 @@
 }
 
 .mobileNav a:hover {
-  color: var(--accent);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 @media (min-width: 900px) {

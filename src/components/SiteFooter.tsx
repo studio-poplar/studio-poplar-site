@@ -18,9 +18,9 @@ export default function SiteFooter() {
       <div className={`wrap ${styles.top}`}>
         <div>
           <div className={styles.logo}>STUDIO POPLAR</div>
-          <p className={styles.tagline}>WEB / 3D MODEL WEB / APP DESIGN STUDIO — YOKOHAMA</p>
+          <p className={styles.tagline}>WEB / APP / PHOTO &amp; VIDEO DESIGN STUDIO — YOKOHAMA</p>
           <p className={styles.overview}>
-            Studio Poplar（スタジオポプラ）は、WEBサイト制作・3Dモデリングを活用したWEB制作・アプリ開発を行う、横浜を拠点とする制作スタジオです。
+            Studio Poplar（スタジオポプラ）は、WEBサイト制作・アプリ開発・写真動画撮影を行う、横浜を拠点とする制作スタジオです。
           </p>
         </div>
 

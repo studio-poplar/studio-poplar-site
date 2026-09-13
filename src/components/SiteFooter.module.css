@@ -54,7 +54,7 @@
 }
 
 .footerNav a:hover {
-  color: var(--accent);
+  color: #fff;
 }
 
 .sns {
@@ -78,7 +78,7 @@
 }
 
 .sns a:hover {
-  color: var(--accent);
+  color: #fff;
 }
 
 .bottom {

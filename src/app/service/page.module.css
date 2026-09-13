@@ -4,8 +4,59 @@
   color: var(--ink-faint);
 }
 
+.planGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 760px) {
+  .planGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+.photoVideoWrap {
+  margin-top: 20px;
+}
+
+@media (min-width: 760px) {
+  .photoVideoWrap {
+    margin-top: 28px;
+  }
+}
+
+.flow {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .flow {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+.flow li {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-strong);
+  font-size: 14px;
+}
+
+.flowNum {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
 .faq {
-  margin-top: 64px;
+  margin-top: 0;
 }
 
 .faqList {

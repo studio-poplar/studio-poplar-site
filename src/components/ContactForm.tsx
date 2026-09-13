@@ -69,8 +69,8 @@ export default function ContactForm() {
             選択してください
           </option>
           <option value="web">WEB制作について</option>
-          <option value="3dweb">3Dモデリング活用WEB制作について</option>
           <option value="app">アプリ制作について</option>
+          <option value="photo-video">写真・動画撮影について</option>
           <option value="other">その他のご相談</option>
         </select>
       </div>

@@ -7,7 +7,7 @@ import { works } from "@/data/works";
 
 export const metadata: Metadata = {
   title: "WORKS",
-  description: "Studio PoplarのWEB制作／3Dモデリング活用WEB制作／アプリ制作の実績一覧。",
+  description: "Studio PoplarのWEB制作／アプリ制作／写真・動画撮影の実績一覧。",
 };
 
 export default function WorksPage() {
@@ -16,7 +16,7 @@ export default function WorksPage() {
       <PageMasthead
         eyebrow="SELECTED WORKS"
         title="制作実績"
-        description="WEB制作、3Dモデリング活用WEB制作、アプリ制作の3領域から実績を掲載しています。"
+        description="WEB制作、アプリ制作、写真・動画撮影の実績を掲載しています。"
       />
 
       <section className="section" style={{ borderBottom: "none" }}>

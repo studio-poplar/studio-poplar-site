@@ -6,7 +6,17 @@
 }
 
 .cta :global(.eyebrow) {
-  color: var(--accent);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cta :global(.btn-primary) {
+  background: #fff;
+  color: var(--ink);
+  border-color: #fff;
+}
+
+.cta :global(.btn-primary:hover) {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
 }
 
 .title {

@@ -18,7 +18,7 @@
   inset: 0;
   z-index: 1;
   background: linear-gradient(180deg, rgba(20, 20, 20, 0.15) 35%, rgba(20, 20, 20, 0.9) 100%),
-    radial-gradient(circle at 30% 20%, rgba(227, 168, 87, 0.14), transparent 55%);
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 55%);
   pointer-events: none;
 }
 
@@ -38,6 +38,10 @@
   }
 }
 
+.inner :global(.eyebrow) {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .eyebrow {
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.05s;
@@ -45,13 +49,21 @@
 
 .title {
   font-family: var(--font-en), sans-serif;
-  font-weight: 900;
-  font-size: clamp(48px, 11vw, 148px);
+  font-weight: 700;
+  font-size: clamp(40px, 9vw, 120px);
   line-height: 0.95;
   letter-spacing: -0.01em;
-  margin-bottom: 8px;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.16s;
+}
+
+.subtitle {
+  font-family: var(--font-jp), sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 3.4vw, 32px);
+  margin-top: 14px;
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.25s;
 }
 
 .lead {
@@ -71,6 +83,16 @@
   justify-content: center;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.46s;
+}
+
+.ctas :global(.btn-primary) {
+  background: #fff;
+  color: var(--ink);
+  border-color: #fff;
+}
+
+.ctas :global(.btn-primary:hover) {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
 }
 
 .ctas :global(.btn-ghost) {
@@ -116,7 +138,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--accent);
+  background: #fff;
   animation: scrollline 1.8s ease-in-out infinite;
 }
 
