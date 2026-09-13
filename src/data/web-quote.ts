@@ -22,8 +22,8 @@ export type WebOption = {
 };
 
 export const WEB_OPTIONS: WebOption[] = [
+  { id: "domain", label: "ドメイン取得・初年度サーバー費用", addPrice: 10000 },
   { id: "booking", label: "予約システム", addPrice: 30000 },
   { id: "ec", label: "ECカート機能", addPrice: 50000 },
   { id: "cms", label: "自分で更新できるCMS導入", addPrice: 20000 },
-  { id: "form", label: "追加の入力フォーム", addPrice: 15000 },
 ];

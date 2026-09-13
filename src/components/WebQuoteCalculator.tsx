@@ -7,7 +7,7 @@ import { trackEvent } from "@/lib/gtag";
 import styles from "./QuoteCalculator.module.css";
 
 function formatYen(value: number) {
-  return `¥${value.toLocaleString("ja-JP")}`;
+  return `${value.toLocaleString("ja-JP")}円`;
 }
 
 export default function WebQuoteCalculator() {
@@ -35,7 +35,7 @@ export default function WebQuoteCalculator() {
       `ページ規模: ${tier.label}`,
       `納期目安: ${tier.delivery}`,
       `追加機能: ${selectedOptions.length > 0 ? selectedOptions.map((o) => o.label).join("、") : "なし"}`,
-      isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}〜`,
+      isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}`,
       "",
       "上記内容でご相談したいです。",
     ];
@@ -52,7 +52,7 @@ export default function WebQuoteCalculator() {
             <span className={styles.optionBody}>
               <span className={styles.optionHead}>
                 <span className={styles.optionLabel}>{item.label}</span>
-                <span className={styles.optionPrice}>{item.basePrice === null ? "要相談" : `${formatYen(item.basePrice)}〜`}</span>
+                <span className={styles.optionPrice}>{item.basePrice === null ? "要相談" : formatYen(item.basePrice)}</span>
               </span>
               <span className={styles.optionDetail}>
                 {item.detail}／納期目安: {item.delivery}
@@ -78,7 +78,7 @@ export default function WebQuoteCalculator() {
         {isCustom ? (
           <strong className={styles.resultQuote}>内容により個別にお見積りします</strong>
         ) : (
-          <strong className={styles.resultPrice}>{formatYen(total)}〜</strong>
+          <strong className={styles.resultPrice}>{formatYen(total)}</strong>
         )}
         <p className={styles.resultNote}>※ こちらは目安の概算金額です。正式な金額は内容確認後にあらためてお見積りいたします。</p>
         <Link href={contactHref} className="btn-primary" onClick={() => trackEvent("contact_click", { location: "web_quote" })}>
@@ -89,7 +89,7 @@ export default function WebQuoteCalculator() {
       <div className={styles.scope}>
         <p>
           <strong>含まれるもの：</strong>
-          ヒアリング〜公開までの制作一式／ドメイン取得・初年度のサーバー費用／デザイン確認2回まで
+          ヒアリングから公開までの制作一式／デザイン確認2回まで
         </p>
         <p>
           <strong>含まれないもの：</strong>

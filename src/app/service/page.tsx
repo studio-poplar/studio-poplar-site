@@ -89,7 +89,7 @@ export default function ServicePage() {
             <div className={styles.planHeader}>
               <span className={`en ${styles.planCode}`}>PLAN-C</span>
               <h3>写真・動画撮影</h3>
-              <p>言葉だけでは伝わらない雰囲気を残したい方に。下記の選択に応じて概算金額が自動で変わります。</p>
+              <p>言葉だけでは伝わらない雰囲気を残したい方に。</p>
             </div>
             <PhotoVideoQuoteCalculator />
           </div>
