@@ -40,6 +40,16 @@
   background: #eeeeef;
 }
 
+.previewWrap {
+  margin-bottom: 24px;
+  max-width: 640px;
+}
+
+.badgeInline {
+  display: block;
+  margin-bottom: 12px;
+}
+
 .meta {
   display: flex;
   gap: 14px;

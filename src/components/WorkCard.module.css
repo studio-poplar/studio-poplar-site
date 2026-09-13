@@ -21,6 +21,21 @@
   border-color: var(--border-strong);
 }
 
+.thumbWrap {
+  position: relative;
+  background: var(--panel-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.thumbWrap:has(.badgeInline) {
+  padding: 14px 14px 0;
+}
+
+.badgeInline {
+  display: block;
+  margin-bottom: 10px;
+}
+
 .thumb {
   height: 180px;
   background: var(--panel-soft);
@@ -28,7 +43,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  border-bottom: 1px solid var(--border);
 }
 
 .thumb[data-category="3dweb"] {
