@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
 import ServiceCard from "@/components/ServiceCard";
-import PlanCard from "@/components/PlanCard";
+import WebQuoteCalculator from "@/components/WebQuoteCalculator";
+import AppQuoteCalculator from "@/components/AppQuoteCalculator";
 import PhotoVideoPlanCard from "@/components/PhotoVideoPlanCard";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -66,26 +67,22 @@ export default function ServicePage() {
             <SectionHead index="02" label="PLAN" title="制作プラン" />
           </Reveal>
           <div className={styles.planGrid}>
-            <PlanCard
-              code="PLAN-A"
-              name="WEB制作"
-              description="小さなサイトやページが必要な方に。"
-              target="これから事業を始める方、まず“顔”になるサイトが欲しい方"
-              items={["ヒアリング", "構成設計", "デザイン（〜5ページ）", "コーディング", "公開"]}
-              price="5万円〜"
-              delivery="最短1週間"
-              revealDelay={50}
-            />
-            <PlanCard
-              code="PLAN-B"
-              name="アプリ制作"
-              description="予約や会員管理の仕組みが欲しい方に。"
-              target="日々の運用をラクにしたい方"
-              items={["要件整理", "画面設計", "デザイン", "開発・テスト", "リリース"]}
-              price="10万円〜"
-              delivery="最短2週間"
-              revealDelay={140}
-            />
+            <div>
+              <div className={styles.planHeader}>
+                <span className={`en ${styles.planCode}`}>PLAN-A</span>
+                <h3>WEB制作</h3>
+                <p>これから事業を始める方、まず“顔”になるサイトが欲しい方に。下記の選択に応じて概算金額が自動で変わります。</p>
+              </div>
+              <WebQuoteCalculator />
+            </div>
+            <div>
+              <div className={styles.planHeader}>
+                <span className={`en ${styles.planCode}`}>PLAN-B</span>
+                <h3>アプリ制作</h3>
+                <p>予約や会員管理の仕組みが欲しい方に。下記の選択に応じて概算金額が自動で変わります。</p>
+              </div>
+              <AppQuoteCalculator />
+            </div>
           </div>
 
           <div className={styles.photoVideoWrap}>
