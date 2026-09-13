@@ -2,15 +2,19 @@
 
 import Link from "next/link";
 import { trackEvent } from "@/lib/gtag";
+import LeafField from "./LeafField";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
   return (
     <section className={styles.hero}>
+      <LeafField />
       <div className={`wrap ${styles.inner}`}>
         <span className={`eyebrow en ${styles.eyebrow}`}>WEB / APP / PHOTO &amp; VIDEO DESIGN</span>
         <h1 className={styles.title}>STUDIO POPLAR.</h1>
-        <p className={styles.subtitle}>伝えたいことを、伝わる形に。</p>
+        <p className={styles.subtitle}>
+          伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
+        </p>
         <p className={styles.lead}>
           事業を始めるとき、頭の中にあることをそのまま人に伝えるのは難しい。まずはお話をうかがい、直接確かめながら、サイトや写真、アプリのかたちにしていく。
         </p>

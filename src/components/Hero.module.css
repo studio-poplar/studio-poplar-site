@@ -12,18 +12,6 @@
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: linear-gradient(rgba(23, 23, 26, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(23, 23, 26, 0.035) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 90%);
-  pointer-events: none;
-}
-
 .inner {
   position: relative;
   z-index: 2;
@@ -62,6 +50,10 @@
   margin-top: 18px;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.25s;
+}
+
+.highlight {
+  color: var(--brand);
 }
 
 .lead {
