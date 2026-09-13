@@ -40,6 +40,10 @@
   background: #eeeeef;
 }
 
+.thumb[data-category="photo-video"] {
+  background: #e8e6e1;
+}
+
 .previewWrap {
   margin-bottom: 24px;
   max-width: 640px;

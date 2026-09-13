@@ -1,3 +1,13 @@
+section.firstSection {
+  padding-top: 40px;
+}
+
+@media (min-width: 860px) {
+  section.firstSection {
+    padding-top: 56px;
+  }
+}
+
 .worksGrid {
   margin-bottom: 40px;
 }

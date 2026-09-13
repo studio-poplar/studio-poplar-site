@@ -16,14 +16,14 @@ export default function Hero() {
           伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
         </p>
         <p className={styles.lead}>
-          新規事業やお店を始めるとき、頭の中にあることをそのまま伝えるのは難しい。話を聞きながら、サイトや写真、アプリのかたちにしていく。
+          サイトで事業の&ldquo;顔&rdquo;をつくり、写真と映像で伝わる空気をつくり、アプリで日々の運用を支える
         </p>
         <ul className={styles.facts}>
           <li>
             <span className="en">WEB</span>5万円〜
           </li>
           <li>
-            <span className="en">APP</span>10万円〜
+            <span className="en">APP</span>15万円〜
           </li>
           <li>
             <span className="en">PHOTO &amp; VIDEO</span>4万円〜

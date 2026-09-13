@@ -53,6 +53,10 @@
   background: #eeeeef;
 }
 
+.thumb[data-category="photo-video"] {
+  background: #e8e6e1;
+}
+
 .thumb span.en {
   font-size: 11px;
   letter-spacing: 0.1em;

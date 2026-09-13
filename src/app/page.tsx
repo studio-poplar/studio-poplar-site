@@ -6,19 +6,23 @@ import WorkCard from "@/components/WorkCard";
 import BlogCard from "@/components/BlogCard";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
-import { works } from "@/data/works";
+import { works, getWorkBySlug } from "@/data/works";
 import { blogPosts } from "@/data/blog";
 import styles from "./page.module.css";
 
+const PREVIEW_WORK_SLUGS = ["bokuheki", "shindan-app", "atelier-mokuha-photo"];
+
 export default function Home() {
-  const previewWorks = works.slice(0, 3);
+  const previewWorks = PREVIEW_WORK_SLUGS.map((slug) => getWorkBySlug(slug)).filter(
+    (work): work is (typeof works)[number] => Boolean(work)
+  );
   const previewPosts = blogPosts.slice(0, 3);
 
   return (
     <>
       <Hero />
 
-      <section className="section">
+      <section className={`section ${styles.firstSection}`}>
         <div className="wrap">
           <Reveal className="section-head">
             <SectionHead index="01" label="SERVICE" title="3つのかたちで、伝わる。" />

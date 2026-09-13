@@ -1,10 +1,11 @@
-export type WorkCategory = "web" | "3dweb" | "app";
+export type WorkCategory = "web" | "3dweb" | "app" | "photo-video";
 export type WorkType = "mock" | "demo" | "client";
 
 export const WORK_CATEGORY_LABELS: Record<WorkCategory, string> = {
   web: "WEB",
   "3dweb": "3D WEB",
   app: "APP",
+  "photo-video": "PHOTO & VIDEO",
 };
 
 export const WORK_TYPE_LABELS: Record<WorkType, string> = {
@@ -141,6 +142,34 @@ export const works: Work[] = [
       {
         heading: "成果",
         body: "空間体験を軸にした情報設計により、宿泊予約サイトにありがちな“検索・比較”ではなく“暮らしを想像する”導線を実現しました（本事例はコンセプト企画のデモです）。",
+      },
+    ],
+  },
+  {
+    slug: "atelier-mokuha-photo",
+    category: "photo-video",
+    type: "mock",
+    title: "アトリエ木葉 商品撮影・PR動画",
+    client: "アトリエ木葉（家具工房／コンセプト企画）",
+    year: "2026",
+    summary: "手仕事の家具工房のための商品撮影と、SNS向けPRショート動画の制作事例。",
+    thumbLabel: "PHOTO & VIDEO MOCKUP",
+    overview:
+      "一点ものの家具を手がける工房の“質感”をECサイトとSNSの両方で伝えるための、商品撮影とPR用ショート動画をセットで設計したデモ企画です。木目や手仕事の跡が伝わる光の当て方と、制作工程を見せる短尺動画を軸にしました。",
+    role: ["撮影ディレクション", "商品撮影", "レタッチ・編集", "ショート動画編集"],
+    stack: ["商品撮影", "動画編集", "SNS用ショート動画"],
+    sections: [
+      {
+        heading: "課題",
+        body: "一点もの家具の“質感”は写真だけでは伝わりにくく、ECサイトとSNS双方で使える素材を効率よく揃える必要がありました。",
+      },
+      {
+        heading: "アプローチ",
+        body: "木目や手触りが伝わる照明・アングルで商品撮影を実施し、同じ現場で制作工程を収めたSNS向けショート動画も撮影。1回の撮影で複数用途の素材をまとめて制作しました。",
+      },
+      {
+        heading: "成果",
+        body: "EC掲載用の商品写真と、SNSで工房の世界観を伝えるショート動画を同時に用意できる構成を実現しました（本事例はコンセプト企画のデモです）。",
       },
     ],
   },
