@@ -91,11 +91,11 @@ export default function ServicePage() {
               name="写真・動画撮影"
               description="言葉だけでは伝わらない雰囲気を残したい方に。"
               tiers={[
-                { name: "Light", content: "プロフィール・スナップ撮影", time: "2時間", price: "4万円〜" },
-                { name: "Standard", content: "商品・店舗・イベント撮影", time: "半日（4時間）", price: "8万円〜" },
-                { name: "Premium", content: "撮影＋SNS/PR用ショート動画編集込み", time: "1日（8時間）", price: "16万円〜" },
+                { name: "Light", content: "プロフィール・スナップ撮影", time: "2時間", price: "4万円〜", setPrice: "2万円〜" },
+                { name: "Standard", content: "商品・店舗・イベント撮影", time: "半日（4時間）", price: "8万円〜", setPrice: "4万円〜" },
+                { name: "Premium", content: "撮影＋SNS/PR用ショート動画編集込み", time: "1日（8時間）", price: "16万円〜", setPrice: "8万円〜" },
               ]}
-              notes={["データ納品はWeb用・SNS用・印刷用にあわせて書き出します。", "Web制作とのセット依頼は、別途割引を個別にご相談ください。"]}
+              notes={["データ納品はWeb用・SNS用・印刷用にあわせて書き出します。", "セット割引価格は、WEB制作・アプリ制作のいずれかをご契約いただいた方が対象です。"]}
               revealDelay={230}
             />
           </div>
@@ -143,7 +143,7 @@ export default function ServicePage() {
               </div>
               <div>
                 <h3>写真・動画だけの依頼はできますか？</h3>
-                <p>可能です。Web制作と組み合わせる場合は、別途セット割引をご相談いただけます。</p>
+                <p>可能です。WEB制作・アプリ制作と組み合わせる場合は、セット割引価格（半額）が適用されます。</p>
               </div>
             </div>
           </div>

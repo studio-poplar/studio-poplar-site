@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { APP_TIERS, APP_PLATFORM_OPTIONS, APP_BACKEND_OPTIONS } from "@/data/app-quote";
+import { APP_TIERS, APP_BACKEND_OPTIONS } from "@/data/app-quote";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./QuoteCalculator.module.css";
 
@@ -12,27 +12,24 @@ function formatYen(value: number) {
 
 export default function AppQuoteCalculator() {
   const [tierId, setTierId] = useState(APP_TIERS[0].id);
-  const [platformId, setPlatformId] = useState(APP_PLATFORM_OPTIONS[0].id);
   const [backendId, setBackendId] = useState(APP_BACKEND_OPTIONS[0].id);
 
   const tier = APP_TIERS.find((t) => t.id === tierId)!;
-  const platform = APP_PLATFORM_OPTIONS.find((p) => p.id === platformId)!;
   const backend = APP_BACKEND_OPTIONS.find((b) => b.id === backendId)!;
   const isCustom = tier.basePrice === null;
-  const total = !isCustom ? tier.basePrice! + platform.addPrice + backend.addPrice : 0;
+  const total = !isCustom ? tier.basePrice! + backend.addPrice : 0;
 
   const contactHref = useMemo(() => {
     const lines = [
       "【アプリ制作 自動見積りより】",
       `画面規模: ${tier.label}`,
-      `プラットフォーム: ${platform.label}`,
       `バックエンド連携: ${backend.label}`,
       isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}〜`,
       "",
       "上記内容でご相談したいです。",
     ];
     return `/contact?${new URLSearchParams({ message: lines.join("\n") }).toString()}`;
-  }, [tier, platform, backend, isCustom, total]);
+  }, [tier, backend, isCustom, total]);
 
   return (
     <div className={styles.calc}>
@@ -48,17 +45,6 @@ export default function AppQuoteCalculator() {
               </span>
               <span className={styles.optionDetail}>{item.detail}</span>
             </span>
-          </label>
-        ))}
-      </fieldset>
-
-      <fieldset className={styles.group}>
-        <legend>プラットフォーム</legend>
-        {APP_PLATFORM_OPTIONS.map((item) => (
-          <label key={item.id} className={styles.option}>
-            <input type="radio" name="app-platform" value={item.id} checked={platformId === item.id} onChange={() => setPlatformId(item.id)} />
-            <span className={styles.optionLabel}>{item.label}</span>
-            <span className={styles.optionPrice}>{item.addPrice > 0 ? `+${formatYen(item.addPrice)}` : "±0"}</span>
           </label>
         ))}
       </fieldset>

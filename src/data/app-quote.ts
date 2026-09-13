@@ -20,11 +20,6 @@ export type AppOption = {
   detail?: string;
 };
 
-export const APP_PLATFORM_OPTIONS: AppOption[] = [
-  { id: "single", label: "iOSのみ／Androidのみ", addPrice: 0 },
-  { id: "both", label: "両方（iOS＋Android）", addPrice: 50000 },
-];
-
 export const APP_BACKEND_OPTIONS: AppOption[] = [
   { id: "none", label: "なし（フロントエンドのみ）", addPrice: 0 },
   { id: "yes", label: "あり（会員登録・DB連携など）", addPrice: 80000, detail: "会員登録・データベース連携など" },

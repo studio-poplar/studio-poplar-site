@@ -23,7 +23,6 @@ export type WebOption = {
 export const WEB_OPTIONS: WebOption[] = [
   { id: "booking", label: "予約システム", addPrice: 30000 },
   { id: "ec", label: "ECカート機能", addPrice: 50000 },
-  { id: "multilingual", label: "多言語対応", addPrice: 30000 },
   { id: "cms", label: "自分で更新できるCMS導入", addPrice: 20000 },
   { id: "form", label: "追加の入力フォーム", addPrice: 15000 },
 ];
