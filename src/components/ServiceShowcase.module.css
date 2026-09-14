@@ -1,0 +1,152 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grid:global(.is-visible) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 760px) {
+  .grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+.feature {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 40px 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  min-height: 360px;
+}
+
+.featureIcon {
+  width: 42px;
+  height: 42px;
+  color: var(--brand);
+}
+
+.featureTag {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--brand);
+  margin: 18px 0 10px;
+}
+
+.featureTitle {
+  font-size: clamp(22px, 3vw, 28px);
+  margin-bottom: 12px;
+}
+
+.featureDesc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(250, 249, 246, 0.7);
+  max-width: 34ch;
+}
+
+.process {
+  border-top: 1px solid rgba(250, 249, 246, 0.16);
+  padding-top: 22px;
+}
+
+.processLabel {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(250, 249, 246, 0.5);
+  margin-bottom: 12px;
+}
+
+.processStep {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.processNum {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.processText {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot,
+.dotActive {
+  width: 14px;
+  height: 2px;
+  background: rgba(250, 249, 246, 0.25);
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.dotActive {
+  background: var(--brand);
+  width: 22px;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.card {
+  background: var(--panel-soft);
+  padding: 28px 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cardIcon {
+  width: 30px;
+  height: 30px;
+  color: var(--ink);
+}
+
+.cardTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.cardTitle {
+  font-size: 16px;
+}
+
+.cardDesc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 759px) {
+  .side {
+    flex-direction: row;
+  }
+}

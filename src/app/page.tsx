@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHead from "@/components/SectionHead";
-import ServiceRow from "@/components/ServiceRow";
+import ServiceShowcase from "@/components/ServiceShowcase";
 import WorkCard from "@/components/WorkCard";
 import BlogCard from "@/components/BlogCard";
 import CtaBand from "@/components/CtaBand";
@@ -27,30 +27,7 @@ export default function Home() {
           <Reveal className="section-head">
             <SectionHead index="01" label="SERVICE" title="3つのかたちで、伝わる。" />
           </Reveal>
-          <div>
-            <ServiceRow
-              num="01"
-              tag="WEB"
-              title="サイトをつくる"
-              description="はじめての開業やお店の“顔”になるサイトを、話を聞きながらつくります。"
-              visual="web"
-            />
-            <ServiceRow
-              num="02"
-              tag="APP"
-              title="仕組みをつくる"
-              description="予約や会員管理、診断など、日々の運用をラクにする仕組みをつくります。"
-              visual="app"
-              reverse
-            />
-            <ServiceRow
-              num="03"
-              tag="PHOTO & VIDEO"
-              title="見せ方をつくる"
-              description="写真や映像で、言葉だけでは伝わらない雰囲気を伝えます。"
-              visual="photo-video"
-            />
-          </div>
+          <ServiceShowcase />
         </div>
       </section>
 
