@@ -12,6 +12,10 @@ const HEARING_SCENES = [
   { q: "どんなお店を始めますか？", a: "町の工務店です" },
 ];
 
+const APP_NEEDS = ["サロンの予約サイトが欲しい", "会員証をアプリにしたい", "簡単な診断コンテンツを作りたい"];
+
+const PHOTO_NEEDS = ["SNSに使う写真がない", "開店に合わせて写真がほしい", "PR用のショート動画を作りたい"];
+
 function WebIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
@@ -43,6 +47,7 @@ export default function ServiceShowcase() {
   const ref = useReveal<HTMLDivElement>(0);
   const [stepIndex, setStepIndex] = useState(0);
   const [sceneIndex, setSceneIndex] = useState(0);
+  const [needIndex, setNeedIndex] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -58,6 +63,15 @@ export default function ServiceShowcase() {
     if (mq.matches) return;
     const id = setInterval(() => {
       setSceneIndex((i) => (i + 1) % HEARING_SCENES.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+    const id = setInterval(() => {
+      setNeedIndex((i) => (i + 1) % APP_NEEDS.length);
     }, 4000);
     return () => clearInterval(id);
   }, []);
@@ -101,12 +115,20 @@ export default function ServiceShowcase() {
           <span className={`en ${styles.cardTag}`}>02 — APP</span>
           <h4 className={styles.cardTitle}>仕組みをつくる</h4>
           <p className={styles.cardDesc}>予約や会員管理、診断など、日々の運用をラクにする仕組みをつくります。</p>
+          <div className={styles.needWrap}>
+            <span className={`en ${styles.needLabel}`}>こんなご相談も</span>
+            <span key={needIndex} className={styles.needBubble}>{APP_NEEDS[needIndex]}</span>
+          </div>
         </div>
         <div className={styles.card}>
           <PhotoVideoIcon className={styles.cardIcon} />
           <span className={`en ${styles.cardTag}`}>03 — PHOTO &amp; VIDEO</span>
           <h4 className={styles.cardTitle}>見せ方をつくる</h4>
           <p className={styles.cardDesc}>写真や映像で、言葉だけでは伝わらない雰囲気を伝えます。</p>
+          <div className={styles.needWrap}>
+            <span className={`en ${styles.needLabel}`}>こんなご相談も</span>
+            <span key={needIndex} className={styles.needBubble}>{PHOTO_NEEDS[needIndex]}</span>
+          </div>
         </div>
       </div>
     </div>
