@@ -54,7 +54,7 @@ export default function ServiceShowcase() {
     if (mq.matches) return;
     const id = setInterval(() => {
       setStepIndex((i) => (i + 1) % WEB_STEPS.length);
-    }, 2600);
+    }, 3400);
     return () => clearInterval(id);
   }, []);
 
@@ -63,7 +63,7 @@ export default function ServiceShowcase() {
     if (mq.matches) return;
     const id = setInterval(() => {
       setSceneIndex((i) => (i + 1) % HEARING_SCENES.length);
-    }, 4000);
+    }, 5200);
     return () => clearInterval(id);
   }, []);
 
@@ -72,7 +72,7 @@ export default function ServiceShowcase() {
     if (mq.matches) return;
     const id = setInterval(() => {
       setNeedIndex((i) => (i + 1) % APP_NEEDS.length);
-    }, 4000);
+    }, 5200);
     return () => clearInterval(id);
   }, []);
 
