@@ -6,6 +6,12 @@ import styles from "./ServiceShowcase.module.css";
 
 const WEB_STEPS = ["ヒアリング", "構成・ワイヤーフレーム", "デザイン", "コーディング", "公開"];
 
+const HEARING_SCENES = [
+  { q: "どんなお店を始めますか？", a: "パン屋を新しく開きます" },
+  { q: "どんなお店を始めますか？", a: "小さな美容室を開きます" },
+  { q: "どんなお店を始めますか？", a: "町の工務店です" },
+];
+
 function WebIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" fill="none" className={className}>
@@ -36,6 +42,7 @@ function PhotoVideoIcon({ className }: { className?: string }) {
 export default function ServiceShowcase() {
   const ref = useReveal<HTMLDivElement>(0);
   const [stepIndex, setStepIndex] = useState(0);
+  const [sceneIndex, setSceneIndex] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -43,6 +50,15 @@ export default function ServiceShowcase() {
     const id = setInterval(() => {
       setStepIndex((i) => (i + 1) % WEB_STEPS.length);
     }, 2600);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+    const id = setInterval(() => {
+      setSceneIndex((i) => (i + 1) % HEARING_SCENES.length);
+    }, 4000);
     return () => clearInterval(id);
   }, []);
 
@@ -56,6 +72,13 @@ export default function ServiceShowcase() {
           <p className={styles.featureDesc}>
             はじめての開業やお店の&ldquo;顔&rdquo;になるサイトを、話を聞きながらつくります。
           </p>
+        </div>
+
+        <div className={styles.hearing} aria-live="polite">
+          <div key={sceneIndex} className={styles.hearingScene}>
+            <span className={`${styles.bubble} ${styles.bubbleQ}`}>{HEARING_SCENES[sceneIndex].q}</span>
+            <span className={`${styles.bubble} ${styles.bubbleA}`}>{HEARING_SCENES[sceneIndex].a}</span>
+          </div>
         </div>
 
         <div className={styles.process} aria-live="polite">
