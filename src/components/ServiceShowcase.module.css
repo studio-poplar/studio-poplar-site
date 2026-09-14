@@ -19,29 +19,20 @@
 }
 
 .feature {
-  position: relative;
   background: var(--ink);
   color: var(--bg);
-  min-height: 400px;
-  overflow: hidden;
-}
-
-.featureScrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(28, 26, 23, 0.92) 0%, rgba(28, 26, 23, 0.86) 38%, rgba(28, 26, 23, 0.05) 78%);
-}
-
-.featureCopy {
-  position: relative;
-  z-index: 1;
-  height: 100%;
   padding: 40px 34px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 14px;
-  max-width: 320px;
+  justify-content: space-between;
+  gap: 36px;
+  min-height: 360px;
+}
+
+.featureIcon {
+  width: 42px;
+  height: 42px;
+  color: var(--brand);
 }
 
 .featureTag {
@@ -50,19 +41,69 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--brand);
+  margin: 18px 0 10px;
 }
 
 .featureTitle {
   font-size: clamp(22px, 3vw, 28px);
-  margin: 0;
+  margin-bottom: 12px;
 }
 
 .featureDesc {
   font-size: 14px;
   line-height: 1.8;
-  color: rgba(250, 249, 246, 0.75);
+  color: rgba(250, 249, 246, 0.7);
   max-width: 34ch;
-  margin: 0;
+}
+
+.process {
+  border-top: 1px solid rgba(250, 249, 246, 0.16);
+  padding-top: 22px;
+}
+
+.processLabel {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(250, 249, 246, 0.5);
+  margin-bottom: 12px;
+}
+
+.processStep {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.processNum {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.processText {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot,
+.dotActive {
+  width: 14px;
+  height: 2px;
+  background: rgba(250, 249, 246, 0.25);
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.dotActive {
+  background: var(--brand);
+  width: 22px;
 }
 
 .side {

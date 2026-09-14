@@ -1,8 +1,19 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useReveal } from "@/lib/useReveal";
-import WebShowcaseReel from "./WebShowcaseReel";
 import styles from "./ServiceShowcase.module.css";
+
+const WEB_STEPS = ["ヒアリング", "構成・ワイヤーフレーム", "デザイン", "コーディング", "公開"];
+
+function WebIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 40 40" fill="none" className={className}>
+      <rect x="4" y="6" width="32" height="26" rx="2" stroke="currentColor" strokeWidth="1.4" />
+      <line x1="4" y1="13" x2="36" y2="13" stroke="currentColor" strokeWidth="1.2" opacity="0.5" />
+    </svg>
+  );
+}
 
 function AppIcon({ className }: { className?: string }) {
   return (
@@ -24,18 +35,40 @@ function PhotoVideoIcon({ className }: { className?: string }) {
 
 export default function ServiceShowcase() {
   const ref = useReveal<HTMLDivElement>(0);
+  const [stepIndex, setStepIndex] = useState(0);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+    const id = setInterval(() => {
+      setStepIndex((i) => (i + 1) % WEB_STEPS.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className={styles.grid} ref={ref}>
       <div className={styles.feature}>
-        <WebShowcaseReel />
-        <div className={styles.featureScrim} />
-        <div className={styles.featureCopy}>
+        <div>
+          <WebIcon className={styles.featureIcon} />
           <span className={`en ${styles.featureTag}`}>01 — WEB</span>
           <h3 className={styles.featureTitle}>サイトをつくる</h3>
           <p className={styles.featureDesc}>
             はじめての開業やお店の&ldquo;顔&rdquo;になるサイトを、話を聞きながらつくります。
           </p>
+        </div>
+
+        <div className={styles.process} aria-live="polite">
+          <span className={`en ${styles.processLabel}`}>制作の流れ</span>
+          <div className={styles.processStep}>
+            <span className={`en ${styles.processNum}`}>{String(stepIndex + 1).padStart(2, "0")}</span>
+            <span className={styles.processText}>{WEB_STEPS[stepIndex]}</span>
+          </div>
+          <div className={styles.dots}>
+            {WEB_STEPS.map((step, i) => (
+              <span key={step} className={i === stepIndex ? styles.dotActive : styles.dot} />
+            ))}
+          </div>
         </div>
       </div>
 
