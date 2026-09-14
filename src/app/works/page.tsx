@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PageMasthead from "@/components/PageMasthead";
-import MockWorkNotice from "@/components/MockWorkNotice";
 import WorkPostFull from "@/components/WorkPostFull";
 import CtaBand from "@/components/CtaBand";
 import { works } from "@/data/works";
@@ -21,7 +20,6 @@ export default function WorksPage() {
 
       <section className="section" style={{ borderBottom: "none" }}>
         <div className="wrap" style={{ maxWidth: 820 }}>
-          <MockWorkNotice />
           {works.map((work) => (
             <WorkPostFull key={work.slug} work={work} />
           ))}

@@ -58,8 +58,9 @@
 
 .lead {
   font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.7;
   color: var(--ink-soft);
-  max-width: 42ch;
+  max-width: 480px;
   margin: 28px auto 0;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.34s;
@@ -102,6 +103,15 @@
   justify-content: center;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.46s;
+}
+
+.ctas :global(.btn-primary) {
+  background: #94a887;
+  border-color: #94a887;
+}
+
+.ctas :global(.btn-primary:hover) {
+  box-shadow: 0 8px 18px rgba(148, 168, 135, 0.45);
 }
 
 .scrollcue {

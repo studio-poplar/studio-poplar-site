@@ -16,7 +16,11 @@ export default function Hero() {
           伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
         </p>
         <p className={styles.lead}>
-          サイトで事業の&ldquo;顔&rdquo;をつくり、写真と映像で伝わる空気をつくり、アプリで日々の運用を支える
+          サイトで事業の&ldquo;顔&rdquo;をつくり、
+          <br />
+          写真と映像で伝わる空気をつくり、
+          <br />
+          アプリで日々の運用を支える
         </p>
         <ul className={styles.facts}>
           <li>
