@@ -3,6 +3,7 @@ import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
 import ServiceCard from "@/components/ServiceCard";
 import AboutBlock from "@/components/AboutBlock";
+import TeamProfile from "@/components/TeamProfile";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 
@@ -42,6 +43,17 @@ export default function AboutPage() {
             <ServiceCard tag="FREELANCE" title="個人で開業する方" description="自分の強みを、うまく言葉にできない" revealDelay={140} />
             <ServiceCard tag="SMALL BUSINESS" title="すでにお店やサイトがある方" description="今の見せ方が、伝えたいこととズレている気がする" revealDelay={230} />
           </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <SectionHead index="03" label="TEAM" title="つくっている人" />
+          </Reveal>
+          <Reveal>
+            <TeamProfile />
+          </Reveal>
         </div>
       </section>
 
