@@ -19,7 +19,7 @@
 }
 
 .feature {
-  background: var(--ink);
+  background: linear-gradient(160deg, var(--accent) 0%, var(--ink) 62%);
   color: var(--bg);
   padding: 40px 34px;
   display: flex;
@@ -84,7 +84,6 @@
 
 .bubble {
   font-size: 13px;
-  font-weight: 700;
   padding: 9px 14px;
   border-radius: 14px;
   max-width: 80%;
@@ -98,7 +97,7 @@
 
 .bubbleA {
   align-self: flex-end;
-  background: #94a887;
+  background: var(--brand);
   color: var(--ink);
   border-bottom-right-radius: 3px;
 }
@@ -216,7 +215,8 @@
   color: var(--accent);
   background: var(--brand-soft);
   border: 1px solid var(--brand-line);
-  border-radius: 10px;
+  border-radius: 14px;
+  border-bottom-left-radius: 3px;
   padding: 7px 14px;
   animation: needFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

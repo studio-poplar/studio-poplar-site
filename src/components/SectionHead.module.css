@@ -1,0 +1,21 @@
+.eyebrowRow {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.index {
+  font-size: clamp(40px, 6vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(28, 26, 23, 0.14);
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
