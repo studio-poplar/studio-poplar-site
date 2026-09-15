@@ -65,17 +65,15 @@ export default function ServicePage() {
           </Reveal>
 
           <div className={styles.planGrid}>
-            <div>
+            <div className={styles.planCol}>
               <div className={styles.planHeader}>
-                <span className={`en ${styles.planCode}`}>PLAN-A</span>
                 <h3>WEB制作</h3>
                 <p>これから事業を始める方、まず“顔”になるサイトが欲しい方に。下記の選択に応じて概算金額が自動で変わります。</p>
               </div>
               <WebQuoteCalculator />
             </div>
-            <div>
+            <div className={styles.planCol}>
               <div className={styles.planHeader}>
-                <span className={`en ${styles.planCode}`}>PLAN-B</span>
                 <h3>アプリ制作</h3>
                 <p>予約や会員管理の仕組みが欲しい方に。下記の選択に応じて概算金額が自動で変わります。</p>
               </div>
@@ -85,9 +83,8 @@ export default function ServicePage() {
 
           <div className={styles.photoVideoWrap}>
             <div className={styles.planHeader}>
-              <span className={`en ${styles.planCode}`}>PLAN-C</span>
               <h3>写真・動画撮影</h3>
-              <p>言葉だけでは伝わらない雰囲気を残したい方に。</p>
+              <p>言葉だけでは伝わらない雰囲気を残したい方に。下記の選択に応じて概算金額が自動で変わります。</p>
             </div>
             <PhotoVideoQuoteCalculator />
           </div>

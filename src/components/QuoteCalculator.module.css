@@ -2,6 +2,9 @@
   border: 1px solid var(--border);
   background: var(--panel-soft);
   padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 @media (min-width: 640px) {
@@ -92,7 +95,7 @@
 }
 
 .result {
-  margin-top: 4px;
+  margin-top: auto;
   padding-top: 24px;
   border-top: 1px solid var(--border-strong);
   text-align: center;
