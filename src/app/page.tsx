@@ -3,11 +3,11 @@ import Hero from "@/components/Hero";
 import SectionHead from "@/components/SectionHead";
 import ServiceShowcase from "@/components/ServiceShowcase";
 import WorkCard from "@/components/WorkCard";
-import BlogCard from "@/components/BlogCard";
+import BlogPreviewCard from "@/components/BlogPreviewCard";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import { works, getWorkBySlug } from "@/data/works";
-import { blogPosts } from "@/data/blog";
+import { getAllBlogPosts } from "@/lib/content";
 import styles from "./page.module.css";
 
 const PREVIEW_WORK_SLUGS = ["bokuheki", "shindan-app", "atelier-mokuha-photo"];
@@ -16,7 +16,7 @@ export default function Home() {
   const previewWorks = PREVIEW_WORK_SLUGS.map((slug) => getWorkBySlug(slug)).filter(
     (work): work is (typeof works)[number] => Boolean(work)
   );
-  const previewPosts = blogPosts.slice(0, 3);
+  const previewPosts = getAllBlogPosts().slice(0, 3);
 
   return (
     <>
@@ -56,7 +56,7 @@ export default function Home() {
           </Reveal>
           <div className="grid-3">
             {previewPosts.map((post, i) => (
-              <BlogCard key={post.slug} post={post} revealDelay={i * 90} />
+              <BlogPreviewCard key={post.slug} post={post} revealDelay={i * 90} />
             ))}
           </div>
         </div>

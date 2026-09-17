@@ -1,0 +1,46 @@
+.body {
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: var(--ink);
+}
+
+.body p {
+  margin-bottom: 24px;
+}
+
+.body h2 {
+  font-size: 20px;
+  margin: 40px 0 16px;
+}
+
+.body h3 {
+  font-size: 17px;
+  margin: 32px 0 14px;
+}
+
+.body ul,
+.body ol {
+  margin: 0 0 24px 20px;
+}
+
+.body li {
+  margin-bottom: 8px;
+}
+
+.body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.body strong {
+  font-weight: 700;
+}
+
+.img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 8px 0 24px;
+  display: block;
+}

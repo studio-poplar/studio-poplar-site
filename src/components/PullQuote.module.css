@@ -1,0 +1,17 @@
+.pull {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.8;
+  color: var(--ink);
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid var(--accent);
+  margin: 32px 0;
+}
+
+.pull.field {
+  border-left-color: var(--field-notes);
+}
+
+.pull.design {
+  border-left-color: var(--design-notes);
+}

@@ -1,23 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { BlogPost } from "@/data/blog";
-import { useCard } from "@/lib/useCard";
+import Image from "next/image";
+import { useReveal } from "@/lib/useReveal";
+import { BLOG_SERIES_LABEL, type BlogPostMeta } from "@/lib/blog-types";
 import styles from "./BlogCard.module.css";
 
-export default function BlogCard({ post, revealDelay = 0 }: { post: BlogPost; revealDelay?: number }) {
-  const ref = useCard<HTMLAnchorElement>(revealDelay);
+function formatDate(date: string) {
+  return date.replaceAll("-", ".");
+}
+
+export default function BlogCard({ post, revealDelay = 0 }: { post: BlogPostMeta; revealDelay?: number }) {
+  const ref = useReveal<HTMLAnchorElement>(revealDelay);
+  const hasImage = Boolean(post.coverImage);
 
   return (
-    <Link href={`/blog#${post.slug}`} className={styles.card} ref={ref}>
-      <div className={styles.meta}>
-        <span className={`en ${styles.cat}`}>{post.category}</span>
-        <time className="en" dateTime={post.date}>
-          {post.date}
+    <Link
+      href={`/blog/${post.slug}`}
+      className={`${styles.card} ${post.series === "field-notes" ? styles.field : styles.design} ${
+        hasImage ? "" : styles.noImg
+      }`}
+      ref={ref}
+    >
+      <div>
+        <span className={`en ${styles.label}`}>
+          <span className={styles.dot} />
+          {BLOG_SERIES_LABEL[post.series]}
+        </span>
+        <h2 className={styles.title}>{post.title}</h2>
+        <p className={styles.excerpt}>{post.excerpt}</p>
+        <time className={`en ${styles.date}`} dateTime={post.date}>
+          {formatDate(post.date)}
         </time>
       </div>
-      <h3 className={styles.title}>{post.title}</h3>
-      <p className={styles.excerpt}>{post.excerpt}</p>
+      {hasImage && (
+        <div className={styles.imgWrap}>
+          <Image src={post.coverImage!} alt="" fill className={styles.img} sizes="180px" />
+        </div>
+      )}
     </Link>
   );
 }

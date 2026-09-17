@@ -14,6 +14,9 @@
   --brand-line: rgba(124, 136, 115, 0.4);
   --radius: 2px;
 
+  --field-notes: #7a8b5e;
+  --design-notes: #a9765a;
+
   --font-en: "Space Grotesk", sans-serif;
   --font-jp: "Zen Kaku Gothic New", sans-serif;
 }

@@ -1,24 +1,32 @@
 import type { Metadata } from "next";
 import PageMasthead from "@/components/PageMasthead";
-import BlogPostFull from "@/components/BlogPostFull";
+import BlogCard from "@/components/BlogCard";
 import CtaBand from "@/components/CtaBand";
-import { blogPosts } from "@/data/blog";
+import { getAllBlogPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "BLOG",
-  description: "Studio Poplarのブログ。WEB制作・アプリ制作・写真動画撮影に関する考え方や事例をお届けします。",
+  description: "Studio Poplarのブログ。地域訪問での気づきや、制作の考え方をお届けします。",
 };
 
 export default function BlogPage() {
+  const posts = getAllBlogPosts();
+
   return (
     <>
-      <PageMasthead eyebrow="NOTES" title="BLOG" description="制作の考え方や事例、Studio Poplarの視点をお届けします。" />
+      <PageMasthead
+        eyebrow="NOTES"
+        title="活動と、考えていること。"
+        description="訪れた地域で見つけたこと、制作の裏側で考えていること。お知らせはNEWSにまとめています。"
+      />
 
       <section className="section" style={{ borderBottom: "none" }}>
-        <div className="wrap" style={{ maxWidth: 720 }}>
-          {blogPosts.map((post) => (
-            <BlogPostFull key={post.slug} post={post} />
-          ))}
+        <div className="wrap" style={{ maxWidth: 900 }}>
+          {posts.length > 0 ? (
+            posts.map((post) => <BlogCard key={post.slug} post={post} />)
+          ) : (
+            <p>まだ記事がありません。</p>
+          )}
         </div>
       </section>
 

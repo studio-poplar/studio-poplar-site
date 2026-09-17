@@ -1,0 +1,12 @@
+.box {
+  background: var(--panel-soft);
+  border-radius: var(--radius);
+  padding: 36px;
+  text-align: center;
+}
+
+.box p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
