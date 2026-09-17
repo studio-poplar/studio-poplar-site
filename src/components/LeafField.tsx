@@ -1,3 +1,4 @@
+import { motion, type MotionValue } from "motion/react";
 import LogoMark from "./LogoMark";
 import styles from "./LeafField.module.css";
 
@@ -14,9 +15,9 @@ const LEAVES: Leaf[] = [
   { x: 30, y: 55, size: 34, rotate: -22, opacity: 0.4, brand: true },
 ];
 
-export default function LeafField() {
+export default function LeafField({ y }: { y?: MotionValue<number> }) {
   return (
-    <div className={styles.field} aria-hidden="true">
+    <motion.div className={styles.field} style={{ y }} aria-hidden="true">
       {LEAVES.map((leaf, i) => (
         <LogoMark
           key={i}
@@ -32,6 +33,6 @@ export default function LeafField() {
           }}
         />
       ))}
-    </div>
+    </motion.div>
   );
 }
