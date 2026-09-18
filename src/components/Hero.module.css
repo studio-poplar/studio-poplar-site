@@ -66,12 +66,9 @@
   font-weight: 700;
   font-size: clamp(34px, 5.6vw, 78px);
   line-height: 0.98;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.005em;
   margin-top: 20px;
-  background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 35%, var(--brand) 70%, var(--system) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--ink);
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.16s;
 }
@@ -81,21 +78,9 @@
   position: absolute;
   left: 4px;
   right: 6%;
-  bottom: -8px;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--brand), var(--system), var(--second), var(--brand));
-  background-size: 300% 100%;
-  animation: shimmer 4s linear infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 300% 50%;
-  }
+  bottom: -10px;
+  height: 1px;
+  background: var(--second);
 }
 
 .subtitle {
@@ -266,90 +251,23 @@
   }
 }
 
-.ring {
-  position: absolute;
-  inset: 0;
+.mediaFrame {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--panel-soft) 0%, var(--panel) 100%);
   border: 1px solid var(--border-strong);
-  border-radius: 100%;
-  animation: spinReverse 50s linear infinite;
-}
-
-.ring2 {
-  inset: 15%;
-  border: 1px dashed var(--border-strong);
-  animation: spin 22s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinReverse {
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-.coreGlow {
-  position: absolute;
-  inset: 30%;
-  border-radius: 100%;
-  background: radial-gradient(closest-side, var(--system-soft), transparent 72%);
-  animation: coreBreathe 4s ease-in-out infinite;
-}
-
-@keyframes coreBreathe {
-  0%,
-  100% {
-    transform: scale(0.94);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 1;
-  }
-}
-
-.core {
-  position: absolute;
-  inset: 36%;
-  border-radius: 100%;
-  background: linear-gradient(135deg, var(--brand) 0%, var(--system) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--bg);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  box-shadow: 0 24px 50px -20px rgba(47, 168, 184, 0.45), 0 4px 14px -4px rgba(124, 136, 115, 0.4);
+  color: var(--ink-faint);
+  box-shadow: 0 30px 60px -30px rgba(28, 26, 23, 0.25);
 }
 
-.chip {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-en), sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  background: var(--bg);
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  padding: 6px 12px;
-  white-space: nowrap;
-  animation: chipFloat 3.6s ease-in-out infinite;
-}
-
-@keyframes chipFloat {
-  0%,
-  100% {
-    transform: translate(-50%, -50%);
-  }
-  50% {
-    transform: translate(-50%, calc(-50% - 6px));
-  }
+.playIcon {
+  width: 44px;
+  height: 44px;
 }
 
 .scrollcue {

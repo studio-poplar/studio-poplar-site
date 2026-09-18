@@ -84,21 +84,12 @@ export default function Hero() {
             </motion.div>
           </div>
           <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }} aria-hidden="true">
-            <div className={styles.ring} />
-            <div className={`${styles.ring} ${styles.ring2}`} />
-            <div className={styles.coreGlow} />
-            <div className={styles.core}>
-              <span className="en">SP</span>
+            <div className={styles.mediaFrame}>
+              <svg className={styles.playIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M10 8.4v7.2l6-3.6z" fill="currentColor" stroke="none" />
+              </svg>
             </div>
-            <span className={styles.chip} style={{ top: "8%", left: "62%", animationDelay: "0s" }}>
-              DESIGN
-            </span>
-            <span className={styles.chip} style={{ top: "72%", left: "6%", animationDelay: "0.6s" }}>
-              CODE
-            </span>
-            <span className={styles.chip} style={{ top: "64%", left: "76%", animationDelay: "1.2s" }}>
-              AI
-            </span>
           </motion.div>
         </div>
       </div>
