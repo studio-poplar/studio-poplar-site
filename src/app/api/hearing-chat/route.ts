@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ reflection: FALLBACK_ACK, needs_followup: false, followup_question: "" });
+    return NextResponse.json({ reflection: FALLBACK_ACK, needs_followup: false, followup_question: "", debug: "NO_KEY" });
   }
 
   const question = QUESTIONS[step - 1];
@@ -143,7 +143,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("hearing-chat reflect error", error);
     // API failures must not stall the conversation for the visitor.
-    return NextResponse.json({ reflection: FALLBACK_ACK, needs_followup: false, followup_question: "" });
+    const debug =
+      error && typeof error === "object"
+        ? `${(error as { name?: string }).name ?? "Error"}: ${(error as { message?: string }).message ?? String(error)}`
+        : String(error);
+    return NextResponse.json({ reflection: FALLBACK_ACK, needs_followup: false, followup_question: "", debug });
   }
 }
 
