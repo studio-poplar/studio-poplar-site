@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { trackEvent } from "@/lib/gtag";
 import LeafField from "./LeafField";
+import HearingChatLauncher from "./HearingChat";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -70,6 +71,7 @@ export default function Hero() {
                 <Link href="/works" className="btn-ghost">
                   実績を見る
                 </Link>
+                <HearingChatLauncher />
               </div>
             </motion.div>
           </div>
