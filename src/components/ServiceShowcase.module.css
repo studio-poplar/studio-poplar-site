@@ -236,4 +236,8 @@
   .side {
     flex-direction: row;
   }
+
+  .needBubble {
+    min-height: 76px;
+  }
 }

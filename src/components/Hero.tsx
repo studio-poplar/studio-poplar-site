@@ -32,7 +32,7 @@ export default function Hero() {
         <div className={styles.grid}>
           <div>
             <motion.div style={{ y: headY, opacity: headOpacity }}>
-              <span className={styles.tag}>総合デザインプラットフォーム</span>
+              <span className={styles.tag}>総合デザイン プラットフォーム</span>
               <h1 className={styles.title}>STUDIO POPLAR</h1>
             </motion.div>
             <motion.div style={{ y: bodyY, opacity: bodyOpacity }}>
@@ -85,10 +85,7 @@ export default function Hero() {
           </div>
           <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }} aria-hidden="true">
             <div className={styles.ring} />
-            <div className={`${styles.ring} ${styles.ring2}`}>
-              <span className={styles.satellite} />
-              <span className={`${styles.satellite} ${styles.satellite2}`} />
-            </div>
+            <div className={`${styles.ring} ${styles.ring2}`} />
             <div className={styles.coreGlow} />
             <div className={styles.core}>
               <span className="en">SP</span>

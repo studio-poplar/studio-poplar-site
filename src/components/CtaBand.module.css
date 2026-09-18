@@ -12,3 +12,17 @@
   white-space: nowrap;
   margin: 18px auto 36px;
 }
+
+.mobileBreak {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .title {
+    white-space: normal;
+  }
+
+  .mobileBreak {
+    display: block;
+  }
+}

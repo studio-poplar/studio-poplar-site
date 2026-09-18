@@ -292,30 +292,6 @@
   }
 }
 
-.satellite {
-  position: absolute;
-  top: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 100%;
-  background: var(--system);
-  box-shadow: 0 0 8px 1px var(--system-soft);
-}
-
-.satellite2 {
-  top: auto;
-  left: auto;
-  bottom: 10%;
-  right: -3px;
-  transform: none;
-  width: 5px;
-  height: 5px;
-  background: var(--second);
-  box-shadow: 0 0 8px 1px var(--second-soft);
-}
-
 .coreGlow {
   position: absolute;
   inset: 30%;

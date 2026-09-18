@@ -99,6 +99,12 @@
   justify-content: center;
 }
 
+@media (max-width: 640px) {
+  .submit :global(.btn-arrow) {
+    display: none;
+  }
+}
+
 .note {
   margin-top: 20px;
   font-size: 12px;
