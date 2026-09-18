@@ -41,12 +41,12 @@
 }
 
 .photoVideoWrap {
-  margin-top: 20px;
+  margin-top: 48px;
 }
 
 @media (min-width: 760px) {
   .photoVideoWrap {
-    margin-top: 28px;
+    margin-top: 64px;
   }
 }
 

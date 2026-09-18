@@ -62,12 +62,10 @@ export default function ContactForm() {
 
       <div className={styles.field}>
         <label htmlFor="category">
-          お問い合わせ種別 <span className={styles.required}>必須</span>
+          お問い合わせ種別 <span className={styles.optional}>任意</span>
         </label>
-        <select id="category" name="category" defaultValue="" required>
-          <option value="" disabled>
-            選択してください
-          </option>
+        <select id="category" name="category" defaultValue="">
+          <option value="">選択してください</option>
           <option value="web">WEB制作について</option>
           <option value="app">アプリ制作について</option>
           <option value="photo-video">写真・動画撮影について</option>
@@ -85,7 +83,10 @@ export default function ContactForm() {
       <div className={styles.checkboxField}>
         <input type="checkbox" id="privacy" name="privacy" required />
         <label htmlFor="privacy">
-          プライバシーポリシーに同意の上、送信します <span className={styles.required}>必須</span>
+          <a href="/privacy" target="_blank" rel="noreferrer noopener">
+            プライバシーポリシー
+          </a>
+          に同意の上、送信します <span className={styles.required}>必須</span>
         </label>
       </div>
 

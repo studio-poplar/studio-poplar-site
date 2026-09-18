@@ -17,7 +17,7 @@ export default function AboutPage() {
     <>
       <PageMasthead
         eyebrow="ABOUT"
-        title="伝える前に、聞く。"
+        title="伝えたいことを、伝わる形に。"
         description="Studio Poplarという制作スタジオの、考え方と姿勢について。"
       />
 

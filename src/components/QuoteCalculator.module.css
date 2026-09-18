@@ -149,6 +149,12 @@
   gap: 12px;
 }
 
+@media (min-width: 900px) {
+  .scope {
+    min-height: 210px;
+  }
+}
+
 .scopeLabel {
   display: block;
   font-family: var(--font-en), sans-serif;

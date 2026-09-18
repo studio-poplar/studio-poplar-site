@@ -15,7 +15,7 @@ export default function BlogPage() {
   return (
     <>
       <PageMasthead
-        eyebrow="NOTES"
+        eyebrow="BLOG"
         title="活動と、考えていること。"
         description="訪れた地域で見つけたこと、制作の裏側で考えていること。お知らせはNEWSにまとめています。"
       />

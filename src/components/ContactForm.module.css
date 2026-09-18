@@ -36,6 +36,16 @@
   margin-left: 4px;
 }
 
+.optional {
+  color: var(--ink-faint);
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 1px 8px;
+  margin-left: 4px;
+}
+
 .field input,
 .field select,
 .field textarea {
@@ -76,6 +86,12 @@
 .checkboxField label {
   font-size: 13px;
   color: var(--ink-soft);
+}
+
+.checkboxField label a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .submit {
