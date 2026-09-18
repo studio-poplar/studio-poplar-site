@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: center;
   color: var(--card-accent, var(--accent));
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .icon svg {
@@ -50,12 +50,16 @@
 
 .num {
   position: absolute;
-  top: 32px;
-  right: 28px;
-  font-size: 42px;
+  top: 36px;
+  right: 32px;
+  left: 100px;
+  font-size: 20px;
   font-weight: 900;
-  color: rgba(28, 26, 23, 0.07);
-  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: right;
+  color: rgba(28, 26, 23, 0.09);
+  line-height: 1.25;
 }
 
 .tag {

@@ -189,19 +189,46 @@ select:focus-visible,
 }
 
 .btn-primary {
-  background: var(--brand);
+  position: relative;
+  background: linear-gradient(135deg, #bfd4ac 0%, #4fa896 100%);
   color: var(--ink);
-  border: 1px solid var(--brand);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 38px -16px rgba(47, 138, 122, 0.4), 0 8px 18px -10px rgba(124, 136, 115, 0.35);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 48%);
+  pointer-events: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(124, 136, 115, 0.4);
+  box-shadow: 0 24px 44px -14px rgba(47, 138, 122, 0.5), 0 10px 20px -8px rgba(124, 136, 115, 0.4);
 }
 
 .btn-primary:active {
   transform: translateY(0) scale(0.97);
   box-shadow: none;
+}
+
+.btn-arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 12px;
+  flex-shrink: 0;
 }
 
 .btn-ghost {

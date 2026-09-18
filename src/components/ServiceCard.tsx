@@ -35,7 +35,7 @@ export default function ServiceCard({
     >
       {icon && <div className={styles.icon}>{icon}</div>}
       {num && <span className={`en ${styles.num}`}>{num}</span>}
-      <span className={`en ${styles.tag}`}>{tag}</span>
+      {!num && <span className={`en ${styles.tag}`}>{tag}</span>}
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.description}>{description}</p>
       {items && items.length > 0 && (

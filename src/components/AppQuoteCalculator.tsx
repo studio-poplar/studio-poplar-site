@@ -72,7 +72,7 @@ export default function AppQuoteCalculator() {
         )}
         <p className={styles.resultNote}>※ こちらは目安の概算金額です。正式な金額は内容確認後にあらためてお見積りいたします。</p>
         <Link href={contactHref} className="btn-primary" onClick={() => trackEvent("contact_click", { location: "app_quote" })}>
-          この内容で問い合わせる →
+          この内容で問い合わせる<span className="btn-arrow">→</span>
         </Link>
       </div>
 

@@ -17,17 +17,18 @@ export default function AboutPage() {
     <>
       <PageMasthead
         eyebrow="ABOUT"
-        title="伝えたいことは、伝わるとは限らない。"
-        description="その前提から、一緒に始めます。"
+        title="伝える前に、聞く。"
+        description="Studio Poplarという制作スタジオの、考え方と姿勢について。"
       />
 
       <section className="section">
         <div className="wrap">
           <Reveal>
             <AboutBlock
-              index="01 — PHILOSOPHY"
+              num="01"
+              label="PHILOSOPHY"
               quote="言葉にできない感覚を、置き去りにしない。"
-              body="新しい事業ほど、伝えたいことは多く、言葉にしづらい。Studio Poplarは、代表・伊藤の直接ヒアリングを通じて、“本当に伝えたかったこと”とのズレなく、サイトやアプリ、写真・映像に落とし込む。"
+              body="新しい事業ほど、伝えたいことは多く、言葉にしづらい。Studio Poplarは、直接ヒアリングを通じて、“本当に伝えたかったこと”とのズレなく、サイトやアプリ、写真・映像に落とし込む。"
             />
           </Reveal>
         </div>
@@ -49,7 +50,7 @@ export default function AboutPage() {
       <section className="section">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="03" label="TEAM" title="つくっている人" />
+            <SectionHead index="03" label="TEAM" title="Our Team" />
           </Reveal>
           <Reveal>
             <TeamProfile />

@@ -3,8 +3,8 @@
   gap: 24px;
 }
 
-.eyebrow {
-  margin-bottom: 0;
+.head {
+  grid-column: 1;
 }
 
 @media (min-width: 900px) {
@@ -15,7 +15,7 @@
     align-items: start;
   }
 
-  .eyebrow,
+  .head,
   .quote {
     grid-column: 1;
   }
@@ -24,6 +24,37 @@
     grid-column: 2;
     grid-row: 2;
   }
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.index {
+  font-size: clamp(40px, 6vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(28, 26, 23, 0.14);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--second);
+}
+
+.label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--second);
 }
 
 .quote {

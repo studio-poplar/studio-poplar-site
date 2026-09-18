@@ -92,7 +92,7 @@ export default function ServicePage() {
           </Reveal>
           <div className="grid-3">
             <ServiceCard
-              num="01"
+              num="WEB"
               tag="WEB"
               title="サイトをつくる"
               description="ヒアリング／構成・ワイヤーフレーム／デザイン／コーディング／公開"
@@ -101,7 +101,7 @@ export default function ServicePage() {
               revealDelay={50}
             />
             <ServiceCard
-              num="02"
+              num="APP"
               tag="APP"
               title="仕組みをつくる"
               description="要件整理／画面設計／デザイン／開発・テスト／リリース"
@@ -110,7 +110,7 @@ export default function ServicePage() {
               revealDelay={140}
             />
             <ServiceCard
-              num="03"
+              num="PHOTO & VIDEO"
               tag="PHOTO & VIDEO"
               title="見せ方をつくる"
               description="撮影プランの相談／撮影／レタッチ・編集／納品"

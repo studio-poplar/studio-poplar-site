@@ -11,7 +11,7 @@ export default function ContactCTA({ text }: { text?: string }) {
     <div className={styles.box}>
       <p>{text || DEFAULT_TEXT}</p>
       <Link href="/contact" className="btn-primary" onClick={() => trackEvent("contact_click", { location: "blog_cta" })}>
-        お問い合わせフォームへ →
+        お問い合わせフォームへ<span className="btn-arrow">→</span>
       </Link>
     </div>
   );

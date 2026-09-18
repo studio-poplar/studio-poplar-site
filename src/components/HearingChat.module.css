@@ -369,27 +369,3 @@
   padding: 8px 16px;
 }
 
-.doneRow :global(.btn-primary) {
-  position: relative;
-  background: linear-gradient(135deg, #bfd4ac 0%, #4fa896 100%);
-  border-color: transparent;
-  border-radius: 12px;
-  padding: 15px 56px 15px 26px;
-  overflow: hidden;
-  box-shadow: 0 20px 38px -16px rgba(47, 138, 122, 0.4), 0 8px 18px -10px rgba(124, 136, 115, 0.35);
-}
-
-.arrowBadge {
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  bottom: 6px;
-  width: 32px;
-  border-radius: 8px;
-  background: var(--ink);
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-}

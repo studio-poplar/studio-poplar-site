@@ -371,7 +371,7 @@ function HearingChatModal({ onClose }: { onClose: () => void }) {
               className="btn-primary"
               onClick={() => trackEvent("hearing_chat_to_contact")}
             >
-              打ち合わせに進む<span className={styles.arrowBadge}>→</span>
+              打ち合わせに進む<span className="btn-arrow">→</span>
             </Link>
           </div>
         ) : (

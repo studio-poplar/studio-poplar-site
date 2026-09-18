@@ -90,7 +90,13 @@ export default function ContactForm() {
       </div>
 
       <button type="submit" className={`btn-primary ${styles.submit}`} disabled={status === "submitting"}>
-        {status === "submitting" ? "送信中…" : "送信する →"}
+        {status === "submitting" ? (
+          "送信中…"
+        ) : (
+          <>
+            送信する<span className="btn-arrow">→</span>
+          </>
+        )}
       </button>
 
       <p className={styles.note} role="status">

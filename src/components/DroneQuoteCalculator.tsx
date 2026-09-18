@@ -125,7 +125,7 @@ export default function DroneQuoteCalculator() {
           className="btn-primary"
           onClick={() => trackEvent("contact_click", { location: "drone_quote" })}
         >
-          この内容で問い合わせる →
+          この内容で問い合わせる<span className="btn-arrow">→</span>
         </Link>
       </div>
     </div>

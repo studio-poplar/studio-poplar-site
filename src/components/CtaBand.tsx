@@ -11,7 +11,7 @@ export default function CtaBand() {
         <span className="eyebrow en">START A PROJECT</span>
         <h2 className={styles.title}>そのアイデアに、伝わる力を。</h2>
         <Link href="/contact" className="btn-primary" onClick={() => trackEvent("contact_click", { location: "cta_band" })}>
-          お問い合わせフォームへ<span className={styles.arrowBadge}>→</span>
+          お問い合わせフォームへ<span className="btn-arrow">→</span>
         </Link>
       </div>
     </section>
