@@ -68,7 +68,7 @@ export default function HearingChatLauncher() {
     <>
       <button type="button" className={styles.launcher} onClick={handleOpen}>
         <span className={styles.launcherDot} aria-hidden="true" />
-        AIと話す
+        チャットで相談する<span className={styles.launcherArrow}>→</span>
       </button>
       {open && <HearingChatModal onClose={() => setOpen(false)} />}
     </>

@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import { trackEvent } from "@/lib/gtag";
 import LeafField from "./LeafField";
 import HearingChatLauncher from "./HearingChat";
 import styles from "./Hero.module.css";
@@ -33,10 +32,7 @@ export default function Hero() {
         <div className={styles.grid}>
           <div>
             <motion.div style={{ y: headY, opacity: headOpacity }}>
-              <span className={`en ${styles.tag}`}>
-                <span className={styles.pulseDot} aria-hidden="true" />
-                WEB <i>—</i> APP <i>—</i> PHOTO &amp; VIDEO
-              </span>
+              <span className={styles.tag}>総合デザインプラットフォーム</span>
               <h1 className={styles.title}>STUDIO POPLAR</h1>
             </motion.div>
             <motion.div style={{ y: bodyY, opacity: bodyOpacity }}>
@@ -52,24 +48,36 @@ export default function Hero() {
               </p>
               <ul className={styles.facts}>
                 <li>
-                  <span className="en">WEB</span>
+                  <svg className={styles.factIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="3" y="5" width="18" height="14" rx="1.5" />
+                    <line x1="3" y1="9.2" x2="21" y2="9.2" />
+                    <circle cx="6" cy="7.1" r="0.6" fill="currentColor" stroke="none" />
+                  </svg>
+                  <span className={`en ${styles.factLabel}`}>WEB</span>
                   <span className={styles.price}>5万円〜</span>
                 </li>
                 <li>
-                  <span className="en">APP</span>
+                  <svg className={styles.factIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="4" y="4" width="7" height="7" rx="1" />
+                    <rect x="13" y="4" width="7" height="7" rx="1" />
+                    <rect x="4" y="13" width="7" height="7" rx="1" />
+                    <rect x="13" y="13" width="7" height="7" rx="1" />
+                  </svg>
+                  <span className={`en ${styles.factLabel}`}>APP</span>
                   <span className={styles.price}>15万円〜</span>
                 </li>
                 <li>
-                  <span className="en">PHOTO &amp; VIDEO</span>
+                  <svg className={styles.factIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M4 8h3l1.5-2h7L17 8h3v11H4z" />
+                    <circle cx="12" cy="13.3" r="3.1" />
+                  </svg>
+                  <span className={`en ${styles.factLabel}`}>PHOTO &amp; VIDEO</span>
                   <span className={styles.price}>6万円〜</span>
                 </li>
               </ul>
               <div className={styles.ctas}>
-                <Link href="/contact" className="btn-primary" onClick={() => trackEvent("hero_cta_click")}>
-                  まずは相談する<span className={styles.arrowBadge}>→</span>
-                </Link>
-                <Link href="/works" className="btn-ghost">
-                  実績を見る
+                <Link href="/service" className="btn-ghost">
+                  サービスを見る
                 </Link>
                 <HearingChatLauncher />
               </div>
@@ -77,17 +85,21 @@ export default function Hero() {
           </div>
           <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }} aria-hidden="true">
             <div className={styles.ring} />
-            <div className={`${styles.ring} ${styles.ring2}`} />
+            <div className={`${styles.ring} ${styles.ring2}`}>
+              <span className={styles.satellite} />
+              <span className={`${styles.satellite} ${styles.satellite2}`} />
+            </div>
+            <div className={styles.coreGlow} />
             <div className={styles.core}>
               <span className="en">SP</span>
             </div>
-            <span className={styles.chip} style={{ top: "8%", left: "62%" }}>
+            <span className={styles.chip} style={{ top: "8%", left: "62%", animationDelay: "0s" }}>
               DESIGN
             </span>
-            <span className={styles.chip} style={{ top: "72%", left: "6%" }}>
+            <span className={styles.chip} style={{ top: "72%", left: "6%", animationDelay: "0.6s" }}>
               CODE
             </span>
-            <span className={styles.chip} style={{ top: "64%", left: "76%" }}>
+            <span className={styles.chip} style={{ top: "64%", left: "76%", animationDelay: "1.2s" }}>
               AI
             </span>
           </motion.div>
