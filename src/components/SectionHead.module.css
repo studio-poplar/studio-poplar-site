@@ -1,3 +1,15 @@
+.kickerRule {
+  width: 24px;
+  height: 3px;
+  background: var(--brand);
+  margin-bottom: 14px;
+}
+
+.kickerRuleAccent {
+  width: 34px;
+  background: var(--second);
+}
+
 .eyebrowRow {
   display: flex;
   align-items: baseline;
@@ -13,9 +25,19 @@
 }
 
 .label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--second);
+}
+
+.label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--second);
 }

@@ -25,7 +25,7 @@ export default function Home() {
       <section className={`section ${styles.firstSection}`}>
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="01" label="SERVICE" title="3つのかたちで、伝わる。" />
+            <SectionHead index="01" label="SERVICE" title="何から、かたちにする？" />
           </Reveal>
           <ServiceShowcase />
         </div>
@@ -34,7 +34,7 @@ export default function Home() {
       <section className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="02" label="WORKS" title="制作実績" />
+            <SectionHead index="02" label="WORKS" title="制作実績" accent />
           </Reveal>
           <div className={`grid-3 ${styles.worksGrid}`}>
             {previewWorks.map((work, i) => (

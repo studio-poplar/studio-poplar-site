@@ -6,12 +6,40 @@
 }
 
 .cta :global(.btn-primary) {
-  background: #94a887;
-  border-color: #94a887;
+  position: relative;
+  background: linear-gradient(135deg, #bfd4ac 0%, #4fa896 100%);
+  border-color: transparent;
+  border-radius: 12px;
+  padding: 15px 56px 15px 26px;
+  overflow: hidden;
+  box-shadow: 0 20px 38px -16px rgba(47, 138, 122, 0.4), 0 8px 18px -10px rgba(124, 136, 115, 0.35);
+}
+
+.cta :global(.btn-primary::before) {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 48%);
+  pointer-events: none;
 }
 
 .cta :global(.btn-primary:hover) {
-  box-shadow: 0 8px 18px rgba(148, 168, 135, 0.45);
+  box-shadow: 0 24px 44px -14px rgba(47, 138, 122, 0.5), 0 10px 20px -8px rgba(124, 136, 115, 0.4);
+}
+
+.arrowBadge {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 32px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
 }
 
 .title {
