@@ -10,9 +10,13 @@ import {
   INTRO_MESSAGE,
   MAX_FREE_TEXT_LENGTH,
   PRIVACY_NOTICE,
-  QUESTIONS,
+  STAGE_QUESTION,
   TOTAL_QUESTIONS,
+  classifyStage,
+  getQuestion,
   multiChoiceAck,
+  FALLBACK_ACK,
+  type BusinessStage,
   type Category,
 } from "@/lib/hearing-chat";
 import styles from "./HearingChat.module.css";
@@ -30,8 +34,13 @@ const PENDING_KEY = "hearing-chat-pending-notify";
 const PROGRESS_KEY = "hearing-chat-progress";
 const RESUME_PROMPT = "前回の続きから再開しますか?";
 
+// Bump when the question flow changes shape so stale saves aren't resumed.
+const PROGRESS_VERSION = 2;
+
 type SavedProgress = {
+  version: number;
   step: number;
+  businessStage: BusinessStage | null;
   messages: DisplayMessage[];
   answers: AnswerRecord[];
   userTurnCount: number;
@@ -45,7 +54,7 @@ function makeId() {
 function initialMessages(): DisplayMessage[] {
   return [
     { id: makeId(), role: "assistant", content: INTRO_MESSAGE },
-    { id: makeId(), role: "assistant", content: QUESTIONS[0].text },
+    { id: makeId(), role: "assistant", content: STAGE_QUESTION.text },
   ];
 }
 
@@ -54,7 +63,10 @@ function loadProgress(): SavedProgress | null {
     const raw = localStorage.getItem(PROGRESS_KEY);
     if (!raw) return null;
     const p = JSON.parse(raw);
+    const stageOk = p.businessStage === null || p.businessStage === "existing" || p.businessStage === "starting";
     const valid =
+      p.version === PROGRESS_VERSION &&
+      stageOk &&
       typeof p.step === "number" &&
       p.step >= 1 &&
       p.step <= TOTAL_QUESTIONS &&
@@ -136,6 +148,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
   );
   const [askResume, setAskResume] = useState(saved !== null);
   const [step, setStep] = useState(1);
+  const [businessStage, setBusinessStage] = useState<BusinessStage | null>(null);
   const [followupUsed, setFollowupUsed] = useState(false);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -161,9 +174,9 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, busy]);
 
-  const latestRef = useRef({ messages, step, followupUsed, done, askResume });
+  const latestRef = useRef({ messages, step, businessStage, followupUsed, done, askResume });
   useEffect(() => {
-    latestRef.current = { messages, step, followupUsed, done, askResume };
+    latestRef.current = { messages, step, businessStage, followupUsed, done, askResume };
   });
 
   const handleClose = useCallback(() => {
@@ -181,7 +194,9 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
       }
       if (turns > 0 || answersRef.current.length > 0) {
         saveProgress({
+          version: PROGRESS_VERSION,
           step: latest.step,
+          businessStage: latest.businessStage,
           messages: kept,
           answers: answersRef.current,
           userTurnCount: Math.max(turns, 0),
@@ -204,6 +219,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     if (!saved) return;
     setMessages(saved.messages);
     setStep(saved.step);
+    setBusinessStage(saved.businessStage);
     setFollowupUsed(saved.followupUsed);
     answersRef.current = saved.answers;
     userTurnCountRef.current = saved.userTurnCount;
@@ -243,7 +259,9 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     }
   }
 
-  function advanceAfter(ack: string, record: AnswerRecord) {
+  // stageOverride is for step 1, where the stage was only just decided and the
+  // businessStage state hasn't re-rendered yet.
+  function advanceAfter(ack: string, record: AnswerRecord, stageOverride?: BusinessStage) {
     answersRef.current = [...answersRef.current, record];
     trackEvent("hearing_chat_step", { step });
 
@@ -253,26 +271,31 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
       return;
     }
 
-    pushMessage("assistant", ack + "\n\n" + QUESTIONS[step].text);
+    pushMessage("assistant", ack + "\n\n" + getQuestion(step + 1, stageOverride ?? businessStage).text);
     setStep((s) => s + 1);
     setFollowupUsed(false);
     setMultiSelected(new Set());
   }
 
-  function submitSingleChoice(choiceLabel: string, ack: string, category?: Category) {
+  function submitSingleChoice(choice: { label: string; ack: string; category?: Category; stage?: BusinessStage }) {
     if (done || busy) return;
-    pushMessage("user", choiceLabel);
+    pushMessage("user", choice.label);
     userTurnCountRef.current += 1;
-    const question = QUESTIONS[step - 1];
+    const question = getQuestion(step, businessStage);
     setBusy(true);
     setTimeout(() => {
       setBusy(false);
-      advanceAfter(ack, {
-        question: question.text,
-        label: choiceLabel,
-        freeText: null,
-        categories: category ? [category] : undefined,
-      });
+      if (choice.stage) setBusinessStage(choice.stage);
+      advanceAfter(
+        choice.ack,
+        {
+          question: question.text,
+          label: choice.label,
+          freeText: null,
+          categories: choice.category ? [choice.category] : undefined,
+        },
+        choice.stage
+      );
     }, 600);
   }
 
@@ -287,7 +310,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
 
   function submitMultiSelect() {
     if (done || busy || multiSelected.size === 0) return;
-    const question = QUESTIONS[step - 1];
+    const question = getQuestion(step, businessStage);
     const chosen = question.choices.filter((c) => multiSelected.has(c.label));
     const labels = chosen.map((c) => c.label);
     const categories = chosen.map((c) => c.category).filter((c): c is Category => Boolean(c));
@@ -324,7 +347,19 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     setThinking(true);
     setError(null);
 
-    const question = QUESTIONS[step - 1];
+    const question = getQuestion(step, businessStage);
+
+    // Step 1 only routes to the right wording — no model call needed.
+    if (step === 1) {
+      const stage = classifyStage(text);
+      setTimeout(() => {
+        setBusy(false);
+        setThinking(false);
+        setBusinessStage(stage);
+        advanceAfter(FALLBACK_ACK, { question: question.text, label: null, freeText: text }, stage);
+      }, 600);
+      return;
+    }
 
     try {
       const res = await fetch("/api/hearing-chat", {
@@ -335,6 +370,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
           userAnswer: text,
           alreadyFollowedUp: followupUsed,
           userTurnCount: userTurnCountRef.current,
+          businessStage,
         }),
       });
 
@@ -378,7 +414,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     }
   }
 
-  const currentQuestion = !done ? QUESTIONS[step - 1] : null;
+  const currentQuestion = !done ? getQuestion(step, businessStage) : null;
   const showChips = currentQuestion && !followupUsed && !busy && !askResume;
   const overLimit = input.length > MAX_FREE_TEXT_LENGTH;
 
@@ -439,7 +475,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
                   key={choice.label}
                   type="button"
                   className={styles.chip}
-                  onClick={() => submitSingleChoice(choice.label, choice.ack, choice.category)}
+                  onClick={() => submitSingleChoice(choice)}
                 >
                   {choice.label}
                 </button>

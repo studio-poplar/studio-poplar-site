@@ -4,8 +4,9 @@ import {
   FALLBACK_ACK,
   MAX_FREE_TEXT_LENGTH,
   MAX_USER_TURNS,
-  QUESTIONS,
   TOTAL_QUESTIONS,
+  getQuestion,
+  type BusinessStage,
 } from "@/lib/hearing-chat";
 import { guardFreeText } from "@/lib/hearing-chat-guard";
 
@@ -41,6 +42,7 @@ type ReflectBody = {
   userAnswer: string;
   alreadyFollowedUp: boolean;
   userTurnCount: number;
+  businessStage?: BusinessStage | null;
 };
 
 const SYSTEM_PROMPT = `あなたはStudio Poplar(WEB制作・アプリ制作・写真動画撮影を手がける小さなデザインスタジオ)のサイトに組み込まれた「AIヒアリング」の聞き手です。
@@ -68,6 +70,8 @@ const SYSTEM_PROMPT = `あなたはStudio Poplar(WEB制作・アプリ制作・�
 避けるべき相槌の例(事務的・カウンセラー的すぎる):
 - 「承知いたしました。」(事務的すぎる)
 - 「そのお気持ち、とてもよく分かります。あなたは一人ではありません。」(重すぎる/カウンセラー的)
+
+相手の回答が過去の経験に対して懐疑的・皮肉・冷めたトーンである場合、過度にポジティブな相槌(「素晴らしいですね」「一緒に頑張りましょう」等)は避け、淡々と落ち着いたトーンで受け止めてください。
 
 必ず次のJSON形式のみで出力してください。他のテキストは一切含めないこと:
 {"reflection": "回答を踏まえた1〜2文の相槌", "needs_followup": true または false, "followup_question": "深掘りが必要な場合のみ1つの質問文。不要な場合は空文字"}`;
@@ -105,6 +109,8 @@ export async function POST(request: NextRequest) {
   }
 
   const { step, userAnswer, alreadyFollowedUp, userTurnCount } = body;
+  const businessStage: BusinessStage | null =
+    body.businessStage === "existing" || body.businessStage === "starting" ? body.businessStage : null;
 
   if (
     typeof step !== "number" ||
@@ -136,7 +142,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ reflection: FALLBACK_ACK, needs_followup: false, followup_question: "" });
   }
 
-  const question = QUESTIONS[step - 1];
+  const question = getQuestion(step, businessStage);
   const userPrompt = `設問: ${question.text}\nユーザーの回答: ${userAnswer}${
     alreadyFollowedUp ? "\n(この設問はすでに一度深掘りしています。needs_followupは必ずfalseにしてください)" : ""
   }`;

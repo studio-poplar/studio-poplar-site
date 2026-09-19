@@ -76,7 +76,7 @@ export default function Hero() {
                   サービスを見る
                 </Link>
               </div>
-              <p className={styles.ctaNote}>所要約2分・匿名でご利用いただけます</p>
+              <p className={styles.ctaNote}>所要約2〜3分・匿名でご利用いただけます</p>
             </motion.div>
           </div>
           <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }} aria-hidden="true">
