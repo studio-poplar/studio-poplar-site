@@ -47,10 +47,10 @@
 }
 
 .head h1 {
-  max-width: 22ch;
-  font-size: clamp(26px, 4.2vw, 46px);
+  font-size: clamp(15px, 4.4vw, 42px);
   font-weight: 900;
   line-height: 1.35;
+  white-space: nowrap;
 }
 
 .preview {
@@ -365,28 +365,81 @@
 .phoneShots {
   display: flex;
   flex-wrap: wrap;
-  gap: 28px;
+  gap: 40px;
 }
 
 .phoneShot {
-  width: min(240px, 100%);
+  width: min(280px, 100%);
 }
 
+/* a phone body around the screenshot: bezel, dynamic island, side buttons */
 .phoneFrame {
-  overflow: hidden;
-  aspect-ratio: 390 / 640;
-  border: 5px solid #12181c;
-  border-radius: 26px;
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgba(28, 26, 23, 0.04), 0 28px 48px -30px rgba(28, 26, 23, 0.5);
+  position: relative;
+  padding: 10px;
+  border-radius: 46px;
+  background-color: #0e1114;
+  box-shadow: inset 0 0 0 1.5px #2b3138, 0 1px 2px rgba(28, 26, 23, 0.08), 0 36px 56px -28px rgba(28, 26, 23, 0.55);
 }
 
-.phoneFrame img {
+.phoneFrame::before,
+.phoneFrame::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background-color: #1b2026;
+}
+
+.phoneFrame::before {
+  right: -3px;
+  top: 128px;
+  height: 66px;
+}
+
+.phoneFrame::after {
+  left: -3px;
+  top: 104px;
+  height: 92px;
+}
+
+.phoneScreen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 36px;
+  background-color: #ffffff;
+}
+
+.phoneScreen::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 1;
+  width: 31%;
+  height: 22px;
+  border-radius: 12px;
+  background-color: #05070a;
+  transform: translateX(-50%);
+}
+
+.phoneScreen::after {
+  content: "";
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  z-index: 1;
+  width: 34%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  mix-blend-mode: difference;
+  transform: translateX(-50%);
+}
+
+.phoneScreen img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
 }
 
 .imageNote {

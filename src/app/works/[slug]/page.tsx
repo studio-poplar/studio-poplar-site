@@ -101,7 +101,12 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
                 {mobileShots.map((shot) => (
                   <figure key={shot.src} className={styles.phoneShot}>
                     <div className={styles.phoneFrame}>
-                      <Image src={shot.src} alt={shot.alt} width={780} height={1688} sizes="240px" />
+                      <div
+                        className={styles.phoneScreen}
+                        style={shot.statusBg ? { backgroundColor: shot.statusBg, paddingTop: 30 } : undefined}
+                      >
+                        <Image src={shot.src} alt={shot.alt} width={780} height={1688} sizes="280px" />
+                      </div>
                     </div>
                     <figcaption>{shot.caption}</figcaption>
                   </figure>

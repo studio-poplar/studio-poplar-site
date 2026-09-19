@@ -27,6 +27,9 @@ export type WorkImage = {
   alt: string;
   device: "desktop" | "mobile";
   caption: string;
+  // Mobile only: top-edge colour of the screenshot. When set, a status-bar strip
+  // in this colour is added above it so the phone's island doesn't cover the header.
+  statusBg?: string;
 };
 
 export type Work = {
@@ -159,6 +162,7 @@ export const works: Work[] = [
         src: "/works/tabigoyomi-coffee/05-mobile.jpg",
         alt: "旅暦珈琲のスマートフォン表示",
         device: "mobile",
+        statusBg: "#120d0a",
         caption: "スマートフォン表示",
       },
     ],
@@ -196,12 +200,14 @@ export const works: Work[] = [
         src: "/works/coco-yoga/01-student-calendar.jpg",
         alt: "COCO YOGA の生徒向けレッスン一覧。講師ごとの列で表示される週間カレンダー",
         device: "mobile",
+        statusBg: "#f5f4f0",
         caption: "生徒：日付を選ぶと、講師ごとの列でレッスンが並ぶ",
       },
       {
         src: "/works/coco-yoga/02-student-detail.jpg",
         alt: "COCO YOGA のレッスン詳細と予約ボタン",
         device: "mobile",
+        statusBg: "#f5f4f0",
         caption: "生徒：レッスン詳細から、ワンタップで予約",
       },
       {
