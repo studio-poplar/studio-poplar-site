@@ -5,10 +5,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   text-align: center;
   position: relative;
-  padding: 160px 24px 80px;
+  padding: 140px 24px 60px;
   overflow: hidden;
 }
 
@@ -16,6 +16,49 @@
   position: relative;
   z-index: 2;
   width: 100%;
+}
+
+.artBg {
+  position: absolute;
+  inset: -15% -10%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.artBlob {
+  position: absolute;
+  border-radius: 100%;
+  filter: blur(70px);
+}
+
+.artBlob1 {
+  width: 46vw;
+  max-width: 480px;
+  aspect-ratio: 1;
+  top: 2%;
+  left: 4%;
+  background: radial-gradient(circle, var(--second) 0%, transparent 72%);
+  opacity: 0.4;
+}
+
+.artBlob2 {
+  width: 40vw;
+  max-width: 420px;
+  aspect-ratio: 1;
+  top: 8%;
+  right: 6%;
+  background: radial-gradient(circle, var(--system) 0%, transparent 72%);
+  opacity: 0.35;
+}
+
+.artBlob3 {
+  width: 34vw;
+  max-width: 360px;
+  aspect-ratio: 1;
+  top: 30%;
+  left: 38%;
+  background: radial-gradient(circle, var(--brand) 0%, transparent 72%);
+  opacity: 0.3;
 }
 
 .ghostTextWrap {
@@ -31,17 +74,17 @@
 .ghostTextTrack {
   display: flex;
   white-space: nowrap;
-  animation: ghostSlide 46s linear infinite;
+  animation: ghostSlide 184s linear infinite;
 }
 
 .ghostText {
-  font-family: var(--font-jp), sans-serif;
+  font-family: var(--font-en), sans-serif;
   font-weight: 900;
   font-size: clamp(110px, 17vw, 240px);
   line-height: 1;
   color: var(--ink);
   opacity: 0.045;
-  padding-right: 0.3em;
+  letter-spacing: 0.01em;
 }
 
 @keyframes ghostSlide {
@@ -99,14 +142,14 @@
   display: inline-block;
   font-family: var(--font-en), sans-serif;
   font-weight: 700;
-  font-size: clamp(34px, 5.6vw, 78px);
+  font-size: clamp(26px, 6.4vw, 78px);
   line-height: 0.98;
   letter-spacing: 0.005em;
+  white-space: nowrap;
   margin-top: 20px;
   color: var(--ink);
   background: var(--panel);
   padding: 14px 22px 20px;
-  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.16s;
 }
@@ -146,7 +189,6 @@
   margin: 28px auto 0;
   background: var(--panel);
   padding: 18px 22px;
-  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.34s;
 }

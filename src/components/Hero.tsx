@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import LeafField from "./LeafField";
 import HearingChatLauncher from "./HearingChat";
 import styles from "./Hero.module.css";
 
@@ -16,7 +15,7 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const leafY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -60]);
+  const bgY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -60]);
   const headY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -140]);
   const headOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const bodyY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -90]);
@@ -27,11 +26,15 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} ref={heroRef}>
-      <LeafField y={leafY} />
+      <motion.div className={styles.artBg} style={{ y: bgY }} aria-hidden="true">
+        <span className={`${styles.artBlob} ${styles.artBlob1}`} />
+        <span className={`${styles.artBlob} ${styles.artBlob2}`} />
+        <span className={`${styles.artBlob} ${styles.artBlob3}`} />
+      </motion.div>
       <div className={styles.ghostTextWrap} aria-hidden="true">
         <div className={styles.ghostTextTrack}>
-          <span className={styles.ghostText}>STUDIO POPLAR ー 伝えたいことを、伝わる形に。 ー </span>
-          <span className={styles.ghostText}>STUDIO POPLAR ー 伝えたいことを、伝わる形に。 ー </span>
+          <span className={`en ${styles.ghostText}`}>WEB — APP — PHOTO — DESIGN — IDEA — STUDIO — </span>
+          <span className={`en ${styles.ghostText}`}>WEB — APP — PHOTO — DESIGN — IDEA — STUDIO — </span>
         </div>
       </div>
       <div className={`wrap ${styles.inner}`}>
