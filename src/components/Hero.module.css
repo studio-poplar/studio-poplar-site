@@ -244,11 +244,53 @@
 
   .facts {
     margin: 22px 0 0;
-    gap: 10px;
+    gap: 8px;
   }
 
   .ctas {
     margin-top: 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .facts {
+    flex-wrap: nowrap;
+  }
+
+  .facts li {
+    flex: 1;
+    padding: 8px 4px;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  .factLabel {
+    font-size: 9px;
+    white-space: nowrap;
+  }
+
+  .price {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .ctas {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .ctas :global(.btn-primary),
+  .ctas :global(.btn-ghost) {
+    flex: 1 1 0;
+    justify-content: center;
+    gap: 5px;
+    padding: 13px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .ctas :global(.btn-arrow) {
+    display: none;
   }
 }
 
@@ -310,15 +352,15 @@
   height: 100%;
   border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(160deg, var(--panel-soft) 0%, var(--panel) 55%, var(--brand-soft) 130%);
+  background: linear-gradient(150deg, #0b1420 0%, #123244 42%, #146a72 78%, #2fa8b8 100%);
   border: 1px solid var(--border-strong);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  color: var(--ink-faint);
-  box-shadow: 0 30px 60px -30px rgba(28, 26, 23, 0.25);
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 30px 60px -30px rgba(10, 20, 30, 0.55);
 }
 
 .playIcon {
@@ -329,7 +371,8 @@
 .mediaLabel {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .scrollcue {
