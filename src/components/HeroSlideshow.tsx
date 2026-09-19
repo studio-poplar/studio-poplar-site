@@ -1,58 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { HERO_SLIDES as SLIDES, type HeroSlide } from "@/data/heroSlides";
 import styles from "./HeroSlideshow.module.css";
 
-type Slide = {
-  key: string;
-  tag: string;
-  title: string;
-  text: string;
-  href: string;
-  cta: string;
-  // Optional photo: when set it sits under the gradient, so real images can be
-  // dropped in later without touching the layout.
-  image?: string;
-};
-
-const SLIDES: Slide[] = [
-  {
-    key: "web",
-    tag: "WEB",
-    title: "伝わる“顔”を、つくる。",
-    text: "ヒアリングから、事業の顔になるサイトを設計・制作します。",
-    href: "/service",
-    cta: "WEB制作を見る",
-  },
-  {
-    key: "app",
-    tag: "APP",
-    title: "日々の運用を、支える。",
-    text: "予約や会員管理など、運用の負担を減らす仕組みをつくります。",
-    href: "/service",
-    cta: "アプリ制作を見る",
-  },
-  {
-    key: "photo",
-    tag: "PHOTO & VIDEO",
-    title: "雰囲気ごと、残す。",
-    text: "言葉だけでは伝わらない空気を、写真と映像で形にします。",
-    href: "/service",
-    cta: "撮影プランを見る",
-  },
-  {
-    key: "drone",
-    tag: "DRONE",
-    title: "空からの視点を、味方に。",
-    text: "上空からの映像で、場所や空間の魅力を伝えます。",
-    href: "/service/drone",
-    cta: "ドローン撮影を見る",
-  },
-];
-
 const INTERVAL_MS = 5500;
+
+function SlideVideo({ video, active, autoPlay }: { video: NonNullable<HeroSlide["video"]>; active: boolean; autoPlay: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (active && autoPlay) el.play().catch(() => {});
+    else el.pause();
+  }, [active, autoPlay]);
+
+  return <video ref={ref} className={styles.photo} src={video.src} poster={video.poster} muted loop playsInline preload="metadata" aria-hidden="true" />;
+}
 
 export default function HeroSlideshow({ autoPlay }: { autoPlay: boolean }) {
   const [index, setIndex] = useState(0);
@@ -88,6 +55,7 @@ export default function HeroSlideshow({ autoPlay }: { autoPlay: boolean }) {
             aria-hidden={!active}
             inert={!active}
           >
+            {slide.video && <SlideVideo video={slide.video} active={active} autoPlay={autoPlay} />}
             {slide.image && <Image src={slide.image} alt="" fill sizes="(min-width: 900px) 45vw, 100vw" className={styles.photo} priority={i === 0} />}
             <span className={`en ${styles.ghost}`} aria-hidden="true">
               {slide.tag.split(" ")[0]}
