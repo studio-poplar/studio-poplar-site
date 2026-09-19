@@ -9,12 +9,12 @@ type TargetCardProps = {
   who: string;
   voice: string;
   approach: string;
-  entries: { label: string; price: string }[];
+  services: string[];
   accent: string;
   revealDelay?: number;
 };
 
-export default function TargetCard({ tag, who, voice, approach, entries, accent, revealDelay = 0 }: TargetCardProps) {
+export default function TargetCard({ tag, who, voice, approach, services, accent, revealDelay = 0 }: TargetCardProps) {
   const ref = useCard<HTMLDivElement>(revealDelay);
 
   return (
@@ -31,11 +31,10 @@ export default function TargetCard({ tag, who, voice, approach, entries, accent,
         <p className={styles.approach}>{approach}</p>
       </div>
 
-      <ul className={styles.entries}>
-        {entries.map((entry) => (
-          <li key={entry.label}>
-            <span className={`en ${styles.entryLabel}`}>{entry.label}</span>
-            <span className={styles.entryPrice}>{entry.price}</span>
+      <ul className={styles.services}>
+        {services.map((service) => (
+          <li key={service} className={`en ${styles.service}`}>
+            {service}
           </li>
         ))}
       </ul>

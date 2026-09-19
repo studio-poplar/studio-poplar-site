@@ -85,32 +85,35 @@
   color: var(--ink-soft);
 }
 
-.entries {
+.services {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
   margin-top: 22px;
 }
 
-.entries li {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  background: var(--panel-soft);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 12px;
+/* same pill as the service-card tags used across the site */
+.service {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  padding: 5px 16px;
 }
 
-.entryLabel {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--ink-faint);
-}
+@media (max-width: 420px) {
+  .services {
+    gap: 6px;
+  }
 
-.entryPrice {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--ink);
+  .service {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 5px 11px;
+  }
 }
