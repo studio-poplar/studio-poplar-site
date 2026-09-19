@@ -58,7 +58,8 @@
   z-index: 1;
   width: 100%;
   max-width: 520px;
-  max-height: 88vh;
+  max-height: 92vh;
+  max-height: 92dvh;
   background: var(--bg);
   border-radius: 16px 16px 0 0;
   box-shadow: 0 30px 80px -30px rgba(28, 26, 23, 0.45);
@@ -292,6 +293,18 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 12px, cover;
+}
+
+@media (max-width: 639px) {
+  .chips {
+    gap: 6px;
+  }
+
+  .chip {
+    min-height: 46px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
 }
 
 .chipOther {

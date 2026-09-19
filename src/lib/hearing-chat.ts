@@ -38,8 +38,8 @@ export const STAGE_QUESTION: Question = {
   label: "事業ステージ",
   text: "今の事業の状況を教えてください",
   choices: [
-    { label: "すでに事業をしている", ack: "なるほど、すでに動かれているんですね。", stage: "existing" },
-    { label: "これから始める・準備中", ack: "これから始めるところなんですね、いいタイミングですね。", stage: "starting" },
+    { label: "すでに事業をしている", ack: "素敵ですね！あなたの事業についてもう少し聞かせてください。", stage: "existing" },
+    { label: "これから始める・準備中", ack: "とてもいいタイミングですね！", stage: "starting" },
   ],
 };
 
@@ -62,17 +62,17 @@ const STAGED_QUESTIONS: readonly StagedQuestion[] = [
       choices: [
         { label: "新規のお客様が増えない", ack: "集客の壁、多くの方が直面するところですよね。" },
         { label: "価格や見積もりの説明で苦労する", ack: "価格の伝え方、悩ましいポイントですよね。" },
-        { label: "サイトや資料が今の事業に合っていない", ack: "事業の成長にサイトが追いついていないこと、よくありますよね。" },
-        { label: "何から手をつければいいか分からない", ack: "優先順位が見えにくい状態、整理していきましょう。" },
+        { label: "サイトや資料が今の事業に合っていない", ack: "事業の変化に合わせて、サイトも見直すタイミングかもしれませんね！" },
+        { label: "何から手をつければいいか分からない", ack: "優先順位が見えにくい状態、一緒に整理していきましょう！" },
       ],
     },
     starting: {
       label: "課題の入口",
       text: "これから事業を始めるにあたって、一番ネックになっていることは何ですか?",
       choices: [
-        { label: "何から準備すればいいか分からない", ack: "最初の一歩、悩む方は多いですよ。" },
-        { label: "お客様にどう見せればいいか分からない", ack: "見せ方のイメージ、これから固めていきましょう。" },
-        { label: "まだ何も用意できていない(サイト・資料等)", ack: "ゼロからのスタート、一緒に整理していきましょう。" },
+        { label: "何から準備すればいいか分からない", ack: "最初の一歩、誰もが悩むところですよね！" },
+        { label: "お客様にどう見せればいいか分からない", ack: "見せ方のイメージ、これから固めていきましょう！" },
+        { label: "まだ何も用意できていない(サイト・資料等)", ack: "ゼロからのスタート、一緒に整理していきましょう！" },
         { label: "誰に相談すればいいか分からなかった", ack: "相談先が見えないと、動きづらいですよね。" },
       ],
     },
@@ -83,10 +83,10 @@ const STAGED_QUESTIONS: readonly StagedQuestion[] = [
       label: "具体化",
       text: "その課題は、具体的にどんな場面で表れますか?",
       choices: [
-        { label: "問い合わせ・成約につながらない", ack: "反応はあっても成約に至らないの、もったいないですよね。" },
+        { label: "問い合わせ・成約につながらない", ack: "反応はあっても成約に至らないの、なんとしても改善したいですね。" },
         { label: "価格交渉で安く見られてしまう", ack: "価値に見合った評価をされていないの、悔しいですよね。" },
-        { label: "他社と比較されて選ばれない", ack: "比較の土俵に乗った時点で不利になっている感じ、ありますよね。" },
-        { label: "そもそも認知されていない", ack: "知られていないことには始まらないですよね。" },
+        { label: "他社と比較されて選ばれない", ack: "強みがしっかり伝われば、今以上に魅力を感じてもらえそうですね！" },
+        { label: "そもそも認知されていない", ack: "まずは認知の部分を強化できると、次の成果にもつながりそうですね！" },
       ],
     },
     starting: {
@@ -174,7 +174,7 @@ const STAGED_QUESTIONS: readonly StagedQuestion[] = [
 // Q6: ニーズの特定 — shared by both stages.
 const NEEDS_QUESTION: Question = {
   label: "ニーズの特定",
-  text: "そこに近づくために、今一番手をつけたいのはどんなことですか?複数選んでいただいても構いません。",
+  text: "そこに近づくために、今一番手をつけたいのはどんなことですか?（複数選択可）",
   multiSelect: true,
   choices: [
     { label: "サイトのこと", ack: "サイトから見直したいんですね、よく分かりました。", category: "WEB" },
@@ -230,22 +230,12 @@ export function buildContactMessage(answers: readonly HearingAnswer[]): string {
   const body = answers
     .map((a, i) => `Q${i + 1}. ${a.question}\n→ ${a.label ?? a.freeText ?? ""}`)
     .join("\n\n");
-  return `AIヒアリングを完了しました。詳しいお打ち合わせをお願いします。\n\n【AIヒアリングの回答内容】\n\n${body}\n\n${CONTACT_DETAIL_PROMPT}\n`;
+  return `AIヒアリングを完了しました。\n\n【AIヒアリングの回答内容】\n\n${body}\n\n${CONTACT_DETAIL_PROMPT}\n`;
 }
 
-// Value of the contact form's category select, or null when the answers don't
-// point at exactly one (the visitor then picks it themselves — it's required).
-export function contactCategoryFor(answers: readonly HearingAnswer[]): string | null {
-  const picked = new Set(answers.flatMap((a) => a.categories ?? []));
-  if (picked.size === 1) {
-    const only = [...picked][0];
-    if (only === "WEB") return "web";
-    if (only === "APP") return "app";
-    if (only === "PHOTO_VIDEO") return "photo-video";
-    return "other";
-  }
-  return null;
-}
+// Chat answers always arrive on the contact form as "other" (その他のご相談);
+// the visitor can still change it, since the select is required either way.
+export const CONTACT_CATEGORY_FROM_CHAT = "other";
 
 export const CLOSING_MESSAGE =
   "ありがとうございます。悩みの根っこと、目指したい未来、かなり見えてきました。ここから先——それをどう形にするかは、正直、対話でしか見えてこない領域です。ここまでの内容はそのまま伊藤に共有しておくので、次は直接お話ししながら一緒に形にしていきましょう。";

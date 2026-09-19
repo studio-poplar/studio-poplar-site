@@ -10,12 +10,12 @@ import {
   INTRO_MESSAGE,
   MAX_FREE_TEXT_LENGTH,
   PRIVACY_NOTICE,
+  CONTACT_CATEGORY_FROM_CHAT,
   CONTACT_PREFILL_KEY,
   STAGE_QUESTION,
   TOTAL_QUESTIONS,
   buildContactMessage,
   classifyStage,
-  contactCategoryFor,
   getQuestion,
   multiChoiceAck,
   FALLBACK_ACK,
@@ -178,8 +178,20 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     };
   }, []);
 
+  // A new question is brought to the top of the list so it can be read in full
+  // (the choices sit below it); a visitor's own message or the typing dots
+  // scroll to the bottom instead.
   useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
+    const list = listRef.current;
+    if (!list) return;
+    const last = list.querySelector<HTMLElement>("[data-last-message=true]");
+    const lastIsQuestion = messages.length > 2 && messages[messages.length - 1].role === "assistant" && !busy;
+    if (lastIsQuestion && last) {
+      const offset = last.getBoundingClientRect().top - list.getBoundingClientRect().top;
+      list.scrollTo({ top: Math.max(list.scrollTop + offset - 8, 0), behavior: "smooth" });
+    } else if (messages.length > 2 || busy) {
+      list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+    }
   }, [messages, busy]);
 
   const latestRef = useRef({ messages, step, businessStage, followupUsed, done, askResume });
@@ -262,8 +274,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     } catch {
       // ignore — the form just opens without the pre-filled answers
     }
-    const category = contactCategoryFor(answersRef.current);
-    setContactHref(`/contact?from=chat${category ? `&category=${category}` : ""}`);
+    setContactHref(`/contact?from=chat&category=${CONTACT_CATEGORY_FROM_CHAT}`);
 
     const payload = { answers: answersRef.current, transcript };
     const ok = await sendNotify(payload);
@@ -461,8 +472,12 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
         <p className={styles.privacy}>{PRIVACY_NOTICE}</p>
 
         <div className={styles.list} ref={listRef}>
-          {messages.map((m) => (
-            <div key={m.id} className={`${styles.bubble} ${m.role === "user" ? styles.bubbleUser : styles.bubbleAi}`}>
+          {messages.map((m, i) => (
+            <div
+              key={m.id}
+              data-last-message={i === messages.length - 1}
+              className={`${styles.bubble} ${m.role === "user" ? styles.bubbleUser : styles.bubbleAi}`}
+            >
               {m.content}
             </div>
           ))}
@@ -542,7 +557,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
               className="btn-primary"
               onClick={() => trackEvent("hearing_chat_to_contact")}
             >
-              打ち合わせに進む<span className="btn-arrow">→</span>
+              お問い合わせに反映する<span className="btn-arrow">→</span>
             </Link>
           </div>
         ) : (
