@@ -237,8 +237,11 @@ export function buildContactMessage(answers: readonly HearingAnswer[]): string {
 // the visitor can still change it, since the select is required either way.
 export const CONTACT_CATEGORY_FROM_CHAT = "other";
 
-export const CLOSING_MESSAGE =
-  "ありがとうございます。悩みの根っこと、目指したい未来、かなり見えてきました。ここから先——それをどう形にするかは、正直、対話でしか見えてこない領域です。ここまでの内容はそのまま伊藤に共有しておくので、次は直接お話ししながら一緒に形にしていきましょう。";
+export const CLOSING_MESSAGE = [
+  "ありがとうございます。抱えている悩みの本質や、実現したい未来のイメージが少しずつ見えてきました。",
+  "ここからは、今回お聞かせいただいた内容を出発点に、「どんな事業にしていくのか」「どんな形が合っているのか」を一緒に考えていければと思っています。",
+  "今回お聞かせいただいた内容をもとに、事業の方向性について擦り合わせができればと思います。ご都合が合いましたら、無料のお打ち合わせにて詳しくお聞かせください。",
+].join("\n\n");
 
 export const PRIVACY_NOTICE = "入力内容は、お問い合わせフォームに反映されます。";
 
