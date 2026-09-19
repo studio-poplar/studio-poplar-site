@@ -51,124 +51,142 @@
 }
 
 .flow {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  filter: drop-shadow(0 14px 24px rgba(28, 26, 23, 0.16));
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
 }
 
 @media (min-width: 860px) {
   .flow {
-    flex-direction: row;
-    gap: 0;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
   }
 }
 
 .flow li {
   position: relative;
-  flex: 1;
-  background: linear-gradient(155deg, #5c6656 0%, #3e4536 100%);
-  color: var(--bg);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 10px;
-  padding: 28px 28px 40px;
-  min-height: 130px;
-  overflow: hidden;
+  padding: 28px 22px 26px;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background-color: #ffffff;
+  background-image: radial-gradient(90% 40% at 100% 0%, rgba(47, 168, 184, 0.08), transparent 70%);
+  box-shadow: 0 1px 2px rgba(28, 26, 23, 0.04), 0 28px 48px -30px rgba(28, 26, 23, 0.28);
 }
 
 .flow li::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: linear-gradient(90deg, rgba(250, 249, 246, 0.06) 1px, transparent 1px),
-    linear-gradient(rgba(250, 249, 246, 0.06) 1px, transparent 1px);
-  background-size: 14px 14px;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 3px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, #bfd4ac 0%, #4fa896 55%, #2fa8b8 100%);
   pointer-events: none;
 }
 
-.flowGhost {
-  position: absolute;
-  top: -0.1em;
-  right: 14px;
-  font-family: var(--font-en), sans-serif;
-  font-size: 52px;
-  font-weight: 700;
-  color: rgba(250, 249, 246, 0.08);
-  line-height: 1;
-  pointer-events: none;
-}
-
-@media (min-width: 860px) {
-  .flowGhost {
-    right: 34px;
-  }
-}
-
-.flowIcon {
-  position: relative;
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  border: 1px solid rgba(250, 249, 246, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #d9ab8c;
-}
-
-.flowIcon svg {
-  width: 13px;
-  height: 13px;
-}
-
-@media (min-width: 860px) {
-  .flow li {
-    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%, 26px 50%);
-    margin-left: -22px;
-    padding: 32px 34px 32px 50px;
-  }
-
-  .flow li:first-child {
-    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%);
-    margin-left: 0;
-    padding-left: 32px;
-  }
-}
-
+/* connector arrow between steps: down on phones, right on desktop */
 .flow li:not(:last-child)::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 12px;
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid rgba(250, 249, 246, 0.5);
-  border-bottom: 2px solid rgba(250, 249, 246, 0.5);
+  bottom: -23px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #4fa896;
+  border-bottom: 2px solid #4fa896;
   transform: translateX(-50%) rotate(45deg);
 }
 
 @media (min-width: 860px) {
   .flow li:not(:last-child)::after {
-    display: none;
+    left: auto;
+    right: -17px;
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
   }
 }
 
+/* final step: dark panel, same treatment as the quote result */
+.flow li:last-child {
+  border-color: rgba(255, 255, 255, 0.06);
+  background-color: #12181c;
+  background-image: radial-gradient(90% 130% at 100% 0%, rgba(47, 168, 184, 0.38), transparent 58%),
+    radial-gradient(70% 110% at 0% 100%, rgba(124, 136, 115, 0.3), transparent 62%);
+}
+
+.flowGhost {
+  position: absolute;
+  top: 6px;
+  right: 16px;
+  font-family: var(--font-en), sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(28, 26, 23, 0.05);
+  pointer-events: none;
+}
+
+.flow li:last-child .flowGhost {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+.flowIcon {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid transparent;
+  border-radius: 100%;
+  background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(135deg, #bfd4ac, #4fa896) border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1f7f8c;
+  margin-bottom: 6px;
+}
+
+.flow li:last-child .flowIcon {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #8fe0c9;
+}
+
+.flowIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
 .flowNum {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--bg);
-  text-shadow: 0 1px 3px rgba(28, 26, 23, 0.3);
+  font-variant-numeric: tabular-nums;
+  color: #1f7f8c;
+  background: linear-gradient(120deg, #1f7f8c 20%, #4fa896 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.flow li:last-child .flowNum {
+  background: linear-gradient(120deg, #ffffff 35%, #a8e6ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .flowText {
   font-size: 14.5px;
   font-weight: 700;
-  line-height: 1.6;
-  color: var(--bg);
-  text-shadow: 0 1px 3px rgba(28, 26, 23, 0.3);
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.flow li:last-child .flowText {
+  color: #ffffff;
 }
 
 .faq {
