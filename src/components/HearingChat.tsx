@@ -440,14 +440,11 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
   const overLimit = input.length > MAX_FREE_TEXT_LENGTH;
 
   return createPortal(
-    <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="AIヒアリングチャット">
+    <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="チャットで相談する">
       <button type="button" className={styles.backdrop} aria-label="閉じる" onClick={handleClose} />
       <div className={styles.panel}>
         <div className={styles.header}>
-          <div>
-            <span className={`en ${styles.headerLabel}`}>AI HEARING</span>
-            <span className={styles.headerTitle}>AIヒアリング</span>
-          </div>
+          <span className={styles.headerTitle}>チャットで相談する</span>
           <button type="button" className={styles.close} onClick={handleClose} aria-label="閉じる">
             ✕
           </button>
@@ -477,52 +474,52 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
               <span />
             </div>
           )}
-        </div>
-
-        {showChips && currentQuestion && (
-          <div className={styles.chips}>
-            {currentQuestion.choices.map((choice) =>
-              currentQuestion.multiSelect ? (
-                <button
-                  key={choice.label}
-                  type="button"
-                  className={`${styles.chip} ${multiSelected.has(choice.label) ? styles.chipSelected : ""}`}
-                  onClick={() => toggleMultiSelect(choice.label)}
-                >
-                  {choice.label}
-                </button>
-              ) : (
-                <button
-                  key={choice.label}
-                  type="button"
-                  className={styles.chip}
-                  onClick={() => submitSingleChoice(choice)}
-                >
-                  {choice.label}
-                </button>
-              )
-            )}
-            <button type="button" className={`${styles.chip} ${styles.chipOther}`} onClick={() => formRef.current?.querySelector("textarea")?.focus()}>
-              その他(自由に書く)
-            </button>
-            {currentQuestion.multiSelect && (
-              <button type="button" className={styles.chipConfirm} disabled={multiSelected.size === 0} onClick={submitMultiSelect}>
-                この内容で次へ
+          {showChips && currentQuestion && (
+            <div className={styles.chips}>
+              {currentQuestion.choices.map((choice) =>
+                currentQuestion.multiSelect ? (
+                  <button
+                    key={choice.label}
+                    type="button"
+                    className={`${styles.chip} ${styles.chipMulti} ${multiSelected.has(choice.label) ? styles.chipSelected : ""}`}
+                    aria-pressed={multiSelected.has(choice.label)}
+                    onClick={() => toggleMultiSelect(choice.label)}
+                  >
+                    {choice.label}
+                  </button>
+                ) : (
+                  <button
+                    key={choice.label}
+                    type="button"
+                    className={styles.chip}
+                    onClick={() => submitSingleChoice(choice)}
+                  >
+                    {choice.label}
+                  </button>
+                )
+              )}
+              <button type="button" className={`${styles.chip} ${styles.chipOther}`} onClick={() => formRef.current?.querySelector("textarea")?.focus()}>
+                その他(自由に書く)
               </button>
-            )}
-          </div>
-        )}
+              {currentQuestion.multiSelect && (
+                <button type="button" className={styles.chipConfirm} disabled={multiSelected.size === 0} onClick={submitMultiSelect}>
+                  この内容で次へ
+                </button>
+              )}
+            </div>
+          )}
 
-        {askResume && (
-          <div className={styles.chips}>
-            <button type="button" className={styles.chipConfirm} onClick={handleResume}>
-              続きから
-            </button>
-            <button type="button" className={styles.chip} onClick={handleRestart}>
-              最初からやり直す
-            </button>
-          </div>
-        )}
+          {askResume && (
+            <div className={styles.chips}>
+              <button type="button" className={styles.chipConfirm} onClick={handleResume}>
+                続きから
+              </button>
+              <button type="button" className={styles.chip} onClick={handleRestart}>
+                最初からやり直す
+              </button>
+            </div>
+          )}
+        </div>
 
         {error && (
           <p className={styles.error} role="status">

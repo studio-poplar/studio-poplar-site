@@ -28,9 +28,10 @@ export type Question = {
   multiSelect?: boolean;
 };
 
-export const EXPECTATION_NOTICE = "所要時間の目安は約2〜3分です。途中でやめても大丈夫なので、気軽にお話しください。";
+export const EXPECTATION_NOTICE = "所要時間の目安は約2〜3分です。途中で中断しても続きから回答できます。";
 
-export const INTRO_MESSAGE = `はじめまして。ここでは肩の力を抜いて、思っていることをそのまま話してください。うまく整理できていなくても大丈夫です。${EXPECTATION_NOTICE}`;
+export const INTRO_MESSAGE =
+  "ここでは、あなたの事業について教えてください。どんな小さなことでも大丈夫です。今感じている課題や悩み、考えていることを気軽にお聞かせください。";
 
 // Step 1 — routing question; its answer selects the wording of steps 2-6.
 export const STAGE_QUESTION: Question = {
@@ -249,7 +250,7 @@ export function contactCategoryFor(answers: readonly HearingAnswer[]): string | 
 export const CLOSING_MESSAGE =
   "ありがとうございます。悩みの根っこと、目指したい未来、かなり見えてきました。ここから先——それをどう形にするかは、正直、対話でしか見えてこない領域です。ここまでの内容はそのまま伊藤に共有しておくので、次は直接お話ししながら一緒に形にしていきましょう。";
 
-export const PRIVACY_NOTICE = "入力内容は、代表・伊藤への連絡のためだけに使用します。";
+export const PRIVACY_NOTICE = "入力内容は、お問い合わせフォームに反映されます。";
 
 // A session may spend at most one extra follow-up turn per question before the
 // server forces progression to the next fixed question.
