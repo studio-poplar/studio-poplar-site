@@ -6,7 +6,7 @@ const ROWS: { label: string; body: React.ReactNode }[] = [
   { label: "代表者", body: "伊藤 大起（Ito Daiki）" },
   { label: "事業形態", body: "個人事業" },
   { label: "開業日", body: "2026年9月7日" },
-  { label: "所在地", body: "東京都府中市新町3-30-13" },
+  { label: "拠点", body: "神奈川県横浜市" },
   {
     label: "事業内容",
     body: (
