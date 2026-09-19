@@ -395,3 +395,47 @@
     top: 100%;
   }
 }
+
+/* Desktop: fit the whole hero (through the chat CTA and its note) into the first
+   screen. Spacing shrinks with the window height; the scroll cue moves to the
+   bottom edge instead of taking its own row. */
+@media (min-width: 1000px) {
+  .hero {
+    min-height: 100svh;
+    padding: clamp(100px, 13vh, 140px) 24px 84px;
+  }
+
+  .title {
+    margin-top: clamp(10px, 2vh, 20px);
+  }
+
+  .subtitle {
+    margin-top: clamp(12px, 2.2vh, 22px);
+  }
+
+  .lead {
+    margin-top: clamp(14px, 2.6vh, 28px);
+    padding: 14px 22px;
+  }
+
+  .facts {
+    margin-top: clamp(14px, 2.6vh, 28px);
+  }
+
+  .ctas {
+    margin-top: clamp(16px, 3vh, 32px);
+  }
+
+  .ctaNote {
+    margin-top: 10px;
+  }
+
+  .scrollcue {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
