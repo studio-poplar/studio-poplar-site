@@ -369,7 +369,7 @@
 }
 
 .phoneShot {
-  width: min(280px, 100%);
+  width: min(220px, 100%);
 }
 
 /* a phone body around the screenshot: bezel, dynamic island, side buttons */

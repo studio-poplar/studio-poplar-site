@@ -48,7 +48,7 @@ export type Work = {
   url?: string;
   // Real screenshots. `cover` (one or two images of the same device) replaces
   // the generated thumbnail; `images` fill the SCREENS gallery on the detail page.
-  cover?: { device: "desktop" | "mobile"; srcs: string[] };
+  cover?: { device: "desktop" | "mobile"; srcs: string[]; bg?: string };
   images?: WorkImage[];
   imageNote?: string;
 };
@@ -194,8 +194,18 @@ export const works: Work[] = [
         body: "生徒向けのマイページ・レッスン一覧・予約と、スタッフ向けのダッシュボード・スケジュール・出欠管理・プラン管理までを実装。直近30日でキャンセルが重なった生徒をダッシュボードで知らせる、継続率を意識した機能も備えています。",
       },
     ],
-    cover: { device: "mobile", srcs: ["/works/coco-yoga/01-student-home.jpg", "/works/coco-yoga/02-student-lessons.jpg"] },
+    cover: {
+      device: "mobile",
+      srcs: ["/works/coco-yoga/01-student-home.jpg", "/works/coco-yoga/02-student-lessons.jpg"],
+      bg: "/works/coco-yoga/hp-hero.jpg",
+    },
     images: [
+      {
+        src: "/works/coco-yoga/hp-hero.jpg",
+        alt: "COCO YOGA の公式サイト。「整える習慣が、明日の自分をつくる。」の見出し",
+        device: "desktop",
+        caption: "公式サイト：静かな余白で、教室の空気を伝える",
+      },
       {
         src: "/works/coco-yoga/01-student-home.jpg",
         alt: "COCO YOGA の生徒向けホーム画面。次のレッスンと、この先の予定が並ぶ",

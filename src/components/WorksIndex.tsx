@@ -91,7 +91,9 @@ export default function WorksIndex({ works }: { works: Work[] }) {
             <small>{c !== "all" && soon.includes(c) ? "SOON" : countOf(c)}</small>
           </button>
         ))}
-        <span className={styles.legend}>CLIENT = 実案件 / DEMO = 制作デモ / MOCK = 自主制作</span>
+        {works.some((w) => w.type !== "client") && (
+          <span className={styles.legend}>MOCK WORK ＝ 自主制作（架空の案件）/ DEMO WORK ＝ 制作デモ</span>
+        )}
       </div>
 
       {featured && <FeaturedWork work={featured} />}

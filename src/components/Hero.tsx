@@ -76,7 +76,7 @@ export default function Hero() {
               </div>
             </motion.div>
             <motion.div className={styles.noteBlock} style={{ y: bodyY, opacity: bodyOpacity }}>
-              <p className={styles.ctaNote}>所要約2〜3分・匿名でご利用いただけます</p>
+              <p className={styles.ctaNote}>チャットに答えるだけ。所要時間は約2〜3分です。</p>
             </motion.div>
           </div>
           <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }}>
@@ -84,7 +84,7 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
-      <motion.div style={{ opacity: cueOpacity }}>
+      <motion.div className={styles.cueWrap} style={{ opacity: cueOpacity }}>
         <div className={styles.scrollcue}>
           <span>SCROLL</span>
           <span className={styles.line} />

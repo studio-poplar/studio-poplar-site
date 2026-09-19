@@ -7,7 +7,7 @@ export default function WorkThumb({ work, showBadge = true }: { work: Work; show
   const cover = work.cover;
 
   return (
-    <div className={styles.thumb} data-category={work.category} data-cover={cover?.device}>
+    <div className={styles.thumb} data-category={work.category} data-cover={cover?.device} data-bg={cover?.bg ? "true" : undefined}>
       {cover?.device === "desktop" && (
         <Image
           src={cover.srcs[0]}
@@ -20,9 +20,13 @@ export default function WorkThumb({ work, showBadge = true }: { work: Work; show
       )}
       {cover?.device === "mobile" && (
         <>
-          <span className={`en ${styles.ghost}`} aria-hidden="true">
-            {work.thumbLabel.split(" ")[0]}
-          </span>
+          {cover.bg ? (
+            <Image src={cover.bg} alt="" fill sizes="(min-width: 900px) 640px, 100vw" className={styles.shot} aria-hidden="true" />
+          ) : (
+            <span className={`en ${styles.ghost}`} aria-hidden="true">
+              {work.thumbLabel.split(" ")[0]}
+            </span>
+          )}
           <div className={styles.phones} aria-hidden="true">
             {cover.srcs.map((src) => (
               <div key={src} className={styles.phone}>
@@ -46,8 +50,7 @@ export default function WorkThumb({ work, showBadge = true }: { work: Work; show
           {work.thumbLabel.split(" ")[0]}
         </span>
       )}
-      {work.url && <span className={`en ${styles.live}`}>LIVE</span>}
-      {showBadge && (
+      {showBadge && work.type !== "client" && (
         <span className={`en ${styles.badge}`} data-type={work.type}>
           {WORK_TYPE_LABELS[work.type]}
         </span>
