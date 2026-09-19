@@ -45,8 +45,8 @@ export default function DroneQuoteCalculator() {
     } else {
       lines.push(`概算金額: ${formatYen(total)}〜${isCustomZone ? "（＋エリア交通費は別途お見積り）" : ""}`);
     }
-    lines.push("", "上記内容でご相談したいです。");
-    return `/contact?${new URLSearchParams({ message: lines.join("\n") }).toString()}`;
+    lines.push("", "【以下に詳細をご記入ください】", "");
+    return `/contact?${new URLSearchParams({ category: "photo-video", message: lines.join("\n") }).toString()}`;
   }, [plan, zone, selectedAddons, isCustomPlan, isCustomZone, total]);
 
   return (

@@ -25,9 +25,10 @@ export default function PhotoVideoQuoteCalculator() {
       `セット割引: ${setDiscount ? "適用（WEB制作・アプリ制作をご契約）" : "なし"}`,
       `概算金額: ${formatYen(total)}`,
       "",
-      "上記内容でご相談したいです。",
+      "【以下に詳細をご記入ください】",
+      "",
     ];
-    return `/contact?${new URLSearchParams({ message: lines.join("\n") }).toString()}`;
+    return `/contact?${new URLSearchParams({ category: "photo-video", message: lines.join("\n") }).toString()}`;
   }, [tier, setDiscount, total]);
 
   return (

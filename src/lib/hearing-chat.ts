@@ -209,6 +209,43 @@ export function multiChoiceAck(categories: readonly Category[]): string {
   return MULTI_ACKS[[...categories].sort().join("+")] ?? MULTI_ACK_FALLBACK;
 }
 
+// ---- Hand-off to the contact form ----
+// The chat's answers can be long (up to 300 chars x 7, and Japanese is 9 bytes
+// per char once URL-encoded), so they travel via sessionStorage rather than the
+// query string; the URL only carries `from=chat` and the inquiry category.
+
+export const CONTACT_PREFILL_KEY = "hearing-chat-contact-prefill";
+
+export const CONTACT_DETAIL_PROMPT = "【以下に詳細をご記入ください】";
+
+export type HearingAnswer = {
+  question: string;
+  label: string | null;
+  freeText: string | null;
+  categories?: Category[];
+};
+
+export function buildContactMessage(answers: readonly HearingAnswer[]): string {
+  const body = answers
+    .map((a, i) => `Q${i + 1}. ${a.question}\n→ ${a.label ?? a.freeText ?? ""}`)
+    .join("\n\n");
+  return `AIヒアリングを完了しました。詳しいお打ち合わせをお願いします。\n\n【AIヒアリングの回答内容】\n\n${body}\n\n${CONTACT_DETAIL_PROMPT}\n`;
+}
+
+// Value of the contact form's category select, or null when the answers don't
+// point at exactly one (the visitor then picks it themselves — it's required).
+export function contactCategoryFor(answers: readonly HearingAnswer[]): string | null {
+  const picked = new Set(answers.flatMap((a) => a.categories ?? []));
+  if (picked.size === 1) {
+    const only = [...picked][0];
+    if (only === "WEB") return "web";
+    if (only === "APP") return "app";
+    if (only === "PHOTO_VIDEO") return "photo-video";
+    return "other";
+  }
+  return null;
+}
+
 export const CLOSING_MESSAGE =
   "ありがとうございます。悩みの根っこと、目指したい未来、かなり見えてきました。ここから先——それをどう形にするかは、正直、対話でしか見えてこない領域です。ここまでの内容はそのまま伊藤に共有しておくので、次は直接お話ししながら一緒に形にしていきましょう。";
 

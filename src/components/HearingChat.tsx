@@ -10,9 +10,12 @@ import {
   INTRO_MESSAGE,
   MAX_FREE_TEXT_LENGTH,
   PRIVACY_NOTICE,
+  CONTACT_PREFILL_KEY,
   STAGE_QUESTION,
   TOTAL_QUESTIONS,
+  buildContactMessage,
   classifyStage,
+  contactCategoryFor,
   getQuestion,
   multiChoiceAck,
   FALLBACK_ACK,
@@ -45,6 +48,7 @@ type SavedProgress = {
   answers: AnswerRecord[];
   userTurnCount: number;
   followupUsed: boolean;
+  pendingFreeTexts?: string[];
 };
 
 function makeId() {
@@ -161,6 +165,10 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
   const formRef = useRef<HTMLFormElement>(null);
   const answersRef = useRef<AnswerRecord[]>([]);
   const userTurnCountRef = useRef(0);
+  // Free-text replies to the current question, so a follow-up reply doesn't
+  // overwrite the first answer in the record handed to the contact form.
+  const freeTextsRef = useRef<string[]>([]);
+  const [contactHref, setContactHref] = useState("/contact");
 
   useEffect(() => {
     const original = document.body.style.overflow;
@@ -201,6 +209,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
           answers: answersRef.current,
           userTurnCount: Math.max(turns, 0),
           followupUsed: latest.followupUsed,
+          pendingFreeTexts: freeTextsRef.current,
         });
       }
     }
@@ -223,6 +232,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     setFollowupUsed(saved.followupUsed);
     answersRef.current = saved.answers;
     userTurnCountRef.current = saved.userTurnCount;
+    freeTextsRef.current = saved.pendingFreeTexts ?? [];
     setAskResume(false);
     trackEvent("hearing_chat_resume");
   }
@@ -247,6 +257,14 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
     clearProgress();
     trackEvent("hearing_chat_complete");
 
+    try {
+      sessionStorage.setItem(CONTACT_PREFILL_KEY, buildContactMessage(answersRef.current));
+    } catch {
+      // ignore — the form just opens without the pre-filled answers
+    }
+    const category = contactCategoryFor(answersRef.current);
+    setContactHref(`/contact?from=chat${category ? `&category=${category}` : ""}`);
+
     const payload = { answers: answersRef.current, transcript };
     const ok = await sendNotify(payload);
     if (!ok) {
@@ -263,6 +281,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
   // businessStage state hasn't re-rendered yet.
   function advanceAfter(ack: string, record: AnswerRecord, stageOverride?: BusinessStage) {
     answersRef.current = [...answersRef.current, record];
+    freeTextsRef.current = [];
     trackEvent("hearing_chat_step", { step });
 
     const isLast = step >= TOTAL_QUESTIONS;
@@ -381,11 +400,13 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
         return;
       }
 
+      const texts = [...freeTextsRef.current, text];
       if (data.needs_followup && data.followup_question) {
+        freeTextsRef.current = texts;
         pushMessage("assistant", data.reflection + "\n\n" + data.followup_question);
         setFollowupUsed(true);
       } else {
-        advanceAfter(data.reflection, { question: question.text, label: null, freeText: text });
+        advanceAfter(data.reflection, { question: question.text, label: null, freeText: texts.join("\n") });
       }
     } catch {
       setError("通信エラーが発生しました。時間をおいて再度お試しください。");
@@ -520,7 +541,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
               </div>
             ) : null}
             <Link
-              href="/contact?message=AIヒアリングを完了しました。詳しいお打ち合わせをお願いします。"
+              href={contactHref}
               className="btn-primary"
               onClick={() => trackEvent("hearing_chat_to_contact")}
             >

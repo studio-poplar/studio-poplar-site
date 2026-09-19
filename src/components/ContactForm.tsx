@@ -3,16 +3,39 @@
 import { FormEvent, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { trackEvent } from "@/lib/gtag";
+import { CONTACT_PREFILL_KEY } from "@/lib/hearing-chat";
 import styles from "./ContactForm.module.css";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xoeayveb";
 
+const CATEGORIES = [
+  { value: "web", label: "WEB制作について" },
+  { value: "app", label: "アプリ制作について" },
+  { value: "photo-video", label: "写真・動画撮影について" },
+  { value: "other", label: "その他のご相談" },
+] as const;
+
 type Status = "idle" | "submitting" | "success" | "error";
+
+// Only ever runs client-side: the page renders this inside <Suspense> with
+// useSearchParams, so there is no server HTML to mismatch.
+function readChatPrefill(): string {
+  try {
+    return sessionStorage.getItem(CONTACT_PREFILL_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const formRef = useRef<HTMLFormElement>(null);
-  const prefilledMessage = useSearchParams().get("message") ?? "";
+  const params = useSearchParams();
+  const categoryParam = params.get("category");
+  const defaultCategory = CATEGORIES.some((c) => c.value === categoryParam) ? (categoryParam as string) : "";
+  const [message, setMessage] = useState(() =>
+    params.get("from") === "chat" ? readChatPrefill() : (params.get("message") ?? "")
+  );
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,6 +52,12 @@ export default function ContactForm() {
         setStatus("success");
         trackEvent("form_submit");
         formRef.current?.reset();
+        setMessage("");
+        try {
+          sessionStorage.removeItem(CONTACT_PREFILL_KEY);
+        } catch {
+          // ignore
+        }
       } else {
         setStatus("error");
       }
@@ -62,14 +91,15 @@ export default function ContactForm() {
 
       <div className={styles.field}>
         <label htmlFor="category">
-          お問い合わせ種別 <span className={styles.optional}>任意</span>
+          お問い合わせ種別 <span className={styles.required}>必須</span>
         </label>
-        <select id="category" name="category" defaultValue="">
+        <select id="category" name="category" defaultValue={defaultCategory} required>
           <option value="">選択してください</option>
-          <option value="web">WEB制作について</option>
-          <option value="app">アプリ制作について</option>
-          <option value="photo-video">写真・動画撮影について</option>
-          <option value="other">その他のご相談</option>
+          {CATEGORIES.map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -77,7 +107,14 @@ export default function ContactForm() {
         <label htmlFor="message">
           お問い合わせ内容 <span className={styles.required}>必須</span>
         </label>
-        <textarea id="message" name="message" rows={7} required defaultValue={prefilledMessage} />
+        <textarea
+          id="message"
+          name="message"
+          rows={7}
+          required
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+        />
       </div>
 
       <div className={styles.checkboxField}>

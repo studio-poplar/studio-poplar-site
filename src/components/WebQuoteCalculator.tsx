@@ -37,9 +37,10 @@ export default function WebQuoteCalculator() {
       `追加機能: ${selectedOptions.length > 0 ? selectedOptions.map((o) => o.label).join("、") : "なし"}`,
       isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}`,
       "",
-      "上記内容でご相談したいです。",
+      "【以下に詳細をご記入ください】",
+      "",
     ];
-    return `/contact?${new URLSearchParams({ message: lines.join("\n") }).toString()}`;
+    return `/contact?${new URLSearchParams({ category: "web", message: lines.join("\n") }).toString()}`;
   }, [tier, selectedOptions, isCustom, total]);
 
   return (

@@ -27,9 +27,10 @@ export default function AppQuoteCalculator() {
       `バックエンド連携: ${backend.label}`,
       isCustom ? "概算金額: 個別見積り希望" : `概算金額: ${formatYen(total)}`,
       "",
-      "上記内容でご相談したいです。",
+      "【以下に詳細をご記入ください】",
+      "",
     ];
-    return `/contact?${new URLSearchParams({ message: lines.join("\n") }).toString()}`;
+    return `/contact?${new URLSearchParams({ category: "app", message: lines.join("\n") }).toString()}`;
   }, [tier, backend, isCustom, total]);
 
   return (
