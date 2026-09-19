@@ -37,6 +37,7 @@ export default function Hero() {
           <span className={`en ${styles.ghostText}`}>WEB — APP — PHOTO — DESIGN — IDEA — STUDIO — </span>
         </div>
       </div>
+      <div className={styles.readabilityScrim} aria-hidden="true" />
       <div className={`wrap ${styles.inner}`}>
         <div className={styles.grid}>
           <div>

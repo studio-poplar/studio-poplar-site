@@ -96,10 +96,25 @@
   }
 }
 
+.readabilityScrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  z-index: 1;
+  background: rgba(250, 249, 246, 0.85);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 100%);
+  pointer-events: none;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  align-items: center;
+  align-items: end;
   gap: 40px;
 }
 
@@ -158,10 +173,10 @@
   content: "";
   position: absolute;
   left: 22px;
-  right: 12%;
+  right: 22px;
   bottom: 10px;
-  height: 1px;
-  background: var(--second);
+  height: 2px;
+  background: var(--ink);
 }
 
 .subtitle {
