@@ -55,6 +55,7 @@
 
 .preview {
   overflow: hidden;
+  margin-bottom: 48px;
   border: 1px solid var(--border-strong);
   border-radius: 14px;
   box-shadow: 0 1px 2px rgba(28, 26, 23, 0.04), 0 40px 70px -36px rgba(28, 26, 23, 0.5);
@@ -82,72 +83,20 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.strip {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin: 32px 0 48px;
-  border: 1px solid var(--border-strong);
-  border-radius: 14px;
-  background: #ffffff;
+.client {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
 }
 
-@media (min-width: 900px) {
-  .strip {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.strip > div {
-  padding: 20px 22px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* phones: client and year share a row, role and stack each get a full row */
-.strip > div:nth-child(1) {
-  border-right: 1px solid var(--border);
-}
-
-.strip > div:nth-child(3),
-.strip > div:nth-child(4) {
-  grid-column: 1 / -1;
-}
-
-.strip > div:last-child {
-  border-bottom: 0;
-}
-
-@media (min-width: 900px) {
-  .strip > div {
-    padding: 22px 24px;
-    border-bottom: 0;
-    border-right: 1px solid var(--border);
-  }
-
-  .strip > div:nth-child(3),
-  .strip > div:nth-child(4) {
-    grid-column: auto;
-  }
-
-  .strip > div:last-child {
-    border-right: 0;
-  }
-}
-
-.strip dt {
-  margin-bottom: 6px;
+.client span {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--accent);
-}
-
-.strip dd {
-  font-size: 13px;
-  line-height: 1.75;
-}
-
-.strip dd span {
-  display: block;
 }
 
 .overview {

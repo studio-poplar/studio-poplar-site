@@ -56,6 +56,10 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             <span className={`en ${styles.pill}`}>{WORK_CATEGORY_LABELS[work.category]}</span>
           </div>
           <h1>{work.title}</h1>
+          <p className={styles.client}>
+            <span className="en">CLIENT</span>
+            {work.client}
+          </p>
         </header>
 
         <div className={styles.preview}>
@@ -73,33 +77,6 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
             <WorkThumb work={work} showBadge={false} />
           )}
         </div>
-
-        <dl className={styles.strip}>
-          <div>
-            <dt className="en">CLIENT</dt>
-            <dd>{work.client}</dd>
-          </div>
-          <div>
-            <dt className="en">YEAR</dt>
-            <dd className="en">{work.year}</dd>
-          </div>
-          <div>
-            <dt className="en">ROLE</dt>
-            <dd>
-              {work.role.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </dd>
-          </div>
-          <div>
-            <dt className="en">STACK</dt>
-            <dd>
-              {work.stack.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </dd>
-          </div>
-        </dl>
 
         <section className={styles.overview}>
           <h2 className="en">OVERVIEW</h2>
