@@ -119,10 +119,31 @@
 }
 
 @media (min-width: 1000px) {
+  /* Half the gap between the header and the tag (52px -> 26px; was 140px of top padding). */
+  .hero {
+    padding-top: 114px;
+  }
+
   /* text column is as narrow as the wordmark allows; the slideshow takes the rest */
   .grid {
     grid-template-columns: min-content minmax(0, 1fr);
-    gap: 50px;
+    gap: 0 50px;
+  }
+
+  /* The wordmark block and the body block become grid rows, so the slideshow can
+     be centred against the body block alone (subtitle down to the CTA note). */
+  .textCol {
+    display: contents;
+  }
+
+  .headBlock {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .bodyBlock {
+    grid-column: 1;
+    grid-row: 2;
   }
 }
 
@@ -343,8 +364,12 @@
 }
 
 @media (min-width: 1000px) {
+  /* margin-top matches the subtitle margin so the equal space above and below is
+     measured from the subtitle text, not from its margin */
   .visual {
-    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    margin: 22px 0 0;
     max-width: 500px;
     justify-self: end;
     align-self: center;

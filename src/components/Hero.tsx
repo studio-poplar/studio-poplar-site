@@ -41,12 +41,12 @@ export default function Hero() {
       <div className={styles.readabilityScrim} aria-hidden="true" />
       <div className={`wrap ${styles.inner}`}>
         <div className={styles.grid}>
-          <div>
-            <motion.div style={{ y: headY, opacity: headOpacity }}>
+          <div className={styles.textCol}>
+            <motion.div className={styles.headBlock} style={{ y: headY, opacity: headOpacity }}>
               <span className={styles.tag}>総合デザイン プラットフォーム</span>
               <h1 className={styles.title}>STUDIO POPLAR</h1>
             </motion.div>
-            <motion.div style={{ y: bodyY, opacity: bodyOpacity }}>
+            <motion.div className={styles.bodyBlock} style={{ y: bodyY, opacity: bodyOpacity }}>
               <h2 className={styles.subtitle}>
                 伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
               </h2>
