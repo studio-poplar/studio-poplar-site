@@ -119,31 +119,34 @@
 }
 
 @media (min-width: 1000px) {
-  /* Half the gap between the header and the tag (52px -> 26px; was 140px of top padding). */
   .hero {
-    padding-top: 114px;
+    padding-top: 96px;
   }
 
-  /* text column is as narrow as the wordmark allows; the slideshow takes the rest */
+  /* Wordmark + subtitle run across the full width; below them the text sits on the
+     left and the slideshow on the right, centred against the lead-to-CTA rows. */
   .grid {
-    grid-template-columns: min-content minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) min(500px, 44%);
     gap: 0 50px;
   }
 
-  /* The wordmark block and the body block become grid rows, so the slideshow can
-     be centred against the body block alone (subtitle down to the CTA note). */
   .textCol {
     display: contents;
   }
 
   .headBlock {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 1;
   }
 
   .bodyBlock {
     grid-column: 1;
     grid-row: 2;
+  }
+
+  .noteBlock {
+    grid-column: 1;
+    grid-row: 3;
   }
 }
 
@@ -158,62 +161,28 @@
   }
 }
 
-.tag {
-  display: inline-block;
-  font-family: var(--font-jp), sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  padding: 8px 18px;
-  background: linear-gradient(120deg, var(--brand-soft) 0%, var(--system-soft) 100%);
-  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.05s;
-}
-
 .title {
-  position: relative;
-  display: inline-block;
+  display: block;
   font-family: var(--font-en), sans-serif;
-  font-weight: 700;
-  font-size: clamp(32px, 8.6vw, 64px);
-  line-height: 0.98;
-  letter-spacing: 0.005em;
+  font-weight: 300;
+  font-size: clamp(36px, 7.1vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.005em;
   white-space: nowrap;
-  margin-top: 20px;
   color: var(--ink);
-  background: var(--panel);
-  padding: 14px 22px 20px;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.16s;
-}
-
-.title::after {
-  content: "";
-  position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: 10px;
-  height: 2px;
-  background: var(--ink);
+  animation-delay: 0.1s;
 }
 
 .subtitle {
   font-family: var(--font-jp), sans-serif;
-  font-weight: 700;
-  font-size: clamp(20px, 3.4vw, 32px);
-  margin-top: 22px;
+  font-weight: 300;
+  font-size: clamp(20px, 3.3vw, 46px);
+  line-height: 1.4;
+  color: var(--ink);
+  margin-top: 14px;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.25s;
-}
-
-.highlight {
-  background: linear-gradient(120deg, var(--brand) 0%, var(--second) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  animation-delay: 0.2s;
 }
 
 .lead {
@@ -364,14 +333,14 @@
 }
 
 @media (min-width: 1000px) {
-  /* margin-top matches the subtitle margin so the equal space above and below is
-     measured from the subtitle text, not from its margin */
+  /* margin-top matches the lead's own top margin, so the equal space above and
+     below is measured from the lead text down to the CTA buttons */
   .visual {
     grid-column: 2;
     grid-row: 2;
-    margin: 22px 0 0;
+    margin: 28px 0 0;
     max-width: 500px;
-    justify-self: end;
+    justify-self: stretch;
     align-self: center;
   }
 }

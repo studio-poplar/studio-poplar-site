@@ -8,7 +8,7 @@ import "./globals.css";
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-en",
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: ["300", "500", "700"],
   display: "swap",
 });
 

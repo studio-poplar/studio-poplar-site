@@ -43,13 +43,10 @@ export default function Hero() {
         <div className={styles.grid}>
           <div className={styles.textCol}>
             <motion.div className={styles.headBlock} style={{ y: headY, opacity: headOpacity }}>
-              <span className={styles.tag}>総合デザイン プラットフォーム</span>
               <h1 className={styles.title}>STUDIO POPLAR</h1>
+              <h2 className={styles.subtitle}>伝えたいことを、伝わる形に。</h2>
             </motion.div>
             <motion.div className={styles.bodyBlock} style={{ y: bodyY, opacity: bodyOpacity }}>
-              <h2 className={styles.subtitle}>
-                伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
-              </h2>
               <p className={styles.lead}>
                 <b>サイト</b>で事業の&ldquo;顔&rdquo;をつくり、
                 <br />
@@ -77,6 +74,8 @@ export default function Hero() {
                   サービスを見る
                 </Link>
               </div>
+            </motion.div>
+            <motion.div className={styles.noteBlock} style={{ y: bodyY, opacity: bodyOpacity }}>
               <p className={styles.ctaNote}>所要約2〜3分・匿名でご利用いただけます</p>
             </motion.div>
           </div>
