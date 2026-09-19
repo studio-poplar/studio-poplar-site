@@ -118,9 +118,10 @@
   gap: 40px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1000px) {
+  /* text column is as narrow as the wordmark allows; the slideshow takes the rest */
   .grid {
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: min-content minmax(0, 1fr);
     gap: 50px;
   }
 }
@@ -156,7 +157,7 @@
   display: inline-block;
   font-family: var(--font-en), sans-serif;
   font-weight: 700;
-  font-size: clamp(32px, 8.6vw, 78px);
+  font-size: clamp(32px, 8.6vw, 64px);
   line-height: 0.98;
   letter-spacing: 0.005em;
   white-space: nowrap;
@@ -233,7 +234,7 @@
   background: var(--panel);
 }
 
-@media (max-width: 899px) {
+@media (max-width: 999px) {
   .subtitle {
     margin-top: 18px;
   }
@@ -341,7 +342,7 @@
   margin: 8px 0 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1000px) {
   .visual {
     margin: 0;
     justify-self: stretch;
