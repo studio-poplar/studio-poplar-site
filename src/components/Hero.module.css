@@ -264,6 +264,14 @@
   border-radius: 12px;
 }
 
+.ctaNote {
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.5s;
+}
+
 .visual {
   position: relative;
   width: 100%;
@@ -284,11 +292,13 @@
   height: 100%;
   border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(160deg, var(--panel-soft) 0%, var(--panel) 100%);
+  background: linear-gradient(160deg, var(--panel-soft) 0%, var(--panel) 55%, var(--brand-soft) 130%);
   border: 1px solid var(--border-strong);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   color: var(--ink-faint);
   box-shadow: 0 30px 60px -30px rgba(28, 26, 23, 0.25);
 }
@@ -296,6 +306,12 @@
 .playIcon {
   width: 44px;
   height: 44px;
+}
+
+.mediaLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
 }
 
 .scrollcue {

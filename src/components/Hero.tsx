@@ -45,9 +45,9 @@ export default function Hero() {
               <h1 className={styles.title}>STUDIO POPLAR</h1>
             </motion.div>
             <motion.div style={{ y: bodyY, opacity: bodyOpacity }}>
-              <p className={styles.subtitle}>
+              <h2 className={styles.subtitle}>
                 伝えたいことを、<span className={styles.highlight}>伝わる</span>形に。
-              </p>
+              </h2>
               <p className={styles.lead}>
                 <b>サイト</b>で事業の&ldquo;顔&rdquo;をつくり、
                 <br />
@@ -75,6 +75,7 @@ export default function Hero() {
                 </Link>
                 <HearingChatLauncher />
               </div>
+              <p className={styles.ctaNote}>所要3分・匿名でご利用いただけます</p>
             </motion.div>
           </div>
           <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }} aria-hidden="true">
@@ -83,6 +84,7 @@ export default function Hero() {
                 <circle cx="12" cy="12" r="9" />
                 <path d="M10 8.4v7.2l6-3.6z" fill="currentColor" stroke="none" />
               </svg>
+              <span className={`en ${styles.mediaLabel}`}>MOVIE</span>
             </div>
           </motion.div>
         </div>
