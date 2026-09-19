@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import HearingChatLauncher from "./HearingChat";
+import HeroSlideshow from "./HeroSlideshow";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -79,14 +80,8 @@ export default function Hero() {
               <p className={styles.ctaNote}>所要約2〜3分・匿名でご利用いただけます</p>
             </motion.div>
           </div>
-          <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }} aria-hidden="true">
-            <div className={styles.mediaFrame}>
-              <svg className={styles.playIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.1">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M10 8.4v7.2l6-3.6z" fill="currentColor" stroke="none" />
-              </svg>
-              <span className={`en ${styles.mediaLabel}`}>MOVIE</span>
-            </div>
+          <motion.div className={styles.visual} style={{ y: visualY, opacity: visualOpacity }}>
+            <HeroSlideshow autoPlay={!prefersReducedMotion} />
           </motion.div>
         </div>
       </div>

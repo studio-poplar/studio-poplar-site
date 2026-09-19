@@ -1,0 +1,178 @@
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background-color: #0b1420;
+  color: #ffffff;
+  box-shadow: 0 30px 60px -30px rgba(10, 20, 30, 0.55);
+  /* type and spacing scale with the slideshow width, not the viewport */
+  container-type: inline-size;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 6px;
+  padding: clamp(12px, 4.6cqw, 26px);
+  padding-bottom: clamp(28px, 8.5cqw, 44px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+.slide[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* faint grid, shared by every slide */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+.v0 {
+  background-color: #0b1420;
+  background-image: radial-gradient(80% 110% at 100% 0%, rgba(47, 168, 184, 0.55), transparent 62%),
+    linear-gradient(150deg, #0b1420 0%, #123244 48%, #146a72 100%);
+}
+
+.v1 {
+  background-color: #0d1712;
+  background-image: radial-gradient(80% 110% at 100% 0%, rgba(124, 136, 115, 0.55), transparent 62%),
+    linear-gradient(150deg, #0d1712 0%, #1f3a2e 48%, #3f7461 100%);
+}
+
+.v2 {
+  background-color: #17110f;
+  background-image: radial-gradient(80% 110% at 100% 0%, rgba(169, 118, 90, 0.6), transparent 62%),
+    linear-gradient(150deg, #17110f 0%, #3a2519 48%, #8a5a40 100%);
+}
+
+.v3 {
+  background-color: #08111c;
+  background-image: radial-gradient(80% 110% at 100% 0%, rgba(96, 165, 250, 0.5), transparent 62%),
+    linear-gradient(150deg, #08111c 0%, #0f2c4a 48%, #2a6f9a 100%);
+}
+
+.photo {
+  object-fit: cover;
+  opacity: 0.55;
+  mix-blend-mode: luminosity;
+}
+
+.ghost {
+  position: absolute;
+  top: 6px;
+  right: 14px;
+  font-size: clamp(40px, 22cqw, 100px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.tag {
+  position: relative;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.title {
+  position: relative;
+  margin: 6px 0 0;
+  font-size: clamp(15px, 5.2cqw, 27px);
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+}
+
+.text {
+  position: relative;
+  max-width: 36ch;
+  margin: 0;
+  font-size: clamp(10.5px, 2.8cqw, 13px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.cta {
+  position: relative;
+  margin-top: 4px;
+  padding-bottom: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  transition: border-color 0.2s ease;
+}
+
+.cta:hover {
+  border-color: #ffffff;
+}
+
+.cta:focus-visible,
+.dot:focus-visible {
+  outline: 2px solid #8fe0c9;
+  outline-offset: 3px;
+}
+
+.dots {
+  position: absolute;
+  left: clamp(6px, 3cqw, 20px);
+  bottom: 8px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+/* 24px-tall hit area around a small indicator */
+.dot {
+  position: relative;
+  width: 22px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.dot[data-active="true"]::after {
+  width: 20px;
+  background: #ffffff;
+}
+
+/* very small slideshows: keep the headline and link, drop the body copy */
+@container (max-width: 300px) {
+  .text {
+    display: none;
+  }
+}
