@@ -1,12 +1,27 @@
 .calc {
-  border: 1px solid var(--border);
-  background: var(--panel-soft);
-  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background-color: #ffffff;
+  background-image: radial-gradient(90% 40% at 100% 0%, rgba(47, 168, 184, 0.08), transparent 70%);
+  padding: 34px 20px 26px;
+  box-shadow: 0 1px 2px rgba(28, 26, 23, 0.04), 0 28px 48px -30px rgba(28, 26, 23, 0.28);
+}
+
+.calc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #bfd4ac 0%, #4fa896 55%, #2fa8b8 100%);
 }
 
 @media (min-width: 640px) {
   .calc {
-    padding: 44px 40px;
+    padding: 46px 38px 36px;
   }
 }
 
@@ -19,44 +34,118 @@
 }
 
 .group legend {
-  font-family: var(--font-en), sans-serif;
-  font-size: 12px;
+  font-family: var(--font-en), var(--font-jp), sans-serif;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
   color: var(--ink-soft);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.group legend::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #7fb08f, #2fa8b8);
+  margin-right: 9px;
+  vertical-align: 0.5px;
 }
 
 .option,
 .planOption {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 14px;
+  border-radius: 10px;
+  padding: 13px 15px;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.25s ease, transform 0.2s ease;
 }
 
 .planOption {
   align-items: flex-start;
 }
 
+.option:hover,
+.planOption:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px -18px rgba(28, 26, 23, 0.4);
+}
+
 .option:has(input:checked),
 .planOption:has(input:checked) {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: transparent;
+  background: linear-gradient(135deg, #f4f9f0, #eaf6f4) padding-box, linear-gradient(135deg, #bfd4ac, #4fa896) border-box;
+  box-shadow: 0 14px 28px -18px rgba(47, 138, 122, 0.6);
 }
 
 .option input,
 .planOption input {
-  accent-color: var(--accent);
-  width: 16px;
-  height: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
   flex-shrink: 0;
-  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  border: 1.5px solid var(--border-strong);
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.option input[type="radio"],
+.planOption input[type="radio"] {
+  border-radius: 50%;
+}
+
+.option input[type="checkbox"],
+.planOption input[type="checkbox"] {
+  border-radius: 5px;
+}
+
+.option input[type="radio"]:checked,
+.planOption input[type="radio"]:checked {
+  border-color: #2fa8b8;
+  background-color: #ffffff;
+  background-image: radial-gradient(circle, #2fa8b8 0 38%, transparent 42%);
+}
+
+.option input[type="checkbox"]:checked,
+.planOption input[type="checkbox"]:checked {
+  border-color: transparent;
+  background: linear-gradient(135deg, #7fb08f, #2fa8b8);
+}
+
+.option input[type="checkbox"]::after,
+.planOption input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3.5px;
+  width: 8px;
+  height: 4.5px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.option input[type="checkbox"]:checked::after,
+.planOption input[type="checkbox"]:checked::after {
+  opacity: 1;
+}
+
+.option input:focus-visible,
+.planOption input:focus-visible {
+  outline: 2px solid #2fa8b8;
+  outline-offset: 2px;
 }
 
 .optionLabel {
@@ -66,10 +155,19 @@
 }
 
 .optionPrice {
+  font-family: var(--font-en), var(--font-jp), sans-serif;
   font-size: 12.5px;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
   color: var(--ink-soft);
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.option:has(input:checked) .optionPrice,
+.planOption:has(input:checked) .optionPrice {
+  color: #1f7f8c;
 }
 
 .planBody {
@@ -88,30 +186,56 @@
 
 .planDetail {
   font-size: 12px;
+  line-height: 1.6;
   color: var(--ink-faint);
 }
 
 .result {
+  position: relative;
+  overflow: hidden;
   margin-top: 8px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border-strong);
+  padding: 28px 20px 26px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: radial-gradient(90% 130% at 100% 0%, rgba(47, 168, 184, 0.38), transparent 58%),
+    radial-gradient(70% 110% at 0% 100%, rgba(124, 136, 115, 0.3), transparent 62%), #12181c;
+  color: #fff;
   text-align: center;
 }
 
 .resultLabel {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--ink-faint);
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 10px;
+}
+
+.resultLabel::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2fa8b8;
+  box-shadow: 0 0 10px #2fa8b8;
+  margin-right: 8px;
+  vertical-align: 1px;
 }
 
 .resultPrice {
   display: block;
+  font-family: var(--font-en), var(--font-jp), sans-serif;
   font-size: clamp(28px, 5vw, 40px);
-  font-weight: 900;
-  color: var(--ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: linear-gradient(120deg, #ffffff 35%, #a8e6ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 12px;
 }
 
@@ -119,20 +243,33 @@
   display: block;
   font-size: 13px;
   font-weight: 700;
-  color: var(--accent);
+  color: rgba(255, 255, 255, 0.72);
   margin-top: 4px;
 }
 
 .resultQuote {
   display: block;
   font-size: clamp(18px, 3vw, 22px);
-  font-weight: 900;
-  color: var(--ink);
+  font-weight: 700;
+  color: #fff;
   margin-bottom: 12px;
 }
 
 .resultNote {
   font-size: 12px;
-  color: var(--ink-faint);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.58);
   margin-bottom: 24px;
+}
+
+.result :global(.btn-primary) {
+  max-width: 100%;
+  white-space: nowrap;
+  padding: 15px 20px;
+}
+
+@media (min-width: 640px) {
+  .result :global(.btn-primary) {
+    padding: 15px 30px;
+  }
 }
