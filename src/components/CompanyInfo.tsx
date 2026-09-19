@@ -25,7 +25,7 @@ const ROWS: { label: string; body: React.ReactNode }[] = [
           info@studiopoplar.com
         </a>
         <span className={styles.sub}>
-          または<Link href="/contact" className={styles.link}>お問い合わせフォーム</Link>より。24時間以内を目安に折り返しご連絡します。
+          または<Link href="/contact" className={styles.link}>お問い合わせフォーム</Link>より。内容を確認後、担当者より順次ご連絡いたします。
         </span>
       </>
     ),
