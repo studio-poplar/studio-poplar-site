@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageMasthead from "@/components/PageMasthead";
-import WorkPostFull from "@/components/WorkPostFull";
+import WorksIndex from "@/components/WorksIndex";
 import CtaBand from "@/components/CtaBand";
 import { works } from "@/data/works";
 
@@ -18,11 +18,9 @@ export default function WorksPage() {
         description="WEB制作、アプリ制作、写真・動画撮影の実績を掲載しています。"
       />
 
-      <section className="section" style={{ borderBottom: "none" }}>
-        <div className="wrap" style={{ maxWidth: 820 }}>
-          {works.map((work) => (
-            <WorkPostFull key={work.slug} work={work} />
-          ))}
+      <section className="section soft" style={{ borderBottom: "none" }}>
+        <div className="wrap">
+          <WorksIndex works={works} />
         </div>
       </section>
 

@@ -206,3 +206,11 @@ export const works: Work[] = [
 export function getWorkBySlug(slug: string) {
   return works.find((work) => work.slug === slug);
 }
+
+// Value of the contact form's category select for each work category.
+export const WORK_CONTACT_CATEGORY: Record<WorkCategory, string> = {
+  web: "web",
+  "3dweb": "web",
+  app: "app",
+  "photo-video": "photo-video",
+};
