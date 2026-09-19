@@ -152,8 +152,7 @@
   background: var(--ink);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 24px;
+  padding: 20px 24px 24px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -162,6 +161,64 @@
 .mobileNav[data-open="true"] {
   opacity: 1;
   visibility: visible;
+}
+
+.mobileNavHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobileLogo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-en), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.mobileLogoMark {
+  width: 15px;
+  height: 16px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.mobileClose {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mobileClose span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 1px;
+  background: #fff;
+}
+
+.mobileClose span:first-child {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mobileClose span:last-child {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.mobileNav ul {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .mobileNav a {

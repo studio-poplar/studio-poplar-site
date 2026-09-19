@@ -79,6 +79,16 @@ export default function SiteHeader() {
       </header>
 
       <div id="mobile-nav" className={styles.mobileNav} data-open={open} inert={!open}>
+        <div className={styles.mobileNavHead}>
+          <Link href="/" className={styles.mobileLogo} onClick={() => setOpen(false)}>
+            <LogoMark className={styles.mobileLogoMark} />
+            STUDIO POPLAR
+          </Link>
+          <button type="button" className={styles.mobileClose} aria-label="メニューを閉じる" onClick={() => setOpen(false)}>
+            <span />
+            <span />
+          </button>
+        </div>
         <ul>
           {NAV_LINKS.map((link) => (
             <li key={link.href}>

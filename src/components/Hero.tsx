@@ -71,10 +71,10 @@ export default function Hero() {
                 </li>
               </ul>
               <div className={styles.ctas}>
+                <HearingChatLauncher />
                 <Link href="/service" className="btn-ghost">
                   サービスを見る
                 </Link>
-                <HearingChatLauncher />
               </div>
               <p className={styles.ctaNote}>所要3分・匿名でご利用いただけます</p>
             </motion.div>
