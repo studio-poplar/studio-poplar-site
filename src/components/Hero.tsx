@@ -28,6 +28,12 @@ export default function Hero() {
   return (
     <section className={styles.hero} ref={heroRef}>
       <LeafField y={leafY} />
+      <div className={styles.ghostTextWrap} aria-hidden="true">
+        <div className={styles.ghostTextTrack}>
+          <span className={styles.ghostText}>STUDIO POPLAR ー 伝えたいことを、伝わる形に。 ー </span>
+          <span className={styles.ghostText}>STUDIO POPLAR ー 伝えたいことを、伝わる形に。 ー </span>
+        </div>
+      </div>
       <div className={`wrap ${styles.inner}`}>
         <div className={styles.grid}>
           <div>
@@ -48,30 +54,15 @@ export default function Hero() {
               </p>
               <ul className={styles.facts}>
                 <li>
-                  <svg className={styles.factIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="5" width="18" height="14" rx="1.5" />
-                    <line x1="3" y1="9.2" x2="21" y2="9.2" />
-                    <circle cx="6" cy="7.1" r="0.6" fill="currentColor" stroke="none" />
-                  </svg>
                   <span className={`en ${styles.factLabel}`}>WEB</span>
                   <span className={styles.price}>5万円〜</span>
                 </li>
                 <li>
-                  <svg className={styles.factIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="4" y="4" width="7" height="7" rx="1" />
-                    <rect x="13" y="4" width="7" height="7" rx="1" />
-                    <rect x="4" y="13" width="7" height="7" rx="1" />
-                    <rect x="13" y="13" width="7" height="7" rx="1" />
-                  </svg>
                   <span className={`en ${styles.factLabel}`}>APP</span>
                   <span className={styles.price}>15万円〜</span>
                 </li>
                 <li>
-                  <svg className={styles.factIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M4 8h3l1.5-2h7L17 8h3v11H4z" />
-                    <circle cx="12" cy="13.3" r="3.1" />
-                  </svg>
-                  <span className={`en ${styles.factLabel}`}>PHOTO &amp; VIDEO</span>
+                  <span className={`en ${styles.factLabel}`}>PHOTO</span>
                   <span className={styles.price}>6万円〜</span>
                 </li>
               </ul>
