@@ -41,34 +41,38 @@ export default function AboutPage() {
           </Reveal>
           <div className="grid-3">
             <TargetCard
-              tag="STARTUP"
-              who="新しく事業を始める方"
-              voice="やりたいことは頭にある。でも、何から決めればいいのか分からない。"
-              approach="まずはチャットやヒアリングで、頭の中にあることを一緒に言葉にします。誰に何を伝えるかを固めてから、必要なものだけをつくります。"
-              entries={[{ label: "WEB", price: "5万円〜" }]}
+              tag="FREELANCER"
+              who="フリーランス"
+              voice="実績はあるのに、初めての相手に強みが一言で伝わらない。"
+              approach="肩書きと実績の羅列では、初見のクライアントとの違いは伝わりません。まず「誰のどんな課題を解決してきたか」をヒアリングで掘り起こし、依頼前に相手が抱く不安へ先回りして答えるポートフォリオに組み立てます。プロフィール写真や制作風景の撮影も合わせて、人柄まで伝わる第一印象をつくります。"
+              entries={[
+                { label: "WEB", price: "5万円〜" },
+                { label: "PHOTO", price: "6万円〜" },
+              ]}
               accent="var(--brand)"
               revealDelay={50}
             />
             <TargetCard
-              tag="FREELANCE"
-              who="個人で開業する方"
-              voice="自分の強みが、自分ではうまく言葉にできない。"
-              approach="ご自身が当たり前だと思っている強みを、対話の中から引き出します。サイトの言葉と、人柄が伝わる写真・映像で「あなたらしさ」を形にします。"
+              tag="SELF-EMPLOYED"
+              who="個人事業主"
+              voice="本業で手一杯で、集客も予約の対応も後回しになっている。"
+              approach="一人で営業から事務まで担う方に、凝ったサイトは必要ありません。まず「問い合わせ・予約までの最短ルート」を決め、更新の手間が増えない最小限の構成でつくります。電話やDMでの予約管理が負担なら、予約の仕組みの導入もご提案。更新を自分で続けられるCMS対応も可能です。"
               entries={[
                 { label: "WEB", price: "5万円〜" },
-                { label: "PHOTO", price: "6万円〜" },
+                { label: "APP", price: "15万円〜" },
               ]}
               accent="var(--second)"
               revealDelay={140}
             />
             <TargetCard
-              tag="SMALL BUSINESS"
+              tag="BUSINESS OWNER"
               who="すでにお店やサイトがある方"
-              voice="今の見せ方が、伝えたいこととズレている気がする。"
-              approach="作り直す前に、どこがズレているのかを一緒に確認します。見せ方の整理に加えて、日々の運用を支えるアプリ化のご相談も可能です。"
+              voice="お店もサイトもあるのに、価値が伝わっていない気がする。"
+              approach="作り直す前に、まず現状を診ます。問い合わせが少ない、価格で比べられてしまう——どの場面で機会を逃しているかを洗い出し、原因が見せ方か、導線か、情報の順番かを切り分けます。全面リニューアルではなく、効果の大きい箇所から段階的に直す進め方も選べます。営業と採用の現場で「選ぶ側が何を見て決めるか」を見てきた視点で整理します。"
               entries={[
                 { label: "WEB", price: "5万円〜" },
                 { label: "APP", price: "15万円〜" },
+                { label: "PHOTO", price: "6万円〜" },
               ]}
               accent="var(--system)"
               revealDelay={230}

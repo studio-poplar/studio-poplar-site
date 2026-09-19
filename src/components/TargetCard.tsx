@@ -24,12 +24,7 @@ export default function TargetCard({ tag, who, voice, approach, entries, accent,
         <span className={styles.who}>{who}</span>
       </div>
 
-      <p className={styles.voice}>
-        <span className={`en ${styles.quote}`} aria-hidden="true">
-          &ldquo;
-        </span>
-        {voice}
-      </p>
+      <p className={styles.voice}>{voice}</p>
 
       <div className={styles.answer}>
         <span className={`en ${styles.answerLabel}`}>STUDIO POPLAR&rsquo;S APPROACH</span>

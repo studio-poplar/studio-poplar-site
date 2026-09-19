@@ -56,24 +56,11 @@
 }
 
 .voice {
-  position: relative;
-  margin-top: 26px;
-  padding-top: 26px;
+  margin-top: 24px;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.65;
   color: var(--ink);
-}
-
-.quote {
-  position: absolute;
-  top: -6px;
-  left: -2px;
-  font-size: 64px;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--card-accent);
-  opacity: 0.35;
 }
 
 .answer {
