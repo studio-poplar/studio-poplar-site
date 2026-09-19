@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
-import ServiceCard from "@/components/ServiceCard";
+import TargetCard from "@/components/TargetCard";
 import AboutBlock from "@/components/AboutBlock";
 import TeamProfile from "@/components/TeamProfile";
 import CtaBand from "@/components/CtaBand";
@@ -37,12 +37,42 @@ export default function AboutPage() {
       <section className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="02" label="TARGET" title="こんな方へ" />
+            <SectionHead index="02" label="TARGET" title="こんなモヤモヤ、ありませんか?" />
           </Reveal>
           <div className="grid-3">
-            <ServiceCard tag="STARTUP" title="新しく事業を始める方" description="何から手をつければいいか、まだ整理できていない" revealDelay={50} />
-            <ServiceCard tag="FREELANCE" title="個人で開業する方" description="自分の強みを、うまく言葉にできない" revealDelay={140} />
-            <ServiceCard tag="SMALL BUSINESS" title="すでにお店やサイトがある方" description="今の見せ方が、伝えたいこととズレている気がする" revealDelay={230} />
+            <TargetCard
+              tag="STARTUP"
+              who="新しく事業を始める方"
+              voice="やりたいことは頭にある。でも、何から決めればいいのか分からない。"
+              approach="まずはチャットやヒアリングで、頭の中にあることを一緒に言葉にします。誰に何を伝えるかを固めてから、必要なものだけをつくります。"
+              entries={[{ label: "WEB", price: "5万円〜" }]}
+              accent="var(--brand)"
+              revealDelay={50}
+            />
+            <TargetCard
+              tag="FREELANCE"
+              who="個人で開業する方"
+              voice="自分の強みが、自分ではうまく言葉にできない。"
+              approach="ご自身が当たり前だと思っている強みを、対話の中から引き出します。サイトの言葉と、人柄が伝わる写真・映像で「あなたらしさ」を形にします。"
+              entries={[
+                { label: "WEB", price: "5万円〜" },
+                { label: "PHOTO", price: "6万円〜" },
+              ]}
+              accent="var(--second)"
+              revealDelay={140}
+            />
+            <TargetCard
+              tag="SMALL BUSINESS"
+              who="すでにお店やサイトがある方"
+              voice="今の見せ方が、伝えたいこととズレている気がする。"
+              approach="作り直す前に、どこがズレているのかを一緒に確認します。見せ方の整理に加えて、日々の運用を支えるアプリ化のご相談も可能です。"
+              entries={[
+                { label: "WEB", price: "5万円〜" },
+                { label: "APP", price: "15万円〜" },
+              ]}
+              accent="var(--system)"
+              revealDelay={230}
+            />
           </div>
         </div>
       </section>
