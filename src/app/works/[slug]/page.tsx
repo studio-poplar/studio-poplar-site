@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import WorkThumb from "@/components/WorkThumb";
@@ -31,6 +32,9 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
     { dir: "PREVIOUS", work: works[(index - 1 + works.length) % works.length] },
     { dir: "NEXT", work: works[(index + 1) % works.length] },
   ];
+
+  const desktopShots = work.images?.filter((image) => image.device === "desktop") ?? [];
+  const mobileShots = work.images?.filter((image) => image.device === "mobile") ?? [];
 
   const consultHref = `/contact?${new URLSearchParams({
     category: WORK_CONTACT_CATEGORY[work.category],
@@ -101,6 +105,35 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
           <h2 className="en">OVERVIEW</h2>
           <p>{work.overview}</p>
         </section>
+
+        {(desktopShots.length > 0 || mobileShots.length > 0) && (
+          <section className={styles.screens} aria-label="画面イメージ">
+            <h2 className="en">SCREENS</h2>
+            {desktopShots.length > 0 && (
+              <div className={styles.shots}>
+                {desktopShots.map((shot) => (
+                  <figure key={shot.src} className={styles.shot}>
+                    <Image src={shot.src} alt={shot.alt} width={1440} height={900} sizes="(min-width: 900px) 560px, 100vw" />
+                    <figcaption>{shot.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+            {mobileShots.length > 0 && (
+              <div className={styles.phoneShots}>
+                {mobileShots.map((shot) => (
+                  <figure key={shot.src} className={styles.phoneShot}>
+                    <div className={styles.phoneFrame}>
+                      <Image src={shot.src} alt={shot.alt} width={780} height={1688} sizes="240px" />
+                    </div>
+                    <figcaption>{shot.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+            {work.imageNote && <p className={styles.imageNote}>{work.imageNote}</p>}
+          </section>
+        )}
 
         <ol className={styles.steps}>
           {work.sections.map((section, i) => {

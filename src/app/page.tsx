@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 import { works, getWorkBySlug } from "@/data/works";
 import styles from "./page.module.css";
 
-const PREVIEW_WORK_SLUGS = ["bokuheki", "shindan-app", "atelier-mokuha-photo"];
+const PREVIEW_WORK_SLUGS = ["the-gallery", "coco-yoga", "tabikoyomi-coffee"];
 
 export default function Home() {
   const previewWorks = PREVIEW_WORK_SLUGS.map((slug) => getWorkBySlug(slug)).filter(

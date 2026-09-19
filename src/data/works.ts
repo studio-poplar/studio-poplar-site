@@ -14,6 +14,21 @@ export const WORK_TYPE_LABELS: Record<WorkType, string> = {
   client: "CLIENT WORK",
 };
 
+// Categories with no published case yet: shown as a "coming soon" chip.
+export const COMING_SOON: Partial<Record<WorkCategory, { title: string; body: string }>> = {
+  "photo-video": {
+    title: "写真・動画の事例は、準備中です。",
+    body: "商品撮影・ビジュアル制作・ドローン撮影の事例を、順次追加していきます。撮影のご相談は、実績の公開を待たずにお受けしています。",
+  },
+};
+
+export type WorkImage = {
+  src: string;
+  alt: string;
+  device: "desktop" | "mobile";
+  caption: string;
+};
+
 export type Work = {
   slug: string;
   category: WorkCategory;
@@ -28,18 +43,23 @@ export type Work = {
   stack: string[];
   sections: { heading: string; body: string }[];
   url?: string;
+  // Real screenshots. `cover` (one or two images of the same device) replaces
+  // the generated thumbnail; `images` fill the SCREENS gallery on the detail page.
+  cover?: { device: "desktop" | "mobile"; srcs: string[] };
+  images?: WorkImage[];
+  imageNote?: string;
 };
 
 export const works: Work[] = [
   {
     slug: "the-gallery",
-    category: "3dweb",
+    category: "web",
     type: "client",
     title: "THE GALLERY — バーチャル美術館サイト",
     client: "バーチャル美術館プロジェクト",
     year: "2026",
-    summary: "3Dモデリングを使った空間表現の一例。空間や質感を伝えたいご相談があれば、個別に対応も可能です。",
-    thumbLabel: "3D VISUAL EXPERIMENT",
+    summary: "実在の江戸期日本美術22点を、作家・時代・流派で巡るバーチャル美術館。運営者が自分で更新できる管理画面つき。",
+    thumbLabel: "VIRTUAL MUSEUM",
     overview:
       "作家・時代・流派で絞り込める作品グリッドと、静止画に動きを与えるKen Burns演出のスライドショーを軸にした、実在の江戸期日本美術（浮世絵・琳派・狩野派など22点）を紹介するバーチャル美術館サイトです。ビルド不要の単一HTMLという制約の中で機能を積み上げ、運営者自身がノーコードで作品・作家情報を更新できる専用管理画面まで構築しました。",
     role: ["情報設計", "UI/UXデザイン", "フロントエンド実装", "簡易CMS構築"],
@@ -59,145 +79,171 @@ export const works: Work[] = [
       },
     ],
     url: "https://studio-poplar.github.io/THE-GALLERY/",
-  },
-  {
-    slug: "bokuheki",
-    category: "web",
-    type: "demo",
-    title: "墨壁 -BOKUHEKI- コーポレートサイト",
-    client: "灰谷左官店（架空企業／制作デモ）",
-    year: "2026",
-    summary: "左官職人集団の“らしさ”を、質感と間（ま）を大切にしたデザインで伝えるコーポレートサイト。",
-    thumbLabel: "CORPORATE SITE",
-    overview:
-      "伝統的な左官技術（黒漆喰・土壁）を手がける職人集団という設定のもと、素材の質感と間（ま）を大切にしたデザインを、詳細な実装指示書に基づき忠実にNext.jsへ移植した制作事例です。架空企業のポートフォリオ用デモである旨はサイト内にも明記しています。",
-    role: ["デザイン移植・実装", "アニメーション実装", "コンポーネント設計"],
-    stack: ["Next.js", "TypeScript", "CSS設計"],
-    sections: [
+    cover: { device: "desktop", srcs: ["/works/the-gallery/01-slideshow.jpg"] },
+    images: [
       {
-        heading: "課題",
-        body: "詳細な実装指示書で規定された静的HTML/CSS/JSのプロトタイプを、デザインやコピーを一切解釈し直さずにNext.jsの本番実装へ移植する必要がありました。",
+        src: "/works/the-gallery/01-slideshow.jpg",
+        alt: "THE GALLERY のスライドショー表示。葛飾北斎『神奈川沖浪裏』が全画面で表示されている",
+        device: "desktop",
+        caption: "スライドショー：作品を全画面で見せ、静かに動かす",
       },
       {
-        heading: "アプローチ",
-        body: "デザイントークン・フォント・鏝（こて）のストローク描画アニメーションやフィルムグレイン演出まで、指示書の仕様に忠実に沿ってコンポーネント単位で再構築しました。",
+        src: "/works/the-gallery/02-filter.jpg",
+        alt: "THE GALLERY の分類フィルターパネル。作者・年代・流派で作品を絞り込める",
+        device: "desktop",
+        caption: "分類から探す：作者・年代・流派で絞り込み",
       },
       {
-        heading: "成果",
-        body: "コンセプト・実績・会社概要・お問い合わせを含む全5ページを、プロトタイプの意図を損なわずに本番品質で実装。実際に公開しているデモサイトです。",
+        src: "/works/the-gallery/03-mobile.jpg",
+        alt: "THE GALLERY のスマートフォン表示",
+        device: "mobile",
+        caption: "スマートフォン表示",
       },
     ],
-    url: "https://bokuheki.vercel.app/",
   },
   {
     slug: "tabikoyomi-coffee",
     category: "web",
     type: "mock",
-    title: "旅暦珈琲 コーポレートサイト",
-    client: "旅暦珈琲（個人焙煎所）",
+    title: "旅暦珈琲 ブランドサイト",
+    client: "旅暦珈琲（架空の横浜焙煎所／自主制作）",
     year: "2026",
-    summary: "個人焙煎所の開業に合わせたブランドサイト制作。",
-    thumbLabel: "WEB SITE MOCKUP",
+    summary: "毎月ちがう産地の豆が届く、横浜の焙煎所という設定のブランドサイト。“今月の産地”が日付で自動更新されます。",
+    thumbLabel: "BRAND SITE",
     overview:
-      "個人で焙煎所の開業を控えるオーナーの“らしさ”を、コーポレートサイトという一枚の構造物に落とし込んだ制作事例です。屋号のトーン、豆の産地情報、店主の言葉を軸に、開業前から信頼を積み上げられる設計を意識しました。",
-    role: ["ブランド言語化", "サイト設計・デザイン", "コーディング"],
-    stack: ["Webサイト設計", "UIデザイン", "コーディング"],
+      "「毎月、違う国の朝が届く。」をコンセプトに、架空の横浜の焙煎所を題材としてブランドの世界観から設計した自主制作のサイトです。深い焦げ茶を基調にしたエディトリアルなヒーロー、実際の世界地図データを使った産地マップ、店舗マップまでを一貫したトーンでまとめています。架空のお店のため、掲載している店舗・商品情報はすべて制作用のものです。",
+    role: ["ブランド言語化", "サイト設計・デザイン", "コーディング", "データ設計"],
+    stack: ["Next.js", "地図データの可視化", "日付連動の表示ロジック"],
     sections: [
       {
         heading: "課題",
-        body: "実店舗を持たない開業直後の焙煎所にとって、Webサイトが唯一の“顔”になる。信頼と個性を同時に伝える必要がありました。",
+        body: "毎月産地が変わる焙煎所は、“今月何が届くのか”が最大の魅力です。コンセプトを一目で伝えつつ、月が変わっても情報が古くならない作りが求められました。",
       },
       {
         heading: "アプローチ",
-        body: "店主の焙煎哲学をヒアリングし、コピーとビジュアルのトーンを先に固めてから構造設計へ。問い合わせと販売ページへの動線を軸にワイヤーフレームを作成しました。",
+        body: "文字組みと余白を主役にした暗色のエディトリアルなデザインで“旅”の空気をつくり、産地は世界地図上に表示。産地暦のデータを月ごとに持たせ、閲覧した日の月から今月の一杯を自動で算出する構成にしました。",
       },
       {
         heading: "成果",
-        body: "開業告知と同時にサイトを公開し、SNS経由の流入を問い合わせにつなげる受け皿として機能する構成になりました。",
+        body: "更新作業なしで毎月“今月の産地”に切り替わるサイトになりました。架空案件のため運用上の成果はありませんが、ブランドの世界観を情報設計とデザインで一貫して表現する制作の一例です。",
+      },
+    ],
+    url: "https://tabigoyomi-coffee.vercel.app/",
+    cover: { device: "desktop", srcs: ["/works/tabigoyomi-coffee/01-hero.jpg"] },
+    images: [
+      {
+        src: "/works/tabigoyomi-coffee/01-hero.jpg",
+        alt: "旅暦珈琲のヒーロー。「毎月、違う国の朝が届く。」の見出しと世界地図",
+        device: "desktop",
+        caption: "ヒーロー：世界地図の上に、コンセプトを大きく置く",
+      },
+      {
+        src: "/works/tabigoyomi-coffee/02-concept.jpg",
+        alt: "旅暦珈琲のコンセプトセクション",
+        device: "desktop",
+        caption: "コンセプト：焙煎士が実際に訪れた産地だけを届ける",
+      },
+      {
+        src: "/works/tabigoyomi-coffee/03-calendar.jpg",
+        alt: "旅暦珈琲の産地暦。直近の産地がカードで並ぶ",
+        device: "desktop",
+        caption: "産地暦：日付から今月の産地を自動で表示",
+      },
+      {
+        src: "/works/tabigoyomi-coffee/04-menu.jpg",
+        alt: "旅暦珈琲のメニューセクション",
+        device: "desktop",
+        caption: "メニュー",
+      },
+      {
+        src: "/works/tabigoyomi-coffee/05-mobile.jpg",
+        alt: "旅暦珈琲のスマートフォン表示",
+        device: "mobile",
+        caption: "スマートフォン表示",
       },
     ],
   },
   {
-    slug: "nagi-subscription-inn",
-    category: "3dweb",
-    type: "mock",
-    title: "凪 NAGI サブスクリプション民宿サイト",
-    client: "凪 NAGI（コンセプト企画）",
-    year: "2026",
-    summary: "全国の漁村に建つ宿を月額会費で泊まり歩る、会員制住まいのコンセプトサイト。",
-    thumbLabel: "3D MODEL PREVIEW",
-    overview:
-      "内房・能登・淡路・五島、四つの拠点を月額会費で泊まり歩る会員制の“第二の住まい”というコンセプトを、空間の質感を伝える3Dビジュアル表現とともに設計したデモ企画です。宿泊体験の“間”を伝えることを軸にサイト構造を組みました。",
-    role: ["コンセプト設計", "3Dビジュアル活用UI設計", "コーディング"],
-    stack: ["3Dモデリング活用WEB設計", "UIデザイン", "コーディング"],
-    sections: [
-      {
-        heading: "課題",
-        body: "複数拠点にまたがる宿泊体験を、写真だけでは伝わりにくい“空間の質感”ごと伝える必要がありました。",
-      },
-      {
-        heading: "アプローチ",
-        body: "拠点ごとの空間を3Dビジュアルで見せる構成とし、会員登録・拠点紹介・申込導線を一つの体験として設計しました。",
-      },
-      {
-        heading: "成果",
-        body: "空間体験を軸にした情報設計により、宿泊予約サイトにありがちな“検索・比較”ではなく“暮らしを想像する”導線を実現しました（本事例はコンセプト企画のデモです）。",
-      },
-    ],
-  },
-  {
-    slug: "atelier-mokuha-photo",
-    category: "photo-video",
-    type: "mock",
-    title: "アトリエ木葉 商品撮影・PR動画",
-    client: "アトリエ木葉（家具工房／コンセプト企画）",
-    year: "2026",
-    summary: "手仕事の家具工房のための商品撮影と、SNS向けPRショート動画の制作事例。",
-    thumbLabel: "PHOTO & VIDEO MOCKUP",
-    overview:
-      "一点ものの家具を手がける工房の“質感”をECサイトとSNSの両方で伝えるための、商品撮影とPR用ショート動画をセットで設計したデモ企画です。木目や手仕事の跡が伝わる光の当て方と、制作工程を見せる短尺動画を軸にしました。",
-    role: ["撮影ディレクション", "商品撮影", "レタッチ・編集", "ショート動画編集"],
-    stack: ["商品撮影", "動画編集", "SNS用ショート動画"],
-    sections: [
-      {
-        heading: "課題",
-        body: "一点もの家具の“質感”は写真だけでは伝わりにくく、ECサイトとSNS双方で使える素材を効率よく揃える必要がありました。",
-      },
-      {
-        heading: "アプローチ",
-        body: "木目や手触りが伝わる照明・アングルで商品撮影を実施し、同じ現場で制作工程を収めたSNS向けショート動画も撮影。1回の撮影で複数用途の素材をまとめて制作しました。",
-      },
-      {
-        heading: "成果",
-        body: "EC掲載用の商品写真と、SNSで工房の世界観を伝えるショート動画を同時に用意できる構成を実現しました（本事例はコンセプト企画のデモです）。",
-      },
-    ],
-  },
-  {
-    slug: "shindan-app",
+    slug: "coco-yoga",
     category: "app",
-    type: "mock",
-    title: "診断型アプリケーション",
-    client: "診断型アプリ（コンセプト企画）",
+    type: "client",
+    title: "COCO YOGA ヨガ教室向け予約システム",
+    client: "COCO YOGA（ヨガ教室）",
     year: "2026",
-    summary: "悩みの入力から提案までを導く、診断型アプリケーションのUI設計事例。",
-    thumbLabel: "APPLICATION UI",
+    summary: "レッスン予約から出欠管理まで。“生徒が辞める前に気づける”ことを軸にした、ヨガ教室向けの予約・会員管理アプリ。",
+    thumbLabel: "RESERVATION APP",
     overview:
-      "ユーザーの悩みや状態を入力すると、段階的な質問を経て最適な提案にたどり着く診断型アプリのUI/UXを設計したデモ企画です。離脱を防ぐための質問設計と進捗表示を重視しました。",
-    role: ["UI/UX設計", "画面遷移設計", "プロトタイプ開発"],
-    stack: ["アプリ設計", "UIデザイン", "プロトタイピング"],
+      "オーナー・講師・生徒の三者が使う、ヨガ教室向けの予約システムです。生徒はスマートフォンからレッスンを選んで予約でき、オーナーと講師は、スケジュール・出欠・生徒情報を一か所で管理できます。単なる予約管理ではなく、予約や出欠のデータを集めて“辞めそうな生徒”に早めに気づくことを目的に設計しました。",
+    role: ["要件整理", "画面設計・UI/UXデザイン", "フロントエンド／バックエンド実装", "データベース設計"],
+    stack: ["Next.js", "PostgreSQL", "LINEログイン（LIFF）", "Stripe決済（連携設計）"],
     sections: [
       {
         heading: "課題",
-        body: "診断系アプリは質問数が多くなるほど離脱しやすく、進捗の見せ方と質問設計の両立が課題でした。",
+        body: "少人数のヨガ教室では、予約は手作業やSNSのメッセージで受け付けていることが多く、誰が最近来なくなったのかが見えにくいことが課題でした。オーナー・講師・生徒で、見るべき情報も異なります。",
       },
       {
         heading: "アプローチ",
-        body: "1画面1質問の構成とし、進捗バーとマイクロインタラクションで“あと少し”を可視化。結果画面は提案理由を添えて納得感を高めました。",
+        body: "生徒はLINEから開ける予約画面で、日付ごとにレッスンを選ぶだけ。スタッフ側は、レッスンの日程・出欠・生徒・プランを管理する画面を役割ごとに分け、講師別の週間カレンダーで空き状況を確認できるようにしました。",
       },
       {
         heading: "成果",
-        body: "診断完了率を意識した画面設計により、提案から問い合わせ・購買への自然な導線を実現しました（本事例はコンセプト企画のデモです）。",
+        body: "生徒向けのマイページ・レッスン一覧・予約と、スタッフ向けのダッシュボード・スケジュール・出欠管理・プラン管理までを実装。直近30日でキャンセルが重なった生徒をダッシュボードで知らせる、継続率を意識した機能も備えています。",
+      },
+    ],
+    cover: { device: "mobile", srcs: ["/works/coco-yoga/01-student-calendar.jpg", "/works/coco-yoga/02-student-detail.jpg"] },
+    images: [
+      {
+        src: "/works/coco-yoga/01-student-calendar.jpg",
+        alt: "COCO YOGA の生徒向けレッスン一覧。講師ごとの列で表示される週間カレンダー",
+        device: "mobile",
+        caption: "生徒：日付を選ぶと、講師ごとの列でレッスンが並ぶ",
+      },
+      {
+        src: "/works/coco-yoga/02-student-detail.jpg",
+        alt: "COCO YOGA のレッスン詳細と予約ボタン",
+        device: "mobile",
+        caption: "生徒：レッスン詳細から、ワンタップで予約",
+      },
+      {
+        src: "/works/coco-yoga/03-staff-schedule.jpg",
+        alt: "COCO YOGA のスタッフ向けレッスンスケジュール管理画面",
+        device: "desktop",
+        caption: "スタッフ：レッスンの日程と担当講師、予約数を一覧で管理",
+      },
+      {
+        src: "/works/coco-yoga/04-staff-classes.jpg",
+        alt: "COCO YOGA のスタッフ向けクラス種別管理画面",
+        device: "desktop",
+        caption: "スタッフ：クラス種別（内容・時間・定員）の管理",
+      },
+    ],
+    imageNote: "掲載の画面は、確認用のデモデータで表示したものです（実際の生徒情報は含みません）。",
+  },
+  {
+    slug: "breeze-coffee",
+    category: "app",
+    type: "client",
+    title: "Breeze Coffee スマート注文アプリ",
+    client: "Breeze Coffee（カフェ）",
+    year: "2026",
+    summary: "スマホで注文、QRチケットでレジへ。お客さん用・レジ用・管理用の3画面を一つにまとめた、小規模カフェ向けの注文アプリ。",
+    thumbLabel: "ORDER APP",
+    overview:
+      "個人経営・小規模カフェのレジ業務を軽くするための、スマート注文アプリです。お客さんはスマートフォンでメニューを選んで注文し、発行されたQRチケットをレジで見せるだけ。レジ担当は読み取り・会計・提供記録を、オーナーはメニューや店舗情報の更新を、それぞれ専用の画面から行えます。",
+    role: ["要件整理", "画面設計・UI/UXデザイン", "フロントエンド／バックエンド実装", "データベース・認証設計"],
+    stack: ["Next.js", "PostgreSQL", "LINEログイン（LIFF）", "QRコード"],
+    sections: [
+      {
+        heading: "課題",
+        body: "小規模なカフェでは、注文の聞き取りと会計を少人数で回すため、ピーク時にレジが詰まりやすくなります。専用の機械を入れずに、お客さん自身のスマートフォンで負担を減らしたいというご要望でした。",
+      },
+      {
+        heading: "アプローチ",
+        body: "お客さん用アプリ・レジアプリ・管理画面の3つを、一つのアプリとして構築。注文の確定でQRチケットを発行し、レジのカメラで読み取って会計・提供までをつなぎます。よく頼む一杯を登録できる「いつもの」機能も加えました。",
+      },
+      {
+        heading: "成果",
+        body: "注文から会計、提供の記録までが一続きで動くところまで実装しました。お客さんの認証はLINEのアカウントで行い、管理画面ではメニュー・オプション・画像・店舗情報を、コードに触れずに更新できます。",
       },
     ],
   },

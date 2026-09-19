@@ -176,3 +176,57 @@
   background: #5fe0c0;
   box-shadow: 0 0 8px #5fe0c0;
 }
+
+/* real screenshots */
+.shot {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.thumb[data-cover="desktop"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, rgba(8, 12, 16, 0.55) 0%, transparent 32%, transparent 62%, rgba(8, 12, 16, 0.6) 100%);
+  pointer-events: none;
+}
+
+.thumb[data-cover] .badge,
+.thumb[data-cover] .label,
+.thumb[data-cover] .live {
+  z-index: 1;
+}
+
+.phones {
+  position: absolute;
+  top: 9cqw;
+  right: 10cqw;
+  bottom: -8cqw;
+  display: flex;
+  gap: 3cqw;
+}
+
+.phone {
+  position: relative;
+  aspect-ratio: 390 / 844;
+  height: 100%;
+  overflow: hidden;
+  border: 0.9cqw solid #0b0f12;
+  border-radius: 3.6cqw;
+  background: #f5f3ee;
+  box-shadow: 0 2cqw 5cqw rgba(0, 0, 0, 0.4);
+}
+
+.phone:nth-child(2) {
+  margin-top: 5cqw;
+}
+
+.phone img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* the screenshot speaks for itself; the caption pill would cover it */
+.thumb[data-cover="desktop"] .label {
+  display: none;
+}

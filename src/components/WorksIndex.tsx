@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Work, WorkCategory, WORK_CATEGORY_LABELS } from "@/data/works";
+import { Work, WorkCategory, WORK_CATEGORY_LABELS, COMING_SOON } from "@/data/works";
 import WorkCard from "./WorkCard";
 import WorkThumb from "./WorkThumb";
 import { useCard } from "@/lib/useCard";
@@ -41,12 +41,30 @@ function FeaturedWork({ work }: { work: Work }) {
   );
 }
 
+function ComingSoonCard({ category }: { category: WorkCategory }) {
+  const info = COMING_SOON[category];
+  if (!info) return null;
+
+  return (
+    <div className={styles.soon} data-category={category}>
+      <span className={`en ${styles.soonKicker}`}>COMING SOON</span>
+      <span className={`en ${styles.pill}`}>{WORK_CATEGORY_LABELS[category]}</span>
+      <h3>{info.title}</h3>
+      <p>{info.body}</p>
+      <Link href={`/contact?category=${category}`} className={`en ${styles.more}`}>
+        撮影のご相談はこちら →
+      </Link>
+    </div>
+  );
+}
+
 export default function WorksIndex({ works }: { works: Work[] }) {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const categories = (Object.keys(WORK_CATEGORY_LABELS) as WorkCategory[]).filter((c) =>
-    works.some((w) => w.category === c)
+  const categories = (Object.keys(WORK_CATEGORY_LABELS) as WorkCategory[]).filter(
+    (c) => works.some((w) => w.category === c) || COMING_SOON[c]
   );
+  const soon = categories.filter((c) => !works.some((w) => w.category === c) && COMING_SOON[c]);
   const countOf = (c: Filter) => (c === "all" ? works.length : works.filter((w) => w.category === c).length);
 
   const visible = works.filter((w) => filter === "all" || w.category === filter);
@@ -70,7 +88,7 @@ export default function WorksIndex({ works }: { works: Work[] }) {
             onClick={() => select(c)}
           >
             {c === "all" ? "ALL" : WORK_CATEGORY_LABELS[c]}
-            <small>{countOf(c)}</small>
+            <small>{c !== "all" && soon.includes(c) ? "SOON" : countOf(c)}</small>
           </button>
         ))}
         <span className={styles.legend}>CLIENT = 実案件 / DEMO = 制作デモ / MOCK = 自主制作</span>
@@ -82,6 +100,11 @@ export default function WorksIndex({ works }: { works: Work[] }) {
         {rest.map((work, i) => (
           <WorkCard key={work.slug} work={work} revealDelay={i * 70} />
         ))}
+        {soon
+          .filter((c) => filter === "all" || filter === c)
+          .map((c) => (
+            <ComingSoonCard key={c} category={c} />
+          ))}
       </div>
     </>
   );

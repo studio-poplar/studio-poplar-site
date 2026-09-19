@@ -173,3 +173,35 @@
   letter-spacing: 0.1em;
   color: var(--ink);
 }
+
+.soon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  min-height: 240px;
+  padding: 28px 26px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 14px;
+  background-color: var(--panel-soft);
+}
+
+.soonKicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--second);
+}
+
+.soon h3 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.soon p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
