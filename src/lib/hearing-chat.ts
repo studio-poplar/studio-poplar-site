@@ -230,7 +230,7 @@ export function buildContactMessage(answers: readonly HearingAnswer[]): string {
   const body = answers
     .map((a, i) => `Q${i + 1}. ${a.question}\n→ ${a.label ?? a.freeText ?? ""}`)
     .join("\n\n");
-  return `AIヒアリングを完了しました。\n\n【AIヒアリングの回答内容】\n\n${body}\n\n${CONTACT_DETAIL_PROMPT}\n`;
+  return `【チャット相談の回答内容】\n\n${body}\n\n${CONTACT_DETAIL_PROMPT}\n`;
 }
 
 // Chat answers always arrive on the contact form as "other" (その他のご相談);

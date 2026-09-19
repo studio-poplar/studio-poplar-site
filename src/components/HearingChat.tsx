@@ -557,7 +557,7 @@ function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onC
               className="btn-primary"
               onClick={() => trackEvent("hearing_chat_to_contact")}
             >
-              お問い合わせに反映する<span className="btn-arrow">→</span>
+              この内容で相談する<span className="btn-arrow">→</span>
             </Link>
           </div>
         ) : (
