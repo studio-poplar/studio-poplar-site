@@ -4,6 +4,7 @@ import SectionHead from "@/components/SectionHead";
 import TargetCard from "@/components/TargetCard";
 import AboutBlock from "@/components/AboutBlock";
 import TeamProfile from "@/components/TeamProfile";
+import CompanyInfo from "@/components/CompanyInfo";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 
@@ -78,6 +79,17 @@ export default function AboutPage() {
           </Reveal>
           <Reveal>
             <TeamProfile />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section soft">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <SectionHead index="04" label="COMPANY" title="会社情報" />
+          </Reveal>
+          <Reveal>
+            <CompanyInfo />
           </Reveal>
         </div>
       </section>
