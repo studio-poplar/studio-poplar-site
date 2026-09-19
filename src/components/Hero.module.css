@@ -345,7 +345,9 @@
 @media (min-width: 1000px) {
   .visual {
     margin: 0;
-    justify-self: stretch;
+    max-width: 500px;
+    justify-self: end;
+    align-self: center;
   }
 }
 
