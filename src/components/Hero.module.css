@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  text-align: center;
+  text-align: left;
   position: relative;
   padding: 140px 24px 60px;
   overflow: hidden;
@@ -122,7 +122,6 @@
   .grid {
     grid-template-columns: 1.15fr 0.85fr;
     gap: 50px;
-    text-align: left;
   }
 }
 
@@ -201,7 +200,7 @@
   line-height: 1.7;
   color: var(--ink-soft);
   max-width: 480px;
-  margin: 28px auto 0;
+  margin: 28px 0 0;
   background: var(--panel);
   padding: 18px 22px;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -213,28 +212,15 @@
   font-weight: 700;
 }
 
-@media (min-width: 900px) {
-  .lead {
-    margin: 28px 0 0;
-  }
-}
-
 .facts {
-  margin: 28px auto 0;
+  margin: 28px 0 0;
   display: flex;
   align-items: baseline;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 22px;
   flex-wrap: wrap;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.4s;
-}
-
-@media (min-width: 900px) {
-  .facts {
-    margin: 28px 0 0;
-    justify-content: flex-start;
-  }
 }
 
 .facts li {
@@ -264,15 +250,9 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.46s;
-}
-
-@media (min-width: 900px) {
-  .ctas {
-    justify-content: flex-start;
-  }
 }
 
 .ctas :global(.btn-ghost) {
@@ -292,8 +272,8 @@
   width: 100%;
   max-width: 420px;
   aspect-ratio: 4 / 5;
-  justify-self: center;
-  margin: 8px auto 0;
+  justify-self: start;
+  margin: 8px 0 0;
 }
 
 @media (min-width: 900px) {
