@@ -22,8 +22,9 @@ export type Question = {
   multiSelect?: boolean;
 };
 
-export const INTRO_MESSAGE =
-  "はじめまして。ここでは肩の力を抜いて、思っていることをそのまま話してください。うまく整理できていなくても大丈夫です。";
+export const EXPECTATION_NOTICE = "所要時間の目安は約2分です。途中でやめても大丈夫なので、気軽にお話しください。";
+
+export const INTRO_MESSAGE = `はじめまして。ここでは肩の力を抜いて、思っていることをそのまま話してください。うまく整理できていなくても大丈夫です。\n\n${EXPECTATION_NOTICE}`;
 
 export const QUESTIONS: readonly Question[] = [
   {
@@ -88,6 +89,22 @@ export const QUESTIONS: readonly Question[] = [
     ],
   },
 ] as const;
+
+// Combination-specific acks for the multi-select question. Keys are the
+// selected categories, sorted and joined with "+". Anything not listed here
+// (e.g. combined with UNDECIDED) falls back to MULTI_ACK_FALLBACK.
+const MULTI_ACKS: Record<string, string> = {
+  "APP+WEB": "サイトと予約・注文の仕組み、両方まとめて考えられているんですね。",
+  "PHOTO_VIDEO+WEB": "サイトと写真・動画、見せ方をセットで考えられているんですね。",
+  "APP+PHOTO_VIDEO": "日々の仕組みと見せ方、両面から整えたいんですね。",
+  "APP+PHOTO_VIDEO+WEB": "サイト・仕組み・見せ方、全体をまとめて見直したいんですね。",
+};
+
+export const MULTI_ACK_FALLBACK = "複数の視点から教えてくださり、ありがとうございます。";
+
+export function multiChoiceAck(categories: readonly Category[]): string {
+  return MULTI_ACKS[[...categories].sort().join("+")] ?? MULTI_ACK_FALLBACK;
+}
 
 export const CLOSING_MESSAGE =
   "ありがとうございます。悩みの根っこと、目指したい未来、かなり見えてきました。ここから先——それをどう形にするかは、正直、対話でしか見えてこない領域です。ここまでの内容はそのまま伊藤に共有しておくので、次は直接お話ししながら一緒に形にしていきましょう。";

@@ -7,6 +7,7 @@ import {
   QUESTIONS,
   TOTAL_QUESTIONS,
 } from "@/lib/hearing-chat";
+import { guardFreeText } from "@/lib/hearing-chat-guard";
 
 export const runtime = "nodejs";
 
@@ -33,7 +34,7 @@ function checkAndLogSessionStart(ip: string): boolean {
   return true;
 }
 
-// ---- /api/hearing-chat/reflect — called only for free-text answers ----
+// ---- POST — called only for free-text answers ----
 
 type ReflectBody = {
   step: number; // 1-indexed question number this answer is for
@@ -49,7 +50,24 @@ const SYSTEM_PROMPT = `あなたはStudio Poplar(WEB制作・アプリ制作・�
 - ユーザーの発言内容そのものを否定・評価・分析しません。あくまで受け止めるだけです。
 - 出力は必ず1〜2文、絵文字なし。です・ます調だが距離は近い、丁寧だが堅くない、話しやすい先輩のようなトーンです。
 
-深掘りが必要かどうかは、文字数ではなく「本音や具体性に触れられているか」という意味的な判断で決めてください。
+以下のいずれかに該当する場合のみ needs_followup を true にしてください:
+- 具体的な出来事や場面(いつ・どこで・誰と)が書かれていない
+- 数値・期間・固有名詞など、具体性を判断できる手がかりが一切ない
+- 一般論・理想論のみで、本人の実体験が書かれていない
+
+以下の場合は needs_followup を false にしてください:
+- 「わからない」「特にない」など、本人が明確に「これ以上ない」と示している
+- すでに具体的なエピソードや数値が含まれている
+- 入力が質問の意図から大きく外れている、または個人情報・不適切な内容を含む
+
+良い相槌の例:
+- 「そうだったんですね、それは伝わりにくくてもどかしいですよね。」
+- 「なるほど、そこがずっと引っかかっていたんですね。」
+- 「ありがとうございます、状況がよく分かりました。」
+
+避けるべき相槌の例(事務的・カウンセラー的すぎる):
+- 「承知いたしました。」(事務的すぎる)
+- 「そのお気持ち、とてもよく分かります。あなたは一人ではありません。」(重すぎる/カウンセラー的)
 
 必ず次のJSON形式のみで出力してください。他のテキストは一切含めないこと:
 {"reflection": "回答を踏まえた1〜2文の相槌", "needs_followup": true または false, "followup_question": "深掘りが必要な場合のみ1つの質問文。不要な場合は空文字"}`;
@@ -107,6 +125,11 @@ export async function POST(request: NextRequest) {
   }
   if (typeof userTurnCount === "number" && userTurnCount > MAX_USER_TURNS) {
     return NextResponse.json({ error: "セッションの上限に達しました。お手数ですがお問い合わせフォームからご連絡ください。" }, { status: 429 });
+  }
+
+  const guarded = guardFreeText(userAnswer, Boolean(alreadyFollowedUp));
+  if (guarded) {
+    return NextResponse.json(guarded);
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {

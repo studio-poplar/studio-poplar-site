@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { trackEvent } from "@/lib/gtag";
 import {
   CLOSING_MESSAGE,
+  EXPECTATION_NOTICE,
   INTRO_MESSAGE,
   MAX_FREE_TEXT_LENGTH,
   PRIVACY_NOTICE,
   QUESTIONS,
   TOTAL_QUESTIONS,
+  multiChoiceAck,
   type Category,
 } from "@/lib/hearing-chat";
 import styles from "./HearingChat.module.css";
@@ -25,9 +27,60 @@ type AnswerRecord = {
 };
 
 const PENDING_KEY = "hearing-chat-pending-notify";
+const PROGRESS_KEY = "hearing-chat-progress";
+const RESUME_PROMPT = "前回の続きから再開しますか?";
+
+type SavedProgress = {
+  step: number;
+  messages: DisplayMessage[];
+  answers: AnswerRecord[];
+  userTurnCount: number;
+  followupUsed: boolean;
+};
 
 function makeId() {
   return Math.random().toString(36).slice(2);
+}
+
+function initialMessages(): DisplayMessage[] {
+  return [
+    { id: makeId(), role: "assistant", content: INTRO_MESSAGE },
+    { id: makeId(), role: "assistant", content: QUESTIONS[0].text },
+  ];
+}
+
+function loadProgress(): SavedProgress | null {
+  try {
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if (!raw) return null;
+    const p = JSON.parse(raw);
+    const valid =
+      typeof p.step === "number" &&
+      p.step >= 1 &&
+      p.step <= TOTAL_QUESTIONS &&
+      Array.isArray(p.messages) &&
+      Array.isArray(p.answers) &&
+      typeof p.userTurnCount === "number";
+    return valid ? { ...p, followupUsed: Boolean(p.followupUsed) } : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveProgress(progress: SavedProgress) {
+  try {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  } catch {
+    // ignore — resume is a convenience, not a requirement
+  }
+}
+
+function clearProgress() {
+  try {
+    localStorage.removeItem(PROGRESS_KEY);
+  } catch {
+    // ignore
+  }
 }
 
 async function sendNotify(payload: { answers: AnswerRecord[]; transcript: string }): Promise<boolean> {
@@ -54,12 +107,14 @@ function retryPendingNotify() {
 
 export default function HearingChatLauncher() {
   const [open, setOpen] = useState(false);
+  const [saved, setSaved] = useState<SavedProgress | null>(null);
 
   useEffect(() => {
     retryPendingNotify();
   }, []);
 
   function handleOpen() {
+    setSaved(loadProgress());
     setOpen(true);
     trackEvent("hearing_chat_open");
   }
@@ -70,16 +125,16 @@ export default function HearingChatLauncher() {
         <span className={styles.launcherDot} aria-hidden="true" />
         チャットで相談する<span className="btn-arrow">→</span>
       </button>
-      {open && <HearingChatModal onClose={() => setOpen(false)} />}
+      {open && <HearingChatModal saved={saved} onClose={() => setOpen(false)} />}
     </>
   );
 }
 
-function HearingChatModal({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<DisplayMessage[]>([
-    { id: makeId(), role: "assistant", content: INTRO_MESSAGE },
-    { id: makeId(), role: "assistant", content: QUESTIONS[0].text },
-  ]);
+function HearingChatModal({ saved, onClose }: { saved: SavedProgress | null; onClose: () => void }) {
+  const [messages, setMessages] = useState<DisplayMessage[]>(() =>
+    saved ? [{ id: makeId(), role: "assistant", content: RESUME_PROMPT }] : initialMessages()
+  );
+  const [askResume, setAskResume] = useState(saved !== null);
   const [step, setStep] = useState(1);
   const [followupUsed, setFollowupUsed] = useState(false);
   const [input, setInput] = useState("");
@@ -106,13 +161,61 @@ function HearingChatModal({ onClose }: { onClose: () => void }) {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, busy]);
 
+  const latestRef = useRef({ messages, step, followupUsed, done, askResume });
+  useEffect(() => {
+    latestRef.current = { messages, step, followupUsed, done, askResume };
+  });
+
+  const handleClose = useCallback(() => {
+    const latest = latestRef.current;
+    if (latest.done) {
+      clearProgress();
+    } else if (!latest.askResume) {
+      // Drop an unanswered trailing user message (request still in flight) so
+      // the resumed chat doesn't show a question the AI never replied to.
+      const kept = [...latest.messages];
+      let turns = userTurnCountRef.current;
+      while (kept.length > 0 && kept[kept.length - 1].role === "user") {
+        kept.pop();
+        turns -= 1;
+      }
+      if (turns > 0 || answersRef.current.length > 0) {
+        saveProgress({
+          step: latest.step,
+          messages: kept,
+          answers: answersRef.current,
+          userTurnCount: Math.max(turns, 0),
+          followupUsed: latest.followupUsed,
+        });
+      }
+    }
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     function onKey(event: globalThis.KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") handleClose();
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [handleClose]);
+
+  function handleResume() {
+    if (!saved) return;
+    setMessages(saved.messages);
+    setStep(saved.step);
+    setFollowupUsed(saved.followupUsed);
+    answersRef.current = saved.answers;
+    userTurnCountRef.current = saved.userTurnCount;
+    setAskResume(false);
+    trackEvent("hearing_chat_resume");
+  }
+
+  function handleRestart() {
+    clearProgress();
+    setMessages(initialMessages());
+    setAskResume(false);
+  }
 
   function pushMessage(role: "user" | "assistant", content: string) {
     setMessages((prev) => [...prev, { id: makeId(), role, content }]);
@@ -125,6 +228,7 @@ function HearingChatModal({ onClose }: { onClose: () => void }) {
 
     pushMessage("assistant", lastAck + "\n\n" + CLOSING_MESSAGE);
     setDone(true);
+    clearProgress();
     trackEvent("hearing_chat_complete");
 
     const payload = { answers: answersRef.current, transcript };
@@ -191,7 +295,7 @@ function HearingChatModal({ onClose }: { onClose: () => void }) {
     pushMessage("user", labels.join("、"));
     userTurnCountRef.current += 1;
     setBusy(true);
-    const ack = chosen.length === 1 ? chosen[0].ack : "複数の視点から教えてくださり、ありがとうございます。";
+    const ack = chosen.length === 1 ? chosen[0].ack : multiChoiceAck(categories);
 
     setTimeout(() => {
       setBusy(false);
@@ -275,22 +379,24 @@ function HearingChatModal({ onClose }: { onClose: () => void }) {
   }
 
   const currentQuestion = !done ? QUESTIONS[step - 1] : null;
-  const showChips = currentQuestion && !followupUsed && !busy;
+  const showChips = currentQuestion && !followupUsed && !busy && !askResume;
   const overLimit = input.length > MAX_FREE_TEXT_LENGTH;
 
   return createPortal(
     <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="AIヒアリングチャット">
-      <button type="button" className={styles.backdrop} aria-label="閉じる" onClick={onClose} />
+      <button type="button" className={styles.backdrop} aria-label="閉じる" onClick={handleClose} />
       <div className={styles.panel}>
         <div className={styles.header}>
           <div>
             <span className={`en ${styles.headerLabel}`}>AI HEARING</span>
             <span className={styles.headerTitle}>AIヒアリング</span>
           </div>
-          <button type="button" className={styles.close} onClick={onClose} aria-label="閉じる">
+          <button type="button" className={styles.close} onClick={handleClose} aria-label="閉じる">
             ✕
           </button>
         </div>
+
+        <p className={styles.notice}>{EXPECTATION_NOTICE}</p>
 
         <div className={styles.progress} aria-hidden="true">
           {Array.from({ length: TOTAL_QUESTIONS }).map((_, i) => (
@@ -350,13 +456,24 @@ function HearingChatModal({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
+        {askResume && (
+          <div className={styles.chips}>
+            <button type="button" className={styles.chipConfirm} onClick={handleResume}>
+              続きから
+            </button>
+            <button type="button" className={styles.chip} onClick={handleRestart}>
+              最初からやり直す
+            </button>
+          </div>
+        )}
+
         {error && (
           <p className={styles.error} role="status">
             {error}
           </p>
         )}
 
-        {done ? (
+        {askResume ? null : done ? (
           <div className={styles.doneRow}>
             {notifyFailed ? (
               <div className={styles.notifyFailed}>
