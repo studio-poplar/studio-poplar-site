@@ -56,7 +56,7 @@ export default function HeroSlideshow({ autoPlay }: { autoPlay: boolean }) {
             inert={!active}
           >
             {slide.video && <SlideVideo video={slide.video} active={active} autoPlay={autoPlay} />}
-            {slide.image && <Image src={slide.image} alt="" fill sizes="(min-width: 900px) 45vw, 100vw" className={styles.photo} priority={i === 0} />}
+            {slide.image && <Image src={slide.image} alt="" fill sizes="(min-width: 900px) 45vw, 100vw" className={styles.shot} priority={i === 0} />}
             {(slide.image || slide.video) && <span className={styles.scrim} aria-hidden="true" />}
             <span className={`en ${styles.ghost}`} aria-hidden="true">
               {slide.tag.split(" ")[0]}
