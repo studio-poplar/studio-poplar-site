@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Work, WorkCategory, WORK_CATEGORY_LABELS, COMING_SOON } from "@/data/works";
 import WorkCard from "./WorkCard";
@@ -41,6 +41,11 @@ function FeaturedWork({ work }: { work: Work }) {
   );
 }
 
+function subscribeToUrl(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+}
+
 function ComingSoonCard({ category }: { category: WorkCategory }) {
   const info = COMING_SOON[category];
   if (!info) return null;
@@ -59,11 +64,24 @@ function ComingSoonCard({ category }: { category: WorkCategory }) {
 }
 
 export default function WorksIndex({ works }: { works: Work[] }) {
-  const [filter, setFilter] = useState<Filter>("all");
+  // the tab the visitor clicked; until then the URL decides (see below)
+  const [picked, setPicked] = useState<Filter | null>(null);
+  const search = useSyncExternalStore(subscribeToUrl, () => window.location.search, () => "");
 
-  const categories = (Object.keys(WORK_CATEGORY_LABELS) as WorkCategory[]).filter(
-    (c) => works.some((w) => w.category === c) || COMING_SOON[c]
+  const categories = useMemo(
+    () =>
+      (Object.keys(WORK_CATEGORY_LABELS) as WorkCategory[]).filter(
+        (c) => works.some((w) => w.category === c) || COMING_SOON[c]
+      ),
+    [works]
   );
+
+  // /works?category=web (and app, photo-video) opens with that tab selected. The server
+  // snapshot is empty, so the statically generated page always starts on ALL and the
+  // requested tab is applied as soon as the page is hydrated.
+  const requested = new URLSearchParams(search).get("category");
+  const fromUrl: Filter = categories.find((c) => c === requested) ?? "all";
+  const filter: Filter = picked ?? fromUrl;
   const soon = categories.filter((c) => !works.some((w) => w.category === c) && COMING_SOON[c]);
   const countOf = (c: Filter) => (c === "all" ? works.length : works.filter((w) => w.category === c).length);
 
@@ -72,7 +90,9 @@ export default function WorksIndex({ works }: { works: Work[] }) {
   const rest = visible.filter((w) => !featured || w.slug !== featured.slug);
 
   function select(next: Filter) {
-    setFilter(next);
+    setPicked(next);
+    const path = window.location.pathname;
+    window.history.replaceState(null, "", next === "all" ? path : `${path}?category=${next}`);
     trackEvent("works_filter", { category: next });
   }
 
