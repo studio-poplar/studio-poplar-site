@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
+import Link from "next/link";
 import { useCard } from "@/lib/useCard";
 import styles from "./ServiceCard.module.css";
 
@@ -10,6 +11,11 @@ type ServiceCardProps = {
   title: string;
   description: string;
   items?: string[];
+  /** small heading above the item list */
+  eyebrow?: string;
+  price?: string;
+  href?: string;
+  cta?: string;
   revealDelay?: number;
   icon?: ReactNode;
   accent?: string;
@@ -21,6 +27,10 @@ export default function ServiceCard({
   title,
   description,
   items,
+  eyebrow,
+  price,
+  href,
+  cta = "詳しく見る",
   revealDelay = 0,
   icon,
   accent,
@@ -39,11 +49,24 @@ export default function ServiceCard({
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.description}>{description}</p>
       {items && items.length > 0 && (
-        <ul className={styles.items}>
-          {items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+        <div className={eyebrow ? styles.extra : undefined}>
+          {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+          <ul className={eyebrow ? styles.itemsPlain : styles.items}>
+            {items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {(price || href) && (
+        <div className={styles.footer}>
+          {price && <span className={`en ${styles.price}`}>{price}</span>}
+          {href && (
+            <Link href={href} className={`en ${styles.link}`}>
+              {cta} →
+            </Link>
+          )}
+        </div>
       )}
     </div>
   );

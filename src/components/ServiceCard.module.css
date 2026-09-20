@@ -1,5 +1,7 @@
 .card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--bg);
   padding: 40px 32px;
   border: 1px solid var(--border);
@@ -64,6 +66,7 @@
 
 .tag {
   display: inline-block;
+  align-self: flex-start;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -94,14 +97,36 @@
   gap: 8px;
 }
 
-.items li {
+.extra {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--card-accent, var(--accent));
+}
+
+.itemsPlain {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.items li,
+.itemsPlain li {
   font-size: 13px;
   color: var(--ink-soft);
   padding-left: 16px;
   position: relative;
 }
 
-.items li::before {
+.items li::before,
+.itemsPlain li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -109,4 +134,43 @@
   width: 8px;
   height: 1px;
   background: var(--accent);
+}
+
+/* price and link sit at the bottom of the card; the whole card is clickable through the link */
+.footer {
+  margin-top: auto;
+  padding-top: 28px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.link {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card:hover .link {
+  color: var(--card-accent, var(--accent));
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--system);
+  outline-offset: 4px;
 }
