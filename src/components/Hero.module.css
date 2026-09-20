@@ -121,8 +121,10 @@
 }
 
 @media (min-width: 1000px) {
+  /* the header is about 89px tall; leave ~47px of clear space under it (about 56px to
+     the ink of the wordmark) even when the screen is short and the content fills it */
   .hero {
-    padding-top: 96px;
+    padding-top: 136px;
   }
 
   /* Wordmark + subtitle run across the full width; below them the text sits on the
@@ -445,5 +447,17 @@
   }
   100% {
     top: 100%;
+  }
+}
+
+/* short desktop screens: the taller top padding pushes the scroll cue down, so take
+   the same space back from below it to keep the cue inside the first screen */
+@media (min-width: 1000px) and (max-height: 800px) {
+  .hero {
+    padding-bottom: 8px;
+  }
+
+  .scrollcue {
+    margin-top: 16px;
   }
 }
