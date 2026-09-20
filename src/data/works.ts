@@ -289,6 +289,77 @@ export const works: Work[] = [
         body: "注文から会計、提供の記録、領収書・請求書の発行までが一続きで動くところまで実装しました。お客さんの認証はLINEのアカウントで行い、管理画面ではメニュー・オプション・画像・店舗情報・スタッフを、コードに触れずに更新できます。商品ごとの原価を登録して利益も見られる売上レポートや、ログイン失敗時のロック、エラー監視と稼働確認の仕組みも備えています。",
       },
     ],
+    cover: {
+      device: "mobile",
+      srcs: ["/works/breeze-coffee/01-customer-menu.jpg", "/works/breeze-coffee/03-customer-ticket.jpg"],
+    },
+    images: [
+      {
+        src: "/works/breeze-coffee/05-register-orders.jpg",
+        alt: "Breeze Coffee のレジ画面。会計待ちの注文が一覧で並ぶ",
+        device: "desktop",
+        caption: "レジ：QRの読み取りか注文番号で、会計待ちの注文を呼び出す",
+      },
+      {
+        src: "/works/breeze-coffee/06-register-cash.jpg",
+        alt: "Breeze Coffee のレジ画面。現金の預かり額を入力するとお釣りが自動で表示される",
+        device: "desktop",
+        caption: "レジ：預かり額を入れると、お釣りを自動で計算",
+      },
+      {
+        src: "/works/breeze-coffee/07-maker-board.jpg",
+        alt: "Breeze Coffee のメイク画面。提供待ちの注文が並ぶ",
+        device: "desktop",
+        caption: "メイク画面：提供待ちの注文を、作る人がひと目で確認",
+      },
+      {
+        src: "/works/breeze-coffee/08-customer-display.jpg",
+        alt: "Breeze Coffee のお客さん向け表示。レジで打った注文内容と合計が映る",
+        device: "desktop",
+        caption: "お客さん向け表示：レジの操作が、そのまま画面に映る",
+      },
+      {
+        src: "/works/breeze-coffee/09-admin-menu.jpg",
+        alt: "Breeze Coffee の管理画面。メニューの一覧と、商品ごとの粗利率",
+        device: "desktop",
+        caption: "管理画面：メニューを、粗利率とあわせて管理",
+      },
+      {
+        src: "/works/breeze-coffee/10-admin-sales.jpg",
+        alt: "Breeze Coffee の管理画面。売上と原価のサマリーと、日ごとの推移",
+        device: "desktop",
+        caption: "管理画面：売上と原価から、収益性を確認",
+      },
+      {
+        src: "/works/breeze-coffee/01-customer-menu.jpg",
+        alt: "Breeze Coffee のお客さん用メニュー画面",
+        device: "mobile",
+        statusBg: "#ffffff",
+        caption: "お客さん：カテゴリごとにメニューを選ぶ",
+      },
+      {
+        src: "/works/breeze-coffee/02-customer-options.jpg",
+        alt: "Breeze Coffee の商品詳細。サイズ・温度・ミルクの変更を選べる",
+        device: "mobile",
+        statusBg: "#ffffff",
+        caption: "お客さん：サイズ・温度・ミルクを、その場で選べる",
+      },
+      {
+        src: "/works/breeze-coffee/03-customer-ticket.jpg",
+        alt: "Breeze Coffee の注文チケット。QRコードと注文内容が表示されている",
+        device: "mobile",
+        statusBg: "#ffffff",
+        caption: "お客さん：注文するとQRチケットが発行される",
+      },
+      {
+        src: "/works/breeze-coffee/04-customer-receipt.jpg",
+        alt: "Breeze Coffee のレシート画面",
+        device: "mobile",
+        statusBg: "#ffffff",
+        caption: "お客さん：会計後は、レシートもスマホで見られる",
+      },
+    ],
+    imageNote: "掲載の画面は、確認用に作成したサンプルデータで表示したものです（実際のお客様情報は含みません）。",
   },
 ];
 
