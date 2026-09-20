@@ -175,40 +175,47 @@
   }
 }
 
+/* wordmark: wide, heavy Unbounded. "STUDIO" is solid; "POPLAR" is an outline, drawn
+   as stroke-then-fill in the page colour so the font's overlapping contours do not
+   show through. The size keeps the whole word inside the content width. */
 .title {
   display: block;
-  font-family: var(--font-en), sans-serif;
-  font-weight: 300;
-  font-size: clamp(36px, 7.1vw, 96px);
+  font-family: var(--font-wordmark), var(--font-en), sans-serif;
+  font-weight: 800;
+  font-size: clamp(24px, 7.2vw, 85px);
   line-height: 1;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.03em;
   white-space: nowrap;
   color: var(--ink);
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.1s;
 }
 
+.outline {
+  color: var(--bg);
+  -webkit-text-stroke: max(2px, 0.038em) var(--ink);
+  paint-order: stroke fill;
+}
+
 .subtitle {
   font-family: var(--font-jp), sans-serif;
-  font-weight: 300;
-  font-size: clamp(20px, 3.3vw, 46px);
-  line-height: 1.4;
+  font-weight: 700;
+  font-size: clamp(19px, 3.2vw, 36px);
+  line-height: 1.45;
   color: var(--ink);
   margin-top: 14px;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.2s;
 }
 
-/* placed after the base rules above so the desktop sizes win */
-@media (min-width: 1000px) {
-  .title {
-    font-size: clamp(66px, 6.6vw, 89px);
-  }
+/* the second half of the tagline is marked with a soft green highlight */
+.hl {
+  background-image: linear-gradient(transparent 60%, rgba(79, 168, 150, 0.42) 60%);
+}
 
-  /* scaled with the wordmark, and kept clear of the raised visual card */
+@media (min-width: 1000px) {
   .subtitle {
     margin-top: 16px;
-    font-size: clamp(20px, 3.15vw, 44px);
   }
 }
 

@@ -43,8 +43,12 @@ export default function Hero() {
         <div className={styles.grid}>
           <div className={styles.textCol}>
             <motion.div className={styles.headBlock} style={{ y: headY, opacity: headOpacity }}>
-              <h1 className={styles.title}>STUDIO POPLAR</h1>
-              <h2 className={styles.subtitle}>伝えたいことを、伝わる形に。</h2>
+              <h1 className={styles.title}>
+                STUDIO <span className={styles.outline}>POPLAR</span>
+              </h1>
+              <h2 className={styles.subtitle}>
+                伝えたいことを、<span className={styles.hl}>伝わる形に。</span>
+              </h2>
             </motion.div>
             <motion.div className={styles.bodyBlock} style={{ y: bodyY, opacity: bodyOpacity }}>
               <p className={styles.lead}>
