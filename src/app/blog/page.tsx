@@ -6,7 +6,8 @@ import { getAllBlogPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "BLOG",
-  description: "Studio Poplarのブログ。地域訪問での気づきや、制作の考え方をお届けします。",
+  description:
+    "Studio Poplarのブログ。サイト・アプリ・写真や映像をつくる中で、実際に試して分かったことや、設計の考え方をまとめています。",
 };
 
 export default function BlogPage() {
@@ -16,8 +17,8 @@ export default function BlogPage() {
     <>
       <PageMasthead
         eyebrow="BLOG"
-        title="活動と、考えていること。"
-        description="訪れた地域で見つけたこと、制作の裏側で考えていること。お知らせはNEWSにまとめています。"
+        title="つくりながら、学んだこと。"
+        description="サイト・アプリ・写真や映像をつくる中で、実際に試して分かったことを書き留めています。お知らせはNEWSにまとめています。"
       />
 
       <section className="section" style={{ borderBottom: "none" }}>

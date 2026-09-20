@@ -3,7 +3,8 @@ import styles from "./AboutBlock.module.css";
 type AboutBlockProps = {
   num: string;
   label: string;
-  quote: string;
+  /** one string, or one entry per line (so the line breaks fall where the meaning does) */
+  quote: string | string[];
   body: string;
 };
 
@@ -16,7 +17,13 @@ export default function AboutBlock({ num, label, quote, body }: AboutBlockProps)
           <span className={`en ${styles.label}`}>{label}</span>
         </div>
       </div>
-      <p className={styles.quote}>{quote}</p>
+      <p className={styles.quote}>
+        {(Array.isArray(quote) ? quote : [quote]).map((line) => (
+          <span key={line} className={styles.line}>
+            {line}
+          </span>
+        ))}
+      </p>
       <p className={styles.body}>{body}</p>
     </div>
   );

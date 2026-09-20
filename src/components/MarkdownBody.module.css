@@ -44,3 +44,29 @@
   margin: 8px 0 24px;
   display: block;
 }
+
+/* inline code and code blocks */
+.body code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+
+.body pre {
+  margin: 20px 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.body pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
