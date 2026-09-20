@@ -123,8 +123,10 @@
 @media (min-width: 1000px) {
   .hero {
     padding-top: 96px;
-    /* how far the visual card is raised from the centre of the body rows */
-    --hero-lift: clamp(48px, 4.6vw, 66px);
+    /* where the visual card starts, measured from the top of the body rows: the
+       card's own 28px gap, minus how far it is raised (48-66px, fluid), plus a
+       small correction on narrow desktops where the text is taller than the card */
+    --card-offset: calc(28px - clamp(48px, 4.6vw, 66px) + clamp(0px, calc((1110px - 100vw) * 0.12), 14px));
   }
 
   /* Wordmark + subtitle run across the full width; below them the text sits on the
@@ -143,9 +145,21 @@
     grid-row: 1;
   }
 
+  /* the visual card no longer sets the height of the body rows, so keep them the
+     height it used to give them (16:9 card + its 28px gap) and pin the text to
+     the bottom: nothing else on the page moves */
+  .grid {
+    container-type: inline-size;
+  }
+
   .bodyBlock {
     grid-column: 1;
     grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    min-height: calc(min(500px, 44cqw) * 0.5625 + 28px);
   }
 
   .noteBlock {
@@ -360,16 +374,18 @@
 }
 
 @media (min-width: 1000px) {
-  /* margin-top matches the lead's own top margin, so the equal space above and
-     below is measured from the lead text down to the CTA buttons */
+  /* the card spans the body rows and the note row, so its bottom edge lines up
+     with the "チャットに答えるだけ。" line; only the height changes with them */
   .visual {
     grid-column: 2;
-    grid-row: 2;
-    margin: 28px 0 0;
+    grid-row: 2 / 4;
+    margin: var(--card-offset) 0 0;
+    /* 4px short of the note's line box, i.e. level with the text itself */
+    height: calc(100% - var(--card-offset) - 4px);
+    aspect-ratio: auto;
     max-width: 500px;
     justify-self: stretch;
-    align-self: center;
-    top: calc(-1 * var(--hero-lift));
+    align-self: start;
   }
 }
 
