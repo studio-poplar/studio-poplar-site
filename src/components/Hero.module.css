@@ -123,10 +123,6 @@
 @media (min-width: 1000px) {
   .hero {
     padding-top: 96px;
-    /* where the visual card starts, measured from the top of the body rows: the
-       card's own 28px gap, minus how far it is raised (48-66px, fluid), plus a
-       small correction on narrow desktops where the text is taller than the card */
-    --card-offset: calc(28px - clamp(48px, 4.6vw, 66px) + clamp(0px, calc((1110px - 100vw) * 0.12), 14px));
   }
 
   /* Wordmark + subtitle run across the full width; below them the text sits on the
@@ -145,8 +141,8 @@
     grid-row: 1;
   }
 
-  /* the visual card no longer sets the height of the body rows, so keep them the
-     height it used to give them (16:9 card + its 28px gap) and pin the text to
+  /* the visual card no longer sets the height of the body rows, so keep them at
+     the height it used to give them (16:9 card + its 28px gap) and pin the text to
      the bottom: nothing else on the page moves */
   .grid {
     container-type: inline-size;
@@ -374,18 +370,20 @@
 }
 
 @media (min-width: 1000px) {
-  /* the card spans the body rows and the note row, so its bottom edge lines up
-     with the "チャットに答えるだけ。" line; only the height changes with them */
+  /* the card is pinned to the bottom of the body + note rows. The text there has
+     a fixed height (lead to note = 278px), so a fixed card height puts its top
+     level with the first line of the lead ("サイトで事業の…", 6px below the
+     line box) and its bottom level with the note ("チャットに答えるだけ。",
+     4px above its line box) at every desktop width */
   .visual {
     grid-column: 2;
     grid-row: 2 / 4;
-    margin: var(--card-offset) 0 0;
-    /* 4px short of the note's line box, i.e. level with the text itself */
-    height: calc(100% - var(--card-offset) - 4px);
+    margin: 0 0 4px;
+    height: 268px;
     aspect-ratio: auto;
     max-width: 500px;
     justify-self: stretch;
-    align-self: start;
+    align-self: end;
   }
 }
 
