@@ -81,7 +81,7 @@ export const works: Work[] = [
         body: "バックエンドを持たない静的サイトでありながら、運営者がコードに触れずに作品・作家情報を更新できる状態を実現。管理画面での更新は、3Dの館内展示にもそのまま反映されます。実際に公開・運用中のサイトです。",
       },
     ],
-    url: "https://studio-poplar.github.io/THE-GALLERY/",
+    url: "https://gallery.studiopoplar.com/",
     cover: { device: "desktop", srcs: ["/works/the-gallery/01-slideshow.jpg"] },
     images: [
       {
@@ -151,7 +151,7 @@ export const works: Work[] = [
         body: "更新作業なしで毎月“今月の産地”に切り替わるサイトになりました。架空案件のため運用上の成果はありませんが、ブランドの世界観を情報設計とデザインで一貫して表現する制作の一例です。",
       },
     ],
-    url: "https://tabigoyomi-coffee.vercel.app/",
+    url: "https://tabigoyomi.studiopoplar.com/",
     cover: { device: "desktop", srcs: ["/works/tabigoyomi-coffee/01-hero.jpg"] },
     images: [
       {
