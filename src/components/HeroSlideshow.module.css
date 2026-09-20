@@ -99,18 +99,6 @@
   pointer-events: none;
 }
 
-.ghost {
-  position: absolute;
-  top: 6px;
-  right: 14px;
-  font-size: clamp(40px, 22cqw, 100px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.08);
-  pointer-events: none;
-}
-
 .tag {
   position: relative;
   padding: 4px 12px;
