@@ -127,7 +127,7 @@ export const works: Work[] = [
   {
     slug: "tabikoyomi-coffee",
     category: "web",
-    type: "mock",
+    type: "client",
     title: "旅暦珈琲 ブランドサイト",
     client: "旅暦珈琲（架空の横浜焙煎所／自主制作）",
     year: "2026",
@@ -292,6 +292,7 @@ export const works: Work[] = [
     cover: {
       device: "mobile",
       srcs: ["/works/breeze-coffee/01-customer-menu.jpg", "/works/breeze-coffee/03-customer-ticket.jpg"],
+      bg: "/works/breeze-coffee/10-admin-sales.jpg",
     },
     images: [
       {

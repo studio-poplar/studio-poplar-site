@@ -38,6 +38,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     text: "写真と映像で、伝わる空気をつくります。",
     href: "/works?category=photo-video",
     cta: "撮影事例を見る",
+    image: "/hero/photo.jpg",
   },
   {
     key: "drone",
@@ -46,5 +47,6 @@ export const HERO_SLIDES: HeroSlide[] = [
     text: "上空からの映像で、場所の魅力を伝えます。",
     href: "/service/drone",
     cta: "ドローン撮影を見る",
+    image: "/hero/drone.jpg",
   },
 ];
