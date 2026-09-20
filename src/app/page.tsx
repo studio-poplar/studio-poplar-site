@@ -17,8 +17,11 @@ const SERVICES = [
     num: "WEB",
     title: "サイトをつくる",
     description: "はじめての開業やお店の“顔”になるサイトを、話を聞きながらつくります。",
-    items: ["パン屋を新しく開きます", "小さな美容室を開きます", "町の工務店です"],
-    price: "5万円〜",
+    items: [
+      "来月オープンするお店の、サイトを作りたい",
+      "名刺代わりになる、自分のサイトが欲しい",
+      "今のサイトが古くて、問い合わせが来ない",
+    ],
     icon: AREA_ICONS.web,
     accent: "var(--brand)",
   },
@@ -26,8 +29,11 @@ const SERVICES = [
     num: "APP",
     title: "仕組みをつくる",
     description: "予約や会員管理、診断など、日々の運用をラクにする仕組みをつくります。",
-    items: ["サロンの予約サイトが欲しい", "会員証をアプリにしたい", "簡単な診断コンテンツを作りたい"],
-    price: "15万円〜",
+    items: [
+      "電話とLINEの予約を、ひとつにまとめたい",
+      "紙の会員証を、スマホで使えるようにしたい",
+      "お客さん向けの診断コンテンツを作りたい",
+    ],
     icon: AREA_ICONS.app,
     accent: "var(--system)",
   },
@@ -35,8 +41,11 @@ const SERVICES = [
     num: "PHOTO & VIDEO",
     title: "見せ方をつくる",
     description: "写真や映像で、言葉だけでは伝わらない雰囲気を伝えます。",
-    items: ["SNSに使う写真がない", "開店に合わせて写真がほしい", "PR用のショート動画を作りたい"],
-    price: "6万円〜",
+    items: [
+      "SNSに載せる写真が、手元に1枚もない",
+      "開店に合わせて、お店の写真を撮ってほしい",
+      "商品のPR用に、短い動画がほしい",
+    ],
     icon: AREA_ICONS.photo,
     accent: "var(--second)",
   },
@@ -66,7 +75,6 @@ export default function Home() {
                 description={service.description}
                 eyebrow="こんなご相談も"
                 items={service.items}
-                price={service.price}
                 href="/service"
                 icon={service.icon}
                 accent={service.accent}

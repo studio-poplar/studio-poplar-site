@@ -13,7 +13,6 @@ type ServiceCardProps = {
   items?: string[];
   /** small heading above the item list */
   eyebrow?: string;
-  price?: string;
   href?: string;
   cta?: string;
   revealDelay?: number;
@@ -28,7 +27,6 @@ export default function ServiceCard({
   description,
   items,
   eyebrow,
-  price,
   href,
   cta = "詳しく見る",
   revealDelay = 0,
@@ -58,14 +56,11 @@ export default function ServiceCard({
           </ul>
         </div>
       )}
-      {(price || href) && (
+      {href && (
         <div className={styles.footer}>
-          {price && <span className={`en ${styles.price}`}>{price}</span>}
-          {href && (
-            <Link href={href} className={`en ${styles.link}`}>
-              {cta} →
-            </Link>
-          )}
+          <Link href={href} className={`en ${styles.link}`}>
+            {cta} →
+          </Link>
         </div>
       )}
     </div>

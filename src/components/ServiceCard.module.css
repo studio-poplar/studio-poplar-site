@@ -136,20 +136,12 @@
   background: var(--accent);
 }
 
-/* price and link sit at the bottom of the card; the whole card is clickable through the link */
+/* the link sits at the bottom right of the card; the whole card is clickable through it */
 .footer {
   margin-top: auto;
   padding-top: 28px;
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.price {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink);
+  justify-content: flex-end;
 }
 
 .link {
