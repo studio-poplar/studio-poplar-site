@@ -1,5 +1,24 @@
 import type { CSSProperties } from "react";
 
+// Diamond mosaic: rounded squares on a 5 x 7 grid, two of them toned down as accents.
+// Colour comes from currentColor, so the same mark works on light and dark backgrounds.
+const CELL = 8;
+const PITCH = 10;
+const RADIUS = 2;
+const ACCENT_OPACITY = 0.42;
+// [column, row, accent]
+const MOSAIC: [number, number, boolean?][] = [
+  [2, 0],
+  [1, 1], [2, 1], [3, 1],
+  [0, 2], [1, 2], [2, 2], [3, 2], [4, 2],
+  [0, 3], [1, 3], [2, 3, true], [3, 3], [4, 3],
+  [0, 4], [1, 4, true], [2, 4], [3, 4], [4, 4],
+  [1, 5], [2, 5], [3, 5],
+  [2, 6],
+];
+const MOSAIC_W = 5 * PITCH - (PITCH - CELL);
+const MOSAIC_H = 7 * PITCH - (PITCH - CELL);
+
 type LogoMarkProps = {
   className?: string;
   style?: CSSProperties;
@@ -19,14 +38,18 @@ export default function LogoMark({ className, style, decorative = false }: LogoM
   }
 
   return (
-    <svg viewBox="0 0 30 40" fill="none" className={className} style={style} aria-hidden="true">
-      <line x1="15" y1="4" x2="15" y2="36" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <line x1="15" y1="11" x2="8" y2="16" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <line x1="15" y1="11" x2="22" y2="16" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <line x1="15" y1="19" x2="9" y2="23" stroke="var(--brand, currentColor)" strokeWidth="1.3" strokeLinecap="round" />
-      <line x1="15" y1="19" x2="21" y2="23" stroke="var(--brand, currentColor)" strokeWidth="1.3" strokeLinecap="round" />
-      <line x1="15" y1="27" x2="10" y2="31" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <line x1="15" y1="27" x2="20" y2="31" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    <svg viewBox={`0 0 ${MOSAIC_W} ${MOSAIC_H}`} fill="currentColor" className={className} style={style} aria-hidden="true">
+      {MOSAIC.map(([col, row, accent]) => (
+        <rect
+          key={`${col}-${row}`}
+          x={col * PITCH}
+          y={row * PITCH}
+          width={CELL}
+          height={CELL}
+          rx={RADIUS}
+          fillOpacity={accent ? ACCENT_OPACITY : 1}
+        />
+      ))}
     </svg>
   );
 }

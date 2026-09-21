@@ -38,7 +38,7 @@
 
 .logoMark {
   width: 16px;
-  height: 17px;
+  height: 23px;
   color: var(--ink);
   flex-shrink: 0;
 }
@@ -182,8 +182,8 @@
 }
 
 .mobileLogoMark {
-  width: 15px;
-  height: 16px;
+  width: 14px;
+  height: 20px;
   color: #fff;
   flex-shrink: 0;
 }
