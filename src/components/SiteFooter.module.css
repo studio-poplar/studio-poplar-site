@@ -52,10 +52,11 @@
   margin-top: 14px;
 }
 
+/* Phone: the six links sit in two columns and the contact links run in a row, so the footer stays short. */
 .footerNav ul {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
 }
 
 .footerNav a {
@@ -70,16 +71,17 @@
 
 .sns {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 10px 22px;
 }
 
 .snsLabel {
+  flex-basis: 100%;
   font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--ink-faint);
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .sns a {
@@ -90,6 +92,24 @@
 
 .sns a:hover {
   color: var(--brand);
+}
+
+@media (min-width: 760px) {
+  .footerNav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sns {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .snsLabel {
+    margin-bottom: 4px;
+  }
 }
 
 .footer .bottom {
