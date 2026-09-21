@@ -303,6 +303,15 @@
   font-weight: 700;
 }
 
+.scopeLink {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .result :global(.btn-primary) {
   max-width: 100%;
   white-space: nowrap;

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { DRONE_PLANS, DRONE_ZONES, DRONE_ADDONS } from "@/data/drone-quote";
+import { DRONE_FLIGHTS, DRONE_ZONES, DRONE_UNIT_MINUTES, DRONE_UNIT_PRICE } from "@/data/drone-quote";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./DroneQuoteCalculator.module.css";
 
@@ -11,64 +11,49 @@ function formatYen(value: number) {
 }
 
 export default function DroneQuoteCalculator() {
-  const [planId, setPlanId] = useState(DRONE_PLANS[0].id);
+  const [flightId, setFlightId] = useState(DRONE_FLIGHTS[0].id);
   const [zoneId, setZoneId] = useState(DRONE_ZONES[0].id);
-  const [addonIds, setAddonIds] = useState<Set<string>>(new Set());
 
-  const plan = DRONE_PLANS.find((p) => p.id === planId)!;
+  const flight = DRONE_FLIGHTS.find((f) => f.id === flightId)!;
   const zone = DRONE_ZONES.find((z) => z.id === zoneId)!;
-  const selectedAddons = DRONE_ADDONS.filter((a) => addonIds.has(a.id));
 
-  const isCustomPlan = plan.basePrice === null;
+  const isCustomFlight = flight.units === null;
   const isCustomZone = zone.addPrice === null;
-  const addonTotal = selectedAddons.reduce((sum, a) => sum + a.addPrice, 0);
-  const total = !isCustomPlan ? plan.basePrice! + (isCustomZone ? 0 : zone.addPrice!) + addonTotal : 0;
-
-  function toggleAddon(id: string) {
-    setAddonIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
+  const total = flight.units === null ? 0 : flight.units * DRONE_UNIT_PRICE + (zone.addPrice ?? 0);
 
   const contactHref = useMemo(() => {
     const lines = [
       "【ドローン撮影 自動見積りより】",
-      `プラン: ${plan.label}`,
+      `飛行時間の目安: ${flight.label}`,
       `撮影エリア: ${zone.label}`,
-      `オプション: ${selectedAddons.length > 0 ? selectedAddons.map((a) => a.label).join("、") : "なし"}`,
     ];
-    if (isCustomPlan) {
+    if (isCustomFlight) {
       lines.push("概算金額: 個別見積り希望");
     } else {
       lines.push(`概算金額: ${formatYen(total)}〜${isCustomZone ? "（＋エリア交通費は別途お見積り）" : ""}`);
     }
-    lines.push("", "【以下に詳細をご記入ください】", "");
+    lines.push("", "【撮影したい場所（住所または施設名）】", "", "【以下に詳細をご記入ください】", "");
     return `/contact?${new URLSearchParams({ category: "photo-video", message: lines.join("\n") }).toString()}`;
-  }, [plan, zone, selectedAddons, isCustomPlan, isCustomZone, total]);
+  }, [flight, zone, isCustomFlight, isCustomZone, total]);
 
   return (
     <div className={styles.calc}>
       <fieldset className={styles.group}>
-        <legend>プラン</legend>
-        {DRONE_PLANS.map((item) => (
-          <label key={item.id} className={styles.planOption}>
+        <legend>飛行時間の目安（{DRONE_UNIT_MINUTES}分単位）</legend>
+        {DRONE_FLIGHTS.map((item) => (
+          <label key={item.id} className={styles.option}>
             <input
               type="radio"
-              name="drone-plan"
+              name="drone-flight"
               value={item.id}
-              checked={planId === item.id}
-              onChange={() => setPlanId(item.id)}
+              checked={flightId === item.id}
+              onChange={() => setFlightId(item.id)}
             />
-            <span className={styles.planBody}>
-              <span className={styles.planHead}>
-                <span className={styles.optionLabel}>{item.label}</span>
-                <span className={styles.optionPrice}>{item.basePrice === null ? "要相談" : `${formatYen(item.basePrice)}〜`}</span>
-              </span>
-              <span className={styles.planDetail}>{item.detail}</span>
+            <span className={styles.optionLabel}>
+              {item.label}
+              {item.id === DRONE_FLIGHTS[0].id && <span className={styles.optionTag}>最低料金</span>}
             </span>
+            <span className={styles.optionPrice}>{item.units === null ? "個別見積り" : formatYen(item.units * DRONE_UNIT_PRICE)}</span>
           </label>
         ))}
       </fieldset>
@@ -92,33 +77,18 @@ export default function DroneQuoteCalculator() {
         ))}
       </fieldset>
 
-      <fieldset className={styles.group}>
-        <legend>オプション追加（複数選択可）</legend>
-        {DRONE_ADDONS.map((item) => (
-          <label key={item.id} className={styles.option}>
-            <input type="checkbox" checked={addonIds.has(item.id)} onChange={() => toggleAddon(item.id)} />
-            <span className={styles.planBody}>
-              <span className={styles.planHead}>
-                <span className={styles.optionLabel}>{item.label}</span>
-                <span className={styles.optionPrice}>{`+${formatYen(item.addPrice)}`}</span>
-              </span>
-              {item.detail && <span className={styles.planDetail}>{item.detail}</span>}
-            </span>
-          </label>
-        ))}
-      </fieldset>
-
       <div className={styles.result}>
         <span className={`en ${styles.resultLabel}`}>概算お見積り</span>
-        {isCustomPlan ? (
+        {isCustomFlight ? (
           <strong className={styles.resultQuote}>内容により個別にお見積りします</strong>
         ) : (
           <strong className={styles.resultPrice}>
-            {formatYen(total)}〜{isCustomZone && <span className={styles.resultSuffix}>＋交通費別途</span>}
+            {formatYen(total)}
+            {isCustomZone && <span className={styles.resultSuffix}>＋交通費別途</span>}
           </strong>
         )}
         <p className={styles.resultNote}>
-          ※ こちらは目安の概算金額です。正式な金額は内容確認後にあらためてお見積りいたします。
+          ※ 料金は実際の飛行時間で、{DRONE_UNIT_MINUTES}分単位（切り上げ）で精算します。表示は目安の概算金額で、正式な金額は撮影場所を確認したうえで、あらためてお見積りします。
         </p>
         <Link
           href={contactHref}

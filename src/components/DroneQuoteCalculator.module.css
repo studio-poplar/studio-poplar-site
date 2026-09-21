@@ -273,3 +273,14 @@
     padding: 15px 30px;
   }
 }
+
+.optionTag {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  vertical-align: 1px;
+}

@@ -79,6 +79,13 @@ export default function PhotoVideoQuoteCalculator() {
           <strong>含まれないもの：</strong>
           出張費（遠方の場合）／ヘアメイク・スタイリング等の手配／3回目以降の大幅な再撮影
         </p>
+        <p>
+          <strong>ドローン撮影：</strong>
+          空撮は、飛行時間に応じた料金で承っています。
+          <Link href="/service/drone" className={styles.scopeLink}>
+            ドローン撮影の料金を見る →
+          </Link>
+        </p>
       </div>
     </div>
   );

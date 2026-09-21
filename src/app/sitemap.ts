@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteUrl },
     { url: `${siteUrl}/about` },
     { url: `${siteUrl}/service` },
+    { url: `${siteUrl}/service/drone` },
     { url: `${siteUrl}/works` },
     ...works.map((work) => ({ url: `${siteUrl}/works/${work.slug}` })),
     { url: `${siteUrl}/blog`, lastModified: latestBlogDate },
