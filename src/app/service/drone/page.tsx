@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import DroneQuoteCalculator from "@/components/DroneQuoteCalculator";
 import CtaBand from "@/components/CtaBand";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "DRONE",
-  description: "Studio Poplarのドローン撮影オプション（準備中）。",
+  ...pageMetadata({
+    title: "ドローン撮影（準備中）",
+    description: "Studio Poplarのドローン撮影オプション（準備中）。",
+    path: "/service/drone",
+  }),
   robots: { index: false, follow: false },
 };
 

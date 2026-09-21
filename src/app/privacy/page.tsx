@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "PRIVACY POLICY",
+export const metadata: Metadata = pageMetadata({
+  title: "プライバシーポリシー",
   description: "Studio Poplarのプライバシーポリシー。取得する個人情報の範囲と利用目的についてご案内します。",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

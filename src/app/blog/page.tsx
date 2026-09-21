@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import BlogCard from "@/components/BlogCard";
 import CtaBand from "@/components/CtaBand";
 import { getAllBlogPosts } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "BLOG",
+export const metadata: Metadata = pageMetadata({
+  title: "ブログ｜つくりながら、学んだこと",
   description:
     "Studio Poplarのブログ。サイト・アプリ・写真や映像をつくる中で、実際に試して分かったことや、設計の考え方をまとめています。",
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const posts = getAllBlogPosts();

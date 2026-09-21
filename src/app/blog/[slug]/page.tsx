@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { pageMetadata, siteUrl, SITE_NAME } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import BlogDetailHero from "@/components/BlogDetailHero";
 import MarkdownBody from "@/components/MarkdownBody";
@@ -14,10 +16,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
   if (!post) return {};
-  return {
+  return pageMetadata({
     title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+    publishedTime: post.date,
+    tags: post.tags,
+  });
 }
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,8 +33,22 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
   const metaItems = [post.date.replaceAll("-", "."), post.location, post.shootingNote].filter(Boolean);
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    inLanguage: "ja",
+    keywords: post.tags,
+    mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+    author: { "@type": "Organization", name: SITE_NAME, url: siteUrl },
+    publisher: { "@type": "Organization", name: SITE_NAME, url: siteUrl },
+  };
+
   return (
     <>
+      <JsonLd data={articleJsonLd} />
       <BlogDetailHero post={post} />
 
       <div className={`wrap ${styles.meta}`} style={{ maxWidth: 700 }}>

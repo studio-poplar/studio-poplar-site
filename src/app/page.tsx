@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SectionHead from "@/components/SectionHead";
@@ -6,7 +7,9 @@ import { AREA_ICONS } from "@/components/serviceIcons";
 import WorkCard from "@/components/WorkCard";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
 import { works, getWorkBySlug } from "@/data/works";
+import { siteUrl, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SHARE_DESCRIPTION } from "@/lib/seo";
 import styles from "./page.module.css";
 
 const PREVIEW_WORK_SLUGS = ["the-gallery", "coco-yoga", "tabikoyomi-coffee"];
@@ -51,6 +54,41 @@ const SERVICES = [
   },
 ];
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SHARE_DESCRIPTION,
+    url: "/",
+  },
+};
+
+const SITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": `${siteUrl}/#organization`,
+      name: SITE_NAME,
+      url: siteUrl,
+      description: SITE_DESCRIPTION,
+      address: { "@type": "PostalAddress", addressLocality: "横浜市", addressRegion: "神奈川県", addressCountry: "JP" },
+      knowsAbout: ["WEBサイト制作", "アプリ制作", "写真撮影", "動画撮影"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: SITE_NAME,
+      inLanguage: "ja",
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+  ],
+};
+
 export default function Home() {
   const previewWorks = PREVIEW_WORK_SLUGS.map((slug) => getWorkBySlug(slug)).filter(
     (work): work is (typeof works)[number] => Boolean(work)
@@ -58,6 +96,7 @@ export default function Home() {
 
   return (
     <>
+      <JsonLd data={SITE_JSON_LD} />
       <Hero />
 
       <section className={`section ${styles.firstSection}`}>

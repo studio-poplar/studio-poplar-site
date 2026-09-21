@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import MarkdownBody from "@/components/MarkdownBody";
 import { getAllNewsPosts, getNewsPostBySlug } from "@/lib/content";
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const news = getNewsPostBySlug(slug);
   if (!news) return {};
-  return { title: news.title };
+  return pageMetadata({ title: news.title, description: news.title, path: `/news/${news.slug}` });
 }
 
 export default async function NewsDetailPage({ params }: { params: Promise<{ slug: string }> }) {

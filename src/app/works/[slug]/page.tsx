@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,10 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const work = getWorkBySlug(slug);
   if (!work) return {};
-  return {
-    title: work.title,
-    description: work.summary,
-  };
+  return pageMetadata({ title: work.title, description: work.summary, path: `/works/${work.slug}` });
 }
 
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {

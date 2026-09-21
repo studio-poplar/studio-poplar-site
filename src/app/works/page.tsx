@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import WorksIndex from "@/components/WorksIndex";
 import CtaBand from "@/components/CtaBand";
 import { works } from "@/data/works";
 
-export const metadata: Metadata = {
-  title: "WORKS",
-  description: "Studio PoplarのWEB制作／アプリ制作／写真・動画撮影の実績一覧。",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "制作実績｜WEBサイト・アプリ・写真動画",
+  description: "Studio PoplarのWEBサイト制作、アプリ制作、写真・動画撮影の制作実績一覧。実際の画面やご依頼の背景をご覧いただけます。",
+  path: "/works",
+});
 
 export default function WorksPage() {
   return (

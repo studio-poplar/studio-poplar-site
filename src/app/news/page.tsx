@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import NewsRow from "@/components/NewsRow";
 import CtaBand from "@/components/CtaBand";
 import { getAllNewsPosts } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "NEWS",
+export const metadata: Metadata = pageMetadata({
+  title: "お知らせ",
   description: "Studio Poplarからのお知らせ。サービス変更・営業案内などをまとめています。",
-};
+  path: "/news",
+});
 
 export default function NewsPage() {
   const newsList = getAllNewsPosts();

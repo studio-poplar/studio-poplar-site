@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
 import ServiceCard from "@/components/ServiceCard";
@@ -10,10 +11,11 @@ import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "SERVICE",
-  description: "Studio PoplarのSERVICEページ。WEB制作、アプリ制作、写真・動画撮影の3領域と、制作プランの構成・価格帯をご案内します。",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "サービス｜WEB制作・アプリ制作・写真動画撮影",
+  description: "Studio Poplarのサービス。WEBサイト制作、アプリ制作、写真・動画撮影の3領域について、制作の流れ、料金の目安、よくあるご質問をご案内します。",
+  path: "/service",
+});
 
 const FLOW_STEPS = [
   {

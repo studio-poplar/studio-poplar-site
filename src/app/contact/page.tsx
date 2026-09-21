@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Suspense } from "react";
 import PageMasthead from "@/components/PageMasthead";
 import ContactForm from "@/components/ContactForm";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "CONTACT",
+export const metadata: Metadata = pageMetadata({
+  title: "お問い合わせ",
   description: "Studio Poplarへのお問い合わせはこちらから。WEB制作・アプリ制作・写真動画撮影のご相談を承ります。",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

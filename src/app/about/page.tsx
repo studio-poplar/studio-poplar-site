@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
 import SectionHead from "@/components/SectionHead";
 import TargetCard from "@/components/TargetCard";
@@ -8,10 +9,11 @@ import CompanyInfo from "@/components/CompanyInfo";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 
-export const metadata: Metadata = {
-  title: "ABOUT",
-  description: "Studio Poplarについて。伝えたいことを、伝わる形にする制作スタジオの考え方をご紹介します。",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "私たちについて",
+  description: "Studio Poplarについて。横浜を拠点に、伝えたいことを、伝わる形にする制作スタジオの考え方と、代表のプロフィールをご紹介します。",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
