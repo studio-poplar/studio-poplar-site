@@ -45,6 +45,7 @@ export default function Hero() {
             <motion.div className={styles.headBlock} style={{ y: headY, opacity: headOpacity }}>
               <h1 className={styles.title}>
                 STUDIO <span className={styles.outline}>POPLAR</span>
+                <span className={styles.srOnly}>｜横浜のWEBサイト制作・アプリ制作・写真動画撮影スタジオ</span>
               </h1>
               <h2 className={styles.subtitle}>
                 伝えたいことを、<span className={styles.hl}>伝わる形に。</span>

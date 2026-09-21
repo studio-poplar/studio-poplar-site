@@ -9,6 +9,7 @@ import AppQuoteCalculator from "@/components/AppQuoteCalculator";
 import PhotoVideoQuoteCalculator from "@/components/PhotoVideoQuoteCalculator";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -55,9 +56,52 @@ const FLOW_STEPS = [
   },
 ];
 
+// One source for the visible FAQ and its FAQPage structured data, so the two can't drift apart.
+const FAQS = [
+  {
+    q: "ページ数や機能を追加したい場合は？",
+    a: "基本プランを土台に、追加ページ・機能に応じて個別にお見積りします。まずは要件をお聞かせください。",
+  },
+  {
+    q: "ご依頼から納品までの流れは？",
+    a: "お問い合わせ→ヒアリング→お見積り・ご契約→設計・制作→確認・修正→公開、という流れが基本です。",
+  },
+  {
+    q: "デザイン案の修正には対応してもらえますか？",
+    a: "基本プランに、デザイン確認・修正2回までを含みます。3回目以降の大幅な修正は別途ご相談となります。",
+  },
+  {
+    q: "公開後の運用サポート・保守費用はどのくらいですか？",
+    a: "月額の固定契約は設けていません。更新・保守が必要になったタイミングで、その都度内容に応じてお見積りします。",
+  },
+  {
+    q: "写真・動画だけの依頼はできますか？",
+    a: "可能です。WEB制作・アプリ制作と組み合わせる場合は、セット割引価格（半額）が適用されます。",
+  },
+  {
+    q: "支払い条件について教えてください",
+    a: "ご契約時に着手金として半額、納品時に残金をお支払いいただいております。",
+  },
+  {
+    q: "打ち合わせはオンライン・対面どちらですか？",
+    a: "オンライン打合せ（Zoom・Google Meetなど）を基本としています。",
+  },
+];
+
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
+  })),
+};
+
 export default function ServicePage() {
   return (
     <>
+      <JsonLd data={FAQ_JSON_LD} />
       <PageMasthead
         eyebrow="THREE THINGS"
         title="3つのかたちで、伝わる。"
@@ -159,62 +203,18 @@ export default function ServicePage() {
           <div className={styles.faq}>
             <span className="eyebrow en">FAQ</span>
             <div className={styles.faqList}>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>ページ数や機能を追加したい場合は？
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>基本プランを土台に、追加ページ・機能に応じて個別にお見積りします。まずは要件をお聞かせください。
-                </p>
-              </div>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>ご依頼から納品までの流れは？
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>お問い合わせ→ヒアリング→お見積り・ご契約→設計・制作→確認・修正→公開、という流れが基本です。
-                </p>
-              </div>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>デザイン案の修正には対応してもらえますか？
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>基本プランに、デザイン確認・修正2回までを含みます。3回目以降の大幅な修正は別途ご相談となります。
-                </p>
-              </div>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>公開後の運用サポート・保守費用はどのくらいですか？
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>月額の固定契約は設けていません。更新・保守が必要になったタイミングで、その都度内容に応じてお見積りします。
-                </p>
-              </div>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>写真・動画だけの依頼はできますか？
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>可能です。WEB制作・アプリ制作と組み合わせる場合は、セット割引価格（半額）が適用されます。
-                </p>
-              </div>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>支払い条件について教えてください
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>ご契約時に着手金として半額、納品時に残金をお支払いいただいております。
-                </p>
-              </div>
-              <div>
-                <h3>
-                  <span className={styles.faqMarkQ}>問</span>打ち合わせはオンライン・対面どちらですか？
-                </h3>
-                <p>
-                  <span className={styles.faqMarkA}>答</span>オンライン打合せ（Zoom・Google Meetなど）を基本としています。
-                </p>
-              </div>
+              {FAQS.map((faq) => (
+                <div key={faq.q}>
+                  <h3>
+                    <span className={styles.faqMarkQ}>問</span>
+                    {faq.q}
+                  </h3>
+                  <p>
+                    <span className={styles.faqMarkA}>答</span>
+                    {faq.a}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
