@@ -6,9 +6,9 @@ import CtaBand from "@/components/CtaBand";
 import { getAllBlogPosts } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
-  title: "ブログ｜制作の記録と設計メモ",
+  title: "ブログ｜デザインの定説を検証する",
   description:
-    "Studio Poplarのブログ。サイト・アプリ・写真や映像の制作で、実際に検証したことと、設計上の判断を記録しています。",
+    "Studio Poplarのブログ。配色・比率・心理学など、デザインの世界でよく語られる話を、実在する研究や一次資料にあたって検証しています。",
   path: "/blog",
 });
 
@@ -19,8 +19,8 @@ export default function BlogPage() {
     <>
       <PageMasthead
         eyebrow="BLOG"
-        title="制作の記録と、設計のメモ。"
-        description="サイト・アプリ・写真や映像の制作で、実際に検証したことと、設計上の判断を記録しています。お知らせはNEWSにまとめています。"
+        title="デザインの定説を、検証する。"
+        description="配色・比率・心理学など、デザインの世界でよく語られる話を、実在する研究や一次資料にあたって確かめています。お知らせはNEWSにまとめています。"
       />
 
       <section className="section" style={{ borderBottom: "none" }}>
