@@ -118,7 +118,13 @@ export default function ServicePage() {
               num="WEB"
               tag="WEB"
               title="サイトをつくる"
-              description="ヒアリング／構成・ワイヤーフレーム／デザイン／コーディング／公開"
+              description="話を聞きながら、事業の“顔”になるサイトを設計します。"
+              eyebrow="含まれること"
+              items={[
+                "スマホでも見やすいレスポンシブ対応",
+                "問い合わせ・予約フォームの実装",
+                "公開後の表示速度・SEOの基本対応",
+              ]}
               icon={AREA_ICONS.web}
               accent="var(--brand)"
               revealDelay={50}
@@ -127,7 +133,9 @@ export default function ServicePage() {
               num="APP"
               tag="APP"
               title="仕組みをつくる"
-              description="要件整理／画面設計／デザイン／開発・テスト／リリース"
+              description="予約・会員管理など、日々の運用を支える仕組みをつくります。"
+              eyebrow="含まれること"
+              items={["LINEログインなど、使い慣れた手段での認証", "管理画面から自分で更新できる設計", "公開後の不具合対応・動作確認"]}
               icon={AREA_ICONS.app}
               accent="var(--system)"
               revealDelay={140}
@@ -136,7 +144,9 @@ export default function ServicePage() {
               num="PHOTO & VIDEO"
               tag="PHOTO & VIDEO"
               title="見せ方をつくる"
-              description="撮影プランの相談／撮影／レタッチ・編集／納品"
+              description="言葉だけでは伝わらない空気を、写真と映像で残します。"
+              eyebrow="含まれること"
+              items={["撮影プランのご相談・ロケハン", "用途に合わせたレタッチ・編集", "Web用・SNS用・印刷用データの納品"]}
               icon={AREA_ICONS.photo}
               accent="var(--second)"
               revealDelay={230}

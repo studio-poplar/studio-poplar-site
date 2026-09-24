@@ -10,10 +10,9 @@ const ROWS: { label: string; body: React.ReactNode }[] = [
     label: "事業内容",
     body: (
       <ul className={styles.bullets}>
-        <li>Webサイト設計・制作</li>
-        <li>UI/UXデザイン</li>
-        <li>写真・ビジュアル制作</li>
-        <li>映像制作・ドローン撮影</li>
+        {["Webサイト設計・制作", "UI/UXデザイン", "写真・ビジュアル制作", "映像制作・ドローン撮影"].map((item) => (
+          <li key={item}>{item}</li>
+        ))}
       </ul>
     ),
   },
