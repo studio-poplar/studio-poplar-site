@@ -221,7 +221,9 @@
   justify-content: center;
 }
 
-.mobileNav a {
+/* Scoped to the <ul> so this doesn't also match (and override the flex layout
+   of) the .mobileLogo link that sits next to it in .mobileNavHead. */
+.mobileNav ul a {
   font-family: var(--font-en), sans-serif;
   font-weight: 700;
   font-size: 32px;
@@ -231,7 +233,7 @@
   display: block;
 }
 
-.mobileNav a:hover {
+.mobileNav ul a:hover {
   color: rgba(255, 255, 255, 0.6);
 }
 
