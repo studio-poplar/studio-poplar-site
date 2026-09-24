@@ -12,6 +12,7 @@ const REPRESENTATIVE: Person & { nameEn: string; bio: string } = {
   nameEn: "Ito Daiki",
   role: "代表 / Web Creator",
   bio: "2021年に人材業界でキャリアをスタートし、Web求人広告の運用や採用支援を通じて「伝わる情報設計」を学ぶ。その後、老舗電気機器メーカーでの営業経験を経てStudio Poplarを設立。現在は個人事業主やフリーランスを対象に、ブランドの魅力を伝えるWebサイト制作を支援。",
+  photo: "/team/ito-daiki.jpg",
 };
 
 const MEMBERS: Person[] = [
