@@ -3,7 +3,17 @@ import type { NextConfig } from "next";
 // Cases that are no longer published: send old links to the works index.
 const removedWorkSlugs = ["bokuheki", "nagi-subscription-inn", "atelier-mokuha-photo", "shindan-app"];
 // Blog articles that were replaced when the blog was rewritten.
-const removedBlogSlugs = ["why-structure-first", "3d-web-when-it-works", "three-web-flows-for-solo-launch"];
+const removedBlogSlugs = [
+  "why-structure-first",
+  "3d-web-when-it-works",
+  "three-web-flows-for-solo-launch",
+  // Removed when the blog pivoted from first-party project retrospectives to sourced design-theory articles.
+  "line-login-token-expired",
+  "notice-before-they-quit",
+  "keep-small-sites-light",
+  "this-month-never-goes-stale",
+  "seven-questions-in-first-hearing",
+];
 
 // URLs from the previous Wix site that Google still has on record. They 404 now, so
 // send them to the closest current page and keep whatever standing they had.
