@@ -55,7 +55,7 @@ export default function AboutPage() {
             <TargetCard
               tag="SELF-EMPLOYED"
               who="個人事業主"
-              voice="日々の業務で手一杯で、集客も予約の対応も後回しになっている。"
+              voice="日々の業務が手一杯で、集客も予約の対応も後回しになっている。"
               approach="一人で営業から事務まで担う方に、凝ったサイトは必要ありません。まず「問い合わせ・予約までの最短ルート」を決め、更新の手間が増えない最小限の構成でつくります。電話やDMでの予約管理が負担なら、予約の仕組みの導入もご提案。更新を自分で続けられるCMS対応も可能です。"
               services={["WEB", "APP"]}
               accent="var(--second)"
