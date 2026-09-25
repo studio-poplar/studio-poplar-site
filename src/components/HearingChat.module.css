@@ -1,3 +1,39 @@
+/* Siri-style flowing gradient: cycles through the site's own 3 brand colours
+   (brand green → system teal → second copper) instead of a static 2-tone fill.
+   A large background-size + animated background-position is what gives the
+   "liquid" motion; prefers-reduced-motion freezes it on one frame. */
+.chatBtn {
+  background: linear-gradient(
+    115deg,
+    var(--brand) 0%,
+    var(--system) 27%,
+    var(--second) 53%,
+    var(--system) 78%,
+    var(--brand) 100%
+  );
+  background-size: 300% 300%;
+  animation: chatGradientFlow 7s ease-in-out infinite;
+}
+
+@keyframes chatGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatBtn {
+    animation: none;
+    background-position: 30% 50%;
+  }
+}
+
 .launcherDot {
   position: relative;
   display: inline-block;

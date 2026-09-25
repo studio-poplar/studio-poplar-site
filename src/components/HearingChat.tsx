@@ -137,7 +137,7 @@ export default function HearingChatLauncher() {
 
   return (
     <>
-      <button type="button" className="btn-primary" onClick={handleOpen}>
+      <button type="button" className={`btn-primary ${styles.chatBtn}`} onClick={handleOpen}>
         <span className={styles.launcherDot} aria-hidden="true" />
         チャットで相談する<span className="btn-arrow">→</span>
       </button>
