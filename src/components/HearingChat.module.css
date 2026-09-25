@@ -1,36 +1,41 @@
-/* Siri-style flowing gradient: cycles through the site's own 3 brand colours
-   (brand green → system teal → second copper) instead of a static 2-tone fill.
-   A large background-size + animated background-position is what gives the
-   "liquid" motion; prefers-reduced-motion freezes it on one frame. */
+/* Siri-style flowing gradient, but as a ring only: the fill stays a near-white
+   solid (padding-box layer) and the animated gradient shows only in the border
+   (border-box layer, revealed through the transparent border). Two background
+   layers in one declaration — background-position below animates the second
+   (the border) only; the first (the fill) is a flat colour so its position
+   never matters. */
 .chatBtn {
-  background: linear-gradient(
-    115deg,
-    var(--brand) 0%,
-    var(--system) 27%,
-    var(--second) 53%,
-    var(--system) 78%,
-    var(--brand) 100%
-  );
-  background-size: 300% 300%;
+  --chat-fill: #fdfcf9;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--chat-fill), var(--chat-fill)) padding-box,
+    linear-gradient(115deg, var(--brand) 0%, var(--system) 27%, var(--second) 53%, var(--system) 78%, var(--brand) 100%)
+      border-box;
+  background-size: 100% 100%, 300% 300%;
   animation: chatGradientFlow 7s ease-in-out infinite;
+}
+
+/* The white-gloss overlay was tuned for the old solid-colour fill; on a near-white
+   fill it just muddies the ring, so this button skips it. */
+.chatBtn::before {
+  content: none;
 }
 
 @keyframes chatGradientFlow {
   0% {
-    background-position: 0% 50%;
+    background-position: 0 0, 0% 50%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 0 0, 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0 0, 0% 50%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .chatBtn {
     animation: none;
-    background-position: 30% 50%;
+    background-position: 0 0, 30% 50%;
   }
 }
 
