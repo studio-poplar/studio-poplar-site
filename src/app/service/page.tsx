@@ -155,7 +155,7 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section className="section soft">
+      <section id="plan" className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
             <SectionHead index="02" label="PLAN" title="制作プラン" accent />
