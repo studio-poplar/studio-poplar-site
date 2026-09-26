@@ -138,7 +138,7 @@ export default function ContactForm() {
       </button>
 
       <p className={styles.note} role="status">
-        {status === "success" && "送信しました。お問い合わせありがとうございます。折り返しご連絡いたします。"}
+        {status === "success" && "送信しました。お問い合わせありがとうございます。営業日1〜2日以内にご連絡いたします。"}
         {status === "error" &&
           "送信に失敗しました。お手数ですが下記メールアドレスへ直接ご連絡ください。"}
         {status === "idle" && "※ ご入力いただいた内容は info@studiopoplar.com へ届きます。"}

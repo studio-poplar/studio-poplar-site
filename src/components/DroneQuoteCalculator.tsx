@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { DRONE_FLIGHTS, DRONE_ZONES, DRONE_UNIT_MINUTES, DRONE_UNIT_PRICE } from "@/data/drone-quote";
+import { SET_DISCOUNT_RATE } from "@/data/photo-video-quote";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./DroneQuoteCalculator.module.css";
 
@@ -13,19 +14,22 @@ function formatYen(value: number) {
 export default function DroneQuoteCalculator() {
   const [flightId, setFlightId] = useState(DRONE_FLIGHTS[0].id);
   const [zoneId, setZoneId] = useState(DRONE_ZONES[0].id);
+  const [setDiscount, setSetDiscount] = useState(false);
 
   const flight = DRONE_FLIGHTS.find((f) => f.id === flightId)!;
   const zone = DRONE_ZONES.find((z) => z.id === zoneId)!;
 
   const isCustomFlight = flight.units === null;
   const isCustomZone = zone.addPrice === null;
-  const total = flight.units === null ? 0 : flight.units * DRONE_UNIT_PRICE + (zone.addPrice ?? 0);
+  const subtotal = flight.units === null ? 0 : flight.units * DRONE_UNIT_PRICE + (zone.addPrice ?? 0);
+  const total = setDiscount ? Math.round(subtotal * (1 - SET_DISCOUNT_RATE)) : subtotal;
 
   const contactHref = useMemo(() => {
     const lines = [
       "【ドローン撮影 自動見積りより】",
       `飛行時間の目安: ${flight.label}`,
       `撮影エリア: ${zone.label}`,
+      `セット割引: ${setDiscount ? "適用（WEB制作・アプリ制作をご契約）" : "なし"}`,
     ];
     if (isCustomFlight) {
       lines.push("概算金額: 個別見積り希望");
@@ -34,7 +38,7 @@ export default function DroneQuoteCalculator() {
     }
     lines.push("", "【撮影したい場所（住所または施設名）】", "", "【以下に詳細をご記入ください】", "");
     return `/contact?${new URLSearchParams({ category: "photo-video", message: lines.join("\n") }).toString()}`;
-  }, [flight, zone, isCustomFlight, isCustomZone, total]);
+  }, [flight, zone, setDiscount, isCustomFlight, isCustomZone, total]);
 
   return (
     <div className={styles.calc}>
@@ -75,6 +79,15 @@ export default function DroneQuoteCalculator() {
             </span>
           </label>
         ))}
+      </fieldset>
+
+      <fieldset className={styles.group}>
+        <legend>セット割引</legend>
+        <label className={styles.option}>
+          <input type="checkbox" checked={setDiscount} onChange={() => setSetDiscount((v) => !v)} disabled={isCustomFlight} />
+          <span className={styles.optionLabel}>WEB制作・アプリ制作をご契約の方（半額）</span>
+          <span className={styles.optionPrice}>-{Math.round(SET_DISCOUNT_RATE * 100)}%</span>
+        </label>
       </fieldset>
 
       <div className={styles.result}>

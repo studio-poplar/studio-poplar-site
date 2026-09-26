@@ -81,7 +81,7 @@ export default function PhotoVideoQuoteCalculator() {
         </p>
         <p>
           <strong>ドローン撮影：</strong>
-          空撮は、飛行時間に応じた料金で承っています。
+          空撮は、飛行時間に応じた料金で承っています。セット割引の対象にもなります。
           <Link href="/service/drone" className={styles.scopeLink}>
             ドローン撮影の料金を見る →
           </Link>

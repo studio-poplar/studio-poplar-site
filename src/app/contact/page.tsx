@@ -28,7 +28,7 @@ export default function ContactPage() {
               <p>
                 フォームまたはメールにてお気軽にお問い合わせください。
                 <br />
-                内容を確認後、担当者より順次ご連絡いたします。
+                内容を確認後、営業日1〜2日以内にご連絡いたします。
               </p>
               <a href="mailto:info@studiopoplar.com">info@studiopoplar.com</a>
               <div className={styles.snsList}>
