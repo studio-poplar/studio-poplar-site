@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = pageMetadata({
   title: "ドローン撮影の料金",
   description:
-    "Studio Poplarのドローン撮影。料金は実際の飛行時間を30分単位で計算します。撮影をお受けできない場所も、あらかじめ明記しています。",
+    "Studio Poplarのドローン撮影。最低料金3万円（1時間まで）から、30分単位で加算して計算します。撮影をお受けできない場所も、あらかじめ明記しています。",
   path: "/service/drone",
 });
 

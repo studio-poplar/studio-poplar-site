@@ -1,12 +1,14 @@
-// 料金は「実際の飛行時間」を30分単位（切り上げ）で計算します。単価は暫定値です。
+// 最低料金30,000円（飛行1時間まで）、以降は30分ごとに加算します。単価は暫定値です。
 // 金額が確定したら、ここの数値だけ差し替えてください。
 
-export const DRONE_UNIT_MINUTES = 30;
-export const DRONE_UNIT_PRICE = 15000; // 30分あたり（最低料金 = 1単位分）
+export const DRONE_UNIT_MINUTES = 30; // 最低料金を超えた分の、延長の単位
+export const DRONE_UNIT_PRICE = 15000; // 延長30分あたり
+export const DRONE_MINIMUM_MINUTES = 60; // 最低料金でカバーする時間
+export const DRONE_MINIMUM_CHARGE = 30000; // 最低料金（1時間まで）
 
 export type DroneFlight = {
   id: string;
-  units: number | null; // null = 個別見積り（金額は出さない）
+  price: number | null; // null = 個別見積り（金額は出さない）
   label: string;
 };
 
@@ -17,15 +19,18 @@ function minutesLabel(minutes: number) {
   return rest === 0 ? `${hours}時間` : `${hours}時間${rest}分`;
 }
 
-// 30分〜3時間。それを超える場合は個別に見積ります。
-const MAX_UNITS = 6;
+// 最低料金(1時間まで)から、延長30分刻みで3時間まで。それを超える場合は個別に見積ります。
+const MAX_MINUTES = 180;
+const extensionSteps = Math.round((MAX_MINUTES - DRONE_MINIMUM_MINUTES) / DRONE_UNIT_MINUTES);
 
 export const DRONE_FLIGHTS: DroneFlight[] = [
-  ...Array.from({ length: MAX_UNITS }, (_, i) => {
-    const units = i + 1;
-    return { id: `u${units}`, units, label: minutesLabel(units * DRONE_UNIT_MINUTES) };
+  { id: "min", price: DRONE_MINIMUM_CHARGE, label: `${minutesLabel(DRONE_MINIMUM_MINUTES)}まで` },
+  ...Array.from({ length: extensionSteps }, (_, i) => {
+    const step = i + 1;
+    const minutes = DRONE_MINIMUM_MINUTES + step * DRONE_UNIT_MINUTES;
+    return { id: `ext${step}`, price: DRONE_MINIMUM_CHARGE + step * DRONE_UNIT_PRICE, label: minutesLabel(minutes) };
   }),
-  { id: "custom", units: null, label: `${minutesLabel(MAX_UNITS * DRONE_UNIT_MINUTES)}を超える` },
+  { id: "custom", price: null, label: `${minutesLabel(MAX_MINUTES)}を超える` },
 ];
 
 export type DroneZone = {

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { DRONE_FLIGHTS, DRONE_ZONES, DRONE_UNIT_MINUTES, DRONE_UNIT_PRICE } from "@/data/drone-quote";
+import { DRONE_FLIGHTS, DRONE_ZONES, DRONE_UNIT_MINUTES, DRONE_MINIMUM_CHARGE } from "@/data/drone-quote";
 import { SET_DISCOUNT_RATE } from "@/data/photo-video-quote";
 import { trackEvent } from "@/lib/gtag";
 import styles from "./DroneQuoteCalculator.module.css";
@@ -19,9 +19,9 @@ export default function DroneQuoteCalculator() {
   const flight = DRONE_FLIGHTS.find((f) => f.id === flightId)!;
   const zone = DRONE_ZONES.find((z) => z.id === zoneId)!;
 
-  const isCustomFlight = flight.units === null;
+  const isCustomFlight = flight.price === null;
   const isCustomZone = zone.addPrice === null;
-  const subtotal = flight.units === null ? 0 : flight.units * DRONE_UNIT_PRICE + (zone.addPrice ?? 0);
+  const subtotal = flight.price === null ? 0 : flight.price + (zone.addPrice ?? 0);
   const total = setDiscount ? Math.round(subtotal * (1 - SET_DISCOUNT_RATE)) : subtotal;
 
   const contactHref = useMemo(() => {
@@ -43,7 +43,7 @@ export default function DroneQuoteCalculator() {
   return (
     <div className={styles.calc}>
       <fieldset className={styles.group}>
-        <legend>飛行時間の目安（{DRONE_UNIT_MINUTES}分単位）</legend>
+        <legend>飛行時間の目安（最低料金から{DRONE_UNIT_MINUTES}分単位で延長）</legend>
         {DRONE_FLIGHTS.map((item) => (
           <label key={item.id} className={styles.option}>
             <input
@@ -57,7 +57,7 @@ export default function DroneQuoteCalculator() {
               {item.label}
               {item.id === DRONE_FLIGHTS[0].id && <span className={styles.optionTag}>最低料金</span>}
             </span>
-            <span className={styles.optionPrice}>{item.units === null ? "個別見積り" : formatYen(item.units * DRONE_UNIT_PRICE)}</span>
+            <span className={styles.optionPrice}>{item.price === null ? "個別見積り" : formatYen(item.price)}</span>
           </label>
         ))}
       </fieldset>
@@ -101,7 +101,7 @@ export default function DroneQuoteCalculator() {
           </strong>
         )}
         <p className={styles.resultNote}>
-          ※ 料金は実際の飛行時間で、{DRONE_UNIT_MINUTES}分単位（切り上げ）で精算します。表示は目安の概算金額で、正式な金額は撮影場所を確認したうえで、あらためてお見積りします。
+          ※ 最低料金{formatYen(DRONE_MINIMUM_CHARGE)}（1時間まで）に、以降{DRONE_UNIT_MINUTES}分単位（切り上げ）で延長分を加算して精算します。表示は目安の概算金額で、正式な金額は撮影場所を確認したうえで、あらためてお見積りします。
         </p>
         <Link
           href={contactHref}
