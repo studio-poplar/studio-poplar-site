@@ -32,6 +32,9 @@ const nextConfig: NextConfig = {
       ...legacyWixRedirects.map((redirect) => ({ ...redirect, source: encodeURI(redirect.source), permanent: true })),
       ...removedWorkSlugs.map((slug) => ({ source: `/works/${slug}`, destination: "/works", permanent: true })),
       ...removedBlogSlugs.map((slug) => ({ source: `/blog/${slug}`, destination: "/blog", permanent: true })),
+      // Short link for the Instagram bio: Instagram percent-encodes "#", so "/service#plan" arrives as a 404.
+      { source: "/plan", destination: "/service#plan", permanent: false },
+      { source: "/service%23plan", destination: "/service#plan", permanent: false },
     ];
   },
 };
