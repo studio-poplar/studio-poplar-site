@@ -58,7 +58,7 @@
 
 @media (min-width: 860px) {
   .flow {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
 }
@@ -102,6 +102,11 @@
     bottom: auto;
     top: 50%;
     transform: translateY(-50%) rotate(-45deg);
+  }
+
+  /* the end of each row has nothing to its right */
+  .flow li:nth-child(3n)::after {
+    display: none;
   }
 }
 
