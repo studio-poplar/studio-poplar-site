@@ -1,6 +1,14 @@
 .detail {
-  padding-top: 70px;
+  /* The header is position: fixed (~88px tall); this has to clear it, not just
+     the 70px it had before, or the title sits half-hidden underneath. */
+  padding-top: 150px;
   padding-bottom: 140px;
+}
+
+@media (max-width: 640px) {
+  .detail {
+    padding-top: 120px;
+  }
 }
 
 .title {
