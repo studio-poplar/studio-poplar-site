@@ -43,6 +43,10 @@
   color: var(--design-notes);
 }
 
+.cat.marketing {
+  color: var(--marketing-notes);
+}
+
 .title {
   font-size: 15.5px;
   margin-bottom: 10px;

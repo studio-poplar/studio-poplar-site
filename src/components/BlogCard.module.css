@@ -56,6 +56,14 @@
   background: var(--design-notes);
 }
 
+.card.marketing .label {
+  color: var(--marketing-notes);
+}
+
+.card.marketing .dot {
+  background: var(--marketing-notes);
+}
+
 .title {
   font-size: 18px;
   font-weight: 700;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import PageMasthead from "@/components/PageMasthead";
-import BlogCard from "@/components/BlogCard";
+import BlogIndex from "@/components/BlogIndex";
 import CtaBand from "@/components/CtaBand";
 import { getAllBlogPosts } from "@/lib/content";
 
@@ -25,11 +25,7 @@ export default function BlogPage() {
 
       <section className="section" style={{ borderBottom: "none" }}>
         <div className="wrap" style={{ maxWidth: 900 }}>
-          {posts.length > 0 ? (
-            posts.map((post) => <BlogCard key={post.slug} post={post} />)
-          ) : (
-            <p>まだ記事がありません。</p>
-          )}
+          <BlogIndex posts={posts} />
         </div>
       </section>
 

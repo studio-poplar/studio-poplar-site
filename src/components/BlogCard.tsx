@@ -10,6 +10,8 @@ function formatDate(date: string) {
   return date.replaceAll("-", ".");
 }
 
+const SERIES_CLASS: Record<string, string> = { "field-notes": "field", "design-notes": "design", "marketing-notes": "marketing" };
+
 export default function BlogCard({ post, revealDelay = 0 }: { post: BlogPostMeta; revealDelay?: number }) {
   const ref = useReveal<HTMLAnchorElement>(revealDelay);
   const hasImage = Boolean(post.coverImage);
@@ -17,9 +19,7 @@ export default function BlogCard({ post, revealDelay = 0 }: { post: BlogPostMeta
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={`${styles.card} ${post.series === "field-notes" ? styles.field : styles.design} ${
-        hasImage ? "" : styles.noImg
-      }`}
+      className={`${styles.card} ${styles[SERIES_CLASS[post.series]]} ${hasImage ? "" : styles.noImg}`}
       ref={ref}
     >
       <div>

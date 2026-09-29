@@ -1,0 +1,44 @@
+/* Same chip style as the WORKS filter, for a consistent pattern across the two index pages. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip small {
+  font-size: 10px;
+  letter-spacing: 0;
+  opacity: 0.55;
+}
+
+.chip:hover {
+  border-color: var(--ink);
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--system);
+  outline-offset: 2px;
+}

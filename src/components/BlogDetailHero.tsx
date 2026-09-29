@@ -3,8 +3,10 @@ import { BLOG_SERIES_LABEL, type BlogPostMeta } from "@/lib/blog-types";
 import { splitHeadline } from "@/lib/text";
 import styles from "./BlogDetailHero.module.css";
 
+const SERIES_CLASS: Record<string, string> = { "field-notes": "field", "design-notes": "design", "marketing-notes": "marketing" };
+
 export default function BlogDetailHero({ post }: { post: BlogPostMeta }) {
-  const seriesClass = post.series === "field-notes" ? styles.field : styles.design;
+  const seriesClass = styles[SERIES_CLASS[post.series]];
   const { lead, rest } = splitHeadline(post.title);
 
   if (post.coverImage) {

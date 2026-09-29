@@ -15,3 +15,7 @@
 .pull.design {
   border-left-color: var(--design-notes);
 }
+
+.pull.marketing {
+  border-left-color: var(--marketing-notes);
+}
