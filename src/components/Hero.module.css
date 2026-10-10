@@ -251,24 +251,43 @@
   font-weight: 700;
 }
 
-.facts {
-  margin: 26px 0 0;
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-start;
-  gap: 22px;
-  flex-wrap: wrap;
+/* starting prices: plain type on one line, no boxes, so they don't read as
+   buttons. The labels carry the service colours (darkened to clear 4.5:1).
+   On desktop the row is 15px taller than the old chips, so it and the CTAs sit
+   that much closer to keep the lead level with the top of the slideshow. */
+.prices {
+  margin: 18px 0 0;
   animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 0.4s;
 }
 
-.facts li {
+.pricesHead {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin: 0 0 6px;
+}
+
+.facts {
   display: flex;
   align-items: baseline;
-  gap: 7px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 7px 12px;
+  flex-wrap: wrap;
+  gap: 4px 0;
+}
+
+.facts li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.facts li + li::before {
+  content: "/" / "";
+  margin: 0 14px 0 12px;
+  font-size: 14px;
+  color: var(--border-strong);
 }
 
 @media (max-width: 999px) {
@@ -280,9 +299,8 @@
     margin: 20px 0 0;
   }
 
-  .facts {
+  .prices {
     margin: 22px 0 0;
-    gap: 8px;
   }
 
   .ctas {
@@ -291,27 +309,6 @@
 }
 
 @media (max-width: 640px) {
-  .facts {
-    flex-wrap: nowrap;
-  }
-
-  .facts li {
-    flex: 1;
-    padding: 8px 4px;
-    gap: 4px;
-    justify-content: center;
-  }
-
-  .factLabel {
-    font-size: 9px;
-    white-space: nowrap;
-  }
-
-  .price {
-    font-size: 11px;
-    white-space: nowrap;
-  }
-
   .ctas {
     flex-wrap: nowrap;
     gap: 8px;
@@ -333,23 +330,69 @@
 }
 
 .factLabel {
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--ink-faint);
+  letter-spacing: 0.12em;
+}
+
+.toneWeb {
+  color: #5e6a56;
+}
+
+.toneApp {
+  color: #1d7a86;
+}
+
+.tonePhoto {
+  color: #8a5a40;
 }
 
 .price {
-  font-family: var(--font-en), sans-serif;
-  font-size: 13px;
+  white-space: nowrap;
+}
+
+.priceNum {
+  font-size: 20px;
   font-weight: 500;
-  color: var(--ink-soft);
+  letter-spacing: -0.02em;
   line-height: 1;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 
+.priceUnit {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+/* phones: one line doesn't fit in 240-290px, so the three sit in columns with
+   the label above the price (no slashes needed once they're columns) */
+@media (max-width: 640px) {
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    column-gap: 26px;
+  }
+
+  .facts li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .facts li + li::before {
+    content: none;
+  }
+
+  .priceNum {
+    font-size: 19px;
+  }
+}
+
 .ctas {
-  margin-top: 32px;
+  margin-top: 25px;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;

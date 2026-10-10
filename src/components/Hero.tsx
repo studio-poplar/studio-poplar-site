@@ -7,6 +7,13 @@ import HearingChatLauncher from "./HearingChat";
 import HeroSlideshow from "./HeroSlideshow";
 import styles from "./Hero.module.css";
 
+// Starting prices per service; tone picks the service colour for the label.
+const PRICES = [
+  { label: "WEB", amount: "5", tone: "toneWeb" },
+  { label: "APP", amount: "15", tone: "toneApp" },
+  { label: "PHOTO", amount: "6", tone: "tonePhoto" },
+] as const;
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -59,20 +66,20 @@ export default function Hero() {
                 <br />
                 <b>アプリ</b>で日々の運用を支える
               </p>
-              <ul className={styles.facts}>
-                <li>
-                  <span className={`en ${styles.factLabel}`}>WEB</span>
-                  <span className={styles.price}>5万円〜</span>
-                </li>
-                <li>
-                  <span className={`en ${styles.factLabel}`}>APP</span>
-                  <span className={styles.price}>15万円〜</span>
-                </li>
-                <li>
-                  <span className={`en ${styles.factLabel}`}>PHOTO</span>
-                  <span className={styles.price}>6万円〜</span>
-                </li>
-              </ul>
+              <div className={styles.prices}>
+                <p className={styles.pricesHead}>制作費の目安</p>
+                <ul className={styles.facts}>
+                  {PRICES.map((p) => (
+                    <li key={p.label}>
+                      <span className={`en ${styles.factLabel} ${styles[p.tone]}`}>{p.label}</span>
+                      <span className={styles.price}>
+                        <span className={`en ${styles.priceNum}`}>{p.amount}</span>
+                        <span className={styles.priceUnit}>万円〜</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div className={styles.ctas}>
                 <HearingChatLauncher />
                 <Link href="/service" className="btn-ghost">
