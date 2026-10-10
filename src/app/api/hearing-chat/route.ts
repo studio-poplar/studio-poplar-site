@@ -16,23 +16,61 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xoeayveb";
 const SHEETS_WEBHOOK_URL = process.env.HEARING_CHAT_SHEETS_WEBHOOK_URL;
 const MODEL = process.env.HEARING_CHAT_MODEL || "claude-haiku-4-5-20251001";
 
-// Best-effort in-memory per-IP throttle. Resets on cold start; this is a
-// pragmatic guard given the project has no shared KV/Redis store today, not a
-// hard distributed rate limit.
-const SESSION_STARTS_PER_IP_PER_HOUR = 10;
-const ipSessionLog = new Map<string, number[]>();
+// Best-effort in-memory throttles. They reset on cold start and are per
+// instance — a pragmatic guard given the project has no shared KV/Redis store
+// today, not a hard distributed rate limit. Everything here is counted on the
+// server: nothing the client sends (userTurnCount etc.) can lift a limit.
+const HOUR_MS = 60 * 60 * 1000;
 
-function checkAndLogSessionStart(ip: string): boolean {
+// A full session makes at most one reflect call per free-text question plus
+// one follow-up each, so this allows three complete sessions per IP per hour.
+const REFLECTS_PER_SESSION = (TOTAL_QUESTIONS - 1) * 2;
+const REFLECTS_PER_IP_PER_HOUR = REFLECTS_PER_SESSION * 3;
+// Ceiling on Claude calls per instance per hour across all visitors. Past it,
+// visitors get the fixed acknowledgment instead — the chat keeps working, only
+// the API spend stops.
+const MODEL_CALLS_PER_HOUR = 200;
+const NOTIFIES_PER_IP_PER_HOUR = 3;
+const MAX_TRACKED_IPS = 5000;
+
+const reflectLog = new Map<string, number[]>();
+const notifyLog = new Map<string, number[]>();
+let modelCallLog: number[] = [];
+
+function recentWithin(times: number[], now: number): number[] {
+  return times.filter((t) => t > now - HOUR_MS);
+}
+
+// Records a hit and reports whether it was within the limit.
+function allowHit(log: Map<string, number[]>, key: string, limit: number): boolean {
   const now = Date.now();
-  const hourAgo = now - 60 * 60 * 1000;
-  const recent = (ipSessionLog.get(ip) ?? []).filter((t) => t > hourAgo);
-  if (recent.length >= SESSION_STARTS_PER_IP_PER_HOUR) {
-    ipSessionLog.set(ip, recent);
+  if (log.size > MAX_TRACKED_IPS) {
+    for (const [k, times] of log) {
+      if (recentWithin(times, now).length === 0) log.delete(k);
+    }
+  }
+  const recent = recentWithin(log.get(key) ?? [], now);
+  if (recent.length >= limit) {
+    log.set(key, recent);
     return false;
   }
   recent.push(now);
-  ipSessionLog.set(ip, recent);
+  log.set(key, recent);
   return true;
+}
+
+function allowModelCall(): boolean {
+  const now = Date.now();
+  modelCallLog = recentWithin(modelCallLog, now);
+  if (modelCallLog.length >= MODEL_CALLS_PER_HOUR) return false;
+  modelCallLog.push(now);
+  return true;
+}
+
+// Vercel overwrites x-forwarded-for with the real client address, so the
+// first entry can't be spoofed by the visitor in production.
+function clientIp(request: NextRequest): string {
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
 }
 
 // ---- POST — called only for free-text answers ----
@@ -99,7 +137,7 @@ function parseReflectResult(raw: string): ReflectResult | null {
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const ip = clientIp(request);
 
   let body: ReflectBody;
   try {
@@ -126,9 +164,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: `回答は${MAX_FREE_TEXT_LENGTH}文字以内でお願いします。` }, { status: 400 });
   }
 
-  if (typeof userTurnCount === "number" && userTurnCount === 1 && !checkAndLogSessionStart(ip)) {
+  if (!allowHit(reflectLog, ip, REFLECTS_PER_IP_PER_HOUR)) {
     return NextResponse.json({ error: "アクセスが混み合っています。しばらくしてから再度お試しください。" }, { status: 429 });
   }
+  // userTurnCount comes from the client, so this only stops an honest client
+  // that has run long; the per-IP limit above is the actual guard.
   if (typeof userTurnCount === "number" && userTurnCount > MAX_USER_TURNS) {
     return NextResponse.json({ error: "セッションの上限に達しました。お手数ですがお問い合わせフォームからご連絡ください。" }, { status: 429 });
   }
@@ -138,7 +178,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(guarded);
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.ANTHROPIC_API_KEY || !allowModelCall()) {
     return NextResponse.json({ reflection: FALLBACK_ACK, needs_followup: false, followup_question: "" });
   }
 
@@ -190,6 +230,28 @@ type NotifyBody = {
   transcript: string;
 };
 
+// Generous bounds for a real session (user turns are capped at
+// MAX_FREE_TEXT_LENGTH each); anything past them didn't come from the chat UI.
+const MAX_FIELD_LENGTH = 1000;
+const MAX_TRANSCRIPT_LENGTH = 12000;
+// Multi-select answers list one category per chosen chip, duplicates included.
+const MAX_CATEGORIES = 20;
+
+function isValidAnswer(a: unknown): a is HearingChatAnswer {
+  if (typeof a !== "object" || a === null) return false;
+  const { question, label, freeText, categories } = a as Record<string, unknown>;
+  const optionalText = (v: unknown) => v === null || (typeof v === "string" && v.length <= MAX_FIELD_LENGTH);
+  return (
+    typeof question === "string" &&
+    question.length <= MAX_FIELD_LENGTH &&
+    optionalText(label) &&
+    optionalText(freeText) &&
+    (label !== null || freeText !== null) &&
+    (categories === undefined ||
+      (Array.isArray(categories) && categories.length <= MAX_CATEGORIES && categories.every((c) => typeof c === "string" && c.length <= 20)))
+  );
+}
+
 export async function PUT(request: NextRequest) {
   let body: NotifyBody;
   try {
@@ -198,8 +260,20 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "リクエストの形式が正しくありません。" }, { status: 400 });
   }
 
-  if (!Array.isArray(body.answers) || typeof body.transcript !== "string") {
+  // A finished session always carries exactly one answer per question.
+  if (
+    !Array.isArray(body.answers) ||
+    body.answers.length !== TOTAL_QUESTIONS ||
+    !body.answers.every(isValidAnswer) ||
+    typeof body.transcript !== "string" ||
+    body.transcript.length > MAX_TRANSCRIPT_LENGTH
+  ) {
     return NextResponse.json({ error: "リクエストの形式が正しくありません。" }, { status: 400 });
+  }
+
+  // Checked after validation so a malformed retry doesn't use up the quota.
+  if (!allowHit(notifyLog, clientIp(request), NOTIFIES_PER_IP_PER_HOUR)) {
+    return NextResponse.json({ error: "送信回数の上限に達しました。しばらくしてから再度お試しください。" }, { status: 429 });
   }
 
   const summary = body.answers

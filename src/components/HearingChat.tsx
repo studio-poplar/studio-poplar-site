@@ -99,13 +99,20 @@ function clearProgress() {
   }
 }
 
-async function sendNotify(payload: { answers: AnswerRecord[]; transcript: string }): Promise<boolean> {
+// "rejected" means the server refused the payload itself (400), so retrying
+// the same payload can never succeed.
+async function postNotify(payload: { answers: AnswerRecord[]; transcript: string }): Promise<"ok" | "failed" | "rejected"> {
   try {
     const res = await fetch("/api/hearing-chat", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    return res.ok;
+    if (res.ok) return "ok";
+    return res.status === 400 ? "rejected" : "failed";
   } catch {
-    return false;
+    return "failed";
   }
+}
+
+async function sendNotify(payload: { answers: AnswerRecord[]; transcript: string }): Promise<boolean> {
+  return (await postNotify(payload)) === "ok";
 }
 
 function retryPendingNotify() {
@@ -113,8 +120,8 @@ function retryPendingNotify() {
     const raw = localStorage.getItem(PENDING_KEY);
     if (!raw) return;
     const payload = JSON.parse(raw);
-    sendNotify(payload).then((ok) => {
-      if (ok) localStorage.removeItem(PENDING_KEY);
+    postNotify(payload).then((result) => {
+      if (result !== "failed") localStorage.removeItem(PENDING_KEY);
     });
   } catch {
     // ignore — best effort only
