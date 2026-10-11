@@ -114,7 +114,6 @@ export default function Home() {
                 description={service.description}
                 eyebrow="こんなご相談も"
                 items={service.items}
-                href="/service"
                 icon={service.icon}
                 accent={service.accent}
                 revealDelay={50 + i * 90}

@@ -49,9 +49,6 @@ export default function SiteFooter() {
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener">
             Instagram
           </a>
-          <a href="https://x.com/" target="_blank" rel="noreferrer noopener">
-            X
-          </a>
           <a href="mailto:info@studiopoplar.com">info@studiopoplar.com</a>
         </div>
       </div>

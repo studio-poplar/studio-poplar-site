@@ -1,7 +1,6 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
-import Link from "next/link";
 import { useCard } from "@/lib/useCard";
 import styles from "./ServiceCard.module.css";
 
@@ -13,8 +12,6 @@ type ServiceCardProps = {
   items?: string[];
   /** small heading above the item list */
   eyebrow?: string;
-  href?: string;
-  cta?: string;
   revealDelay?: number;
   icon?: ReactNode;
   accent?: string;
@@ -27,8 +24,6 @@ export default function ServiceCard({
   description,
   items,
   eyebrow,
-  href,
-  cta = "詳しく見る",
   revealDelay = 0,
   icon,
   accent,
@@ -54,13 +49,6 @@ export default function ServiceCard({
               <li key={item}>{item}</li>
             ))}
           </ul>
-        </div>
-      )}
-      {href && (
-        <div className={styles.footer}>
-          <Link href={href} className={`en ${styles.link}`}>
-            {cta} →
-          </Link>
         </div>
       )}
     </div>

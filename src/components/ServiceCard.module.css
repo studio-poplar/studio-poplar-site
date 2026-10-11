@@ -135,34 +135,3 @@
   height: 1px;
   background: var(--accent);
 }
-
-/* the link sits at the bottom right of the card; the whole card is clickable through it */
-.footer {
-  margin-top: auto;
-  padding-top: 28px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.link {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  transition: color 0.2s ease;
-}
-
-.link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.card:hover .link {
-  color: var(--card-accent, var(--accent));
-}
-
-.link:focus-visible {
-  outline: 2px solid var(--system);
-  outline-offset: 4px;
-}
