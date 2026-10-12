@@ -4,6 +4,55 @@
   color: var(--ink-faint);
 }
 
+/* costs billed at cost on top of the production fee */
+.costs {
+  margin-top: 40px;
+  padding: 28px 28px 26px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.costs h3 {
+  font-size: 17px;
+  margin-bottom: 12px;
+}
+
+.costs p {
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.costs ul {
+  margin: 14px 0 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.costs li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.costs li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.9em;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .costs {
+    padding: 22px 20px 20px;
+  }
+}
+
 .planGrid {
   display: grid;
   grid-template-columns: 1fr;
