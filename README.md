@@ -39,7 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 # デシイリ（/deshiiri）
 
-横浜・神奈川の職人と家業の読みもの。運営：Studio Poplar。
+横浜・神奈川の職人と家業のWEBマガジン。記事を読んで、そのまま職人に相談・依頼できる。運営：Studio Poplar。
 
 ## 置き場所
 
@@ -49,16 +49,16 @@ CSS 変数は `.deshiiri` の中だけで定義している（`deshiiri.css`）�
 
 | 場所 | 中身 |
 |---|---|
-| `content/deshiiri/articles/*.mdx` | 記事（帖） |
+| `content/deshiiri/articles/*.mdx` | 記事 |
 | `content/deshiiri/shokunin/*.yaml` | 職人・家業 |
-| `content/deshiiri/banzuke.json` | 読まれ番付 |
+| `content/deshiiri/banzuke.json` | よく読まれている記事（ランキング） |
 | `content/deshiiri/banned-words.json` | 使わない言葉 |
 | `public/deshiiri/articles/<slug>/` | 記事の写真 |
 | `public/deshiiri/shokunin/<id>/` | 職人の写真 |
 | `src/lib/deshiiri/codes.ts` | 仕事・町・連載のコードと表示名 |
-| `src/lib/deshiiri/kojo.ts` | 口上（トップと /deshiiri/about） |
+| `src/lib/deshiiri/kojo.ts` | 表紙の文章（何ができるか）と「デシイリについて」 |
 
-## 帖の足し方
+## 記事の足し方
 
 1. 職人がまだいなければ、先に「職人の足し方」で YAML を作る
 2. `content/deshiiri/articles/<slug>.mdx` を作る。`<slug>` が URL になる（例 `tatami-fujisawa` → `/deshiiri/articles/tatami-fujisawa`）
@@ -66,7 +66,7 @@ CSS 変数は `.deshiiri` の中だけで定義している（`deshiiri.css`）�
 
    ```yaml
    ---
-   no: 25                      # 第二十五帖（漢数字は自動）
+   no: 25                      # 通し番号（No.25 と表示）
    title: "知られていない一点から付けた題"
    shokunin: "<職人の id>"     # 仕事・町は職人の YAML から引く
    lead: "一覧と共有に使う2〜3行の要約"
@@ -78,7 +78,7 @@ CSS 変数は `.deshiiri` の中だけで定義している（`deshiiri.css`）�
    heroCaption: "写真の下に出す説明（なくてもよい）"
    publishedAt: "2026-12-01"
    interviewedAt: "2026-11"
-   featured: false             # true の中で一番新しい帖が「今月の特集」
+   featured: false             # true の中で一番新しい記事が「今月の特集」
    series: null                # 連載なら dougu / shigotogi / hirumeshi
    related: []                 # 次に読む。空なら 同じ仕事 → 同じ町 → 新しい順 で自動
    sponsor: null               # 協賛者の名前
@@ -124,16 +124,16 @@ links:
 draft: false
 ```
 
-## 番付の更新のしかた（毎月1日）
+## ランキングの更新のしかた（毎月1日）
 
 1. Vercel の Web Analytics で、前月のページ別閲覧数を開き、`/deshiiri/articles/` 以下の上位を確かめる
-2. `content/deshiiri/banzuke.json` を書き換える。上から 横綱・大関・関脇・小結・前頭・前頭 になる
+2. `content/deshiiri/banzuke.json` を書き換える。上から1位〜6位として「よく読まれている記事」に出る
 
    ```json
    { "month": "2026-11", "items": [{ "slug": "tatami-fujisawa", "views": 2140 }] }
    ```
 
-3. 公開中の帖が6本未満、または `items` が6本そろわないあいだは、番付の代わりに「編集部のおすすめ」（新しい順）が出る
+3. 公開中の記事が6本未満、または `items` が6本そろわないあいだは、ランキングの代わりに「編集部のおすすめ」（新しい順）が出る
 
 ## ビルド時の警告
 
@@ -144,10 +144,14 @@ draft: false
 - 「次に読む」が2本未満
 - 記事・職人ファイル、または表示されるページに「使わない言葉」（`banned-words.json`）がある（ページの検査は `scripts/check-deshiiri-words.mjs`）
 
+## 公開のタイミング
+
+公開中（`draft: false`）の記事が1本もないあいだは、デシイリ全体を検索に出さず（noindex）、sitemap と本業サイトのフッターのリンクも出さない。最初の記事を `draft: false` にしてデプロイすると、自動で公開状態になる。
+
 ## 下書き
 
-`draft: true` の帖と職人は、`npm run dev` と Vercel のプレビュー環境だけに出る。本番、sitemap、検索には出ない。
-`sample-*` の3帖・3人はモックアップの仮の内容で、すべて下書き。
+`draft: true` の記事と職人は、`npm run dev` と Vercel のプレビュー環境だけに出る。本番、sitemap、検索には出ない。
+`sample-*` の3本・3人はモックアップの仮の内容で、すべて下書き。
 
 ## 連絡フォーム
 
@@ -167,3 +171,8 @@ DESHIIRI_FROM_EMAIL=      # 例 deshiiri@studiopoplar.com（Resend で studiopop
 ## 共有画像
 
 `/deshiiri/og`（全体）と `/deshiiri/og/<slug>`（記事ごと。hero 写真に題と千社札を重ねる）を `next/og` で生成する。明朝体はビルド時に Google Fonts から使う文字だけ取得する。
+
+## フォント
+
+和文フォント（Zen Kaku Gothic New・Shippori Mincho）は、Google Fonts から取得して JIS 第1水準＋かな・記号・英数字＋リポジトリ内で使っている文字に切り詰めた woff2 を `src/fonts/` から配信している（本業サイトも共通）。
+珍しい漢字を含む記事を足したら `npm run fonts` で作り直す。`npm run build` のあとに、フォントにない文字があれば `⚠ [fonts]` で警告する。
