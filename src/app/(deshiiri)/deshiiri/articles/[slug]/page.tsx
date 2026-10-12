@@ -7,10 +7,11 @@ import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleGrid } from "@/components/deshiiri/Cards";
 import { mdxComponents } from "@/components/deshiiri/MdxParts";
 import ContactForm from "@/components/deshiiri/ContactForm";
+import SampleNotice from "@/components/deshiiri/SampleNotice";
 import { getAllArticles, getArticle, getContactPeople, getNextArticles, getShokunin } from "@/lib/deshiiri/content";
 import { cityLabel, jobLabel, seriesLabel } from "@/lib/deshiiri/codes";
 import { dotDate, jaDate, noLabel } from "@/lib/deshiiri/format";
-import { deshiiriMetadata, DESHIIRI_NAME } from "@/lib/deshiiri/seo";
+import { breadcrumbJsonLd, deshiiriMetadata, DESHIIRI_NAME } from "@/lib/deshiiri/seo";
 import { siteUrl } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/deshiiri/articles
     path: `/deshiiri/articles/${article.slug}`,
     type: "article",
     publishedTime: article.publishedAt,
-    noindex: article.draft,
+    noindex: article.draft || article.sample,
     image: `/deshiiri/og/${article.slug}`,
   });
 }
@@ -59,7 +60,17 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
 
   return (
     <article>
-      {!article.draft && <JsonLd data={jsonLd} />}
+      {!article.draft && !article.sample && (
+        <>
+          <JsonLd data={jsonLd} />
+          <JsonLd
+            data={breadcrumbJsonLd(siteUrl, [
+              { name: jobLabel(article.job), path: `/deshiiri/shigoto/${article.job}` },
+              { name: article.title, path: `/deshiiri/articles/${article.slug}` },
+            ])}
+          />
+        </>
+      )}
       {article.draft && <p className={styles.draft}>DRAFT — この記事は下書きです。本番には表示されません。</p>}
 
       <header className={styles.top}>
@@ -84,6 +95,11 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
           {article.interviewedAt && <span>取材 {jaDate(article.interviewedAt)}</span>}
           <span>読むのにかかる時間 約{article.readingMinutes}分</span>
         </div>
+        {article.sample && (
+          <div className={styles.sample}>
+            <SampleNotice kind="article" />
+          </div>
+        )}
       </header>
 
       <figure className={styles.hero}>
@@ -131,11 +147,17 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
           <div className={styles.contact}>
             <span className={styles.smallHead}>この職人に連絡する</span>
             <h2>{person.yago}に連絡する</h2>
-            <p>
-              話を聞いてみたい、仕事を頼みたい、作業場を見てみたい。どんな用件でも大丈夫です。デシイリ編集部が受け取り、{person.yago}
-              におつなぎします。
-            </p>
-            <ContactForm people={contactPeople} initialTo={person.id} from={article.slug} lockTo idPrefix="a" />
+            {!person.sample && (
+              <p>
+                話を聞いてみたい、仕事を頼みたい、作業場を見てみたい。どんな用件でも大丈夫です。デシイリ編集部が受け取り、{person.yago}
+                におつなぎします。
+              </p>
+            )}
+            {person.sample ? (
+              <SampleNotice kind="shokunin" />
+            ) : (
+              <ContactForm people={contactPeople} initialTo={person.id} from={article.slug} lockTo idPrefix="a" />
+            )}
             <div className={styles.sponsor}>
               {article.sponsor ? <span>この記事の協賛：{article.sponsor}</span> : <Link href="/deshiiri/sponsor">この記事の協賛について</Link>}
               <span>取材・撮影：Studio Poplar</span>

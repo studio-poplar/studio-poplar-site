@@ -3,6 +3,7 @@ import type { ArticleMeta, Shokunin } from "@/lib/deshiiri/content";
 import { cityLabel, jobLabel, seriesLabel } from "@/lib/deshiiri/codes";
 import { dotDate } from "@/lib/deshiiri/format";
 import Photo from "./Photo";
+import { SampleBadge } from "./SampleNotice";
 import styles from "./Cards.module.css";
 
 type CardProps = {
@@ -22,6 +23,7 @@ export function ArticleCard({ article, variant = "default", headingLevel = "h3" 
       <Photo src={article.hero} alt={article.heroAlt || article.title} ratio={ratio} sizes={sizes} className={styles.cardPhoto} />
       <span className={styles.body}>
         <span className={styles.meta}>
+          {article.sample && <SampleBadge />}
           {article.series && <b>【{seriesLabel(article.series)}】</b>}
           {jobLabel(article.job)}｜{article.area}
         </span>
@@ -52,13 +54,16 @@ export function PersonCard({ person }: { person: Shokunin }) {
       <Link href={`/deshiiri/meikan/${person.id}`} className={styles.personLink}>
         <Photo src={person.photo} alt={`${person.yago}の職人`} ratio="3 / 4" sizes="(max-width: 880px) 50vw, 280px" className={styles.cardPhoto} />
         <span className={styles.personMeta}>
+          {person.sample && <SampleBadge />}
           {jobLabel(person.job)}｜{person.area || cityLabel(person.city)}
         </span>
         <b className={styles.yago}>{person.yago}</b>
       </Link>
-      <Link href={`/deshiiri/contact?to=${person.id}`} className={styles.contact}>
-        この職人に連絡する
-      </Link>
+      {!person.sample && (
+        <Link href={`/deshiiri/contact?to=${person.id}`} className={styles.contact}>
+          この職人に連絡する
+        </Link>
+      )}
     </div>
   );
 }

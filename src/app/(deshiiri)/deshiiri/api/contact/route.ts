@@ -33,7 +33,7 @@ type Mail = { subject: string; body: string; replyTo: string; autoReply: { to: s
 
 function contactMail(d: ContactInput): Mail | { error: string } {
   const person = getShokunin(d.to);
-  if (!person) return { error: "連絡したい職人が見つかりません。" };
+  if (!person || person.sample) return { error: "連絡したい職人が見つかりません。" };
   if (!person.contact[d.purpose]) return { error: "この職人は、その用件の連絡を受け付けていません。" };
   const purpose = CONTACT_PURPOSES[d.purpose];
   const article = d.from ? getArticle(d.from) : undefined;

@@ -1,7 +1,7 @@
 # src/fonts
 
 Self-hosted subsets of two Google Fonts, built by `npm run fonts` (`scripts/build-fonts.mjs`).
-`charset.txt` lists the characters each file contains.
+`charset-full.txt` (Gothic) and `charset-repo.txt` (Mincho) list the characters each file contains.
 
 | File | Font | License |
 |---|---|---|

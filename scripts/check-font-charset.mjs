@@ -4,7 +4,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const charset = new Set(fs.readFileSync(path.join(root, "src/fonts/charset.txt"), "utf8"));
+// The Mincho set (charset-repo) is the smaller one: anything in it is also in the Gothic set.
+const charset = new Set(fs.readFileSync(path.join(root, "src/fonts/charset-repo.txt"), "utf8"));
 
 const missing = new Map(); // char -> first file
 const walk = (dir) => {

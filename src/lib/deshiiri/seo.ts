@@ -48,3 +48,18 @@ export function deshiiriMetadata({ title, description, path, type = "website", p
     },
   };
 }
+
+// schema.org BreadcrumbList: デシイリ > … > this page. Paths are from the site root.
+export function breadcrumbJsonLd(siteUrl: string, items: { name: string; path: string }[]) {
+  const all = [{ name: DESHIIRI_NAME, path: "/deshiiri" }, ...items];
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: all.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${siteUrl}${item.path}`,
+    })),
+  };
+}

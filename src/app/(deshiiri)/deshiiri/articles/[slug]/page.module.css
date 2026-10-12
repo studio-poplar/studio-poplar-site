@@ -61,6 +61,10 @@
   border-bottom: 1px solid var(--line);
 }
 
+.sample {
+  margin-top: 20px;
+}
+
 .hero {
   max-width: 1200px;
   margin: 44px auto 0;
@@ -133,7 +137,7 @@
 .body > p:first-child {
   font-size: 18px;
   line-height: 2.1;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .body > ul:not([class]),

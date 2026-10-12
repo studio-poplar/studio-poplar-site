@@ -5,9 +5,10 @@ import Photo from "@/components/deshiiri/Photo";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleGrid } from "@/components/deshiiri/Cards";
 import ContactForm from "@/components/deshiiri/ContactForm";
+import SampleNotice, { SampleBadge } from "@/components/deshiiri/SampleNotice";
 import { getAllShokunin, getArticlesByShokunin, getContactPeople, getShokunin } from "@/lib/deshiiri/content";
 import { jobLabel } from "@/lib/deshiiri/codes";
-import { deshiiriMetadata } from "@/lib/deshiiri/seo";
+import { breadcrumbJsonLd, deshiiriMetadata } from "@/lib/deshiiri/seo";
 import { siteUrl } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/deshiiri/meikan/[
     title: `${person.yago}（${person.area}の${jobLabel(person.job)}）`,
     description: `${person.area}の${jobLabel(person.job)}、${person.yago}。${person.intro}`,
     path: `/deshiiri/meikan/${person.id}`,
-    noindex: person.draft,
+    noindex: person.draft || person.sample,
   });
 }
 
@@ -45,10 +46,21 @@ export default async function ShokuninPage({ params }: PageProps<"/deshiiri/meik
 
   return (
     <>
-      {!person.draft && <JsonLd data={jsonLd} />}
+      {!person.draft && !person.sample && (
+        <>
+          <JsonLd data={jsonLd} />
+          <JsonLd
+            data={breadcrumbJsonLd(siteUrl, [
+              { name: "職人一覧", path: "/deshiiri/meikan" },
+              { name: person.yago, path: `/deshiiri/meikan/${person.id}` },
+            ])}
+          />
+        </>
+      )}
       <section className={`d-wrap ${styles.top}`}>
         <Photo src={person.photo} alt={`${person.yago}の職人`} ratio="3 / 4" sizes="(max-width: 880px) 100vw, 420px" priority />
         <div className={styles.info}>
+          {person.sample && <SampleBadge />}
           <span className="d-eyebrow">
             CRAFTSPERSON <b>—</b> {jobLabel(person.job)}
           </span>
@@ -96,8 +108,14 @@ export default async function ShokuninPage({ params }: PageProps<"/deshiiri/meik
           <div className={styles.contact} id="renraku">
             <span className="d-eyebrow">CONTACT</span>
             <h2>{person.yago}に連絡する</h2>
-            <p className={styles.note}>連絡はデシイリ編集部が受け取り、{person.yago}におつなぎします。</p>
-            <ContactForm people={getContactPeople().filter((p) => p.id === person.id)} initialTo={person.id} lockTo idPrefix="m" />
+            {person.sample ? (
+              <SampleNotice kind="shokunin" />
+            ) : (
+              <>
+                <p className={styles.note}>連絡はデシイリ編集部が受け取り、{person.yago}におつなぎします。</p>
+                <ContactForm people={getContactPeople().filter((p) => p.id === person.id)} initialTo={person.id} lockTo idPrefix="m" />
+              </>
+            )}
           </div>
         </div>
       </section>

@@ -4,7 +4,9 @@ import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleGrid, PersonGrid } from "@/components/deshiiri/Cards";
 import { getAllArticles, getAllShokunin } from "@/lib/deshiiri/content";
 import { CITIES, JOBS, cityLabel, jobLabel } from "@/lib/deshiiri/codes";
-import { deshiiriMetadata } from "@/lib/deshiiri/seo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, deshiiriMetadata } from "@/lib/deshiiri/seo";
+import { siteUrl } from "@/lib/seo";
 import styles from "../../list.module.css";
 
 export function generateStaticParams() {
@@ -27,8 +29,8 @@ export async function generateMetadata({ params }: PageProps<"/deshiiri/machi/[c
   const what = jobs.length > 0 ? jobs.join("、") : "職人と家業";
   return deshiiriMetadata({
     title: jobs.length > 0 ? `${label}の職人と家業（${what}）` : `${label}の職人と家業`,
-    // Pages with nobody on them yet stay out of search results.
-    noindex: people.length === 0,
+    // Pages with no real craftsperson yet (none, or only イメージ案) stay out of search results.
+    noindex: !people.some((p) => !p.sample),
     description: `${label}の${what}を訪ねて、仕事の中身を聞き書きした記事と職人の一覧です。気になった職人には、デシイリから連絡できます。`,
     path: `/deshiiri/machi/${city}`,
   });
@@ -42,6 +44,7 @@ export default async function MachiPage({ params }: PageProps<"/deshiiri/machi/[
 
   return (
     <div className={`d-wrap ${styles.page}`}>
+      {people.some((p) => !p.sample) && <JsonLd data={breadcrumbJsonLd(siteUrl, [{ name: `${label}の職人と家業`, path: `/deshiiri/machi/${city}` }])} />}
       <SectionHead as="h1" eyebrow="BY TOWN" title={`${label}の職人と家業`} aside={<Link href="/deshiiri#index" className="d-arrow">INDEX</Link>} />
       <p className={styles.intro}>
         {jobs.length > 0 ? `${label}の${jobs.join("、")}を訪ねました。` : `${label}の取材は準備中です。`}

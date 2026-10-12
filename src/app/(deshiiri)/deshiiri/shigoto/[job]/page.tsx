@@ -4,7 +4,9 @@ import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleGrid, PersonGrid } from "@/components/deshiiri/Cards";
 import { getAllArticles, getAllShokunin } from "@/lib/deshiiri/content";
 import { CITIES, JOBS, cityLabel, jobLabel } from "@/lib/deshiiri/codes";
-import { deshiiriMetadata } from "@/lib/deshiiri/seo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, deshiiriMetadata } from "@/lib/deshiiri/seo";
+import { siteUrl } from "@/lib/seo";
 import styles from "../../list.module.css";
 
 // Every job in the code table gets a page, so links never 404 while a job has no stories yet.
@@ -30,8 +32,8 @@ export async function generateMetadata({ params }: PageProps<"/deshiiri/shigoto/
     title: towns.length > 0 ? `神奈川の${label}（${where}）` : `神奈川の${label}`,
     description: `${where}の${label}を訪ねて、仕事の中身を聞き書きした記事と職人の一覧です。気になった職人には、デシイリから連絡できます。`,
     path: `/deshiiri/shigoto/${job}`,
-    // Pages with nobody on them yet stay out of search results.
-    noindex: people.length === 0,
+    // Pages with no real craftsperson yet (none, or only イメージ案) stay out of search results.
+    noindex: !people.some((p) => !p.sample),
   });
 }
 
@@ -43,6 +45,7 @@ export default async function ShigotoPage({ params }: PageProps<"/deshiiri/shigo
 
   return (
     <div className={`d-wrap ${styles.page}`}>
+      {people.some((p) => !p.sample) && <JsonLd data={breadcrumbJsonLd(siteUrl, [{ name: `神奈川の${label}`, path: `/deshiiri/shigoto/${job}` }])} />}
       <SectionHead as="h1" eyebrow="BY CRAFT" title={`神奈川の${label}`} aside={<Link href="/deshiiri#index" className="d-arrow">INDEX</Link>} />
       <p className={styles.intro}>
         {towns.length > 0

@@ -1,4 +1,4 @@
-# サンプル（モックアップの仮の職人）。draft: true なので本番には出ない。
+# イメージ案（架空の職人）。sample: true で注意書きを出し、連絡フォームと検索から外す。
 id: "sample-koumuten"
 yago: "〇〇工務店"             # 屋号。名鑑とプロフィールに大きく出す
 person: "Aさん"                # 表記は本人の同意どおり
@@ -16,4 +16,5 @@ contact:                       # 受け付ける用件。false の用件はフ�
 links:
   site: null
   instagram: null
-draft: true
+draft: false
+sample: true

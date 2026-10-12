@@ -1,4 +1,4 @@
-# サンプル（モックアップの仮の職人）。draft: true なので本番には出ない。
+# イメージ案（架空の職人）。sample: true で注意書きを出し、連絡フォームと検索から外す。
 id: "sample-kajuen"
 yago: "◇◇果樹園"
 person: null
@@ -16,4 +16,5 @@ contact:
 links:
   site: null
   instagram: null
-draft: true
+draft: false
+sample: true

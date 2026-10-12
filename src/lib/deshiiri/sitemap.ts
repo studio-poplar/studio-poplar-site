@@ -7,8 +7,9 @@ import { SERIES } from "./codes";
 export function deshiiriSitemap(siteUrl: string): MetadataRoute.Sitemap {
   if (!isDeshiiriLive()) return [];
   const base = `${siteUrl}/deshiiri`;
-  const articles = getAllArticles().filter((a) => !a.draft);
-  const people = getAllShokunin().filter((p) => !p.draft);
+  // イメージ案 (sample) pages stay out of search, like drafts.
+  const articles = getAllArticles().filter((a) => !a.draft && !a.sample);
+  const people = getAllShokunin().filter((p) => !p.draft && !p.sample);
   const unique = (list: string[]) => [...new Set(list)];
   const latest = articles[0]?.publishedAt;
 

@@ -37,6 +37,8 @@ export type Shokunin = {
   contact: Record<ContactPurpose, boolean>;
   links: { site: string | null; instagram: string | null };
   draft: boolean;
+  // イメージ案: a made-up example. Shown with a notice, no contact form, kept out of search.
+  sample: boolean;
 };
 
 export type ArticleMeta = {
@@ -56,6 +58,8 @@ export type ArticleMeta = {
   related: string[];
   sponsor: string | null;
   draft: boolean;
+  // イメージ案: a made-up example. Shown with a notice, no contact form, kept out of search.
+  sample: boolean;
   readingMinutes: number;
   // Copied from the craftsperson so lists and filters don't need a second lookup.
   job: string;
@@ -125,6 +129,7 @@ function loadAllShokunin(): Shokunin[] {
       },
       links: { site: d.links?.site ?? null, instagram: d.links?.instagram ?? null },
       draft: d.draft === true,
+      sample: d.sample === true,
     };
   });
   return shokuninCache;
@@ -176,6 +181,7 @@ function loadAllArticles(): Article[] {
         related: Array.isArray(d.related) ? d.related : [],
         sponsor: d.sponsor ?? null,
         draft: d.draft === true,
+        sample: d.sample === true,
         readingMinutes: readingMinutes(content),
         job: person.job,
         city: person.city,
@@ -291,7 +297,8 @@ export function getIndex(kind: "job" | "city") {
 
 // The minimum the contact form needs about each craftsperson (passed to a client component).
 export function getContactPeople() {
-  return getAllShokunin().map((p) => ({
+  // イメージ案の職人には連絡できない
+  return getAllShokunin().filter((p) => !p.sample).map((p) => ({
     id: p.id,
     yago: p.yago,
     label: `${jobLabel(p.job)}／${p.area}`,

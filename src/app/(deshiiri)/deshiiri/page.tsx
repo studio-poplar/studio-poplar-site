@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Photo from "@/components/deshiiri/Photo";
+import { SampleBadge } from "@/components/deshiiri/SampleNotice";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleCard, PersonGrid } from "@/components/deshiiri/Cards";
 import {
@@ -13,7 +14,9 @@ import {
 import { SERIES, SERIES_ABOUT, jobLabel, type SeriesCode } from "@/lib/deshiiri/codes";
 import { dotDate } from "@/lib/deshiiri/format";
 import { KOJO, PROMISE } from "@/lib/deshiiri/kojo";
+import JsonLd from "@/components/JsonLd";
 import { deshiiriMetadata } from "@/lib/deshiiri/seo";
+import { siteUrl } from "@/lib/seo";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -35,8 +38,20 @@ export default function DeshiiriHome() {
   const jobIndex = getIndex("job");
   const cityIndex = getIndex("city");
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "デシイリ",
+    alternateName: "デシイリ 職人と家業のWEBマガジン",
+    url: `${siteUrl}/deshiiri`,
+    description: PROMISE.lead,
+    inLanguage: "ja",
+    publisher: { "@type": "Organization", name: "Studio Poplar", url: siteUrl },
+  };
+
   return (
     <>
+      <JsonLd data={websiteJsonLd} />
       {/* 表紙: 何のサイトで何ができるか + 今月の特集 */}
       <section className={`d-wrap ${styles.cover}`}>
         <div className={styles.promise}>
@@ -86,6 +101,7 @@ export default function DeshiiriHome() {
             </div>
             <div className={styles.featureText}>
               <span className={styles.featureMeta}>
+                {featured.sample && <SampleBadge />}
                 今月の特集｜{jobLabel(featured.job)}｜{featured.area}
               </span>
               <h2 className={styles.featureTitle}>{featured.title}</h2>
@@ -131,6 +147,7 @@ export default function DeshiiriHome() {
                   <span className={styles.rankNo}>{i + 1}</span>
                   <span className={styles.rankText}>
                     <span className={styles.rankMeta}>
+                      {a.sample && <SampleBadge />}
                       {jobLabel(a.job)}｜{a.area}
                     </span>
                     <span className={styles.rankTitle}>{a.title}</span>
