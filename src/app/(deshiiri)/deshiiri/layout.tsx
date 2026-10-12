@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/deshiiri/Header";
 import Footer from "@/components/deshiiri/Footer";
+import AnnounceBar from "@/components/deshiiri/AnnounceBar";
 import "./deshiiri.css";
 
 // Mincho is for large headings, titles and craftspeople's names only. Zen Kaku Gothic New
@@ -30,6 +31,7 @@ export default function DeshiiriLayout({ children }: LayoutProps<"/deshiiri">) {
   return (
     <div className={`deshiiri ${shipporiMincho.variable}`}>
       <div className="d-maku" />
+      <AnnounceBar />
       <Header />
       {children}
       <Footer />
