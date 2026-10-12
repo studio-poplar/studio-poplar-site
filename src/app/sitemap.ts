@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { works } from "@/data/works";
 import { getAllBlogPosts, getAllNewsPosts } from "@/lib/content";
 import { siteUrl } from "@/lib/seo";
+import { deshiiriSitemap } from "@/lib/deshiiri/sitemap";
 
 // lastModified is only set where a real date exists (post dates); a build-time
 // "now" on every URL would tell search engines everything changes on every deploy.
@@ -23,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...newsPosts.map((news) => ({ url: `${siteUrl}/news/${news.slug}`, lastModified: news.date })),
     { url: `${siteUrl}/contact` },
     { url: `${siteUrl}/privacy` },
+    ...deshiiriSitemap(siteUrl),
   ];
 
   return pages;

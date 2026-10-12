@@ -135,7 +135,7 @@
 
 .midokoro span {
   color: var(--kaki);
-  font: 600 13px/1.9 var(--f-head);
+  font: 700 13px/1.9 var(--f-head);
 }
 
 /* 03 番付: 2列のリスト。位を柿色の明朝で */
@@ -162,7 +162,7 @@
 }
 
 .pos {
-  font: 600 14px/1.6 var(--f-head);
+  font: 700 14px/1.6 var(--f-head);
   color: var(--kaki);
   letter-spacing: 0.1em;
 }

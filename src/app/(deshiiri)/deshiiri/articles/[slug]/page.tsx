@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/deshiiri/articles
     type: "article",
     publishedTime: article.publishedAt,
     noindex: article.draft,
+    image: `/deshiiri/og/${article.slug}`,
   });
 }
 

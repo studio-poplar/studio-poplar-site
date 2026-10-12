@@ -2,8 +2,13 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { parse as parseYaml } from "yaml";
-import { BANNED_WORDS, CITIES, JOBS, cityLabel, jobLabel, type ContactPurpose } from "./codes";
+import { CITIES, JOBS, cityLabel, jobLabel, type ContactPurpose } from "./codes";
 import { readingMinutes } from "./format";
+// 使わない言葉（指示書 1章）。記事・職人ファイルは読み込み時にここで、表示される全ページはビルド後に
+// scripts/check-deshiiri-words.mjs が検査する。
+import bannedWords from "../../../content/deshiiri/banned-words.json";
+
+const BANNED_WORDS: string[] = bannedWords.words;
 
 const ROOT = path.join(process.cwd(), "content/deshiiri");
 const ARTICLE_DIR = path.join(ROOT, "articles");
@@ -225,6 +230,7 @@ export function getNextArticles(article: ArticleMeta, count = 3): ArticleMeta[] 
   others.filter((a) => a.job === article.job).forEach(add);
   others.filter((a) => a.city === article.city).forEach(add);
   others.forEach(add);
+  if (picked.length < 2) warnOnce(`articles/${article.slug}.mdx: 「次に読む」が${picked.length}本しかありません（公開中の帖が足りません）`);
   return picked;
 }
 

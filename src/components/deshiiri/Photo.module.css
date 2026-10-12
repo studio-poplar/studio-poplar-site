@@ -20,7 +20,8 @@
 .placeholder span {
   font-size: 11px;
   line-height: 1.6;
-  color: var(--sub);
+  color: var(--ink);
+  opacity: 0.8;
 }
 
 /* 千社札の小札: vertical, offset shadow. */
@@ -31,7 +32,7 @@
   writing-mode: vertical-rl;
   background: var(--card);
   color: var(--ink);
-  font: 600 13px/1 var(--f-head);
+  font: 700 13px/1 var(--f-head);
   letter-spacing: 0.14em;
   padding: 9px 5px;
   border: 1px solid var(--ink);

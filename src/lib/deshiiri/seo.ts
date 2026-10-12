@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 
 export const DESHIIRI_NAME = "デシイリ";
 
+// Share images come from route handlers with fixed URLs: /deshiiri/og (shared) and
+// /deshiiri/og/<slug> (each article). Page-level openGraph replaces file-based images, so
+// every page names its image here.
+const DEFAULT_IMAGE = { url: "/deshiiri/og", width: 1200, height: 630, alt: "デシイリ — 職人と家業の読みもの" };
+
 type Input = {
   title: string;
   description: string;
@@ -9,14 +14,15 @@ type Input = {
   path: string;
   type?: "website" | "article";
   publishedTime?: string;
-  // Set when the page has its own share image (stage 7: articles get a generated one).
-  image?: string;
   noindex?: boolean;
+  // Path of the page-specific share image, e.g. /deshiiri/og/<slug>
+  image?: string;
 };
 
 // Each デシイリ page states its own canonical URL and share card; titles end in 「｜デシイリ」.
-export function deshiiriMetadata({ title, description, path, type = "website", publishedTime, image, noindex }: Input): Metadata {
+export function deshiiriMetadata({ title, description, path, type = "website", publishedTime, noindex, image }: Input): Metadata {
   const fullTitle = `${title}｜${DESHIIRI_NAME}`;
+  const shareImage = image ? { ...DEFAULT_IMAGE, url: image, alt: title } : DEFAULT_IMAGE;
   return {
     title: { absolute: fullTitle },
     description,
@@ -29,14 +35,14 @@ export function deshiiriMetadata({ title, description, path, type = "website", p
       title: fullTitle,
       description,
       url: path,
-      ...(image ? { images: [image] } : {}),
+      images: [shareImage],
       ...(type === "article" && publishedTime ? { publishedTime } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      ...(image ? { images: [image] } : {}),
+      images: [shareImage.url],
     },
   };
 }

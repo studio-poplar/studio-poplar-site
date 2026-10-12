@@ -84,7 +84,7 @@
 
 .pointLabel {
   display: block;
-  font: 600 13px/1.6 var(--f-head);
+  font: 700 13px/1.6 var(--f-head);
   color: var(--kaki);
   margin-bottom: 4px;
 }

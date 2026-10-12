@@ -52,6 +52,16 @@
   margin-top: 14px;
 }
 
+.mediaLink {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.mediaLink:hover {
+  color: var(--brand);
+}
+
 /* Phone: the six links sit in two columns and the contact links run in a row, so the footer stays short. */
 .footerNav ul {
   display: grid;
