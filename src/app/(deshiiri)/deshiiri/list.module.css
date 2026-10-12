@@ -1,0 +1,28 @@
+/* Shared by the list pages (名鑑・すべての帖・仕事別・町別・連載). */
+.page {
+  padding-top: 64px;
+}
+
+.intro {
+  color: var(--sub);
+  max-width: 40em;
+  margin: -16px 0 48px;
+}
+
+.empty {
+  color: var(--sub);
+}
+
+.block {
+  margin-top: var(--section-gap);
+}
+
+@media (max-width: 880px) {
+  .page {
+    padding-top: 40px;
+  }
+
+  .intro {
+    margin-top: 0;
+  }
+}

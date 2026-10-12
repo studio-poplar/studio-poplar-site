@@ -1,0 +1,31 @@
+.head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 44px;
+}
+
+.num {
+  font: 400 15px/1.6 var(--f-en);
+  letter-spacing: 0.2em;
+  color: var(--kaki);
+}
+
+.title {
+  font: 700 clamp(26px, 3vw, 36px) / 1.4 var(--f-head);
+  margin-top: 6px;
+}
+
+@media (max-width: 880px) {
+  .head {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .head > :last-child:not(:empty) {
+    justify-self: start;
+    margin-top: 10px;
+  }
+}

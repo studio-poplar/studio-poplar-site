@@ -1,0 +1,19 @@
+# サンプル（モックアップの仮の職人）。draft: true なので本番には出ない。
+id: "sample-kajuen"
+yago: "◇◇果樹園"
+person: null
+job: "kaju"
+city: "yokohama"
+area: "横浜市港北区"
+since: null
+intro: "浜なしの農園。直売所で売り切る量だけを育てる。"
+photo: null
+contact:
+  hanashi: true
+  irai: false
+  kengaku: true
+  deshiiri: true
+links:
+  site: null
+  instagram: null
+draft: true

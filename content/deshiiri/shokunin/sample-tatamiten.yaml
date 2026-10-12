@@ -1,0 +1,19 @@
+# サンプル（モックアップの仮の職人）。draft: true なので本番には出ない。
+id: "sample-tatamiten"
+yago: "△△畳店"
+person: null
+job: "tatami"
+city: "fujisawa"
+area: "藤沢市"
+since: null
+intro: "畳の新調と表替え。畳床を縫うところから自分の店でやる。"
+photo: null
+contact:
+  hanashi: true
+  irai: true
+  kengaku: true
+  deshiiri: false              # サンプル: 弟子入りの相談は受けていない
+links:
+  site: null
+  instagram: null
+draft: true

@@ -1,0 +1,108 @@
+.top {
+  padding-top: 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.yago {
+  font: 700 clamp(30px, 4vw, 48px) / 1.4 var(--f-head);
+  letter-spacing: 0.06em;
+  margin-block: 14px 24px;
+}
+
+.facts {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 16px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.facts dt {
+  color: var(--sub);
+}
+
+.facts a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.facts a:hover {
+  color: var(--kaki);
+}
+
+.intro {
+  margin-top: 24px;
+  max-width: 34em;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.contact {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--ink);
+}
+
+.contact h2 {
+  font: 700 24px/1.5 var(--f-head);
+  margin-block: 8px 16px;
+}
+
+.contact > p {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.purposes {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 10px 24px;
+}
+
+.purposes li {
+  font-size: 13px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+.contact .note {
+  margin-top: 14px;
+}
+
+.stories {
+  margin-top: var(--section-gap);
+}
+
+.empty {
+  color: var(--sub);
+}
+
+@media (max-width: 880px) {
+  .top {
+    padding-top: 32px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .top > :first-child {
+    max-width: 320px;
+  }
+}

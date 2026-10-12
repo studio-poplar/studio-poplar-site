@@ -1,0 +1,208 @@
+.draft {
+  background: var(--ink);
+  color: var(--bg);
+  font: 500 12px/1.6 var(--f-en);
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 6px 16px;
+}
+
+.top {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: 64px var(--gutter) 0;
+}
+
+.crumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--sub);
+  margin-bottom: 28px;
+}
+
+.crumb a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.crumb a:hover {
+  color: var(--kaki);
+}
+
+.title {
+  font: 700 clamp(26px, 3.8vw, 44px) / 1.55 var(--f-head);
+  letter-spacing: 0.03em;
+  margin-block: 18px 22px;
+}
+
+.meta {
+  display: flex;
+  gap: 8px 18px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--sub);
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero {
+  max-width: 1200px;
+  margin: 44px auto 0;
+  padding-inline: var(--gutter);
+}
+
+.cap {
+  font-size: 12px;
+  color: var(--sub);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* HIGHLIGHTS: 其の一〜其の三 */
+.points {
+  max-width: 880px;
+  margin: 56px auto 0;
+  padding-inline: var(--gutter);
+}
+
+.points ol {
+  list-style: none;
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.points li {
+  border-top: 1px solid var(--ink);
+  padding-top: 14px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.pointLabel {
+  display: block;
+  font: 600 13px/1.6 var(--f-head);
+  color: var(--kaki);
+  margin-bottom: 4px;
+}
+
+/* 本文: 幅 680px、ゴシック 16.5px、行間 2.05 */
+.body {
+  max-width: calc(680px + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: 64px var(--gutter) 0;
+  counter-reset: chapter;
+}
+
+.body > p {
+  font-size: 16.5px;
+  line-height: 2.05;
+  margin-bottom: 1.3em;
+}
+
+/* 最初の段落はリード文 */
+.body > p:first-child {
+  font-size: 18px;
+  line-height: 2.1;
+  font-weight: 500;
+}
+
+.body > ul:not([class]),
+.body > ol:not([class]) {
+  padding-left: 1.4em;
+  margin-bottom: 1.3em;
+  font-size: 16.5px;
+  line-height: 2.05;
+}
+
+.body > ul:not([class]) {
+  list-style: disc;
+}
+
+/* 最後: 職人のプロフィールと連絡を左右に */
+.end {
+  max-width: 1000px;
+  margin: 96px auto 0;
+  padding-inline: var(--gutter);
+}
+
+.endIn {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 56px;
+  border-top: 1px solid var(--ink);
+  padding-top: 44px;
+}
+
+.prof {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.profName {
+  font: 700 20px/1.5 var(--f-head);
+}
+
+.profName:hover {
+  color: var(--kaki);
+}
+
+.prof p {
+  font-size: 13px;
+  color: var(--sub);
+  line-height: 1.8;
+}
+
+.contact h2 {
+  font: 700 26px/1.5 var(--f-head);
+  margin-block: 10px;
+}
+
+.contact > p {
+  color: var(--sub);
+  font-size: 14px;
+}
+
+.contactBtn {
+  margin-top: 24px;
+}
+
+.sponsor {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  font-size: 12px;
+  color: var(--sub);
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.next {
+  margin-top: var(--section-gap);
+}
+
+@media (max-width: 880px) {
+  .top {
+    padding-top: 40px;
+  }
+
+  .points ol {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .endIn {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .prof {
+    max-width: 280px;
+  }
+}

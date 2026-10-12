@@ -1,0 +1,160 @@
+/* 章見出し: 英字の番号（01）＋明朝。番号は CSS counter で自動 (counter-reset is on the body wrapper). */
+.h2 {
+  font: 700 24px/1.6 var(--f-head);
+  margin-block: 72px 18px;
+  display: grid;
+  gap: 6px;
+  counter-increment: chapter;
+}
+
+.h2::before {
+  content: counter(chapter, decimal-leading-zero);
+  font: 400 12px/1.4 var(--f-en);
+  letter-spacing: 0.24em;
+  color: var(--kaki);
+}
+
+.cap {
+  font-size: 12px;
+  color: var(--sub);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+.photo {
+  margin-block: 40px;
+}
+
+/* Breaks out of the 680px column, up to 1000px. */
+.wide {
+  width: min(1000px, calc(100vw - var(--gutter) * 2));
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-block: 56px;
+}
+
+.two {
+  width: min(860px, calc(100vw - var(--gutter) * 2));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 技の解説: 薄い面の囲み */
+.technique {
+  background: var(--bg-2);
+  padding: 24px 28px;
+  margin-block: 28px;
+  font-size: 15px;
+  line-height: 1.95;
+}
+
+.techLabel {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--moegi);
+}
+
+.techTitle {
+  display: block;
+  font: 700 16px/1.6 var(--f-head);
+  margin-bottom: 6px;
+}
+
+.techBody p {
+  margin: 0 !important;
+  font-size: 15px !important;
+  line-height: 1.95 !important;
+}
+
+/* 中央の大きな引用: 明朝、柿色のかぎ括弧 */
+.quote {
+  width: min(880px, calc(100vw - var(--gutter) * 2));
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-block: 72px;
+  text-align: center;
+}
+
+.quoteText {
+  font: 700 clamp(22px, 2.8vw, 32px) / 1.75 var(--f-head);
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+
+.quoteText > p {
+  display: inline;
+  margin: 0 !important;
+  font: inherit !important;
+}
+
+.quoteText::before {
+  content: "「";
+  color: var(--kaki);
+}
+
+.quoteText::after {
+  content: "」";
+  color: var(--kaki);
+}
+
+.quoteBy {
+  font-size: 12px;
+  color: var(--sub);
+  letter-spacing: 0.1em;
+}
+
+.day {
+  list-style: none;
+  margin-block: 24px;
+}
+
+.day li {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 16px;
+  padding-block: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+
+.day li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.day time {
+  font: 400 15px var(--f-en);
+  font-variant-numeric: tabular-nums;
+  color: var(--kaki);
+}
+
+/* 正直に、きついこと: 細い枠 */
+.honest {
+  border: 1px solid var(--ink);
+  padding: 24px 28px;
+  margin-block: 24px;
+}
+
+.honest ul {
+  list-style: disc;
+  padding-left: 1.2em;
+  font-size: 15px;
+  line-height: 2;
+}
+
+.honest p {
+  margin: 0 !important;
+}
+
+@media (max-width: 880px) {
+  .technique,
+  .honest {
+    padding: 20px;
+  }
+
+  .two {
+    gap: 10px;
+  }
+}

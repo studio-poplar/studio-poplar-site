@@ -1,0 +1,19 @@
+# サンプル（モックアップの仮の職人）。draft: true なので本番には出ない。
+id: "sample-koumuten"
+yago: "〇〇工務店"             # 屋号。名鑑とプロフィールに大きく出す
+person: "Aさん"                # 表記は本人の同意どおり
+job: "daiku"                   # 仕事のコード（src/lib/deshiiri/codes.ts）
+city: "yokohama"               # 町のコード
+area: "横浜市戸塚区"
+since: "昭和三十年代創業"
+intro: "木造住宅の新築と修繕。見せる梁は今も手で刻む。"
+photo: null                    # 例: "/deshiiri/shokunin/sample-koumuten/main.jpg"
+contact:                       # 受け付ける用件。false の用件はフォームに出さない
+  hanashi: true                # 話を聞いてみたい
+  irai: true                   # 仕事を頼みたい
+  kengaku: true                # 見学してみたい
+  deshiiri: true               # 弟子入りの相談
+links:
+  site: null
+  instagram: null
+draft: true
