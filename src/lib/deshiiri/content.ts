@@ -203,6 +203,11 @@ export function getArticlesByShokunin(id: string) {
   return getAllArticles().filter((a) => a.shokunin === id);
 }
 
+// 連載 (dougu / shigotogi / hirumeshi), newest first.
+export function getSeriesArticles(series: string) {
+  return getAllArticles().filter((a) => a.series === series);
+}
+
 // 今月の特集: the newest article marked featured, otherwise the newest article.
 export function getFeaturedArticle() {
   const all = getAllArticles();
