@@ -74,6 +74,35 @@ const FLOW_STEPS = [
   },
 ];
 
+// What the WEB maintenance plan covers. Writing down what it doesn't cover
+// (and what isn't taken on at all) is the point: it keeps the plan small
+// enough for one person to honour.
+const MAINTENANCE_SCOPE = [
+  {
+    tone: "mtIn",
+    title: "月額に含まれるもの",
+    note: "毎月、決まった手順で行います",
+    items: [
+      "セキュリティ更新（サイトを動かすソフトウェアの更新）",
+      "月1回の動作確認",
+      "軽微な修正 月1回（文字・画像の差し替えなど、30分以内）",
+      "表示されないなどの不具合が起きたときの一次対応",
+    ],
+  },
+  {
+    tone: "mtQuote",
+    title: "別途お見積りになるもの",
+    note: "内容をお聞きし、金額に合意してから着手します",
+    items: ["ページの追加", "デザインの変更", "機能の追加", "撮影・素材づくり"],
+  },
+  {
+    tone: "mtOut",
+    title: "お引き受けしていないこと",
+    note: "少人数で、約束を確実に守るためです",
+    items: ["24時間・休日の即時対応", "回数無制限の修正", "SNS・広告の運用代行", "他社が制作したサイトの保守"],
+  },
+] as const;
+
 // One source for the visible FAQ and its FAQPage structured data, so the two can't drift apart.
 const FAQS = [
   {
@@ -90,7 +119,7 @@ const FAQS = [
   },
   {
     q: "公開後の運用サポート・保守費用はどのくらいですか？",
-    a: "公開直後の動作確認までは制作費に含みます。それ以降は月額の固定契約を設けておらず、状況に応じて都度ご相談・お見積りのうえ対応します。",
+    a: "公開直後の動作確認までは制作費に含みます。それ以降は、任意加入の保守プラン（月額5,000円・税込5,500円）をご用意しています。セキュリティ更新・月1回の動作確認・軽微な修正（月1回）などが含まれ、ページ追加などプランに含まれない作業は都度お見積りします。アプリの保守は個別にお見積りします。",
   },
   {
     q: "写真・動画だけの依頼はできますか？",
@@ -213,28 +242,72 @@ export default function ServicePage() {
           </div>
 
           <p className={styles.note}>※ 上記は基本プランの目安です。ページ数や機能要件によって変動します。詳細はお問い合わせください。</p>
+        </div>
+      </section>
+
+      <section id="maintenance" className="section">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <SectionHead index="03" label="MAINTENANCE" title="公開後の保守と費用" />
+          </Reveal>
+
+          <div className={styles.mtTop}>
+            <div className={styles.mtPrice}>
+              <span className={`en ${styles.mtTag}`}>WEB MAINTENANCE</span>
+              <h3>保守プラン（任意）</h3>
+              <p className={styles.mtAmount}>
+                <span className="en">5,000</span>円<span className={styles.mtPer}>／月</span>
+              </p>
+              <p className={styles.mtTax}>税込 5,500円</p>
+            </div>
+            <div className={styles.mtLead}>
+              <p>
+                公開したサイトを、安全に動く状態に保つための月額プランです。加入は任意で、加入しない場合は必要なときに都度お見積りで対応します。
+              </p>
+              <dl className={styles.mtFacts}>
+                <div>
+                  <dt>対応の速さ</dt>
+                  <dd>ご依頼から営業日1〜2日以内に着手</dd>
+                </div>
+                <div>
+                  <dt>アプリの保守</dt>
+                  <dd>規模と連携するサービスに応じて、個別にお見積り</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div className={styles.mtScope}>
+            {MAINTENANCE_SCOPE.map((col) => (
+              <div key={col.title} className={`${styles.mtCol} ${styles[col.tone]}`}>
+                <h4>{col.title}</h4>
+                <p className={styles.mtColNote}>{col.note}</p>
+                <ul>
+                  {col.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
 
           <div className={styles.costs}>
-            <h3>制作費とは別にかかる費用</h3>
+            <h3>制作費・保守費とは別にかかる費用</h3>
             <p>次の費用は、別途実費をご負担いただきます。Studio Poplarが上乗せすることはありません。</p>
             <ul>
               <li>サーバー・ドメインの費用（1年目から。お客様の名義でご契約いただきます。取得の手続きは代行料1万円で承ります）</li>
               <li>決済サービスの手数料</li>
               <li>有料API・外部サービス（SaaS）の利用料</li>
             </ul>
-            <p>
-              公開後の保守（不具合の修正・セキュリティ更新など）は、月額の固定契約ではなく、必要に応じて都度お見積りのうえ対応します。
-              <br />
-              Studio Poplarはサイバー保険に加入して運用しています。
-            </p>
+            <p>Studio Poplarはサイバー保険に加入して運用しています。</p>
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section soft">
         <div className="wrap">
           <Reveal className="section-head">
-            <SectionHead index="03" label="FLOW" title="ご依頼の流れ" />
+            <SectionHead index="04" label="FLOW" title="ご依頼の流れ" />
           </Reveal>
           <ol className={styles.flow}>
             {FLOW_STEPS.map((step, i) => (
@@ -249,7 +322,7 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section className="section soft">
+      <section className="section">
         <div className="wrap">
           <div className={styles.faq}>
             <span className="eyebrow en">FAQ</span>

@@ -4,6 +4,180 @@
   color: var(--ink-faint);
 }
 
+/* --- maintenance plan --- */
+.mtTop {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .mtTop {
+    grid-template-columns: minmax(280px, 340px) 1fr;
+    gap: 48px;
+  }
+}
+
+.mtPrice {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--brand);
+  padding: 26px 28px 24px;
+}
+
+.mtTag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #5e6a56;
+}
+
+.mtPrice h3 {
+  font-size: 17px;
+  margin: 8px 0 14px;
+}
+
+.mtAmount {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.mtAmount :global(.en) {
+  font-size: 46px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-right: 2px;
+}
+
+.mtPer {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.mtTax {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.mtLead > p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.mtFacts {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.mtFacts div {
+  display: grid;
+  grid-template-columns: 7em 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.mtFacts dt {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.mtFacts dd {
+  color: var(--ink-soft);
+}
+
+.mtScope {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 860px) {
+  .mtScope {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+.mtCol {
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--border-strong);
+  background: var(--bg);
+  padding: 22px 22px 20px;
+}
+
+.mtCol h4 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mtColNote {
+  margin: 4px 0 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.mtCol ul {
+  display: grid;
+  gap: 9px;
+}
+
+.mtCol li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.mtCol li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.mtIn {
+  border-top-color: var(--brand);
+}
+
+.mtIn li::before {
+  content: "✓";
+  color: #5e6a56;
+}
+
+.mtQuote li::before {
+  content: "＋";
+  color: var(--ink-soft);
+}
+
+.mtOut {
+  background: var(--panel-soft);
+  border-color: transparent;
+  border-top-color: var(--border);
+}
+
+.mtOut li {
+  color: var(--ink-soft);
+}
+
+.mtOut li::before {
+  content: "×";
+  color: var(--ink-soft);
+}
+
 /* costs billed at cost on top of the production fee */
 .costs {
   margin-top: 40px;
