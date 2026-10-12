@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHead from "@/components/deshiiri/SectionHead";
+import Phrase from "@/components/deshiiri/Phrase";
 import { KOJO } from "@/lib/deshiiri/kojo";
 import { deshiiriMetadata } from "@/lib/deshiiri/seo";
 import styles from "../doc.module.css";
@@ -15,7 +16,9 @@ export default function AboutPage() {
     <div className={`d-wrap ${styles.page}`}>
       <SectionHead as="h1" eyebrow="ABOUT" title="デシイリとは" />
       <div className={styles.body}>
-        <p className={styles.kojoOne}>{KOJO.one}</p>
+        <p className={styles.kojoOne}>
+          <Phrase text={KOJO.one} />
+        </p>
         {KOJO.paragraphs.map((p) => (
           <p key={p}>{p}</p>
         ))}

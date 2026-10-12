@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Photo from "@/components/deshiiri/Photo";
+import Phrase from "@/components/deshiiri/Phrase";
 import { SampleBadge } from "@/components/deshiiri/SampleNotice";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleCard, PersonGrid } from "@/components/deshiiri/Cards";
@@ -238,7 +239,9 @@ export default function DeshiiriHome() {
       <section className={`d-wrap ${styles.sec}`}>
         <SectionHead eyebrow="About" title="デシイリについて" />
         <div className={styles.about}>
-          <p className={styles.aboutOne}>{KOJO.one}</p>
+          <p className={styles.aboutOne}>
+            <Phrase text={KOJO.one} />
+          </p>
           <div>
             {KOJO.paragraphs.map((p) => (
               <p key={p}>{p}</p>

@@ -57,13 +57,13 @@
   margin-top: 48px;
 }
 
-/* デシイリについて */
-.kojoOne {
+/* デシイリについて（.body p より強くするため .body を付ける） */
+.body .kojoOne {
   font: 700 clamp(22px, 3vw, 36px) / 1.6 var(--f-head);
   margin-bottom: 28px;
 }
 
-.sign {
+.body .sign {
   font-size: 13px;
   color: var(--sub);
 }

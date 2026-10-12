@@ -86,6 +86,25 @@ body:has(.deshiiri) {
   font-family: var(--f-head);
   font-weight: 700;
   text-wrap: balance;
+  /* 日本語の見出しを言葉の切れ目で折り返す（Chrome / Edge。ほかのブラウザは通常の折り返し） */
+  word-break: auto-phrase;
+}
+
+/* 見出し以外の短い題（引用・ランキングの題）も言葉の切れ目で折り返す */
+.deshiiri blockquote,
+.deshiiri [class*="rankTitle"],
+.deshiiri [class*="bandJob"] {
+  word-break: auto-phrase;
+}
+
+/* Phrase: 句読点までをひと塊にして、途中で折り返さない */
+.deshiiri .d-ph {
+  display: inline-block;
+}
+
+/* ページ内リンク（#renraku など）で飛んだとき、固定ヘッダーの下に隠れないようにする */
+.deshiiri [id] {
+  scroll-margin-top: 96px;
 }
 
 .deshiiri a:focus-visible,
