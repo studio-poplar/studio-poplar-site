@@ -29,6 +29,9 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // デシイリ (/deshiiri) renders its own header from its layout.
+  if (pathname.startsWith("/deshiiri")) return null;
+
   return (
     <>
       <header className={`${styles.header} ${solid ? styles.solid : ""}`}>

@@ -1,0 +1,27 @@
+.hero {
+  padding-block: 72px 56px;
+}
+
+.title {
+  font: 700 clamp(28px, 4.2vw, 52px) / 1.45 var(--f-head);
+  letter-spacing: 0.04em;
+  margin-block: 18px 20px;
+}
+
+.lead {
+  color: var(--sub);
+  max-width: 32em;
+  margin-bottom: 28px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 880px) {
+  .hero {
+    padding-block: 44px 40px;
+  }
+}

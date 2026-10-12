@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/gtag";
 import LogoMark from "./LogoMark";
 import styles from "./SiteFooter.module.css";
@@ -15,6 +16,10 @@ const NAV_LINKS = [
 ];
 
 export default function SiteFooter() {
+  const pathname = usePathname();
+  // デシイリ (/deshiiri) renders its own footer from its layout.
+  if (pathname.startsWith("/deshiiri")) return null;
+
   return (
     <footer className={styles.footer}>
       <div className={`wrap ${styles.top}`}>

@@ -1,0 +1,179 @@
+/*
+ * デシイリ — shared tokens and base styles.
+ * Everything is scoped under .deshiiri so the main Studio Poplar pages are untouched.
+ * Component styles live in CSS Modules next to each component.
+ */
+
+.deshiiri {
+  --bg: #faf8f4;
+  --bg-2: #f1ede5;
+  --ink: #1c1b19;
+  --sub: #6e6a63;
+  --line: #e3ded4;
+  --kaki: #b0522a;
+  --moegi: #3e5d3b;
+  --card: #ffffff;
+  --ph: #e7e1d6;
+
+  /* Fixed colours for the 定式幕 and 千社札 shadow: they stay the same in dark mode. */
+  --maku-1: #1c1b19;
+  --maku-2: #b0522a;
+  --maku-3: #3e5d3b;
+
+  /* English labels use the main site's Space Grotesk so both sites read as one company. */
+  --f-en: var(--font-en), "Helvetica Neue", Arial, sans-serif;
+  --f-head: var(--font-mincho), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --f-body: var(--font-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gutter: 32px;
+  --section-gap: 112px;
+
+  color-scheme: light;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .deshiiri {
+    --bg: #141311;
+    --bg-2: #1c1a17;
+    --ink: #eeeae2;
+    --sub: #a39e95;
+    --line: #2e2b27;
+    --kaki: #de7b50;
+    --moegi: #86ae7e;
+    --card: #1c1a17;
+    --ph: #2a2723;
+    color-scheme: dark;
+  }
+}
+
+@media (max-width: 880px) {
+  .deshiiri {
+    --gutter: 16px;
+    --section-gap: 80px;
+  }
+}
+
+/* The main site's paper-noise overlay and page colour sit on <body>; match them to デシイリ. */
+body:has(.deshiiri)::after {
+  display: none;
+}
+body:has(.deshiiri) {
+  background: #faf8f4;
+}
+/* The main site's overflow-x: hidden turns <body> into a scroll container, which breaks
+   the sticky header. clip still prevents sideways scroll without that side effect. */
+html:has(.deshiiri),
+body:has(.deshiiri) {
+  overflow-x: clip;
+}
+@media (prefers-color-scheme: dark) {
+  body:has(.deshiiri) {
+    background: #141311;
+  }
+}
+
+.deshiiri h1,
+.deshiiri h2,
+.deshiiri h3 {
+  font-family: var(--f-head);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.deshiiri a:focus-visible,
+.deshiiri button:focus-visible,
+.deshiiri input:focus-visible,
+.deshiiri textarea:focus-visible,
+.deshiiri select:focus-visible {
+  outline: 2px solid var(--kaki);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.deshiiri .d-wrap {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* 英字の小見出し */
+.deshiiri .d-eyebrow {
+  font: 500 12px/1.6 var(--f-en);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+.deshiiri .d-eyebrow b {
+  color: var(--kaki);
+  font-weight: 500;
+}
+
+/* 矢印リンク: READ STORY → / VIEW ALL → */
+.deshiiri .d-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 13px/1.4 var(--f-en);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+}
+.deshiiri .d-arrow::after {
+  content: "→";
+  transition: transform 0.25s var(--ease);
+}
+.deshiiri .d-arrow:hover::after {
+  transform: translateX(4px);
+}
+
+/* 丸い黒ボタン＋矢印。サブは枠線だけ */
+.deshiiri .d-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 700 14px/1.4 var(--f-body);
+  padding: 15px 28px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  transition: opacity 0.2s var(--ease);
+}
+.deshiiri .d-btn::after {
+  content: "→";
+  transition: transform 0.25s var(--ease);
+}
+.deshiiri .d-btn:hover::after {
+  transform: translateX(3px);
+}
+.deshiiri .d-btn:hover {
+  opacity: 0.88;
+}
+.deshiiri .d-btn.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* 定式幕の細線（黒・柿・萌葱） */
+.deshiiri .d-maku {
+  height: 3px;
+  background: linear-gradient(90deg, var(--maku-1) 0 33.33%, var(--maku-2) 33.33% 66.66%, var(--maku-3) 66.66%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deshiiri *,
+  .deshiiri *::before,
+  .deshiiri *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
