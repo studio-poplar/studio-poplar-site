@@ -12,10 +12,13 @@ export const metadata = deshiiriMetadata({
 export default function ForShokuninPage() {
   return (
     <div className={`d-wrap ${styles.page}`}>
-      <SectionHead as="h1" eyebrow="For craftspeople" title="あなたの仕事を、取材させてください。" />
+      <SectionHead as="h1" title="あなたの仕事を、取材させてください。" />
       <p className={styles.lead}>
         取材と掲載は無料です。記事を読んで興味を持った人からの連絡は、編集部がまとめてお届けします。
       </p>
+      <a href="#form" className={`d-btn ${styles.toForm}`}>
+        取材の相談フォームへ
+      </a>
       <div className={styles.split}>
         <div className={styles.body}>
           <h2>取材から掲載まで</h2>
@@ -43,8 +46,7 @@ export default function ForShokuninPage() {
           <h2>費用</h2>
           <p>取材・撮影・掲載に費用はかかりません。</p>
         </div>
-        <div>
-          <span className="d-eyebrow">FORM</span>
+        <div className={styles.formCol} id="form">
           <h2 className={styles.formHead}>取材の相談をする</h2>
           <ShuzaiForm />
         </div>

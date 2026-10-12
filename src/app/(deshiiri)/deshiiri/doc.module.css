@@ -9,6 +9,11 @@
   margin: 0;
 }
 
+/* 2列のページでは、導入文の右端を左の列にそろえる */
+.lead:has(~ .split) {
+  max-width: calc(50% - 32px);
+}
+
 .body {
   max-width: 720px;
 }
@@ -99,10 +104,48 @@
 
 .formHead {
   font: 700 22px/1.6 var(--f-head);
-  margin-top: 8px;
+  margin: 0 0 14px;
+}
+
+/* 左右の列の見出しを同じ高さから始める */
+.split .body > h2:first-child {
+  margin-top: 0;
+}
+
+.formCol {
+  min-width: 0;
+}
+
+/* スマホだけ：導入文の下に、フォームへ下りるボタン */
+.toForm {
+  display: none;
+}
+
+/* フォームの上の余白を本文側の見出し下とそろえる */
+.formCol form {
+  margin-top: 0;
 }
 
 @media (max-width: 880px) {
+  .lead:has(~ .split) {
+    max-width: none;
+  }
+
+  .toForm {
+    display: inline-flex;
+    margin-top: 24px;
+  }
+
+  .page a.toForm::after {
+    content: "↓";
+  }
+
+  /* 1列のときは、フォームの前に区切り線を入れる */
+  .formCol {
+    border-top: 2px solid var(--ink);
+    padding-top: 32px;
+  }
+
   .page {
     padding-top: 40px;
   }

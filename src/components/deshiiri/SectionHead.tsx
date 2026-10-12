@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import styles from "./SectionHead.module.css";
 
 type Props = {
-  // Small English label beside the title, e.g. "LATEST"
-  eyebrow: string;
+  // Small English label beside the title, e.g. "LATEST" (optional)
+  eyebrow?: string;
   title: ReactNode;
   as?: "h1" | "h2";
   link?: { href: string; label: string };
@@ -17,7 +17,7 @@ export default function SectionHead({ eyebrow, title, as: Heading = "h2", link, 
     <div className={`${styles.head} ${Heading === "h1" ? styles.page : ""}`}>
       <div className={styles.titles}>
         <Heading className={styles.title}>{title}</Heading>
-        <span className={styles.en}>{eyebrow}</span>
+        {eyebrow && <span className={styles.en}>{eyebrow}</span>}
       </div>
       {link ? (
         <Link href={link.href} className={styles.link}>
