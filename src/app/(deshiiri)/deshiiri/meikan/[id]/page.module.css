@@ -6,6 +6,11 @@
   align-items: start;
 }
 
+.portrait {
+  /* 縦長の写真を最初の画面に収める */
+  max-height: calc(100svh - 280px);
+}
+
 .yago {
   font: 700 clamp(30px, 4vw, 48px) / 1.4 var(--f-head);
   letter-spacing: 0.06em;

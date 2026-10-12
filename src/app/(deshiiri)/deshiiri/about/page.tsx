@@ -7,7 +7,7 @@ import styles from "../doc.module.css";
 
 export const metadata = deshiiriMetadata({
   title: "デシイリとは",
-  description: "デシイリは、横浜・神奈川の職人と家業を訪ねて、仕事の中身を聞き書きする読みものです。運営はStudio Poplar。",
+  description: "デシイリは、横浜・神奈川の職人と家業を訪ねて、仕事の中身を取材するWEBマガジンです。運営はStudio Poplar。",
   path: "/deshiiri/about",
 });
 

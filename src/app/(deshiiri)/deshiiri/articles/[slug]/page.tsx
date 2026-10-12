@@ -108,6 +108,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
           alt={article.heroAlt || article.title}
           ratio="16 / 9"
           sizes="(max-width: 1264px) 100vw, 1200px"
+          className={styles.heroPhoto}
           priority
         />
         {article.heroCaption && <figcaption className={styles.cap}>{article.heroCaption}</figcaption>}

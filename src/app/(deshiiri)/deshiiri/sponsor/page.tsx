@@ -27,9 +27,9 @@ export default function SponsorPage() {
 
         <h2>お問い合わせ</h2>
         <p>
-          協賛の内容と費用は、ご相談のうえでお伝えします。運営の Studio Poplar の
-          <Link href="/contact">お問い合わせフォーム</Link>
-          から、「デシイリの協賛について」とお書き添えのうえご連絡ください。
+          協賛の内容と費用は、ご相談のうえでお伝えします。デシイリの
+          <Link href="/deshiiri/contact?topic=sponsor#henshubu">お問い合わせフォーム</Link>
+          で「協賛について」を選んでご連絡ください。
         </p>
       </div>
     </div>

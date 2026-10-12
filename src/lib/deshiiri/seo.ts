@@ -6,7 +6,7 @@ export const DESHIIRI_NAME = "デシイリ";
 // Share images come from route handlers with fixed URLs: /deshiiri/og (shared) and
 // /deshiiri/og/<slug> (each article). Page-level openGraph replaces file-based images, so
 // every page names its image here.
-const DEFAULT_IMAGE = { url: "/deshiiri/og", width: 1200, height: 630, alt: "デシイリ — 職人と家業の読みもの" };
+const DEFAULT_IMAGE = { url: "/deshiiri/og", width: 1200, height: 630, alt: "デシイリ — 職人と家業のWEBマガジン" };
 
 type Input = {
   title: string;

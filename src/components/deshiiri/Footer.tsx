@@ -10,7 +10,7 @@ const READ_LINKS = [
 ];
 
 const INFO_LINKS = [
-  { href: "/deshiiri/contact", label: "職人に連絡する" },
+  { href: "/deshiiri/contact", label: "お問い合わせ（職人・編集部）" },
   { href: "/deshiiri/for-shokunin", label: "取材を受けたい職人の方へ" },
   { href: "/deshiiri/sponsor", label: "協賛について" },
   { href: "/deshiiri/privacy", label: "個人情報の取り扱い" },
@@ -45,8 +45,11 @@ export default function Footer() {
                 <Link href={link.href}>{link.label}</Link>
               </li>
             ))}
-            {/* The account does not exist yet; link it once @deshiiri is registered. */}
-            <li className={styles.muted}>Instagram @deshiiri（準備中）</li>
+            <li>
+              <a href="https://www.instagram.com/deshiiri.mag/" target="_blank" rel="noopener">
+                Instagram @deshiiri.mag
+              </a>
+            </li>
             <li>
               <Link href="/">運営：Studio Poplar</Link>
             </li>

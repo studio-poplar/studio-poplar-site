@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { Resend } from "resend";
-import { parseRequest, type ContactInput, type ShuzaiInput } from "@/lib/deshiiri/contact";
+import { parseRequest, type ContactInput, type EditorialInput, type ShuzaiInput } from "@/lib/deshiiri/contact";
 import { getArticle, getShokunin } from "@/lib/deshiiri/content";
-import { CONTACT_PURPOSES, jobLabel } from "@/lib/deshiiri/codes";
+import { CONTACT_PURPOSES, EDITORIAL_TOPICS, jobLabel } from "@/lib/deshiiri/codes";
 
 // 連絡フォームと取材相談フォームの送信先。差出人は Resend で認証済みの mail.studiopoplar.com。
 // 代表のメール（DESHIIRI_TO_EMAIL）に届き、送った人には自動返信する。職人には直接送らない。
@@ -71,7 +71,7 @@ function contactMail(d: ContactInput): Mail | { error: string } {
         "",
         "このメールは送信専用です。心当たりのない場合は、このメールを破棄してください。",
         "",
-        "デシイリ — 職人と家業の読みもの",
+        "デシイリ — 職人と家業のWEBマガジン",
         "運営：Studio Poplar　https://studiopoplar.com/deshiiri",
       ].join("\n"),
     },
@@ -106,7 +106,44 @@ function shuzaiMail(d: ShuzaiInput): Mail {
         "",
         "このメールは送信専用です。心当たりのない場合は、このメールを破棄してください。",
         "",
-        "デシイリ — 職人と家業の読みもの",
+        "デシイリ — 職人と家業のWEBマガジン",
+        "運営：Studio Poplar　https://studiopoplar.com/deshiiri",
+      ].join("\n"),
+    },
+  };
+}
+
+function editorialMail(d: EditorialInput): Mail {
+  const topic = EDITORIAL_TOPICS[d.topic];
+  return {
+    subject: `【デシイリ問い合わせ】${topic}：${d.org || d.name}`,
+    body: [
+      `種類：${topic}`,
+      `お名前：${d.name}`,
+      `屋号・会社名：${d.org || "（なし）"}`,
+      `メールアドレス：${d.email}`,
+      `電話番号：${d.tel || "（なし）"}`,
+      "",
+      "内容：",
+      d.message,
+      "",
+      `送信日時：${nowJst()}`,
+    ].join("\n"),
+    replyTo: d.email,
+    autoReply: {
+      to: d.email,
+      subject: "【デシイリ】お問い合わせを受け付けました",
+      body: [
+        `${d.name} 様`,
+        "",
+        "デシイリにお問い合わせいただき、ありがとうございます。",
+        "受け付けました。三日以内にデシイリ編集部からご連絡します。",
+        "",
+        `種類：${topic}`,
+        "",
+        "このメールは送信専用です。心当たりのない場合は、このメールを破棄してください。",
+        "",
+        "デシイリ — 職人と家業のWEBマガジン",
         "運営：Studio Poplar　https://studiopoplar.com/deshiiri",
       ].join("\n"),
     },
@@ -134,7 +171,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "短い時間に送信が続いています。1分ほど待ってから、もう一度お試しください。" }, { status: 429 });
   }
 
-  const mail = data.kind === "contact" ? contactMail(data) : shuzaiMail(data);
+  const mail = data.kind === "contact" ? contactMail(data) : data.kind === "editorial" ? editorialMail(data) : shuzaiMail(data);
   if ("error" in mail) return NextResponse.json({ error: mail.error }, { status: 400 });
 
   const apiKey = process.env.RESEND_API_KEY;

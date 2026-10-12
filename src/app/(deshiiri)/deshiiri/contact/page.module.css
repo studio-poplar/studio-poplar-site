@@ -1,5 +1,83 @@
-.page {
+.wrap {
   padding-top: 64px;
+}
+
+.intro {
+  color: var(--sub);
+  max-width: 44em;
+}
+
+.jump {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.jump a {
+  display: grid;
+  gap: 4px;
+  padding: 18px 20px;
+  border: 1px solid var(--ink);
+  transition: background-color 0.2s var(--ease);
+}
+
+.jump a:hover {
+  background: var(--bg-2);
+}
+
+.jump b {
+  font: 700 18px/1.5 var(--f-head);
+}
+
+.jump b::after {
+  content: " ↓";
+}
+
+.jump span {
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.h2 {
+  font: 700 clamp(22px, 2.4vw, 28px) / 1.5 var(--f-head);
+  margin-bottom: 14px;
+}
+
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.more a {
+  border-bottom: 1px solid currentColor;
+}
+
+.more a::after {
+  content: " →";
+}
+
+.empty {
+  border: 1px solid var(--line);
+  padding: 20px 22px;
+  font-size: 14px;
+  line-height: 2;
+  color: var(--sub);
+}
+
+.empty a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 2px solid var(--ink);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
   gap: 64px;
@@ -56,8 +134,17 @@
 }
 
 @media (max-width: 880px) {
-  .page {
+  .wrap {
     padding-top: 40px;
+  }
+
+  .jump {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    margin-top: 48px;
+    padding-top: 32px;
     grid-template-columns: 1fr;
     gap: 24px;
   }

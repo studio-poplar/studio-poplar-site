@@ -55,6 +55,15 @@ export const CONTACT_PURPOSES = {
 
 export type ContactPurpose = keyof typeof CONTACT_PURPOSES;
 
+// デシイリ編集部へのお問い合わせの種類
+export const EDITORIAL_TOPICS = {
+  shuzai: "取材を受けたい",
+  sponsor: "協賛について",
+  other: "サイトについて・そのほか",
+} as const;
+
+export type EditorialTopic = keyof typeof EDITORIAL_TOPICS;
+
 // 見学・弟子入りの相談のときだけ聞く年代
 export const AGE_GROUPS = ["10代", "20代", "30代以上"] as const;
 

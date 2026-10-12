@@ -1,9 +1,10 @@
 /* ---------- 表紙 ---------- */
+/* 表紙は最初の画面に収める: 高さは画面の高さ（svh）に合わせて縮む */
 .cover {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: 72px;
-  padding-block: 56px 0;
+  padding-block: clamp(24px, 4svh, 56px) 0;
   align-items: start;
 }
 
@@ -17,9 +18,9 @@
 }
 
 .title {
-  font: 700 clamp(28px, 3.4vw, 44px) / 1.5 var(--f-head);
+  font: 700 clamp(28px, min(3.4vw, 5.2svh), 44px) / 1.5 var(--f-head);
   letter-spacing: 0.04em;
-  margin-block: 28px 22px;
+  margin-block: clamp(14px, 2.6svh, 28px) clamp(12px, 2svh, 22px);
 }
 
 .title span {
@@ -35,7 +36,7 @@
 /* できること 3つ */
 .can {
   list-style: none;
-  margin-block: 32px 36px;
+  margin-block: clamp(16px, 3svh, 32px) clamp(18px, 3.4svh, 36px);
   border-top: 1px solid var(--line);
 }
 
@@ -44,7 +45,7 @@
   grid-template-columns: 52px 88px minmax(0, 1fr);
   gap: 12px;
   align-items: baseline;
-  padding-block: 14px;
+  padding-block: clamp(7px, 1.3svh, 14px);
   border-bottom: 1px solid var(--line);
   font-size: 14px;
   line-height: 1.8;
@@ -109,6 +110,9 @@
 
 .featurePhoto {
   transition: opacity 0.3s var(--ease);
+  /* 4:5 のままだと画面からはみ出すので、画面の高さから逆算する */
+  aspect-ratio: auto !important;
+  height: clamp(300px, calc(100svh - 360px), 720px);
 }
 
 .feature:hover .featurePhoto {
@@ -359,6 +363,23 @@
   content: " →";
 }
 
+/* 高さの低いノートPC（〜760px）では、表紙の行間を詰めて最初の画面に収める */
+@media (min-width: 881px) and (max-height: 780px) {
+  .lead {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .can li {
+    line-height: 1.6;
+    font-size: 13px;
+  }
+
+  .can b {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 880px) {
   .cover {
     grid-template-columns: 1fr;
@@ -373,6 +394,10 @@
 
   .featureVisual {
     grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .featurePhoto {
+    height: min(110vw, 68svh);
   }
 
   .bandJob {

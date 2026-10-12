@@ -21,7 +21,7 @@ const shipporiMincho = localFont({
 export const metadata: Metadata = {
   title: {
     // absolute: keep the root layout's "｜Studio Poplar" template off デシイリ pages.
-    absolute: "デシイリ｜職人と家業の読みもの",
+    absolute: "デシイリ｜職人と家業のWEBマガジン",
     template: "%s｜デシイリ",
   },
   description:

@@ -65,6 +65,11 @@
   margin-top: 20px;
 }
 
+.heroPhoto {
+  /* 横長の写真が画面の高さを超えないように */
+  max-height: calc(100svh - 120px);
+}
+
 .hero {
   max-width: 1200px;
   margin: 44px auto 0;

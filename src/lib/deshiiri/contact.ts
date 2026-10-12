@@ -37,11 +37,26 @@ export const shuzaiSchema = z.object({
   website: z.string().optional().default(""), // honeypot
 });
 
+export const editorialSchema = z.object({
+  kind: z.literal("editorial"),
+  topic: z.enum(["shuzai", "sponsor", "other"], { message: "お問い合わせの種類を選んでください" }),
+  name: text(80).min(1, "お名前を入力してください"),
+  org: text(120).optional().default(""),
+  email: z.email("メールアドレスの形式を確認してください").max(200),
+  tel: text(40).optional().default(""),
+  message: text(2000).min(1, "お問い合わせの内容を入力してください"),
+  agree: z.literal(true, { message: "個人情報の取り扱いへの同意が必要です" }),
+  website: z.string().optional().default(""), // honeypot
+});
+
 // Picked by `kind` so the reader gets the specific message, not a generic union error.
 export function parseRequest(raw: unknown) {
   const kind = (raw as { kind?: unknown } | null)?.kind;
-  return kind === "shuzai" ? shuzaiSchema.safeParse(raw) : contactSchema.safeParse(raw);
+  if (kind === "shuzai") return shuzaiSchema.safeParse(raw);
+  if (kind === "editorial") return editorialSchema.safeParse(raw);
+  return contactSchema.safeParse(raw);
 }
 
 export type ContactInput = z.infer<typeof contactSchema>;
 export type ShuzaiInput = z.infer<typeof shuzaiSchema>;
+export type EditorialInput = z.infer<typeof editorialSchema>;

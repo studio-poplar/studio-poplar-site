@@ -58,7 +58,14 @@ export default async function ShokuninPage({ params }: PageProps<"/deshiiri/meik
         </>
       )}
       <section className={`d-wrap ${styles.top}`}>
-        <Photo src={person.photo} alt={`${person.yago}の職人`} ratio="3 / 4" sizes="(max-width: 880px) 100vw, 420px" priority />
+        <Photo
+          src={person.photo}
+          alt={`${person.yago}の職人`}
+          ratio="3 / 4"
+          sizes="(max-width: 880px) 100vw, 420px"
+          className={styles.portrait}
+          priority
+        />
         <div className={styles.info}>
           {person.sample && <SampleBadge />}
           <span className="d-eyebrow">
