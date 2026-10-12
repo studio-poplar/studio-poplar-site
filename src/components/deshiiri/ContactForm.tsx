@@ -70,7 +70,8 @@ export default function ContactForm({ people, initialTo = "", from = "", lockTo 
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(json.error ?? "送信に失敗しました。時間をおいてお試しください。");
-      track("deshiiri_contact", { shokunin: to, purpose: activePurpose, from: from || "(none)" });
+      // Vercel Web Analytics (Pro) keeps 2 properties per event: the craftsperson, and 用件@記事.
+      track("deshiiri_contact", { shokunin: to, purpose_from: `${activePurpose}@${from || "(none)"}` });
       router.push("/deshiiri/contact/thanks");
     } catch (e) {
       setStatus("error");

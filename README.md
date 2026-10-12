@@ -156,7 +156,7 @@ draft: false
 ## 連絡フォーム
 
 `/deshiiri/api/contact` が受け取り、Resend で代表にメール、送った人に自動返信する。職人には直接送らない。
-同じ IP から1分3回まで。honeypot あり。送信成功時に Vercel Analytics のイベント `deshiiri_contact`（職人・用件・どの記事から）を送る。
+同じ IP から1分3回まで。honeypot あり。送信成功時に Vercel Analytics のイベント `deshiiri_contact` を送る。プロパティは2つまでなので `shokunin`（職人 id）と `purpose_from`（`用件@記事slug`、例 `irai@tatami-fujisawa`）。
 
 環境変数（`.env.local` と Vercel の両方に設定。値はリポジトリに入れない）
 
