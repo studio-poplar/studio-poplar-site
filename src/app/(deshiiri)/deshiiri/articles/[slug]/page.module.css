@@ -31,6 +31,20 @@
   color: var(--kaki);
 }
 
+.kicker {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.kicker span {
+  font: 400 13px var(--f-en);
+  letter-spacing: 0.12em;
+  color: var(--sub);
+}
+
 .title {
   font: 700 clamp(26px, 3.8vw, 44px) / 1.55 var(--f-head);
   letter-spacing: 0.03em;
@@ -60,7 +74,19 @@
   line-height: 1.7;
 }
 
-/* HIGHLIGHTS: 其の一〜其の三 */
+/* この記事の見どころ */
+.pointsHead {
+  font: 700 14px/1.4 var(--f-body) !important;
+  letter-spacing: 0.08em;
+}
+
+.smallHead {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--sub);
+}
+
 .points {
   max-width: 880px;
   margin: 56px auto 0;

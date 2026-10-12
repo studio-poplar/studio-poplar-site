@@ -31,11 +31,11 @@ export default function ArticleFilter({ jobs, cities, items }: { jobs: Option[];
   return (
     <>
       <div className={styles.filters}>
-        {group("BY CRAFT", jobs, job, setJob)}
-        {group("BY TOWN", cities, city, setCity)}
+        {group("仕事", jobs, job, setJob)}
+        {group("町", cities, city, setCity)}
       </div>
       <p className={styles.count} aria-live="polite">
-        {shown.length}帖
+        {shown.length}本
       </p>
       {shown.length > 0 ? (
         <div className={styles.grid}>
@@ -44,7 +44,7 @@ export default function ArticleFilter({ jobs, cities, items }: { jobs: Option[];
           ))}
         </div>
       ) : (
-        <p className={styles.empty}>この組み合わせの帖はまだありません。</p>
+        <p className={styles.empty}>この組み合わせの記事はまだありません。</p>
       )}
     </>
   );

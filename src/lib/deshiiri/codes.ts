@@ -35,6 +35,13 @@ export const SERIES = {
   hirumeshi: "現場の昼めし",
 } as const;
 
+// 連載ページとトップの連載欄に出す一文
+export const SERIES_ABOUT: Record<string, string> = {
+  dougu: "職人が手放さない道具を一つずつ。誰から譲られたか、どう手入れしているか。",
+  shigotogi: "現場で着ているもの、履いているもの。なぜそれを選んだのか。",
+  hirumeshi: "作業の合間に何を食べているか。どこで、何分で。",
+};
+
 export type JobCode = keyof typeof JOBS;
 export type CityCode = keyof typeof CITIES;
 export type SeriesCode = keyof typeof SERIES;
@@ -63,5 +70,3 @@ export function seriesLabel(code: string) {
   return (SERIES as Record<string, string>)[code] ?? code;
 }
 
-// 番付の位。上から 横綱・大関・関脇・小結・前頭・前頭。
-export const BANZUKE_RANKS = ["横綱", "大関", "関脇", "小結", "前頭", "前頭"] as const;

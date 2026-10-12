@@ -28,7 +28,7 @@ export default function ThanksPage() {
       </ol>
       <div className={styles.actions}>
         <Link href="/deshiiri/articles" className="d-btn">
-          ほかの帖を読む
+          ほかの記事を読む
         </Link>
         <Link href="/deshiiri" className="d-btn ghost">
           デシイリのトップへ

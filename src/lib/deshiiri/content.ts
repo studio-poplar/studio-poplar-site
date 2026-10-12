@@ -230,7 +230,7 @@ export function getNextArticles(article: ArticleMeta, count = 3): ArticleMeta[] 
   others.filter((a) => a.job === article.job).forEach(add);
   others.filter((a) => a.city === article.city).forEach(add);
   others.forEach(add);
-  if (picked.length < 2) warnOnce(`articles/${article.slug}.mdx: 「次に読む」が${picked.length}本しかありません（公開中の帖が足りません）`);
+  if (picked.length < 2) warnOnce(`articles/${article.slug}.mdx: 「次に読む」が${picked.length}本しかありません（公開中の記事が足りません）`);
   return picked;
 }
 

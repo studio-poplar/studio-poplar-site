@@ -77,7 +77,7 @@
   border: 1px solid var(--line);
   background: var(--card);
   padding: 10px 16px;
-  border-radius: 999px;
+  border-radius: 0;
   cursor: pointer;
   transition: border-color 0.2s var(--ease);
 }

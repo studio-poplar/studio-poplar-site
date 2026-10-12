@@ -8,7 +8,7 @@
 
 .side > p {
   color: var(--sub);
-  margin-top: -16px;
+  margin-top: 0;
 }
 
 .flow {

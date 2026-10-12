@@ -103,7 +103,7 @@ export default async function ShokuninPage({ params }: PageProps<"/deshiiri/meik
       </section>
 
       <section className={`d-wrap ${styles.stories}`}>
-        <SectionHead eyebrow="STORIES" title={`${person.yago}の帖`} />
+        <SectionHead eyebrow="Articles" title={`${person.yago}の記事`} />
         {articles.length > 0 ? <ArticleGrid articles={articles} /> : <p className={styles.empty}>記事は準備中です。</p>}
       </section>
     </>

@@ -6,10 +6,10 @@ import Logo from "./Logo";
 import styles from "./Header.module.css";
 
 const NAV_LINKS = [
-  { href: "/deshiiri/articles", label: "STORIES", hideOnPhone: true },
-  { href: "/deshiiri#index", label: "INDEX", hideOnPhone: true },
-  { href: "/deshiiri/meikan", label: "CRAFTSPEOPLE", hideOnPhone: true },
-  { href: "/deshiiri/about", label: "ABOUT", hideOnPhone: false },
+  { href: "/deshiiri/articles", label: "記事を読む", short: "記事", hideOnPhone: false },
+  { href: "/deshiiri/meikan", label: "職人を探す", hideOnPhone: true },
+  { href: "/deshiiri#index", label: "仕事・町から探す", hideOnPhone: true },
+  { href: "/deshiiri/about", label: "デシイリについて", hideOnPhone: true },
 ];
 
 export default function Header() {
@@ -31,7 +31,14 @@ export default function Header() {
         <nav className={styles.nav} aria-label="デシイリのメニュー">
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className={`${styles.link} ${link.hideOnPhone ? styles.hideOnPhone : ""}`}>
-              {link.label}
+              {"short" in link ? (
+                <>
+                  <span className={styles.long}>{link.label}</span>
+                  <span className={styles.short}>{link.short}</span>
+                </>
+              ) : (
+                link.label
+              )}
             </Link>
           ))}
           <Link href="/deshiiri/contact" className={`d-btn ${styles.cta}`}>

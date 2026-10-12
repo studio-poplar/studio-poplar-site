@@ -23,25 +23,3 @@
   color: var(--ink);
   opacity: 0.8;
 }
-
-/* 千社札の小札: vertical, offset shadow. */
-.fuda {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  writing-mode: vertical-rl;
-  background: var(--card);
-  color: var(--ink);
-  font: 700 13px/1 var(--f-head);
-  letter-spacing: 0.14em;
-  padding: 9px 5px;
-  border: 1px solid var(--ink);
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-.fudaKaki {
-  background: var(--maku-2);
-  color: #fff;
-  border-color: var(--maku-2);
-  box-shadow: 2px 2px 0 var(--maku-1);
-}

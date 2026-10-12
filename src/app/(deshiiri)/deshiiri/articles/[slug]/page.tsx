@@ -8,8 +8,8 @@ import { ArticleGrid } from "@/components/deshiiri/Cards";
 import { mdxComponents } from "@/components/deshiiri/MdxParts";
 import ContactForm from "@/components/deshiiri/ContactForm";
 import { getAllArticles, getArticle, getContactPeople, getNextArticles, getShokunin } from "@/lib/deshiiri/content";
-import { cityLabel, jobLabel } from "@/lib/deshiiri/codes";
-import { choLabel, jaDate } from "@/lib/deshiiri/format";
+import { cityLabel, jobLabel, seriesLabel } from "@/lib/deshiiri/codes";
+import { dotDate, jaDate, noLabel } from "@/lib/deshiiri/format";
 import { deshiiriMetadata, DESHIIRI_NAME } from "@/lib/deshiiri/seo";
 import { siteUrl } from "@/lib/seo";
 import styles from "./page.module.css";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/deshiiri/articles
   });
 }
 
-const HIGHLIGHT_LABELS = ["其の一", "其の二", "其の三"];
+const HIGHLIGHT_LABELS = ["見どころ 1", "見どころ 2", "見どころ 3"];
 
 export default async function ArticlePage({ params }: PageProps<"/deshiiri/articles/[slug]">) {
   const { slug } = await params;
@@ -60,7 +60,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
   return (
     <article>
       {!article.draft && <JsonLd data={jsonLd} />}
-      {article.draft && <p className={styles.draft}>DRAFT — この帖は下書きです。本番には表示されません。</p>}
+      {article.draft && <p className={styles.draft}>DRAFT — この記事は下書きです。本番には表示されません。</p>}
 
       <header className={styles.top}>
         <nav className={styles.crumb} aria-label="パンくず">
@@ -70,16 +70,19 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
           <span aria-hidden="true">/</span>
           <Link href={`/deshiiri/machi/${article.city}`}>{cityLabel(article.city)}</Link>
         </nav>
-        <span className="d-eyebrow">
-          STORY NO.{article.no} <b>—</b> {choLabel(article.no)}
-        </span>
+        <p className={styles.kicker}>
+          {article.series ? `【${seriesLabel(article.series)}】` : ""}
+          {jobLabel(article.job)}｜{article.area}
+          <span>{noLabel(article.no)}</span>
+        </p>
         <h1 className={styles.title}>{article.title}</h1>
         <div className={styles.meta}>
           <span>
             {person.yago}（{person.area}）
           </span>
+          <span>公開 {dotDate(article.publishedAt)}</span>
           {article.interviewedAt && <span>取材 {jaDate(article.interviewedAt)}</span>}
-          <span>読了 約{article.readingMinutes}分</span>
+          <span>読むのにかかる時間 約{article.readingMinutes}分</span>
         </div>
       </header>
 
@@ -89,7 +92,6 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
           alt={article.heroAlt || article.title}
           ratio="16 / 9"
           sizes="(max-width: 1264px) 100vw, 1200px"
-          fuda={jobLabel(article.job)}
           priority
         />
         {article.heroCaption && <figcaption className={styles.cap}>{article.heroCaption}</figcaption>}
@@ -97,7 +99,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
 
       {article.midokoro.length > 0 && (
         <section className={styles.points} aria-label="見どころ">
-          <span className="d-eyebrow">HIGHLIGHTS</span>
+          <h2 className={styles.pointsHead}>この記事の見どころ</h2>
           <ol>
             {article.midokoro.slice(0, 3).map((point, i) => (
               <li key={point}>
@@ -117,7 +119,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
         <div className={styles.endIn}>
           <div className={styles.prof}>
             <Photo src={person.photo} alt={`${person.yago}の職人`} ratio="1 / 1" sizes="280px" />
-            <span className="d-eyebrow">CRAFTSPERSON</span>
+            <span className={styles.smallHead}>この記事の職人</span>
             <Link href={`/deshiiri/meikan/${person.id}`} className={styles.profName}>
               {person.yago}
             </Link>
@@ -127,7 +129,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
             </p>
           </div>
           <div className={styles.contact}>
-            <span className="d-eyebrow">CONTACT</span>
+            <span className={styles.smallHead}>この職人に連絡する</span>
             <h2>{person.yago}に連絡する</h2>
             <p>
               話を聞いてみたい、仕事を頼みたい、作業場を見てみたい。どんな用件でも大丈夫です。デシイリ編集部が受け取り、{person.yago}
@@ -135,7 +137,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
             </p>
             <ContactForm people={contactPeople} initialTo={person.id} from={article.slug} lockTo idPrefix="a" />
             <div className={styles.sponsor}>
-              {article.sponsor ? <span>この帖の協賛：{article.sponsor}</span> : <Link href="/deshiiri/sponsor">この帖の協賛について</Link>}
+              {article.sponsor ? <span>この記事の協賛：{article.sponsor}</span> : <Link href="/deshiiri/sponsor">この記事の協賛について</Link>}
               <span>取材・撮影：Studio Poplar</span>
             </div>
           </div>
@@ -144,7 +146,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
 
       {next.length > 0 && (
         <section className={`d-wrap ${styles.next}`}>
-          <SectionHead num="—" eyebrow="NEXT STORIES" title="次に読む" link={{ href: "/deshiiri/articles", label: "VIEW ALL" }} />
+          <SectionHead eyebrow="Next" title="次に読む" link={{ href: "/deshiiri/articles", label: "記事一覧を見る" }} />
           <ArticleGrid articles={next} />
         </section>
       )}

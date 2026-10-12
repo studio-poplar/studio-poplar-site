@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { ImageResponse } from "next/og";
+import { FanMark } from "@/components/deshiiri/FanMark";
 
 // Share images for デシイリ (1200×630). Japanese needs a real font in next/og, so Shippori Mincho
 // is fetched from Google Fonts, cut down to just the characters on the image.
@@ -39,17 +40,15 @@ async function photoDataUrl(src: string | null) {
 
 type Input = {
   title: string;
-  // Small line above the title, e.g. 「第二十四帖 — 横浜市戸塚区」
+  // Small line above the title, e.g. 「大工｜横浜市戸塚区　No.24」
   kicker?: string;
-  // 千社札: vertical job name
-  fuda?: string;
   photo?: string | null;
 };
 
-export async function deshiiriOgImage({ title, kicker = "", fuda, photo = null }: Input) {
+export async function deshiiriOgImage({ title, kicker = "", photo = null }: Input) {
   const image = await photoDataUrl(photo);
-  const brand = "弟デシイリ職人と家業の読みもの";
-  const font = await loadMincho(title + kicker + (fuda ?? "") + brand);
+  const brand = "デシイリ職人と家業のWEBマガジン";
+  const font = await loadMincho(title + kicker + brand);
   const onPhoto = !!image;
   const fg = onPhoto ? "#FFFFFF" : INK;
 
@@ -79,29 +78,6 @@ export async function deshiiriOgImage({ title, kicker = "", fuda, photo = null }
           <div style={{ flex: 1, background: KAKI }} />
           <div style={{ flex: 1, background: MOEGI }} />
         </div>
-        {fuda && (
-          <div
-            style={{
-              position: "absolute",
-              top: 56,
-              left: 64,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              background: KAKI,
-              color: "#FFFFFF",
-              border: `2px solid ${KAKI}`,
-              boxShadow: `5px 5px 0 ${INK}`,
-              padding: "16px 10px",
-              fontSize: 34,
-              lineHeight: 1.1,
-            }}
-          >
-            {[...fuda].map((ch, i) => (
-              <span key={i}>{ch === "・" ? "･" : ch}</span>
-            ))}
-          </div>
-        )}
         <div
           style={{
             position: "absolute",
@@ -116,22 +92,9 @@ export async function deshiiriOgImage({ title, kicker = "", fuda, photo = null }
           {kicker && <div style={{ fontSize: 26, opacity: 0.85, marginBottom: 14, display: "flex" }}>{kicker}</div>}
           <div style={{ fontSize: title.length > 26 ? 48 : 58, lineHeight: 1.45, display: "flex" }}>{title}</div>
           <div style={{ display: "flex", alignItems: "center", marginTop: 30, fontSize: 26, gap: 14 }}>
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 22,
-                border: `2px solid ${fg}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 22,
-              }}
-            >
-              弟
-            </div>
+            <FanMark size={48} color={fg} accent={KAKI} />
             <span>デシイリ</span>
-            <span style={{ fontSize: 20, opacity: 0.75, marginLeft: 8 }}>職人と家業の読みもの</span>
+            <span style={{ fontSize: 20, opacity: 0.75, marginLeft: 8 }}>職人と家業のWEBマガジン</span>
           </div>
         </div>
       </div>

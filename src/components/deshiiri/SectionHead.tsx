@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import styles from "./SectionHead.module.css";
 
 type Props = {
-  num?: string;
+  // Small English label beside the title, e.g. "LATEST"
   eyebrow: string;
   title: ReactNode;
   as?: "h1" | "h2";
@@ -11,21 +11,20 @@ type Props = {
   aside?: ReactNode;
 };
 
-// 番号（柿色の英字）＋英字ラベル＋明朝の見出し＋右端に VIEW ALL →
-export default function SectionHead({ num, eyebrow, title, as: Heading = "h2", link, aside }: Props) {
+// 雑誌の見出し: 上に罫線、明朝の見出し＋小さな英字、右端に「一覧を見る →」
+export default function SectionHead({ eyebrow, title, as: Heading = "h2", link, aside }: Props) {
   return (
-    <div className={`${styles.head} ${num ? "" : styles.noNum}`}>
-      {num && <span className={styles.num}>{num}</span>}
-      <div>
-        <span className="d-eyebrow">{eyebrow}</span>
+    <div className={`${styles.head} ${Heading === "h1" ? styles.page : ""}`}>
+      <div className={styles.titles}>
         <Heading className={styles.title}>{title}</Heading>
+        <span className={styles.en}>{eyebrow}</span>
       </div>
       {link ? (
-        <Link href={link.href} className="d-arrow">
+        <Link href={link.href} className={styles.link}>
           {link.label}
         </Link>
       ) : (
-        (aside ?? <span />)
+        aside
       )}
     </div>
   );

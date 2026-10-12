@@ -6,8 +6,8 @@ import { deshiiriMetadata } from "@/lib/deshiiri/seo";
 import styles from "../list.module.css";
 
 export const metadata = deshiiriMetadata({
-  title: "すべての帖",
-  description: "デシイリのすべての記事（帖）を新しい順に並べています。大工・畳・味噌などの仕事や、横浜・藤沢などの町で絞り込めます。",
+  title: "記事一覧",
+  description: "デシイリのすべての記事を新しい順に並べています。大工・畳・味噌などの仕事や、横浜・藤沢などの町で絞り込めます。",
   path: "/deshiiri/articles",
 });
 
@@ -17,7 +17,7 @@ export default function ArticlesPage() {
 
   return (
     <div className={`d-wrap ${styles.page}`}>
-      <SectionHead as="h1" eyebrow="STORIES" title="すべての帖" aside={<span className="d-eyebrow">{articles.length} STORIES</span>} />
+      <SectionHead as="h1" eyebrow="Articles" title="記事一覧" aside={<span className={styles.count}>{articles.length}本</span>} />
       {articles.length > 0 ? (
         <ArticleFilter
           jobs={getIndex("job").filter((j) => j.articles > 0).map(toOption)}
@@ -25,7 +25,7 @@ export default function ArticlesPage() {
           items={articles.map((a) => ({ slug: a.slug, job: a.job, city: a.city, card: <ArticleCard article={a} /> }))}
         />
       ) : (
-        <p className={styles.empty}>最初の帖は準備中です。</p>
+        <p className={styles.empty}>最初の記事は準備中です。</p>
       )}
     </div>
   );

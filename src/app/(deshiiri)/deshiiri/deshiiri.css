@@ -116,7 +116,7 @@ body:has(.deshiiri) {
   font-weight: 500;
 }
 
-/* 矢印リンク: READ STORY → / VIEW ALL → */
+/* 矢印リンク */
 .deshiiri .d-arrow {
   display: inline-flex;
   align-items: center;
@@ -135,14 +135,15 @@ body:has(.deshiiri) {
   transform: translateX(4px);
 }
 
-/* 丸い黒ボタン＋矢印。サブは枠線だけ */
+/* 黒いボタン＋矢印（角は立てる）。サブは枠線だけ */
 .deshiiri .d-btn {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   font: 700 14px/1.4 var(--f-body);
-  padding: 15px 28px;
-  border-radius: 999px;
+  padding: 15px 26px;
+  border-radius: 0;
+  letter-spacing: 0.06em;
   background: var(--ink);
   color: var(--bg);
   border: 1px solid var(--ink);

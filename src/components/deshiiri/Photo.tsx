@@ -9,9 +9,6 @@ type Props = {
   // CSS aspect-ratio, e.g. "4 / 3"
   ratio: string;
   sizes: string;
-  // 千社札: vertical job name in the top-left corner. kaki = the 特集 colour.
-  fuda?: string;
-  fudaKaki?: boolean;
   priority?: boolean;
   className?: string;
 };
@@ -22,7 +19,7 @@ function exists(src: string) {
   return fs.existsSync(path.join(process.cwd(), "public", src));
 }
 
-export default function Photo({ src, alt, ratio, sizes, fuda, fudaKaki, priority, className }: Props) {
+export default function Photo({ src, alt, ratio, sizes, priority, className }: Props) {
   const hasImage = !!src && exists(src);
   return (
     <div className={`${styles.frame} ${className ?? ""}`} style={{ aspectRatio: ratio }}>
@@ -33,11 +30,6 @@ export default function Photo({ src, alt, ratio, sizes, fuda, fudaKaki, priority
           <span>写真：{alt}</span>
         </div>
       )}
-      {fuda && <Fuda label={fuda} kaki={fudaKaki} />}
     </div>
   );
-}
-
-export function Fuda({ label, kaki }: { label: string; kaki?: boolean }) {
-  return <span className={`${styles.fuda} ${kaki ? styles.fudaKaki : ""}`}>{label}</span>;
 }

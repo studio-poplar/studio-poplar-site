@@ -1,47 +1,31 @@
 .footer {
-  margin-top: 120px;
-  position: relative;
-  isolation: isolate;
-}
-
-/* 青海波の地紋: faint, fading in towards the bottom edge. */
-.footer::before {
-  content: "";
-  position: absolute;
-  inset: 3px 0 0;
-  z-index: -1;
-  opacity: 0.55;
-  pointer-events: none;
-  background: radial-gradient(
-      circle at 50% 100%,
-      transparent 11px,
-      var(--line) 11px 12px,
-      transparent 12px 17px,
-      var(--line) 17px 18px,
-      transparent 18px
-    )
-    0 0 / 36px 18px;
-  -webkit-mask-image: linear-gradient(transparent 55%, #000);
-  mask-image: linear-gradient(transparent 55%, #000);
+  margin-top: 140px;
+  background: var(--bg-2);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr));
-  gap: 40px;
-  padding-block: 64px 80px;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  padding-block: 64px 72px;
   font-size: 13px;
 }
 
 .about {
-  margin-top: 16px;
+  margin-top: 18px;
   color: var(--sub);
-  max-width: 26em;
+  max-width: 24em;
+  line-height: 1.9;
 }
 
 .head {
   display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding-bottom: 12px;
   margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
 }
 
 .list {
@@ -52,12 +36,6 @@
 
 .list a:hover {
   color: var(--kaki);
-}
-
-.en {
-  font: 500 11px var(--f-en);
-  letter-spacing: 0.18em;
-  margin-right: 12px;
 }
 
 .muted {
@@ -74,6 +52,7 @@
 @media (max-width: 880px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 36px;
     padding-block: 48px 56px;
   }
 }

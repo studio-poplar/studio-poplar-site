@@ -2,15 +2,9 @@ import { notFound } from "next/navigation";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleGrid } from "@/components/deshiiri/Cards";
 import { getSeriesArticles } from "@/lib/deshiiri/content";
-import { SERIES, seriesLabel } from "@/lib/deshiiri/codes";
+import { SERIES, SERIES_ABOUT as ABOUT, seriesLabel } from "@/lib/deshiiri/codes";
 import { deshiiriMetadata } from "@/lib/deshiiri/seo";
 import styles from "../../list.module.css";
-
-const ABOUT: Record<string, string> = {
-  dougu: "職人が手放さない道具を一つずつ。誰から譲られたか、どう手入れしているか。",
-  shigotogi: "現場で着ているもの、履いているもの。なぜそれを選んだのか。",
-  hirumeshi: "作業の合間に何を食べているか。どこで、何分で。",
-};
 
 export function generateStaticParams() {
   return Object.keys(SERIES).map((series) => ({ series }));
@@ -33,9 +27,9 @@ export default async function RensaiPage({ params }: PageProps<"/deshiiri/rensai
 
   return (
     <div className={`d-wrap ${styles.page}`}>
-      <SectionHead as="h1" eyebrow="SERIES" title={seriesLabel(series)} aside={<span className="d-eyebrow">{articles.length} STORIES</span>} />
+      <SectionHead as="h1" eyebrow="Series" title={seriesLabel(series)} aside={<span className={styles.count}>{articles.length}本</span>} />
       <p className={styles.intro}>{ABOUT[series]}</p>
-      {articles.length > 0 ? <ArticleGrid articles={articles} /> : <p className={styles.empty}>第一回は準備中です。</p>}
+      {articles.length > 0 ? <ArticleGrid articles={articles} /> : <p className={styles.empty}>第1回は準備中です。</p>}
     </div>
   );
 }

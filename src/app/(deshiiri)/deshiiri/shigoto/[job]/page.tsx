@@ -48,17 +48,17 @@ export default async function ShigotoPage({ params }: PageProps<"/deshiiri/shigo
         {towns.length > 0
           ? `${towns.join("、")}で${label}の仕事をする人を訪ねました。`
           : `${label}の取材は準備中です。`}
-        帖 {articles.length}本・職人 {people.length}人。
+        記事 {articles.length}本・職人 {people.length}人。
       </p>
       {articles.length > 0 && (
         <section>
-          <SectionHead eyebrow="STORIES" title={`${label}の帖`} />
+          <SectionHead eyebrow="Articles" title={`${label}の記事`} />
           <ArticleGrid articles={articles} />
         </section>
       )}
       {people.length > 0 && (
         <section className={styles.block}>
-          <SectionHead eyebrow="CRAFTSPEOPLE" title={`${label}の職人`} />
+          <SectionHead eyebrow="Craftspeople" title={`${label}の職人`} />
           <PersonGrid people={people} />
         </section>
       )}

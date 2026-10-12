@@ -12,7 +12,7 @@ export const metadata = deshiiriMetadata({
 export default function ForShokuninPage() {
   return (
     <div className={`d-wrap ${styles.page}`}>
-      <SectionHead as="h1" eyebrow="FOR CRAFTSPEOPLE" title="あなたの仕事を、取材させてください。" />
+      <SectionHead as="h1" eyebrow="For craftspeople" title="あなたの仕事を、取材させてください。" />
       <p className={styles.lead}>
         取材と掲載は無料です。記事を読んで興味を持った人からの連絡は、編集部がまとめてお届けします。
       </p>

@@ -5,14 +5,9 @@
 }
 
 .mark {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   flex: none;
-  border-radius: 50%;
-  border: 1.5px solid var(--ink);
-  display: grid;
-  place-items: center;
-  font: 700 13px/1 var(--f-head);
 }
 
 .text b {

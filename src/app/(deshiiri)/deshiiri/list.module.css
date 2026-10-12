@@ -1,4 +1,4 @@
-/* Shared by the list pages (名鑑・すべての帖・仕事別・町別・連載). */
+/* Shared by the list pages (職人一覧・記事一覧・仕事別・町別・連載). */
 .page {
   padding-top: 64px;
 }
@@ -6,12 +6,18 @@
 .intro {
   color: var(--sub);
   max-width: 40em;
-  margin: -16px 0 48px;
+  margin: 0 0 44px;
 }
 
 .notFoundTitle {
   font: 700 clamp(24px, 3vw, 36px) / 1.5 var(--f-head);
   margin-block: 12px 32px;
+}
+
+.count {
+  font: 400 13px var(--f-en);
+  color: var(--sub);
+  white-space: nowrap;
 }
 
 .empty {
@@ -27,7 +33,4 @@
     padding-top: 40px;
   }
 
-  .intro {
-    margin-top: 0;
-  }
 }
