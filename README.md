@@ -163,7 +163,7 @@ draft: false
 ```
 RESEND_API_KEY=
 DESHIIRI_TO_EMAIL=        # 連絡を受け取るアドレス
-DESHIIRI_FROM_EMAIL=      # 例 deshiiri@studiopoplar.com（Resend で studiopoplar.com を認証してから）
+DESHIIRI_FROM_EMAIL=      # deshiiri@mail.studiopoplar.com（Resend で認証済みのドメイン mail.studiopoplar.com）
 ```
 
 開発環境でキーが未設定のときは、メールを送らずにサーバーのログに出す。

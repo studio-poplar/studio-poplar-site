@@ -4,7 +4,7 @@ import { parseRequest, type ContactInput, type ShuzaiInput } from "@/lib/deshiir
 import { getArticle, getShokunin } from "@/lib/deshiiri/content";
 import { CONTACT_PURPOSES, jobLabel } from "@/lib/deshiiri/codes";
 
-// 連絡フォームと取材相談フォームの送信先。
+// 連絡フォームと取材相談フォームの送信先。差出人は Resend で認証済みの mail.studiopoplar.com。
 // 代表のメール（DESHIIRI_TO_EMAIL）に届き、送った人には自動返信する。職人には直接送らない。
 
 const LIMIT = 3;
