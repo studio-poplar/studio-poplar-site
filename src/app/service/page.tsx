@@ -182,6 +182,7 @@ export default function ServicePage() {
               ]}
               icon={AREA_ICONS.web}
               accent="var(--brand)"
+              price={{ amount: "5", unit: "万円〜" }}
               revealDelay={50}
             />
             <ServiceCard
@@ -190,9 +191,10 @@ export default function ServicePage() {
               title="仕組みをつくる"
               description="予約・会員管理など、日々の運用を支える仕組みをつくります。"
               eyebrow="含まれること"
-              items={["LINEログインなど、使い慣れた手段での認証", "管理画面から自分で更新できる設計", "公開直後の動作確認、その後は状況に応じたフォロー"]}
+              items={["LINEログインなど、使い慣れた手段での認証", "管理画面から自分で更新できる設計", "公開直後の動作確認（以降の保守は個別にお見積り）"]}
               icon={AREA_ICONS.app}
               accent="var(--system)"
+              price={{ amount: "15", unit: "万円〜" }}
               revealDelay={140}
             />
             <ServiceCard
@@ -204,6 +206,7 @@ export default function ServicePage() {
               items={["撮影プランのご相談・ロケハン", "用途に合わせたレタッチ・編集", "Web用・SNS用・印刷用データの納品"]}
               icon={AREA_ICONS.photo}
               accent="var(--second)"
+              price={{ amount: "6", unit: "万円〜" }}
               revealDelay={230}
             />
           </div>
