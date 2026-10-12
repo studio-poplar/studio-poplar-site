@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Shippori_Mincho } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/deshiiri/Header";
 import Footer from "@/components/deshiiri/Footer";
 import "./deshiiri.css";
@@ -30,6 +31,8 @@ export default function DeshiiriLayout({ children }: LayoutProps<"/deshiiri">) {
       <Header />
       {children}
       <Footer />
+      {/* Page views + the deshiiri_contact event. Enable Web Analytics on the Vercel project. */}
+      <Analytics />
     </div>
   );
 }

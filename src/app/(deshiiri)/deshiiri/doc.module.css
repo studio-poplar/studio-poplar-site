@@ -1,0 +1,118 @@
+/* Text pages: about / for-shokunin / sponsor / privacy */
+.page {
+  padding-top: 64px;
+}
+
+.lead {
+  max-width: 40em;
+  color: var(--sub);
+  margin: -16px 0 0;
+}
+
+.body {
+  max-width: 720px;
+}
+
+.body h2 {
+  font: 700 22px/1.6 var(--f-head);
+  margin: 56px 0 14px;
+}
+
+.body p,
+.body li {
+  font-size: 15.5px;
+  line-height: 2;
+}
+
+.body p + p {
+  margin-top: 1em;
+}
+
+.body ul,
+.body ol {
+  padding-left: 1.3em;
+  margin-top: 8px;
+}
+
+.body ul {
+  list-style: disc;
+}
+
+.body ol {
+  list-style: decimal;
+}
+
+.body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.body a:hover {
+  color: var(--kaki);
+}
+
+.sub {
+  color: var(--sub);
+  font-size: 13px;
+  margin-top: 48px;
+}
+
+/* 口上 */
+.kojoOne {
+  font: 700 clamp(22px, 3vw, 36px) / 1.6 var(--f-head);
+  margin-bottom: 28px;
+}
+
+.sign {
+  font-size: 13px;
+  color: var(--sub);
+}
+
+/* 2 columns: text + form */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+  margin-top: 48px;
+}
+
+.points {
+  list-style: none !important;
+  padding: 0 !important;
+  border-top: 1px solid var(--line);
+}
+
+.points li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.points b {
+  font: 400 14px/2.1 var(--f-en);
+  color: var(--kaki);
+  letter-spacing: 0.1em;
+}
+
+.formHead {
+  font: 700 22px/1.6 var(--f-head);
+  margin-top: 8px;
+}
+
+@media (max-width: 880px) {
+  .page {
+    padding-top: 40px;
+  }
+
+  .lead {
+    margin-top: 0;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}

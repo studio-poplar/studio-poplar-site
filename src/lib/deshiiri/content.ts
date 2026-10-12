@@ -274,3 +274,15 @@ export function getIndex(kind: "job" | "city") {
     shokunin: people.filter((p) => p[kind] === code).length,
   }));
 }
+
+// ---------- 連絡フォーム用 ----------
+
+// The minimum the contact form needs about each craftsperson (passed to a client component).
+export function getContactPeople() {
+  return getAllShokunin().map((p) => ({
+    id: p.id,
+    yago: p.yago,
+    label: `${jobLabel(p.job)}／${p.area}`,
+    contact: p.contact,
+  }));
+}

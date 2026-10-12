@@ -1,0 +1,180 @@
+.form {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  border: 0;
+  min-width: 0;
+}
+
+.field > span,
+.field > legend {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0;
+}
+
+.field legend {
+  margin-bottom: 8px;
+}
+
+.field em,
+.agree em {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--sub);
+  margin-left: 6px;
+}
+
+/* 角丸 6px の入力欄 */
+.field input,
+.field textarea,
+.field select {
+  font: 16px/1.6 var(--f-body);
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  width: 100%;
+  border-radius: 6px;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible,
+.field select:focus-visible {
+  border-color: var(--ink);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 用件は丸いチップ。選ぶと黒く反転 */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.4;
+  border: 1px solid var(--line);
+  background: var(--card);
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--ink);
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.chip:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.chip:has(input:focus-visible) {
+  outline: 2px solid var(--kaki);
+  outline-offset: 3px;
+}
+
+.visit {
+  display: grid;
+  gap: 18px;
+  padding: 18px 20px;
+  background: var(--bg-2);
+}
+
+.note {
+  font-size: 13px;
+  line-height: 1.8;
+  border-left: 2px solid var(--ink);
+  padding-left: 12px;
+}
+
+.agree {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.agree input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--ink);
+  flex: none;
+}
+
+.agree a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.error {
+  font-size: 14px;
+  border: 1px solid var(--kaki);
+  color: var(--ink);
+  padding: 12px 14px;
+  border-radius: 6px;
+}
+
+.done {
+  border: 1px solid var(--moegi);
+  color: var(--moegi);
+  padding: 14px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.submit {
+  justify-self: start;
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (max-width: 880px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

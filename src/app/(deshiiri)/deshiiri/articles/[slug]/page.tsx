@@ -6,7 +6,8 @@ import Photo from "@/components/deshiiri/Photo";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { ArticleGrid } from "@/components/deshiiri/Cards";
 import { mdxComponents } from "@/components/deshiiri/MdxParts";
-import { getAllArticles, getArticle, getNextArticles, getShokunin } from "@/lib/deshiiri/content";
+import ContactForm from "@/components/deshiiri/ContactForm";
+import { getAllArticles, getArticle, getContactPeople, getNextArticles, getShokunin } from "@/lib/deshiiri/content";
 import { cityLabel, jobLabel } from "@/lib/deshiiri/codes";
 import { choLabel, jaDate } from "@/lib/deshiiri/format";
 import { deshiiriMetadata, DESHIIRI_NAME } from "@/lib/deshiiri/seo";
@@ -40,7 +41,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
   const person = getShokunin(article.shokunin);
   if (!person) notFound();
   const next = getNextArticles(article);
-  const contactHref = `/deshiiri/contact?to=${person.id}&from=${article.slug}`;
+  const contactPeople = getContactPeople().filter((p) => p.id === person.id);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -131,9 +132,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
               話を聞いてみたい、仕事を頼みたい、作業場を見てみたい。どんな用件でも大丈夫です。デシイリ編集部が受け取り、{person.yago}
               におつなぎします。
             </p>
-            <Link href={contactHref} className={`d-btn ${styles.contactBtn}`}>
-              この職人に連絡する
-            </Link>
+            <ContactForm people={contactPeople} initialTo={person.id} from={article.slug} lockTo idPrefix="a" />
             <div className={styles.sponsor}>
               {article.sponsor ? <span>この帖の協賛：{article.sponsor}</span> : <Link href="/deshiiri/sponsor">この帖の協賛について</Link>}
               <span>取材・撮影：Studio Poplar</span>

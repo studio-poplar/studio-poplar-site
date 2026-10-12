@@ -67,21 +67,7 @@
   color: var(--sub);
 }
 
-.purposes {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-block: 10px 24px;
-}
 
-.purposes li {
-  font-size: 13px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  border-radius: 999px;
-  padding: 6px 14px;
-}
 
 .contact .note {
   margin-top: 14px;

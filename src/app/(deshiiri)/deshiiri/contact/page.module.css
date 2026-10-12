@@ -1,0 +1,72 @@
+.page {
+  padding-top: 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.side > p {
+  color: var(--sub);
+  margin-top: -16px;
+}
+
+.flow {
+  list-style: none;
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.flow li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.flow b {
+  font: 400 14px/1.9 var(--f-en);
+  color: var(--kaki);
+  letter-spacing: 0.1em;
+}
+
+.main {
+  max-width: 640px;
+}
+
+/* 送信完了 */
+.thanks {
+  padding-top: 64px;
+  max-width: 720px;
+}
+
+.thanksTitle {
+  font: 700 clamp(26px, 3.4vw, 40px) / 1.5 var(--f-head);
+  color: var(--moegi);
+  margin-block: 14px 20px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+@media (max-width: 880px) {
+  .page {
+    padding-top: 40px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .side > p {
+    margin-top: 0;
+  }
+
+  .thanks {
+    padding-top: 40px;
+  }
+}

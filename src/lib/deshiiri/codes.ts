@@ -48,6 +48,9 @@ export const CONTACT_PURPOSES = {
 
 export type ContactPurpose = keyof typeof CONTACT_PURPOSES;
 
+// 見学・弟子入りの相談のときだけ聞く年代
+export const AGE_GROUPS = ["10代", "20代", "30代以上"] as const;
+
 export function jobLabel(code: string) {
   return (JOBS as Record<string, string>)[code] ?? code;
 }
