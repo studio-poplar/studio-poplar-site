@@ -7,7 +7,7 @@ city: "yokohama"               # 町のコード
 area: "横浜市戸塚区"
 since: "昭和三十年代創業"
 intro: "木造住宅の新築と修繕。見せる梁は今も手で刻む。"
-photo: null                    # 例: "/deshiiri/shokunin/sample-koumuten/main.jpg"
+photo: "/deshiiri/shokunin/sample-koumuten/main.jpg"   # AI生成のイメージ画像
 contact:                       # 受け付ける用件。false の用件はフォームに出さない
   hanashi: true                # 話を聞いてみたい
   irai: true                   # 仕事を頼みたい

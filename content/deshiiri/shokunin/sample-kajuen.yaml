@@ -7,7 +7,7 @@ city: "yokohama"
 area: "横浜市港北区"
 since: null
 intro: "浜なしの農園。直売所で売り切る量だけを育てる。"
-photo: null
+photo: "/deshiiri/shokunin/sample-kajuen/main.jpg"   # AI生成のイメージ画像
 contact:
   hanashi: true
   irai: false

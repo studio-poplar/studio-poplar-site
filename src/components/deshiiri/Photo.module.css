@@ -23,3 +23,15 @@
   color: var(--ink);
   opacity: 0.8;
 }
+
+.aiLabel {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(20, 19, 17, 0.62);
+  padding: 4px 6px;
+}

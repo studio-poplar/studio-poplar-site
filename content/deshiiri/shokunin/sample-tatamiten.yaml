@@ -7,7 +7,7 @@ city: "fujisawa"
 area: "藤沢市"
 since: null
 intro: "畳の新調と表替え。畳床を縫うところから自分の店でやる。"
-photo: null
+photo: "/deshiiri/shokunin/sample-tatamiten/main.jpg"   # AI生成のイメージ画像
 contact:
   hanashi: true
   irai: true
