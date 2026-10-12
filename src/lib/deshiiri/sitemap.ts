@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { getAllArticles, getAllShokunin } from "./content";
+import { getAllArticles, getAllShokunin, isDeshiiriLive } from "./content";
 import { SERIES } from "./codes";
 
 // デシイリ part of the main sitemap. Drafts are left out even on preview builds, and craft/town/series
 // pages only appear once they have something on them (they are noindex until then).
 export function deshiiriSitemap(siteUrl: string): MetadataRoute.Sitemap {
+  if (!isDeshiiriLive()) return [];
   const base = `${siteUrl}/deshiiri`;
   const articles = getAllArticles().filter((a) => !a.draft);
   const people = getAllShokunin().filter((p) => !p.draft);

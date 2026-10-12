@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { isDeshiiriLive } from "./content";
 
 export const DESHIIRI_NAME = "デシイリ";
 
@@ -22,12 +23,13 @@ type Input = {
 // Each デシイリ page states its own canonical URL and share card; titles end in 「｜デシイリ」.
 export function deshiiriMetadata({ title, description, path, type = "website", publishedTime, noindex, image }: Input): Metadata {
   const fullTitle = `${title}｜${DESHIIRI_NAME}`;
+  const hidden = noindex || !isDeshiiriLive();
   const shareImage = image ? { ...DEFAULT_IMAGE, url: image, alt: title } : DEFAULT_IMAGE;
   return {
     title: { absolute: fullTitle },
     description,
     alternates: { canonical: path },
-    robots: noindex ? { index: false, follow: true } : undefined,
+    robots: hidden ? { index: false, follow: true } : undefined,
     openGraph: {
       type,
       locale: "ja_JP",

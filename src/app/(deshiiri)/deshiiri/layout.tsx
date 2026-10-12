@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Shippori_Mincho } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/deshiiri/Header";
 import Footer from "@/components/deshiiri/Footer";
@@ -7,11 +7,13 @@ import "./deshiiri.css";
 
 // Mincho is for large headings, titles and craftspeople's names only. Zen Kaku Gothic New
 // (body) and Space Grotesk (English labels) come from the root layout.
-const shipporiMincho = Shippori_Mincho({
+const shipporiMincho = localFont({
   variable: "--font-mincho",
-  subsets: ["latin"],
-  weight: ["700"],
+  // Self-hosted subset, see scripts/build-fonts.mjs.
+  src: [{ path: "../../../fonts/shippori-mincho-700.woff2", weight: "700" }],
   display: "swap",
+  preload: false,
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

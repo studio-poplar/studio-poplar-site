@@ -24,7 +24,7 @@
   --marketing-notes: #2fa8b8;
 
   --font-en: "Space Grotesk", sans-serif;
-  --font-jp: "Zen Kaku Gothic New", sans-serif;
+  /* --font-jp comes from next/font/local in layout.tsx (self-hosted subset); defining it here would override it. */
 }
 
 * {

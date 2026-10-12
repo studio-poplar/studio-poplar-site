@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/check-deshiiri-words.mjs",
+    "postbuild": "node scripts/check-deshiiri-words.mjs && node scripts/check-font-charset.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "fonts": "node scripts/build-fonts.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.126.0",
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.3.5",
+    "subset-font": "^2.9.0",
     "typescript": "^5"
   }
 }

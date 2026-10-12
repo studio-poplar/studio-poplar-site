@@ -193,6 +193,12 @@ function stripBody({ body: _body, ...meta }: Article): ArticleMeta {
   return meta;
 }
 
+// デシイリ goes public (search engines, the main site's footer link, the sitemap) once at least one
+// article is published (draft: false). Until then the pages exist but stay out of sight.
+export function isDeshiiriLive() {
+  return loadAllArticles().some((a) => !a.draft);
+}
+
 // Newest first.
 export function getAllArticles(): ArticleMeta[] {
   return loadAllArticles()

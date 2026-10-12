@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Unbounded, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Space_Grotesk, Unbounded } from "next/font/google";
+import localFont from "next/font/local";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { isDeshiiriLive } from "@/lib/deshiiri/content";
 import { siteUrl, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SHARE_DESCRIPTION } from "@/lib/seo";
 import "./globals.css";
 
@@ -21,11 +23,20 @@ const unbounded = Unbounded({
   display: "swap",
 });
 
-const zenKakuGothicNew = Zen_Kaku_Gothic_New({
+// Self-hosted subset (scripts/build-fonts.mjs, `npm run fonts`): one file per weight instead of
+// Google Fonts' ~100 slices, and no preload, so text shows in the system font first and the
+// page is not held back by ~400 high-priority font requests.
+const zenKakuGothicNew = localFont({
   variable: "--font-jp",
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
+  src: [
+    { path: "../fonts/zen-kaku-gothic-new-400.woff2", weight: "400" },
+    { path: "../fonts/zen-kaku-gothic-new-500.woff2", weight: "500" },
+    { path: "../fonts/zen-kaku-gothic-new-700.woff2", weight: "700" },
+    { path: "../fonts/zen-kaku-gothic-new-900.woff2", weight: "900" },
+  ],
   display: "swap",
+  preload: false,
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -60,7 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <SiteHeader />
         <main id="main">{children}</main>
-        <SiteFooter />
+        <SiteFooter showDeshiiri={isDeshiiriLive()} />
         <GoogleAnalytics />
       </body>
     </html>

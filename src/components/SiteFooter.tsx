@@ -15,7 +15,8 @@ const NAV_LINKS = [
   { href: "/contact", label: "CONTACT" },
 ];
 
-export default function SiteFooter() {
+// showDeshiiri: the link to デシイリ appears once it has a published article.
+export default function SiteFooter({ showDeshiiri = false }: { showDeshiiri?: boolean }) {
   const pathname = usePathname();
   // デシイリ (/deshiiri) renders its own footer from its layout.
   if (pathname.startsWith("/deshiiri")) return null;
@@ -32,12 +33,14 @@ export default function SiteFooter() {
           <p className={styles.overview}>
             Studio Poplar（スタジオポプラ）は、WEBサイト制作・アプリ開発・写真動画撮影を行う、横浜を拠点とする制作スタジオです。
           </p>
-          <p className={styles.overview}>
-            運営メディア：
-            <Link href="/deshiiri" className={styles.mediaLink}>
-              デシイリ — 職人と家業の読みもの
-            </Link>
-          </p>
+          {showDeshiiri && (
+            <p className={styles.overview}>
+              運営メディア：
+              <Link href="/deshiiri" className={styles.mediaLink}>
+                デシイリ — 職人と家業のWEBマガジン
+              </Link>
+            </p>
+          )}
         </div>
 
         <nav aria-label="フッターナビゲーション" className={styles.footerNav}>
