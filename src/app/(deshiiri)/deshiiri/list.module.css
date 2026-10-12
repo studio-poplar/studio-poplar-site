@@ -9,6 +9,11 @@
   margin: -16px 0 48px;
 }
 
+.notFoundTitle {
+  font: 700 clamp(24px, 3vw, 36px) / 1.5 var(--f-head);
+  margin-block: 12px 32px;
+}
+
 .empty {
   color: var(--sub);
 }

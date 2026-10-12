@@ -6,6 +6,10 @@
   margin-bottom: 44px;
 }
 
+.noNum {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
 .num {
   font: 400 15px/1.6 var(--f-en);
   letter-spacing: 0.2em;

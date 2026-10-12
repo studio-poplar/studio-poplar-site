@@ -144,7 +144,7 @@ export default async function ArticlePage({ params }: PageProps<"/deshiiri/artic
 
       {next.length > 0 && (
         <section className={`d-wrap ${styles.next}`}>
-          <SectionHead eyebrow="NEXT STORIES" title="次に読む" link={{ href: "/deshiiri/articles", label: "VIEW ALL" }} />
+          <SectionHead num="—" eyebrow="NEXT STORIES" title="次に読む" link={{ href: "/deshiiri/articles", label: "VIEW ALL" }} />
           <ArticleGrid articles={next} />
         </section>
       )}

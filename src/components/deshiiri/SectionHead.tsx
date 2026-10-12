@@ -14,8 +14,8 @@ type Props = {
 // 番号（柿色の英字）＋英字ラベル＋明朝の見出し＋右端に VIEW ALL →
 export default function SectionHead({ num, eyebrow, title, as: Heading = "h2", link, aside }: Props) {
   return (
-    <div className={styles.head}>
-      <span className={styles.num}>{num ?? "—"}</span>
+    <div className={`${styles.head} ${num ? "" : styles.noNum}`}>
+      {num && <span className={styles.num}>{num}</span>}
       <div>
         <span className="d-eyebrow">{eyebrow}</span>
         <Heading className={styles.title}>{title}</Heading>
