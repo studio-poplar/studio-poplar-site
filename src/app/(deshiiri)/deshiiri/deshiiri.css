@@ -189,6 +189,12 @@ body:has(.deshiiri) {
   background: linear-gradient(90deg, var(--maku-1) 0 33.33%, var(--maku-2) 33.33% 66.66%, var(--maku-3) 66.66%);
 }
 
+/* お知らせ帯（黒）が出ているあいだは幕を消す。幕の左1/3は帯と同じ黒なので、
+   重なると帯の上端が段違いに見える */
+.deshiiri:has([data-announce]) .d-maku {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .deshiiri *,
   .deshiiri *::before,

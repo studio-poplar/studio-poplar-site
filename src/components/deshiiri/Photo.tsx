@@ -30,7 +30,11 @@ export default function Photo({ src, alt, ratio, sizes, priority, className }: P
       {hasImage ? (
         <>
           <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={styles.img} />
-          {isSampleImage(src) && <span className={styles.aiLabel}>AI生成のイメージ</span>}
+          {isSampleImage(src) && (
+            <span className={styles.aiLabel}>
+              AI生成<span className={styles.aiLabelRest}>のイメージ</span>
+            </span>
+          )}
         </>
       ) : (
         <div className={styles.placeholder} role="img" aria-label={`写真：${alt}`}>

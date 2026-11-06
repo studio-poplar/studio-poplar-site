@@ -3,6 +3,8 @@
   width: 100%;
   overflow: hidden;
   background: var(--ph);
+  /* lets the AI label shorten itself on small thumbnails */
+  container-type: inline-size;
 }
 
 .img {
@@ -34,4 +36,17 @@
   color: #fff;
   background: rgba(20, 19, 17, 0.62);
   padding: 4px 6px;
+  white-space: nowrap;
+}
+
+/* small thumbnails: "AI生成" only, so the label never wraps */
+@container (max-width: 160px) {
+  .aiLabel {
+    right: 4px;
+    bottom: 4px;
+  }
+
+  .aiLabelRest {
+    display: none;
+  }
 }

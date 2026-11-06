@@ -13,6 +13,8 @@
   flex: 1;
   min-width: 0;
   text-align: center;
+  /* break between phrases, so a lone 「す。」 never drops to the next line */
+  word-break: auto-phrase;
 }
 
 .text b {
@@ -42,6 +44,13 @@
 
 .close:hover {
   opacity: 1;
+}
+
+/* タブレット〜拡大表示のPC: 長い一文を外して1行に収める（2行目にリンクだけ落ちるのを防ぐ） */
+@media (max-width: 1180px) {
+  .long {
+    display: none;
+  }
 }
 
 @media (max-width: 880px) {

@@ -36,6 +36,8 @@
   letter-spacing: 0.06em;
   display: flex;
   flex-wrap: wrap;
+  /* 和文と英字の番号を、文字の下端でそろえる（上ぞろえだと番号だけ浮いて見える） */
+  align-items: baseline;
   gap: 4px 16px;
 }
 

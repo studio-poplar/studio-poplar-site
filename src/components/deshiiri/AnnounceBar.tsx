@@ -38,7 +38,7 @@ export default function AnnounceBar() {
   };
 
   return (
-    <div className={styles.bar} role="region" aria-label="お知らせ">
+    <div className={styles.bar} role="region" aria-label="お知らせ" data-announce>
       <p className={styles.text}>
         <b>先行公開中</b>
         <span className={styles.long}>いま載せている記事は、形を見ていただくためのイメージ案です。</span>

@@ -110,9 +110,11 @@
 
 .featurePhoto {
   transition: opacity 0.3s var(--ease);
-  /* 4:5 のままだと画面からはみ出すので、画面の高さから逆算する */
+  /* 4:5 のままだと画面からはみ出すので、画面の高さから逆算する。
+     min-height にして、縦書きの帯のほうが長いとき（画面が低い・拡大表示）は
+     写真が帯に合わせて伸びる。height で固定すると帯だけが写真の下にはみ出す */
   aspect-ratio: auto !important;
-  height: clamp(300px, calc(100svh - 360px), 720px);
+  min-height: clamp(300px, calc(100svh - 360px), 720px);
 }
 
 .feature:hover .featurePhoto {
@@ -378,6 +380,17 @@
   .can b {
     font-size: 16px;
   }
+
+  /* 帯の縦書きも詰めて、写真の高さに収める */
+  .band {
+    gap: 12px;
+    padding-block: 16px;
+  }
+
+  .bandJob {
+    font-size: 26px;
+    letter-spacing: 0.18em;
+  }
 }
 
 @media (max-width: 880px) {
@@ -397,7 +410,7 @@
   }
 
   .featurePhoto {
-    height: min(110vw, 68svh);
+    min-height: min(110vw, 68svh);
   }
 
   .bandJob {

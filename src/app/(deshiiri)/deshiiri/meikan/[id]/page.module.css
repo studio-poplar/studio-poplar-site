@@ -93,7 +93,9 @@
     gap: 32px;
   }
 
-  .top > :first-child {
-    max-width: 320px;
+  /* 写真は本文と同じ幅にそろえ、高さで抑える（幅を絞ると右に半端な余白が出る） */
+  .portrait {
+    aspect-ratio: 4 / 5 !important;
+    max-height: 62svh;
   }
 }
