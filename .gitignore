@@ -43,3 +43,6 @@ next-env.d.ts
 
 # Claude Code (personal notes)
 CLAUDE.local.md
+
+# Local scratch files (mockups, one-off scripts)
+scratch/
