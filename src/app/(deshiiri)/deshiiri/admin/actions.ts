@@ -69,3 +69,24 @@ export async function runChecks(): Promise<CheckResult[]> {
 
   return results;
 }
+
+export type MigrateResult = { ok: boolean; detail: string };
+
+/**
+ * drizzle/ のマイグレーションのうち、まだ当てていないものを当てる。
+ * 接続文字列を手元に置かずに済むよう、Vercel 上で編集部が押して動かす。
+ * Neon の HTTP 接続はトランザクションが使えないので、途中で失敗したら内容を見て手で直す。
+ */
+export async function applyMigrations(): Promise<MigrateResult> {
+  await assertAdmin();
+  try {
+    const path = await import("node:path");
+    const { migrate } = await import("drizzle-orm/neon-http/migrator");
+    await migrate(db(), { migrationsFolder: path.join(process.cwd(), "drizzle") });
+    const rows = await db().execute(sql`select count(*)::int as n from drizzle.__drizzle_migrations`);
+    const n = Number((rows.rows[0] as { n: number } | undefined)?.n ?? 0);
+    return { ok: true, detail: `表は最新です（当て済みのマイグレーション ${n} 件）` };
+  } catch (e) {
+    return { ok: false, detail: e instanceof MissingEnvError ? e.message : `失敗しました（${e instanceof Error ? e.name : "不明なエラー"}）` };
+  }
+}

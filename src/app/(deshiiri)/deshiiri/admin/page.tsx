@@ -3,6 +3,7 @@ import { requireAdminPage } from "@/lib/deshiiri/admin-auth";
 import { envStatus } from "@/lib/deshiiri/env";
 import { logout } from "./actions";
 import Checks from "./Checks";
+import Migrate from "./Migrate";
 import styles from "./admin.module.css";
 
 export default async function AdminHome() {
@@ -42,6 +43,14 @@ export default async function AdminHome() {
             ))}
           </tbody>
         </table>
+      </section>
+
+      <section className={styles.section}>
+        <h2>データベースの表</h2>
+        <p className={styles.note}>
+          コードに入っている表の形（drizzle/ のマイグレーション）を Neon に当てます。何度押しても、当て済みのものは飛ばします。
+        </p>
+        <Migrate />
       </section>
 
       <section className={styles.section}>
