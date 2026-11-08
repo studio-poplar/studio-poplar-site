@@ -102,3 +102,38 @@ export async function applyMigrations(): Promise<MigrateResult> {
     return { ok: false, detail: e instanceof MissingEnvError ? e.message : `失敗しました（${e instanceof Error ? e.name : "不明なエラー"}）` };
   }
 }
+
+/**
+ * LINE のリッチメニュー（指示書 6章：写真を送る／見学の受付を止める・再開／使い方／デシイリに連絡）を作り、
+ * 全員の既定にする。テスト用と本番用の LINE それぞれで1回押す。押し直すと新しいメニューに入れ替わる。
+ */
+export async function setupRichMenu(): Promise<MigrateResult> {
+  await assertAdmin();
+  try {
+    const { readFile } = await import("node:fs/promises");
+    const path = await import("node:path");
+    const { lineClient, lineBlob } = await import("@/lib/deshiiri/line/client");
+    const W = 2500;
+    const H = 843;
+    const cw = W / 4;
+    const area = (i: number) => ({ x: Math.round(i * cw), y: 0, width: Math.round(cw), height: H });
+    const { richMenuId } = await lineClient().createRichMenu({
+      size: { width: W, height: H },
+      selected: true,
+      name: "deshiiri-main",
+      chatBarText: "メニュー",
+      areas: [
+        { bounds: area(0), action: { type: "postback", data: "action=howto_send", displayText: "写真を送る" } },
+        { bounds: area(1), action: { type: "postback", data: "action=toggle_visit", displayText: "見学の受付を切り替える" } },
+        { bounds: area(2), action: { type: "postback", data: "action=help", displayText: "使い方" } },
+        { bounds: area(3), action: { type: "uri", uri: "https://www.studiopoplar.com/deshiiri/contact" } },
+      ],
+    });
+    const image = await readFile(path.join(process.cwd(), "src/lib/deshiiri/line/richmenu.png"));
+    await lineBlob().setRichMenuImage(richMenuId, new Blob([new Uint8Array(image)], { type: "image/png" }));
+    await lineClient().setDefaultRichMenu(richMenuId);
+    return { ok: true, detail: "リッチメニューを設定しました（LINE のトークを開き直すと出ます）" };
+  } catch (e) {
+    return { ok: false, detail: e instanceof MissingEnvError ? e.message : `失敗しました（${e instanceof Error ? e.message.slice(0, 200) : "不明なエラー"}）` };
+  }
+}

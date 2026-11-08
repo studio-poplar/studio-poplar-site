@@ -28,7 +28,7 @@ const legacyWixRedirects = [
 const nextConfig: NextConfig = {
   // 管理画面の「表を作る・更新する」が drizzle/ のマイグレーションを読むので、関数に同梱する。
   outputFileTracingIncludes: {
-    "/deshiiri/admin": ["./drizzle/**/*"],
+    "/deshiiri/admin": ["./drizzle/**/*", "./src/lib/deshiiri/line/richmenu.png"],
   },
   async redirects() {
     return [

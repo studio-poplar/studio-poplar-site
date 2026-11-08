@@ -88,6 +88,8 @@ export const craftspeople = pgTable(
     consentAt: ts("consent_at"),
     voiceNotes: jsonb("voice_notes").$type<VoiceNotes>().notNull().default({}),
     lastTemplate: templateEnum("last_template"),
+    /** 共有ドライブ「デシイリ原本」の中の、この職人の写真フォルダ。最初の写真が届いたときに作る。 */
+    driveFolderId: text("drive_folder_id"),
     featured: boolean("featured").notNull().default(false),
     orgId: uuid("org_id"),
     region: text("region").notNull().default("kanagawa"),
@@ -115,6 +117,12 @@ export const works = pgTable(
       .references(() => craftspeople.id, { onDelete: "cascade" }),
     status: workStatusEnum("status").notNull().default("received"),
     ownerWords: text("owner_words").notNull().default(""),
+    /** 受け取った写真の枚数。写真の保存は返信のあとで行うので、枚数はここで先に数える（最大4）。 */
+    photoCount: integer("photo_count").notNull().default(0),
+    /** LINE でまとめて送られた写真の組（imageSet.id）。同じ組を1件にまとめるために使う。 */
+    lineImageSetId: text("line_image_set_id").unique(),
+    /** 一言が短いときに質問を返した時刻。30分以内の返事を一言に足す。 */
+    ownerQuestionAt: ts("owner_question_at"),
     draft: jsonb("draft").$type<Draft>(),
     publicTitle: text("public_title"),
     publicBody: text("public_body"),

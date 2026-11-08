@@ -2,7 +2,9 @@ import SectionHead from "@/components/deshiiri/SectionHead";
 import { requireAdminPage } from "@/lib/deshiiri/admin-auth";
 import { envStatus } from "@/lib/deshiiri/env";
 import { logout } from "./actions";
+import Link from "next/link";
 import Checks from "./Checks";
+import RichMenu from "./RichMenu";
 import Migrate from "./Migrate";
 import styles from "./admin.module.css";
 
@@ -21,6 +23,19 @@ export default async function AdminHome() {
           </button>
         </form>
       </div>
+
+      <nav className={styles.nav} aria-label="編集部の画面">
+        <Link href="/deshiiri/admin/craftspeople">職人と招待コード</Link>
+        <Link href="/deshiiri/admin/works">届いた投稿</Link>
+      </nav>
+
+      <section className={styles.section}>
+        <h2>LINE</h2>
+        <p className={styles.note}>
+          LINE の受付窓口の URL は <code>/deshiiri/api/line/webhook</code> です。リッチメニューは、つなぎ先の LINE ごとに1回設定します。
+        </p>
+        <RichMenu />
+      </section>
 
       <section className={styles.section}>
         <h2>接続の状態</h2>

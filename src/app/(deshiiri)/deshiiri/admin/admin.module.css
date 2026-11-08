@@ -125,3 +125,114 @@
     padding-top: 14px;
   }
 }
+
+.crumb {
+  font-size: 13px;
+  color: var(--sub);
+  margin: 0 0 12px;
+}
+
+.crumb a,
+.nav a {
+  color: inherit;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: 16px/1.6 var(--f-body);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  min-width: 0;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--kaki);
+  outline-offset: 1px;
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  background: var(--card);
+}
+
+.card h3 {
+  font: 700 17px/1.5 var(--f-body);
+  margin: 0 0 4px;
+}
+
+.card h3 small {
+  font-weight: 400;
+  color: var(--sub);
+  margin-left: 6px;
+  font-size: 13px;
+}
+
+.card p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.code {
+  font-family: var(--f-en);
+  font-size: 20px;
+  letter-spacing: 0.12em;
+}
+
+.words {
+  white-space: pre-wrap;
+}
+
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.thumbs img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--ph);
+}

@@ -70,3 +70,14 @@ export async function folderName(): Promise<string> {
   const res = await drive().files.get({ fileId: rootFolder(), fields: "name", supportsAllDrives: true });
   return res.data.name ?? "";
 }
+
+/** 「デシイリ原本」の直下にフォルダを作り、ID を返す。 */
+export async function createFolder(name: string, parentId?: string): Promise<string> {
+  const res = await drive().files.create({
+    requestBody: { name, mimeType: "application/vnd.google-apps.folder", parents: [parentId ?? rootFolder()] },
+    fields: "id",
+    supportsAllDrives: true,
+  });
+  if (!res.data.id) throw new Error("ドライブにフォルダを作れませんでした");
+  return res.data.id;
+}
