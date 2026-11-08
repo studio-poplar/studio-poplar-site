@@ -57,8 +57,12 @@ export async function uploadFile(name: string, body: Uint8Array, mimeType: strin
   return res.data.id;
 }
 
-export async function deleteFile(fileId: string) {
-  await drive().files.delete({ fileId, supportsAllDrives: true });
+/**
+ * ゴミ箱へ移す。共有ドライブの「コンテンツ管理者」は完全削除ができないため（完全削除は「管理者」だけ）。
+ * ゴミ箱の中身は 30 日で自動的に消え、それまでは元に戻せる。
+ */
+export async function trashFile(fileId: string) {
+  await drive().files.update({ fileId, requestBody: { trashed: true }, supportsAllDrives: true });
 }
 
 /** 接続の確認用。フォルダの名前を返す。 */

@@ -49,10 +49,10 @@ export async function runChecks(): Promise<CheckResult[]> {
   }
 
   try {
-    const { uploadFile, deleteFile } = await import("@/lib/deshiiri/services/drive");
+    const { uploadFile, trashFile } = await import("@/lib/deshiiri/services/drive");
     const id = await uploadFile(`_check-${Date.now()}.txt`, new TextEncoder().encode("ok"), "text/plain");
-    await deleteFile(id);
-    results.push({ service: "Google ドライブ", ok: true, detail: "共有ドライブに書き込み・削除ができました" });
+    await trashFile(id);
+    results.push({ service: "Google ドライブ", ok: true, detail: "共有ドライブに書き込み、ゴミ箱へ移せました" });
   } catch (e) {
     results.push(failure("Google ドライブ", e));
   }
