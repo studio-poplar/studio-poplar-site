@@ -5,6 +5,7 @@ import { signOut } from "@/auth";
 import { assertAdmin } from "@/lib/deshiiri/admin-auth";
 import { db } from "@/lib/deshiiri/db";
 import { MissingEnvError } from "@/lib/deshiiri/env";
+import { scrubText } from "@/lib/deshiiri/sentry-scrub";
 
 export async function logout() {
   await assertAdmin();
@@ -14,9 +15,11 @@ export async function logout() {
 export type CheckResult = { service: string; ok: boolean; detail: string };
 
 function failure(service: string, e: unknown): CheckResult {
-  // 中身（キーやメール）を画面に出さないよう、種類だけ返す。
-  const detail = e instanceof MissingEnvError ? e.message : e instanceof Error ? e.name : "不明なエラー";
-  return { service, ok: false, detail };
+  // 外部サービスの説明文は編集部だけが見る画面に出す（原因の切り分けのため）。
+  // メールアドレスなどは伏せ、長さも切る。
+  if (e instanceof MissingEnvError) return { service, ok: false, detail: e.message };
+  const message = e instanceof Error ? `${e.name}: ${e.message}` : "不明なエラー";
+  return { service, ok: false, detail: scrubText(message).slice(0, 300) };
 }
 
 /** M0 の接続確認。書き込みを伴うものは、確認用のファイルを置いてすぐ消す。 */
