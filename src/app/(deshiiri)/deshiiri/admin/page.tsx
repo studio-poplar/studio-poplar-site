@@ -56,7 +56,7 @@ export default async function AdminHome() {
       <section className={styles.section}>
         <h2>つないで確かめる</h2>
         <p className={styles.note}>
-          Neon・R2・ドライブ・Resend に実際につなぎます。R2 とドライブには確認用のファイルを置いてすぐ消し、Resend はログイン中のアドレスに確認メールを1通送ります。
+          Neon・R2・ドライブ・Resend・Sentry に実際につなぎます。R2 とドライブには確認用のファイルを置いてすぐ消し、Resend はログイン中のアドレスに確認メールを1通、Sentry にはテストの知らせを1件送ります。
         </p>
         <Checks />
       </section>

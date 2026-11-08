@@ -65,11 +65,19 @@ export async function runChecks(): Promise<CheckResult[]> {
     results.push(failure("Resend", e));
   }
 
-  results.push({
-    service: "Sentry",
-    ok: Boolean(process.env.SENTRY_DSN),
-    detail: process.env.SENTRY_DSN ? "設定済み（サーバー側のエラーだけ送ります）" : "SENTRY_DSN が未設定です",
-  });
+  try {
+    const Sentry = await import("@sentry/nextjs");
+    if (!Sentry.getClient()) throw new MissingEnvError("SENTRY_DSN");
+    Sentry.captureMessage("【デシイリ】接続の確認（テスト送信）", "info");
+    const sent = await Sentry.flush(5000);
+    results.push({
+      service: "Sentry",
+      ok: sent,
+      detail: sent ? "テスト送信しました（Sentry の deshiiri プロジェクトに info で届きます）" : "送信が時間内に終わりませんでした",
+    });
+  } catch (e) {
+    results.push(failure("Sentry", e));
+  }
 
   return results;
 }
