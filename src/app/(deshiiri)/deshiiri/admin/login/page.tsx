@@ -20,7 +20,9 @@ export default async function AdminLoginPage({ searchParams }: PageProps<"/deshi
         <p className={styles.error} role="alert">
           {error === "AccessDenied"
             ? "このアカウントでは入れません。編集部に登録された Google アカウントでログインしてください。"
-            : "ログインできませんでした。もう一度お試しください。"}
+            : error === "Configuration"
+              ? "ログインの設定がまだ整っていません（AUTH_SECRET・AUTH_GOOGLE_ID・AUTH_GOOGLE_SECRET を Vercel に入れて、もう一度デプロイしてください）。"
+              : "ログインできませんでした。もう一度お試しください。"}
         </p>
       ) : null}
       <p className={styles.note}>デシイリ編集部の Google アカウントでログインします。</p>
