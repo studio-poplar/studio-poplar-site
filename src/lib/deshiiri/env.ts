@@ -30,7 +30,13 @@ export function isAdminEmail(email: string | null | undefined): boolean {
 export const SAAS_ENV = {
   Neon: ["DATABASE_URL"],
   "Cloudflare R2": ["R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET"],
-  "Google ドライブ": ["GOOGLE_DRIVE_FOLDER_ID", "GOOGLE_SERVICE_ACCOUNT_JSON"],
+  "Google ドライブ": [
+    "GOOGLE_DRIVE_FOLDER_ID",
+    "GCP_PROJECT_NUMBER",
+    "GCP_WORKLOAD_IDENTITY_POOL_ID",
+    "GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID",
+    "GCP_SERVICE_ACCOUNT_EMAIL",
+  ],
   "Auth.js": ["AUTH_SECRET", "AUTH_GOOGLE_ID", "AUTH_GOOGLE_SECRET", "ADMIN_EMAILS"],
   LINE: ["LINE_CHANNEL_SECRET", "LINE_CHANNEL_ACCESS_TOKEN"],
   "Claude API": ["ANTHROPIC_API_KEY"],
