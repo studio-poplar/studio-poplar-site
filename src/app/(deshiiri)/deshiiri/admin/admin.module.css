@@ -1,0 +1,127 @@
+/* 編集部の管理画面。色・書体は公開中のデシイリの変数をそのまま使う。 */
+.page {
+  padding-top: 56px;
+  padding-bottom: 96px;
+  max-width: 880px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin: 8px 0 40px;
+  color: var(--sub);
+  font-size: 14px;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+.section h2 {
+  font: 700 20px/1.5 var(--f-head);
+  margin: 0 0 14px;
+}
+
+.note {
+  color: var(--sub);
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 700;
+  white-space: nowrap;
+  width: 9em;
+}
+
+.vars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-family: var(--f-en);
+  font-size: 12.5px;
+  word-break: break-all;
+}
+
+.ok {
+  color: var(--moegi);
+}
+
+.ng {
+  color: var(--kaki);
+}
+
+.button {
+  font: 700 14px/1 var(--f-body);
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.button.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--kaki);
+  outline-offset: 2px;
+}
+
+.checks {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.checkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 14px;
+}
+
+.checkRow strong {
+  min-width: 9em;
+}
+
+.error {
+  border-left: 3px solid var(--kaki);
+  padding: 8px 14px;
+  margin: 0 0 24px;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .table th {
+    width: auto;
+  }
+  .table th,
+  .table td {
+    display: block;
+    padding: 6px 0;
+  }
+  .table th {
+    border-bottom: 0;
+    padding-top: 14px;
+  }
+}
