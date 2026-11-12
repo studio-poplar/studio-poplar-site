@@ -83,6 +83,8 @@ export default async function ReviewPage({ params }: PageProps<"/deshiiri/admin/
         <h2>下書き</h2>
         {!work.draft && work.status !== "editor_review" ? <p className={styles.note}>まだ下書きはありません。</p> : null}
         <ReviewForm
+          // 下書きを作り直したら欄を入れ替える（入力欄は最初の値しか見ないため）
+          key={`${work.status}-${work.updatedAt.getTime()}`}
           workId={work.id}
           status={work.status}
           title={work.publicTitle ?? ""}
