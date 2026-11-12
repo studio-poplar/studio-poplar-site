@@ -66,6 +66,13 @@ export default async function ReviewPage({ params }: PageProps<"/deshiiri/admin/
         <p className={styles.words}>{work.ownerWords || "（一言はありません）"}</p>
       </section>
 
+      {work.ownerFixNote ? (
+        <section className={styles.section}>
+          <h2>本人から直してほしい点</h2>
+          <p className={`${styles.words} ${styles.ng}`}>{work.ownerFixNote}</p>
+        </section>
+      ) : null}
+
       {problems.length ? (
         <section className={styles.section}>
           <h2>機械で見つけた注意</h2>

@@ -13,7 +13,16 @@ const intake = vi.hoisted(() => ({
   toggleVisitOpen: vi.fn(),
 }));
 const client = vi.hoisted(() => ({ reply: vi.fn(), text: (t: string) => ({ type: "text", text: t }) }));
+const publish = vi.hoisted(() => ({
+  publishWork: vi.fn(),
+  publishedReply: vi.fn(() => [{ type: "text", text: "公開しました" }]),
+  requestFix: vi.fn(),
+  takeFixNote: vi.fn(async () => false),
+  withdrawWork: vi.fn(),
+  publishedOf: vi.fn(async (): Promise<{ id: string; publicTitle: string }[]> => []),
+}));
 vi.mock("./intake", () => intake);
+vi.mock("@/lib/deshiiri/publish", () => publish);
 vi.mock("./client", () => client);
 
 import { handleEvent } from "./handler";
@@ -37,6 +46,8 @@ const later = vi.fn();
 beforeEach(() => {
   vi.clearAllMocks();
   intake.markEventSeen.mockResolvedValue(true);
+  publish.takeFixNote.mockResolvedValue(false);
+  publish.publishedOf.mockResolvedValue([]);
 });
 
 describe("同じイベントは2回処理しない", () => {
@@ -134,5 +145,54 @@ describe("登録済みの職人", () => {
     const ev = { ...base, type: "postback", postback: { data: "action=toggle_visit" } } as unknown as webhook.Event;
     await handleEvent(ev, later);
     expect(replied()).toEqual([MSG.visitClosed]);
+  });
+});
+
+const postback = (data: string) => ({ ...base, type: "postback", postback: { data } }) as unknown as webhook.Event;
+
+describe("本人確認（M3）", () => {
+  beforeEach(() => intake.findByLineUser.mockResolvedValue(person));
+
+  it("OK を押したら公開し、お知らせを返信で返す（プッシュしない）", async () => {
+    publish.publishWork.mockResolvedValue({ work: { id: "w1", craftspersonId: "p1" }, person });
+    await handleEvent(postback("action=owner_ok&work=w1"), later);
+    expect(publish.publishWork).toHaveBeenCalledWith("w1", "owner");
+    expect(replied()).toEqual(["公開しました"]);
+  });
+
+  it("他人の投稿の OK・済んだ確認は「済んでいます」と返す", async () => {
+    publish.publishWork.mockResolvedValue(null);
+    await handleEvent(postback("action=owner_ok&work=w9"), later);
+    expect(replied()).toEqual([MSG.alreadyHandled]);
+  });
+
+  it("直したいを押したら、直す点を書いてもらうよう返す", async () => {
+    publish.requestFix.mockResolvedValue(true);
+    await handleEvent(postback("action=owner_fix&work=w1"), later);
+    expect(publish.requestFix).toHaveBeenCalledWith("w1", "p1");
+    expect(replied()).toEqual([MSG.fixAsk]);
+  });
+
+  it("直したいのあとの文字は、新しい投稿にしない", async () => {
+    publish.takeFixNote.mockResolvedValue(true);
+    await handleEvent(textEvent("見出しの字を直してほしい"), later);
+    expect(intake.addWords).not.toHaveBeenCalled();
+    expect(replied()).toEqual([MSG.fixReceived]);
+  });
+
+  it("「取り下げ」と送ると、公開中の記事を選ばせる。なければそう返す", async () => {
+    await handleEvent(textEvent("取り下げ"), later);
+    expect(replied()).toEqual([MSG.nothingToWithdraw]);
+    publish.publishedOf.mockResolvedValue([{ id: "w1", publicTitle: "梁を削る" }]);
+    await handleEvent(textEvent("取り下げ。"), later);
+    const msg = client.reply.mock.calls.at(-1)?.[1][0];
+    expect(msg.template.actions[0].data).toBe("action=withdraw&work=w1");
+  });
+
+  it("取り下げるボタンは、自分の記事だけを取り下げる", async () => {
+    publish.withdrawWork.mockResolvedValue({ publicTitle: "梁を削る" });
+    await handleEvent(postback("action=withdraw&work=w1"), later);
+    expect(publish.withdrawWork).toHaveBeenCalledWith("w1", "p1");
+    expect(replied()).toEqual([MSG.withdrawn("梁を削る")]);
   });
 });

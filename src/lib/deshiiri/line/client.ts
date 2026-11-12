@@ -24,6 +24,16 @@ export function verifySignature(rawBody: string, signature: string | null): bool
   return validateSignature(rawBody, requireEnv("LINE_CHANNEL_SECRET"), signature);
 }
 
+/**
+ * こちらから送る通知（プッシュ）。月200通の無料枠を数えるため、送ったら必ず push_log に残す。
+ * kind は何の知らせか（owner_review / auto_published など）。
+ */
+export async function push(to: string, kind: string, messages: messagingApi.Message[]) {
+  await lineClient().pushMessage({ to, messages: messages.slice(0, 5) });
+  const { db, schema } = await import("@/lib/deshiiri/db");
+  await db().insert(schema.pushLog).values({ toLineUserId: to, kind });
+}
+
 export async function reply(replyToken: string, messages: messagingApi.Message[]) {
   await lineClient().replyMessage({ replyToken, messages: messages.slice(0, 5) });
 }

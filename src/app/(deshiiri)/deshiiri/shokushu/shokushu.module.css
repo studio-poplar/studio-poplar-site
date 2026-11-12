@@ -1,0 +1,67 @@
+.trades {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.trades a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+  font: 700 20px/1.4 var(--f-head);
+}
+
+.trades a:hover {
+  color: var(--kaki);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 32px 24px;
+}
+
+.card {
+  display: grid;
+  gap: 8px;
+  color: inherit;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--ph);
+  border-radius: 2px;
+}
+
+.card h2 {
+  font: 700 19px/1.5 var(--f-head);
+  margin: 4px 0 0;
+}
+
+.card:hover h2 {
+  color: var(--kaki);
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--sub);
+  margin: 0;
+}
+
+.latest {
+  font-size: 14px;
+  margin: 0;
+}
+
+.notice {
+  margin-top: 40px;
+  padding: 20px 24px;
+  background: var(--bg-2);
+  font-size: 14px;
+}

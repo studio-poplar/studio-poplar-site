@@ -11,6 +11,7 @@ import {
   toggleVisitOpen,
 } from "./intake";
 import { MSG } from "./messages";
+import { publishedOf, publishedReply, publishWork, requestFix, takeFixNote, withdrawWork } from "@/lib/deshiiri/publish";
 import { MAX_PHOTOS, parseInviteCode } from "./rules";
 
 // LINE の1イベントを処理する。返信はその場で（無料・1分以内）、写真の保存は返信のあとで行う。
@@ -63,7 +64,22 @@ export async function handleEvent(event: webhook.Event, later: Later): Promise<v
   }
 
   if (event.type === "postback") {
-    const action = new URLSearchParams(event.postback.data).get("action");
+    const params = new URLSearchParams(event.postback.data);
+    const action = params.get("action");
+    const workId = params.get("work") ?? "";
+    if (action === "owner_ok") {
+      // 本人の OK：すぐ公開し、お知らせと Instagram 用文章は返信で（数えない）。
+      const result = await publishWork(workId, "owner");
+      if (!result || result.work.craftspersonId !== person.id) return send(text(MSG.alreadyHandled));
+      return send(...publishedReply(result.work, result.person));
+    }
+    if (action === "owner_fix") {
+      return send(text((await requestFix(workId, person.id)) ? MSG.fixAsk : MSG.alreadyHandled));
+    }
+    if (action === "withdraw") {
+      const work = await withdrawWork(workId, person.id);
+      return send(text(work ? MSG.withdrawn(work.publicTitle ?? "") : MSG.alreadyHandled));
+    }
     if (action === "howto_send") return send({ ...text(MSG.howToSend), quickReply: photoQuickReply });
     if (action === "toggle_visit") {
       const open = await toggleVisitOpen(person);
@@ -95,6 +111,26 @@ export async function handleEvent(event: webhook.Event, later: Later): Promise<v
   }
 
   if (message.type === "text") {
+    if (message.text.trim().replace(/[。！!]$/, "") === "取り下げ") {
+      const published = await publishedOf(person.id, 3);
+      if (!published.length) return send(text(MSG.nothingToWithdraw));
+      return send({
+        type: "template",
+        altText: MSG.withdrawChoose,
+        template: {
+          type: "buttons",
+          text: MSG.withdrawChoose,
+          actions: published.map((w) => ({
+            type: "postback" as const,
+            label: (w.publicTitle ?? "記事").slice(0, 20),
+            data: `action=withdraw&work=${w.id}`,
+            displayText: "取り下げる",
+          })),
+        },
+      });
+    }
+    // 「直したい」のあとに届いた文字は、新しい投稿ではなく直してほしい点として受け取る。
+    if (await takeFixNote(person.id, message.text)) return send(text(MSG.fixReceived));
     const result = await addWords(person, message.text);
     if (result.kind === "answer") return send(text(MSG.answerReceived));
     if (result.askQuestion) return send(text(MSG.question));

@@ -123,6 +123,9 @@ export const works = pgTable(
     lineImageSetId: text("line_image_set_id").unique(),
     /** 一言が短いときに質問を返した時刻。30分以内の返事を一言に足す。 */
     ownerQuestionAt: ts("owner_question_at"),
+    /** 本人確認で「直したい」が押された時刻と、本人が書いた直してほしい点。 */
+    ownerFixRequestedAt: ts("owner_fix_requested_at"),
+    ownerFixNote: text("owner_fix_note"),
     draft: jsonb("draft").$type<Draft>(),
     publicTitle: text("public_title"),
     publicBody: text("public_body"),

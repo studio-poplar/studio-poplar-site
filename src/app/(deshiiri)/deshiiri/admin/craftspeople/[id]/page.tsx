@@ -22,6 +22,15 @@ export default async function EditCraftspersonPage({ params }: PageProps<"/deshi
       <p className={styles.note}>
         短い名前（URL）：/p/{p.slug}（変えると職人ページの URL が変わるので、ここでは直せません）
       </p>
+      <p className={styles.note}>
+        <a href={`/deshiiri/p/${p.slug}`} target="_blank" rel="noopener">
+          職人ページを開く
+        </a>
+        {" ／ "}
+        <a href={`/deshiiri/admin/craftspeople/${p.id}/qr`} download>
+          QR コード（PNG）を保存
+        </a>
+      </p>
       <EditForm
         id={p.id}
         displayName={p.displayName}

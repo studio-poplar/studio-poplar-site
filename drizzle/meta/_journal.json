@@ -15,6 +15,13 @@
       "when": 1794136058192,
       "tag": "0001_line_intake",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794482331646,
+      "tag": "0002_owner_fix",
+      "breakpoints": true
     }
   ]
 }

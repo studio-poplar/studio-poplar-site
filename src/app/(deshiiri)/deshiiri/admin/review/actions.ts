@@ -6,10 +6,10 @@ import { z } from "zod";
 import { assertAdmin } from "@/lib/deshiiri/admin-auth";
 import { db, schema } from "@/lib/deshiiri/db";
 import { draftNow } from "@/lib/deshiiri/drafts";
+import { sendOwnerReview } from "@/lib/deshiiri/publish";
 import { findBannedWords } from "@/lib/deshiiri/writing/banned-words";
 
 // S-5 確認待ち（指示書 M2）。編集部が下書きを直し、本人確認へ進めるか差し戻す。
-// 本人への LINE 送信は M3 で足す（ここでは状態を owner_review にするまで）。
 
 export type ReviewState = { ok: boolean; message: string } | null;
 
@@ -66,9 +66,15 @@ export async function saveReview(_prev: ReviewState, form: FormData): Promise<Re
   const work = await save(r.value);
   if (intent === "proceed") {
     if (work.status !== "editor_review") return { ok: false, message: "この投稿は確認待ちではありません" };
-    await db().update(schema.works).set({ status: "owner_review", reviewer: editor }).where(eq(schema.works.id, work.id));
+    await db().update(schema.works).set({ reviewer: editor }).where(eq(schema.works.id, work.id));
+    try {
+      // 本人に LINE で完成形と「OK／直したい」を送る（プッシュ1通）。送れたら owner_review になる。
+      await sendOwnerReview(work.id);
+    } catch (e) {
+      return { ok: false, message: `本人に送れませんでした（${e instanceof Error ? e.message : "不明なエラー"}）。保存はできています。` };
+    }
     revalidatePath("/deshiiri/admin/review");
-    return { ok: true, message: "本人確認へ進めました（LINE での本人確認は M3 でつなぎます）" };
+    return { ok: true, message: "本人に LINE で確認を送りました。24時間お返事がなければ自動で公開します。" };
   }
   revalidatePath(`/deshiiri/admin/review/${work.id}`);
   return { ok: true, message: "保存しました" };
