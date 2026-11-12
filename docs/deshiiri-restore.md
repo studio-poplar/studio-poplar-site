@@ -2,7 +2,7 @@
 
 ## バックアップのしくみ
 
-- 毎晩 3:00（日本時間）に、定時の仕事 `/deshiiri/api/cron/nightly` がデータベースの中身を JSON にして gzip し、共有ドライブ「デシイリ原本」の「バックアップ」フォルダに保存します。
+- 毎晩 3:00（日本時間）に、定時の仕事 `/deshiiri/api/cron/nightly` がデータベースの中身を JSON にして gzip し、共有ドライブ「デシイリ原本」の「バックアップ」フォルダに保存します（プレビューのテスト用データは「バックアップ（プレビュー）」に分けて保存します）。
 - ファイル名は `deshiiri-backup_YYYY-MM-DD_HHMM.json.gz`（日本時間）。30 個を残し、古いものはドライブのゴミ箱へ移します（ゴミ箱は 30 日で自動的に空になります）。
 - 管理画面の「運用」から、いつでも手で保存できます（「今すぐバックアップする」）。
 - 入っている表：craftspeople, invite_codes, works, work_photos, visit_requests, push_log, batch_jobs, events。line_events（LINE の二重処理よけの控え）は入れていません。

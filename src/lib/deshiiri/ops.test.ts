@@ -50,3 +50,11 @@ describe("似てきた言い回しを探す", () => {
   });
   it("書き出しは最初の一文", () => expect(firstSentence("朝。昼。")).toBe("朝。"));
 });
+
+describe("本番の準備", () => {
+  it("本番とプレビューのバックアップは別のフォルダ", async () => {
+    const { backupFolderName } = await import("./backup");
+    expect(backupFolderName("production")).toBe("バックアップ");
+    expect(backupFolderName("preview")).toBe("バックアップ（プレビュー）");
+  });
+});

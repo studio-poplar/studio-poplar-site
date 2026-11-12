@@ -23,6 +23,9 @@ export const BACKUP_TABLES = [
 
 export const KEEP_BACKUPS = 30;
 
+/** 本番とプレビュー（テスト用のデータ）のバックアップを混ぜないよう、フォルダを分ける。 */
+export const backupFolderName = (env = process.env.VERCEL_ENV) => (env === "production" ? "バックアップ" : "バックアップ（プレビュー）");
+
 export type BackupFile = {
   format: "deshiiri-backup";
   version: 1;
@@ -52,7 +55,7 @@ export function backupsToTrash<T>(newestFirst: T[], keep = KEEP_BACKUPS): T[] {
 export async function runBackup(now = new Date()) {
   const data = await exportData(now);
   const gz = gzipSync(Buffer.from(JSON.stringify(data)));
-  const folder = await ensureFolder("バックアップ");
+  const folder = await ensureFolder(backupFolderName());
   const name = backupName(now);
   await uploadFile(name, gz, "application/gzip", folder);
   const files = (await listFiles(folder)).filter((f) => f.name.startsWith("deshiiri-backup_"));

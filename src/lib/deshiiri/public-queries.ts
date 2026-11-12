@@ -33,6 +33,27 @@ export type PublicListItem = PublicPerson & { latestWork: PublicWork | null; lat
 
 const hasDb = () => Boolean(process.env.DATABASE_URL);
 
+/**
+ * 表（または列）がまだない＝マイグレーションを当てる前。新しい環境の最初のビルドがここで落ちないよう、
+ * そのときだけ「まだ誰もいない」として扱う。ほかの失敗はそのまま投げる。
+ */
+export function beforeMigration(e: unknown): boolean {
+  for (let cur: unknown = e, i = 0; cur && i < 4; cur = (cur as { cause?: unknown }).cause, i++) {
+    const code = (cur as { code?: unknown }).code;
+    if (code === "42P01" || code === "42703") return true;
+  }
+  return false;
+}
+
+async function orEmpty<T>(empty: T, run: () => Promise<T>): Promise<T> {
+  try {
+    return await run();
+  } catch (e) {
+    if (beforeMigration(e)) return empty;
+    throw e;
+  }
+}
+
 // 読む列はここに書いたものだけ（LINE の ID などは DB からも取り出さない）。
 // 列を足すマイグレーションが当たる前のビルドでも落ちないように、select() で全部の列を取らない。
 const c = schema.craftspeople;
@@ -118,11 +139,13 @@ export function getPublicPerson(slug: string) {
   return unstable_cache(
     async (): Promise<{ person: PublicPerson; works: PublicWork[] } | null> => {
       if (!hasDb()) return null;
-      const [p] = await db().select(personCols).from(c).where(eq(c.slug, slug)).limit(1);
-      if (!p) return null;
-      const works = (await publishedWorks([p.id])).map((w) => w.work);
-      if (!works.length) return null;
-      return { person: toPublicPerson(p), works };
+      return orEmpty(null, async () => {
+        const [p] = await db().select(personCols).from(c).where(eq(c.slug, slug)).limit(1);
+        if (!p) return null;
+        const works = (await publishedWorks([p.id])).map((w) => w.work);
+        if (!works.length) return null;
+        return { person: toPublicPerson(p), works };
+      });
     },
     ["deshiiri-person", slug],
     { tags: [PUBLIC_TAG, personTag(slug)] },
@@ -134,7 +157,7 @@ export function listByTrade(trade: Trade) {
   return unstable_cache(
     async (): Promise<PublicListItem[]> => {
       if (!hasDb()) return [];
-      const people = await db().select(personCols).from(c).where(eq(c.trade, trade));
+      const people = await orEmpty([], () => db().select(personCols).from(c).where(eq(c.trade, trade)));
       const since = new Date(Date.now() - ACTIVE_DAYS * 24 * 60 * 60 * 1000);
       const recent = await publishedWorks(people.map((p) => p.id), since);
       return people

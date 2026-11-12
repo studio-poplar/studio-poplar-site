@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { requireAdminPage } from "@/lib/deshiiri/admin-auth";
-import { KEEP_BACKUPS } from "@/lib/deshiiri/backup";
+import { KEEP_BACKUPS, backupFolderName } from "@/lib/deshiiri/backup";
 import { ensureFolder, listFiles } from "@/lib/deshiiri/services/drive";
 import { LIMITS, gb, mb, usageWarnings } from "@/lib/deshiiri/usage-rules";
 import { measureUsage } from "@/lib/deshiiri/usage";
@@ -26,7 +26,7 @@ export default async function OpsPage() {
   await requireAdminPage();
   const [usage, backups] = await Promise.all([
     safely(measureUsage),
-    safely(async () => (await listFiles(await ensureFolder("バックアップ"))).filter((f) => f.name.startsWith("deshiiri-backup_"))),
+    safely(async () => (await listFiles(await ensureFolder(backupFolderName()))).filter((f) => f.name.startsWith("deshiiri-backup_"))),
   ]);
   const warnings = usage ? usageWarnings(usage) : [];
 
@@ -79,7 +79,7 @@ export default async function OpsPage() {
       <section className={styles.section}>
         <h2>バックアップ</h2>
         <p className={styles.note}>
-          毎晩 3:00 に、データを共有ドライブ「デシイリ原本/バックアップ」に保存します（{KEEP_BACKUPS} 日分）。戻し方は <code>docs/deshiiri-restore.md</code>。
+          毎晩 3:00 に、データを共有ドライブ「デシイリ原本/{backupFolderName()}」に保存します（{KEEP_BACKUPS} 日分）。戻し方は <code>docs/deshiiri-restore.md</code>。
         </p>
         <BackupButton />
         {backups ? (
