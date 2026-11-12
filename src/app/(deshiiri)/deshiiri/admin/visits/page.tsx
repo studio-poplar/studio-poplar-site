@@ -36,10 +36,7 @@ export default async function VisitsPage() {
       <article key={v.id} className={styles.card}>
         <h3>
           {p.displayName} ← {v.name}
-          <small>
-            {v.under18 ? "18歳未満・" : ""}
-            {v.schoolOrJob ?? ""}
-          </small>
+          <small>{[v.under18 ? "18歳未満" : "", v.schoolOrJob ?? ""].filter(Boolean).join("・")}</small>
         </h3>
         <ol className={styles.flow} aria-label="進み具合">
           {STEPS.map((s, i) =>
