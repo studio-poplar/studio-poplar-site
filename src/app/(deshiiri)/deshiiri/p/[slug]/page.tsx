@@ -96,7 +96,16 @@ export default async function PersonPage({ params }: PageProps<"/deshiiri/p/[slu
           <span className="d-eyebrow">VISIT</span>
           <h2>仕事場を見学する</h2>
           {person.visitOpen ? (
-            <p className={styles.note}>見学の申し込みは、まもなくこのページから受け付けます。</p>
+            <>
+              <p className={styles.note}>
+                {person.displayName}さんの仕事場を見学できます。申し込みは{person.displayName}さんの LINE に届きます。
+              </p>
+              <p className={styles.visitLink}>
+                <Link href={`/deshiiri/p/${person.slug}/visit`} className="d-btn">
+                  見学を申し込む
+                </Link>
+              </p>
+            </>
           ) : (
             <p className={styles.note}>ただいま受付を休んでいます。</p>
           )}

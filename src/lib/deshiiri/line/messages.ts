@@ -43,4 +43,13 @@ export const MSG = {
   withdrawChoose: "取り下げる記事を選んでください。",
   nothingToWithdraw: "いま職人ページに載っている記事はありません。",
   alreadyHandled: "この確認は、すでに済んでいます。",
+
+  // 見学の申し込み（M4）
+  visitConfirm: "見学を受けますか？",
+  visitRemind: "3日前に届いた見学の申し込みに、まだお返事がありません。受けるか見送るかを選んでください。",
+  visitAcceptedHowTo:
+    "この方のメールに、日にちの相談を送ってください。日にちが決まったら、下の「日が決まった」で教えてください。",
+  visitDeclined: "見送りました。申し込んだ方には、編集部から「今回は調整がつきませんでした」とお伝えします。",
+  visitDateSaved: (day: string) => `見学の日を「${day}」で記録しました。当日はよろしくお願いします。`,
+  visitAlreadyHandled: "この申し込みは、すでにお返事済みか、受付が終わっています。",
 } as const;

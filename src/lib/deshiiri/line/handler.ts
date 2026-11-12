@@ -11,7 +11,18 @@ import {
   toggleVisitOpen,
 } from "./intake";
 import { MSG } from "./messages";
-import { publishedOf, publishedReply, publishWork, requestFix, takeFixNote, withdrawWork } from "@/lib/deshiiri/publish";
+import {
+  publishedOf,
+  publishedReply,
+  publishWork,
+  refreshPublic,
+  requestFix,
+  takeFixNote,
+  withdrawWork,
+} from "@/lib/deshiiri/publish";
+import { fmtDay, parseVisitDate } from "@/lib/deshiiri/visits/rules";
+import { answerVisit, recordVisitDate } from "@/lib/deshiiri/visits/service";
+import { acceptedReply } from "@/lib/deshiiri/visits/texts";
 import { MAX_PHOTOS, parseInviteCode } from "./rules";
 
 // LINE の1イベントを処理する。返信はその場で（無料・1分以内）、写真の保存は返信のあとで行う。
@@ -83,7 +94,20 @@ export async function handleEvent(event: webhook.Event, later: Later): Promise<v
     if (action === "howto_send") return send({ ...text(MSG.howToSend), quickReply: photoQuickReply });
     if (action === "toggle_visit") {
       const open = await toggleVisitOpen(person);
+      refreshPublic(person); // 職人ページの「見学」の欄を作り直す
       return send(text(open ? MSG.visitOpened : MSG.visitClosed));
+    }
+    const visitId = params.get("visit") ?? "";
+    if (action === "visit_accept" || action === "visit_decline") {
+      // 「受ける」を押したときだけ、若者の連絡先を返信で渡す（数えない）。
+      const v = await answerVisit(visitId, person.id, action === "visit_accept");
+      if (!v) return send(text(MSG.visitAlreadyHandled));
+      return action === "visit_accept" ? send(...acceptedReply(v)) : send(text(MSG.visitDeclined));
+    }
+    if (action === "visit_date") {
+      const date = parseVisitDate(event.postback.params?.date);
+      const v = date ? await recordVisitDate(visitId, person.id, date) : null;
+      return send(text(v && date ? MSG.visitDateSaved(fmtDay(date)) : MSG.visitAlreadyHandled));
     }
     if (action === "help") return send(text(MSG.help));
     return;

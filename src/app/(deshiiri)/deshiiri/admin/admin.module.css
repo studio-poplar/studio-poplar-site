@@ -299,3 +299,54 @@ fieldset.field legend {
 .card h3 a {
   color: inherit;
 }
+
+/* S-6 見学の進行 */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 12px;
+  font-size: 12px;
+}
+
+.flow li {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  margin-right: -1px;
+  color: var(--sub);
+}
+
+.flow li[data-state="done"] {
+  color: var(--ink);
+  background: var(--bg-2);
+}
+
+.flow li[data-state="now"] {
+  color: #fff;
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.inline form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.inline input[type="date"] {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}

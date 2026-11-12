@@ -28,6 +28,7 @@ export default async function AdminHome() {
         <Link href="/deshiiri/admin/review">確認待ち</Link>
         <Link href="/deshiiri/admin/craftspeople">職人と招待コード</Link>
         <Link href="/deshiiri/admin/works">届いた投稿</Link>
+        <Link href="/deshiiri/admin/visits">見学の進行</Link>
       </nav>
 
       <section className={styles.section}>

@@ -20,7 +20,11 @@ const publish = vi.hoisted(() => ({
   takeFixNote: vi.fn(async () => false),
   withdrawWork: vi.fn(),
   publishedOf: vi.fn(async (): Promise<{ id: string; publicTitle: string }[]> => []),
+  refreshPublic: vi.fn(),
 }));
+const visits = vi.hoisted(() => ({ answerVisit: vi.fn(), recordVisitDate: vi.fn() }));
+vi.mock("@/lib/deshiiri/visits/service", () => visits);
+vi.mock("@/lib/deshiiri/site", () => ({ siteOrigin: () => "https://example.test" }));
 vi.mock("./intake", () => intake);
 vi.mock("@/lib/deshiiri/publish", () => publish);
 vi.mock("./client", () => client);
@@ -194,5 +198,58 @@ describe("本人確認（M3）", () => {
     await handleEvent(postback("action=withdraw&work=w1"), later);
     expect(publish.withdrawWork).toHaveBeenCalledWith("w1", "p1");
     expect(replied()).toEqual([MSG.withdrawn("梁を削る")]);
+  });
+});
+
+describe("見学の申し込みへの返事", () => {
+  const visit = {
+    id: "00000000-0000-4000-8000-000000000001",
+    name: "さくら",
+    email: "sakura@example.com",
+    under18: true,
+    guardianName: "保護者",
+    guardianEmail: "parent@example.com",
+    schoolOrJob: "高校2年",
+    wishes: ["12月の土曜"],
+    message: null,
+  };
+  const pb = (data: string, params?: Record<string, string>) =>
+    ({ ...base, type: "postback", postback: { data, params } }) as unknown as webhook.Event;
+  beforeEach(() => intake.findByLineUser.mockResolvedValue(person));
+
+  it("「受ける」で、その職人の申し込みだけを動かし、連絡先を返信で渡す", async () => {
+    visits.answerVisit.mockResolvedValue(visit);
+    await handleEvent(pb(`action=visit_accept&visit=${visit.id}`), later);
+    expect(visits.answerVisit).toHaveBeenCalledWith(visit.id, "p1", true);
+    const sent = client.reply.mock.calls.at(-1)?.[1];
+    expect(sent[0].text).toContain("sakura@example.com");
+    expect(sent[0].text).toContain("parent@example.com");
+    expect(sent[1].template.actions[0]).toMatchObject({ type: "datetimepicker", mode: "date" });
+  });
+
+  it("「今回は見送る」では連絡先を渡さない", async () => {
+    visits.answerVisit.mockResolvedValue(visit);
+    await handleEvent(pb(`action=visit_decline&visit=${visit.id}`), later);
+    expect(visits.answerVisit).toHaveBeenCalledWith(visit.id, "p1", false);
+    expect(replied()).toEqual([MSG.visitDeclined]);
+  });
+
+  it("返事済み・ほかの職人の申し込みには「すでに済んでいます」", async () => {
+    visits.answerVisit.mockResolvedValue(null);
+    await handleEvent(pb(`action=visit_accept&visit=${visit.id}`), later);
+    expect(replied()).toEqual([MSG.visitAlreadyHandled]);
+  });
+
+  it("「日が決まった」で選んだ日を日本時間で記録する", async () => {
+    visits.recordVisitDate.mockResolvedValue({ id: visit.id });
+    await handleEvent(pb(`action=visit_date&visit=${visit.id}`, { date: "2026-12-13" }), later);
+    expect(visits.recordVisitDate).toHaveBeenCalledWith(visit.id, "p1", new Date("2026-12-13T00:00:00+09:00"));
+    expect(replied()?.[0]).toContain("12月13日");
+  });
+
+  it("受付の休止・再開では職人ページを作り直す", async () => {
+    intake.toggleVisitOpen.mockResolvedValue(false);
+    await handleEvent(pb("action=toggle_visit"), later);
+    expect(publish.refreshPublic).toHaveBeenCalledWith(person);
   });
 });
