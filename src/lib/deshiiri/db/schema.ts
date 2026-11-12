@@ -186,6 +186,8 @@ export const visitRequests = pgTable(
     remindedAt: ts("reminded_at"),
     decidedAt: ts("decided_at"),
     visitDate: ts("visit_date"),
+    /** 1年たって若者の連絡先を消した時刻（指示書 5章）。行は数として残す。 */
+    contactErasedAt: ts("contact_erased_at"),
     createdAt: createdAt(),
   },
   (t) => [index("visit_requests_status_idx").on(t.status)],

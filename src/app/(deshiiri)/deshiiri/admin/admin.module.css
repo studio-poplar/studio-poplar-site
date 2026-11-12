@@ -350,3 +350,41 @@ fieldset.field legend {
   border: 1px solid var(--line);
   background: var(--bg);
 }
+
+/* 最近の投稿を並べて見る */
+.phrases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.phrases small,
+.openers small {
+  color: var(--sub);
+  margin-left: 4px;
+}
+
+.openers {
+  padding-left: 1.4em;
+  line-height: 2;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.compare p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.alert {
+  border: 1px solid var(--kaki);
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}

@@ -1,6 +1,9 @@
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { requireAdminPage } from "@/lib/deshiiri/admin-auth";
+import { count, gte } from "drizzle-orm";
+import { db, schema } from "@/lib/deshiiri/db";
 import { envStatus } from "@/lib/deshiiri/env";
+import { LIMITS, monthStartJst } from "@/lib/deshiiri/usage-rules";
 import { logout } from "./actions";
 import Link from "next/link";
 import Checks from "./Checks";
@@ -11,6 +14,13 @@ import styles from "./admin.module.css";
 export default async function AdminHome() {
   const email = await requireAdminPage();
   const status = envStatus();
+  // 月150通を超えたら、ここに警告を出す（指示書 6章）。DB がまだないときは数えない。
+  const pushes = await db()
+    .select({ n: count() })
+    .from(schema.pushLog)
+    .where(gte(schema.pushLog.sentAt, monthStartJst()))
+    .then((r) => r[0]?.n ?? 0)
+    .catch(() => 0);
 
   return (
     <div className={`d-wrap ${styles.page}`}>
@@ -24,11 +34,19 @@ export default async function AdminHome() {
         </form>
       </div>
 
+      {pushes > LIMITS.pushWarn ? (
+        <p className={styles.alert} role="alert">
+          LINE のプッシュが今月 {pushes} 通です（無料は {LIMITS.pushFree} 通まで）。<Link href="/deshiiri/admin/ops">運用</Link>
+        </p>
+      ) : null}
+
       <nav className={styles.nav} aria-label="編集部の画面">
         <Link href="/deshiiri/admin/review">確認待ち</Link>
         <Link href="/deshiiri/admin/craftspeople">職人と招待コード</Link>
         <Link href="/deshiiri/admin/works">届いた投稿</Link>
         <Link href="/deshiiri/admin/visits">見学の進行</Link>
+        <Link href="/deshiiri/admin/recent">最近の投稿を並べて見る</Link>
+        <Link href="/deshiiri/admin/ops">運用（容量・バックアップ）</Link>
       </nav>
 
       <section className={styles.section}>

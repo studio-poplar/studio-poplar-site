@@ -12,6 +12,14 @@
     {
       "path": "/deshiiri/api/cron/hourly",
       "schedule": "5 * * * *"
+    },
+    {
+      "path": "/deshiiri/api/cron/nightly",
+      "schedule": "0 18 * * *"
+    },
+    {
+      "path": "/deshiiri/api/cron/morning",
+      "schedule": "0 0 * * *"
     }
   ]
 }

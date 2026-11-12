@@ -81,3 +81,39 @@ export async function createFolder(name: string, parentId?: string): Promise<str
   if (!res.data.id) throw new Error("ドライブにフォルダを作れませんでした");
   return res.data.id;
 }
+
+/** 名前でフォルダを探し、なければ作る（「デシイリ原本/バックアップ」など）。 */
+export async function ensureFolder(name: string, parentId?: string): Promise<string> {
+  const parent = parentId ?? rootFolder();
+  const res = await drive().files.list({
+    q: `'${parent}' in parents and name = '${name.replace(/'/g, "\\'")}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+    fields: "files(id)",
+    supportsAllDrives: true,
+    includeItemsFromAllDrives: true,
+    corpora: "allDrives",
+  });
+  return res.data.files?.[0]?.id ?? (await createFolder(name, parent));
+}
+
+/** フォルダの中のファイル（ゴミ箱を除く）を新しい順に返す。 */
+export async function listFiles(parentId: string): Promise<{ id: string; name: string; createdTime: string; size: number }[]> {
+  const out: { id: string; name: string; createdTime: string; size: number }[] = [];
+  let pageToken: string | undefined;
+  do {
+    const res = await drive().files.list({
+      q: `'${parentId}' in parents and trashed = false`,
+      fields: "nextPageToken, files(id, name, createdTime, size)",
+      orderBy: "createdTime desc",
+      pageSize: 100,
+      pageToken,
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
+      corpora: "allDrives",
+    });
+    for (const f of res.data.files ?? []) {
+      if (f.id) out.push({ id: f.id, name: f.name ?? "", createdTime: f.createdTime ?? "", size: Number(f.size ?? 0) });
+    }
+    pageToken = res.data.nextPageToken ?? undefined;
+  } while (pageToken);
+  return out;
+}

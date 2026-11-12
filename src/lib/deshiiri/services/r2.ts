@@ -36,3 +36,20 @@ export async function getObject(key: string) {
 export async function deleteObject(key: string) {
   await r2().send(new DeleteObjectCommand({ Bucket: bucket(), Key: key }));
 }
+
+/** バケット全体の容量（無料枠の見張り用）。写真が数万枚までなら一覧を足し上げる方法で足りる。 */
+export async function bucketUsage(): Promise<{ bytes: number; objects: number }> {
+  const { ListObjectsV2Command } = await import("@aws-sdk/client-s3");
+  let bytes = 0;
+  let objects = 0;
+  let token: string | undefined;
+  do {
+    const res = await r2().send(new ListObjectsV2Command({ Bucket: bucket(), ContinuationToken: token }));
+    for (const o of res.Contents ?? []) {
+      bytes += o.Size ?? 0;
+      objects++;
+    }
+    token = res.IsTruncated ? res.NextContinuationToken : undefined;
+  } while (token);
+  return { bytes, objects };
+}

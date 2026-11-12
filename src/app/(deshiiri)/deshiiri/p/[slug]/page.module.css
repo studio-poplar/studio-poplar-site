@@ -171,3 +171,25 @@
   line-height: 1.9;
   max-width: 36em;
 }
+
+.draft {
+  border: 1px solid var(--kaki);
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.rule {
+  margin-block: 32px;
+  max-width: 40em;
+}
+
+.rule h2 {
+  font: 700 19px/1.5 var(--f-head);
+  margin-bottom: 8px;
+}
+
+.rule p {
+  font-size: 15px;
+  line-height: 1.95;
+}
