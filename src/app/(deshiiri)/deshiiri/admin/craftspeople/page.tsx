@@ -35,7 +35,7 @@ export default async function CraftspeoplePage() {
             return (
               <article key={p.id} className={styles.card}>
                 <h3>
-                  {p.displayName}
+                  <Link href={`/deshiiri/admin/craftspeople/${p.id}`}>{p.displayName}</Link>
                   {p.shopName ? <small>（{p.shopName}）</small> : null}
                 </h3>
                 <p className={styles.note}>

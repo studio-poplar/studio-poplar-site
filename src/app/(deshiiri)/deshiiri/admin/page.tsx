@@ -25,6 +25,7 @@ export default async function AdminHome() {
       </div>
 
       <nav className={styles.nav} aria-label="編集部の画面">
+        <Link href="/deshiiri/admin/review">確認待ち</Link>
         <Link href="/deshiiri/admin/craftspeople">職人と招待コード</Link>
         <Link href="/deshiiri/admin/works">届いた投稿</Link>
       </nav>

@@ -236,3 +236,66 @@
   border-radius: 4px;
   background: var(--ph);
 }
+
+.cardLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardLink:hover {
+  border-color: var(--ink);
+}
+
+.altGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.altItem {
+  display: grid;
+  gap: 6px;
+}
+
+.altItem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--ph);
+}
+
+.problems {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 14px;
+}
+
+.field textarea:disabled,
+.field input:disabled {
+  opacity: 0.7;
+}
+
+fieldset.field {
+  padding: 0;
+  margin: 0;
+}
+
+fieldset.field legend {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.card h3 a {
+  color: inherit;
+}

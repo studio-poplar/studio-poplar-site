@@ -66,3 +66,56 @@ export async function listCraftspeople() {
     return { ...p, latestInvite, inviteLive };
   });
 }
+
+const EditCraftsperson = z.object({
+  id: z.string().uuid(),
+  displayName: z.string().trim().min(1, "名前を入れてください").max(40),
+  shopName: z.string().trim().max(60).optional(),
+  trade: z.enum(TRADES),
+  area: z.string().trim().min(1, "市区町村を入れてください").max(40),
+  intro: z.string().trim().max(400).optional(),
+  proxyRegistrant: z.string().trim().max(60).optional(),
+  firstPerson: z.string().trim().max(20).optional(),
+  endings: z.string().trim().max(60).optional(),
+  dialect: z.string().trim().max(60).optional(),
+  habits: z.string().trim().max(120).optional(),
+  emoji: z.enum(["", "yes", "no"]).optional(),
+  memo: z.string().trim().max(300).optional(),
+  phone: z.string().trim().max(30).optional(),
+  hours: z.string().trim().max(60).optional(),
+  website: z.string().trim().max(200).optional(),
+  instagram: z.string().trim().max(60).optional(),
+});
+
+/** 職人の登録内容と話し方メモを直す。 */
+export async function updateCraftsperson(_prev: FormState, form: FormData): Promise<FormState> {
+  await assertAdmin();
+  const parsed = EditCraftsperson.safeParse(Object.fromEntries(form));
+  if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "入力を確かめてください" };
+  const v = parsed.data;
+  const opt = (s?: string) => (s ? s : undefined);
+  await db()
+    .update(schema.craftspeople)
+    .set({
+      displayName: v.displayName,
+      shopName: v.shopName || null,
+      trade: v.trade,
+      area: v.area,
+      intro: v.intro || null,
+      proxyRegistrant: v.proxyRegistrant || null,
+      featured: form.get("featured") === "on",
+      voiceNotes: {
+        firstPerson: opt(v.firstPerson),
+        endings: opt(v.endings),
+        dialect: opt(v.dialect),
+        habits: opt(v.habits),
+        emoji: v.emoji === "yes" ? true : v.emoji === "no" ? false : undefined,
+        memo: opt(v.memo),
+      },
+      cardInfo: { phone: opt(v.phone), hours: opt(v.hours), website: opt(v.website), instagram: opt(v.instagram) },
+    })
+    .where(eq(schema.craftspeople.id, v.id));
+  revalidatePath("/deshiiri/admin/craftspeople");
+  revalidatePath(`/deshiiri/admin/craftspeople/${v.id}`);
+  return { ok: true, message: "保存しました" };
+}
