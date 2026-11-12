@@ -33,7 +33,39 @@ export type PublicListItem = PublicPerson & { latestWork: PublicWork | null; lat
 
 const hasDb = () => Boolean(process.env.DATABASE_URL);
 
-function toPublicPerson(p: typeof schema.craftspeople.$inferSelect): PublicPerson {
+// 読む列はここに書いたものだけ（LINE の ID などは DB からも取り出さない）。
+// 列を足すマイグレーションが当たる前のビルドでも落ちないように、select() で全部の列を取らない。
+const c = schema.craftspeople;
+const personCols = {
+  id: c.id,
+  slug: c.slug,
+  displayName: c.displayName,
+  shopName: c.shopName,
+  trade: c.trade,
+  area: c.area,
+  intro: c.intro,
+  cardInfo: c.cardInfo,
+  visitOpen: c.visitOpen,
+  featured: c.featured,
+};
+const w = schema.works;
+const workCols = {
+  id: w.id,
+  craftspersonId: w.craftspersonId,
+  publicTitle: w.publicTitle,
+  publicBody: w.publicBody,
+  publishedAt: w.publishedAt,
+  createdAt: w.createdAt,
+};
+const ph = schema.workPhotos;
+const photoCols = { workId: ph.workId, r2Key: ph.r2Key, alt: ph.alt, width: ph.width, height: ph.height };
+
+type PersonRow = { [K in keyof typeof personCols]: (typeof c.$inferSelect)[K] };
+
+/** 90日の区切りを動かすため、一覧は公開・取り下げがなくても1日で作り直す。 */
+const DAY = 24 * 60 * 60;
+
+function toPublicPerson(p: PersonRow): PublicPerson {
   return {
     slug: p.slug,
     displayName: p.displayName,
@@ -56,13 +88,13 @@ async function publishedWorks(craftspersonIds: string[], since?: Date) {
   ];
   if (since) where.push(gte(schema.works.publishedAt, since));
   const works = await db()
-    .select()
+    .select(workCols)
     .from(schema.works)
     .where(and(...where))
     .orderBy(desc(schema.works.publishedAt));
   const photos = works.length
     ? await db()
-        .select()
+        .select(photoCols)
         .from(schema.workPhotos)
         .where(inArray(schema.workPhotos.workId, works.map((w) => w.id)))
         .orderBy(schema.workPhotos.sort)
@@ -86,7 +118,7 @@ export function getPublicPerson(slug: string) {
   return unstable_cache(
     async (): Promise<{ person: PublicPerson; works: PublicWork[] } | null> => {
       if (!hasDb()) return null;
-      const [p] = await db().select().from(schema.craftspeople).where(eq(schema.craftspeople.slug, slug)).limit(1);
+      const [p] = await db().select(personCols).from(c).where(eq(c.slug, slug)).limit(1);
       if (!p) return null;
       const works = (await publishedWorks([p.id])).map((w) => w.work);
       if (!works.length) return null;
@@ -102,7 +134,7 @@ export function listByTrade(trade: Trade) {
   return unstable_cache(
     async (): Promise<PublicListItem[]> => {
       if (!hasDb()) return [];
-      const people = await db().select().from(schema.craftspeople).where(eq(schema.craftspeople.trade, trade));
+      const people = await db().select(personCols).from(c).where(eq(c.trade, trade));
       const since = new Date(Date.now() - ACTIVE_DAYS * 24 * 60 * 60 * 1000);
       const recent = await publishedWorks(people.map((p) => p.id), since);
       return people
@@ -114,7 +146,7 @@ export function listByTrade(trade: Trade) {
         .sort((a, b) => Number(b.featured) - Number(a.featured) || (b.latestAt ?? "").localeCompare(a.latestAt ?? ""));
     },
     ["deshiiri-trade", trade],
-    { tags: [PUBLIC_TAG] },
+    { tags: [PUBLIC_TAG], revalidate: DAY },
   )();
 }
 
@@ -128,6 +160,6 @@ export function tradeCounts() {
       return counts;
     },
     ["deshiiri-trade-counts"],
-    { tags: [PUBLIC_TAG] },
+    { tags: [PUBLIC_TAG], revalidate: DAY },
   )();
 }
