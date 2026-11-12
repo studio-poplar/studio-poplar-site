@@ -232,6 +232,8 @@ async function recentOpenWorksForAnswer(craftspersonId: string, now: Date): Prom
 
 async function ensureDriveFolder(person: Craftsperson): Promise<string> {
   if (person.driveFolderId) return person.driveFolderId;
+  const [fresh] = await db().select({ driveFolderId: craftspeople.driveFolderId }).from(craftspeople).where(eq(craftspeople.id, person.id)).limit(1);
+  if (fresh?.driveFolderId) return fresh.driveFolderId;
   const { createFolder } = await import("@/lib/deshiiri/services/drive");
   const id = await createFolder(`${person.displayName}（${person.slug}）`);
   const [row] = await db()
@@ -240,9 +242,14 @@ async function ensureDriveFolder(person: Craftsperson): Promise<string> {
     .where(and(eq(craftspeople.id, person.id), isNull(craftspeople.driveFolderId)))
     .returning();
   if (row) return id;
-  // 同時に別の写真がフォルダを作っていた場合は、先に保存された方を使う。
+  // 同時に別の写真がフォルダを作っていた場合は、先に保存された方を使い、こちらで作ったフォルダはゴミ箱へ移す。
   const [current] = await db().select().from(craftspeople).where(eq(craftspeople.id, person.id)).limit(1);
-  return current?.driveFolderId ?? id;
+  if (current?.driveFolderId && current.driveFolderId !== id) {
+    const { trashFile } = await import("@/lib/deshiiri/services/drive");
+    await trashFile(id).catch(() => undefined);
+    return current.driveFolderId;
+  }
+  return id;
 }
 
 /** LINE から写真を受け取り、縮小・メタデータ削除して、原本をドライブ・表示用を R2 に置く。 */

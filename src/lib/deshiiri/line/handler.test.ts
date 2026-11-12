@@ -87,6 +87,15 @@ describe("登録済みの職人", () => {
     expect(replied()).toEqual([MSG.photoNeedWords(1)]);
   });
 
+  it("まとめて送られた写真は、送った順（imageSet.index）で並べ、枚数は組の数で返す", async () => {
+    // 最後の1枚（2枚目）が先に処理されて、席は1番目を取った場合
+    intake.addPhoto.mockResolvedValue({ work: { id: "w1", ownerWords: "" }, index: 1, overflow: false });
+    await handleEvent(imageEvent({ id: "s2", index: 2, total: 2 }), later);
+    later.mock.calls[0][0]();
+    expect(intake.savePhoto).toHaveBeenCalledWith(person, "w1", 2, "img1");
+    expect(replied()).toEqual([MSG.photoNeedWords(2)]);
+  });
+
   it("まとめて送られた写真は最後の1枚にだけ返信する", async () => {
     intake.addPhoto.mockResolvedValue({ work: { id: "w1", ownerWords: "塗った" }, index: 2, overflow: false });
     await handleEvent(imageEvent({ id: "s1", index: 1, total: 3 }), later);

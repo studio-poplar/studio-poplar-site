@@ -11,7 +11,7 @@ import {
   toggleVisitOpen,
 } from "./intake";
 import { MSG } from "./messages";
-import { parseInviteCode } from "./rules";
+import { MAX_PHOTOS, parseInviteCode } from "./rules";
 
 // LINE の1イベントを処理する。返信はその場で（無料・1分以内）、写真の保存は返信のあとで行う。
 // later は「返信のあとにやる仕事」を受け取る関数（route で next/server の after に渡す）。
@@ -79,16 +79,18 @@ export async function handleEvent(event: webhook.Event, later: Later): Promise<v
   if (message.type === "image") {
     const set = message.imageSet;
     const slot = await addPhoto(person, set?.id ?? null);
-    later(() => savePhoto(person, slot.work.id, slot.index, message.id));
+    // まとめて送られた写真は同時に届くので、席を取った順ではなく送った順（imageSet.index）で並べる。
+    const sort = set?.index && !slot.overflow ? set.index : slot.index;
+    later(() => savePhoto(person, slot.work.id, sort, message.id));
 
     // まとめて送られた写真は、最後の1枚にだけ返信する（返信は何通でも無料だが、うるさくしない）。
     const isLastOfSet = !set || !set.total || set.index === set.total;
     if (!isLastOfSet) return;
     const messages: messagingApi.Message[] = [];
     if (slot.overflow) messages.push(text(MSG.photoOverflow));
-    messages.push(
-      text(slot.work.ownerWords.trim() ? MSG.photoReceived(slot.index) : MSG.photoNeedWords(slot.index)),
-    );
+    // 最後の1枚が先に処理されることもあるので、組の枚数（total）も見て数える。
+    const received = set?.total && !slot.overflow ? Math.min(Math.max(slot.index, set.total), MAX_PHOTOS) : slot.index;
+    messages.push(text(slot.work.ownerWords.trim() ? MSG.photoReceived(received) : MSG.photoNeedWords(received)));
     return send(...messages);
   }
 
