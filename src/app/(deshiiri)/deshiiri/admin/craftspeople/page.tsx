@@ -44,6 +44,8 @@ export default async function CraftspeoplePage() {
                 <p>
                   LINE：{p.lineUserId ? <span className={styles.ok}>つながっています</span> : <span className={styles.ng}>まだです</span>}
                   {"　"}見学：{p.visitOpen ? "受付中" : "休止中"}
+                  {"　"}規約：{p.consentAt ? <span className={styles.ok}>同意済み</span> : <span className={styles.ng}>まだ</span>}
+                  {p.foundingMember ? "　創業メンバー" : ""}
                 </p>
                 {!p.lineUserId ? (
                   <div className={styles.meta}>

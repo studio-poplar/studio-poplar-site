@@ -60,6 +60,12 @@ export default async function ReviewPage({ params }: PageProps<"/deshiiri/admin/
         {work.template ? `・型：${TEMPLATE_GUIDE[work.template].label}` : ""}
         {work.returnReason ? `・差し戻し理由：${work.returnReason}` : ""}
       </p>
+      {!person.consentAt ? (
+        <p className={styles.error} role="alert">
+          この職人の規約への同意が、まだ記録されていません。公開する前に同意をもらい、
+          <Link href={`/deshiiri/admin/craftspeople/${person.id}`}>職人の編集画面</Link>で記録してください。
+        </p>
+      ) : null}
 
       <section className={styles.section}>
         <h2>本人の一言</h2>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SectionHead from "@/components/deshiiri/SectionHead";
 import { getPublicPerson } from "@/lib/deshiiri/public-queries";
+import { rulesVisible } from "@/lib/deshiiri/rules-pages";
 import { deshiiriMetadata } from "@/lib/deshiiri/seo";
 import { tradeLabel } from "@/lib/deshiiri/trades";
 import VisitForm from "./VisitForm";
@@ -43,7 +44,12 @@ export default async function VisitPage({ params }: PageProps<"/deshiiri/p/[slug
             {person.area}の{tradeLabel(person.trade)}、{person.displayName}さんへの見学の申し込みです。
             {person.displayName}さんの LINE に届き、「受ける」と返事があれば、{person.displayName}さんからメールで日にちの相談が届きます。
           </p>
-          <VisitForm slug={person.slug} name={person.displayName} />
+          {/* 見学用のプライバシーポリシーを公開したら、そちらを案内する（それまでは今あるデシイリのページ）。 */}
+          <VisitForm
+            slug={person.slug}
+            name={person.displayName}
+            privacyHref={rulesVisible() ? "/deshiiri/rules/privacy" : "/deshiiri/privacy"}
+          />
         </>
       ) : (
         <p className={styles.note}>ただいま受付を休んでいます。</p>
