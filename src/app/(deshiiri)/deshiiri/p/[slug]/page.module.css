@@ -1,0 +1,195 @@
+/* S-2 職人ページ。公開中のデシイリの職人ページ（meikan）と同じ部品・余白に合わせる。 */
+.page {
+  padding-top: 64px;
+  max-width: 880px;
+}
+
+.name {
+  font: 700 clamp(30px, 4vw, 48px) / 1.4 var(--f-head);
+  letter-spacing: 0.06em;
+  margin-block: 14px 4px;
+}
+
+.shop {
+  color: var(--sub);
+  margin: 0 0 24px;
+}
+
+.facts {
+  display: grid;
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 16px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.facts dt {
+  color: var(--sub);
+}
+
+.facts a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.facts a:hover {
+  color: var(--kaki);
+}
+
+.intro {
+  margin-top: 24px;
+  max-width: 34em;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.visit {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--ink);
+}
+
+.visit h2 {
+  font: 700 22px/1.5 var(--f-head);
+  margin-block: 8px 12px;
+}
+
+.note {
+  color: var(--sub);
+  font-size: 14px;
+  margin: 0;
+}
+
+.days {
+  margin-top: var(--section-gap);
+}
+
+.day {
+  padding-block: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.date {
+  font: 400 13px var(--f-en);
+  color: var(--sub);
+}
+
+.title {
+  font: 700 clamp(20px, 2.4vw, 26px) / 1.5 var(--f-head);
+  margin-block: 6px 16px;
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.photos[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.photos img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--ph);
+  border-radius: 2px;
+}
+
+.photos[data-count="1"] img {
+  aspect-ratio: auto;
+}
+
+.body {
+  margin-top: 18px;
+  font-size: 15.5px;
+  line-height: 2;
+  max-width: 36em;
+}
+
+.made {
+  margin-top: 56px;
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.made a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 880px) {
+  .page {
+    padding-top: 32px;
+  }
+  .photos {
+    gap: 6px;
+  }
+}
+
+.back {
+  font-size: 13px;
+  margin: 0 0 24px;
+}
+
+.back a {
+  color: var(--sub);
+}
+
+.back a:hover {
+  color: var(--kaki);
+}
+
+.lead {
+  max-width: 36em;
+  margin-block: 0 32px;
+}
+
+.visitLink {
+  margin-top: 16px;
+}
+
+.terms {
+  margin: 28px 0;
+  padding-left: 1.2em;
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 36em;
+}
+
+.draft {
+  border: 1px solid var(--kaki);
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.rule {
+  margin-block: 32px;
+  max-width: 40em;
+}
+
+.rule h2 {
+  font: 700 19px/1.5 var(--f-head);
+  margin-bottom: 8px;
+}
+
+.rule p {
+  font-size: 15px;
+  line-height: 1.95;
+}

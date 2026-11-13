@@ -1,0 +1,119 @@
+import "server-only";
+import { Readable } from "node:stream";
+import { drive as googleDrive, type drive_v3 } from "@googleapis/drive";
+import { getVercelOidcToken } from "@vercel/oidc";
+import { ExternalAccountClient } from "google-auth-library";
+import { requireEnv } from "@/lib/deshiiri/env";
+
+// 写真の原本とバックアップの置き場（共有ドライブ「デシイリ原本」）。
+// サービスアカウント deshiiri-drive を共有ドライブのコンテンツ管理者に入れて使う。
+//
+// 鍵（JSON）は使わない。studiopoplar.com の組織ポリシーで鍵の作成が禁止されているため、
+// Vercel が実行ごとに発行する OIDC トークンを Google の Workload Identity 連携で
+// 短時間のアクセストークンに引き換え、サービスアカウントとして動く。
+// 必要な値（GCP_*）はどれも秘密ではない。Vercel 上でしか動かない（手元ではトークンが出ない）。
+
+let client: drive_v3.Drive | undefined;
+
+/** Workload Identity 連携の設定。テストから中身を確かめられるよう分けておく。 */
+export function externalAccountConfig() {
+  const projectNumber = requireEnv("GCP_PROJECT_NUMBER");
+  const pool = requireEnv("GCP_WORKLOAD_IDENTITY_POOL_ID");
+  const provider = requireEnv("GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID");
+  const serviceAccount = requireEnv("GCP_SERVICE_ACCOUNT_EMAIL");
+  return {
+    type: "external_account" as const,
+    audience: `//iam.googleapis.com/projects/${projectNumber}/locations/global/workloadIdentityPools/${pool}/providers/${provider}`,
+    subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
+    token_url: "https://sts.googleapis.com/v1/token",
+    service_account_impersonation_url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${serviceAccount}:generateAccessToken`,
+    scopes: ["https://www.googleapis.com/auth/drive"],
+  };
+}
+
+function drive() {
+  if (!client) {
+    const authClient = ExternalAccountClient.fromJSON({
+      ...externalAccountConfig(),
+      subject_token_supplier: { getSubjectToken: () => getVercelOidcToken() },
+    });
+    if (!authClient) throw new Error("ドライブの認証設定を作れませんでした");
+    client = googleDrive({ version: "v3", auth: authClient });
+  }
+  return client;
+}
+
+const rootFolder = () => requireEnv("GOOGLE_DRIVE_FOLDER_ID");
+
+/** フォルダの下にファイルを置き、ファイル ID を返す。parentId を省くと「デシイリ原本」の直下。 */
+export async function uploadFile(name: string, body: Uint8Array, mimeType: string, parentId?: string): Promise<string> {
+  const res = await drive().files.create({
+    requestBody: { name, parents: [parentId ?? rootFolder()] },
+    media: { mimeType, body: Readable.from(Buffer.from(body)) },
+    fields: "id",
+    supportsAllDrives: true,
+  });
+  if (!res.data.id) throw new Error("ドライブへの保存に失敗しました");
+  return res.data.id;
+}
+
+/**
+ * ゴミ箱へ移す。共有ドライブの「コンテンツ管理者」は完全削除ができないため（完全削除は「管理者」だけ）。
+ * ゴミ箱の中身は 30 日で自動的に消え、それまでは元に戻せる。
+ */
+export async function trashFile(fileId: string) {
+  await drive().files.update({ fileId, requestBody: { trashed: true }, supportsAllDrives: true });
+}
+
+/** 接続の確認用。フォルダの名前を返す。 */
+export async function folderName(): Promise<string> {
+  const res = await drive().files.get({ fileId: rootFolder(), fields: "name", supportsAllDrives: true });
+  return res.data.name ?? "";
+}
+
+/** 「デシイリ原本」の直下にフォルダを作り、ID を返す。 */
+export async function createFolder(name: string, parentId?: string): Promise<string> {
+  const res = await drive().files.create({
+    requestBody: { name, mimeType: "application/vnd.google-apps.folder", parents: [parentId ?? rootFolder()] },
+    fields: "id",
+    supportsAllDrives: true,
+  });
+  if (!res.data.id) throw new Error("ドライブにフォルダを作れませんでした");
+  return res.data.id;
+}
+
+/** 名前でフォルダを探し、なければ作る（「デシイリ原本/バックアップ」など）。 */
+export async function ensureFolder(name: string, parentId?: string): Promise<string> {
+  const parent = parentId ?? rootFolder();
+  const res = await drive().files.list({
+    q: `'${parent}' in parents and name = '${name.replace(/'/g, "\\'")}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+    fields: "files(id)",
+    supportsAllDrives: true,
+    includeItemsFromAllDrives: true,
+    corpora: "allDrives",
+  });
+  return res.data.files?.[0]?.id ?? (await createFolder(name, parent));
+}
+
+/** フォルダの中のファイル（ゴミ箱を除く）を新しい順に返す。 */
+export async function listFiles(parentId: string): Promise<{ id: string; name: string; createdTime: string; size: number }[]> {
+  const out: { id: string; name: string; createdTime: string; size: number }[] = [];
+  let pageToken: string | undefined;
+  do {
+    const res = await drive().files.list({
+      q: `'${parentId}' in parents and trashed = false`,
+      fields: "nextPageToken, files(id, name, createdTime, size)",
+      orderBy: "createdTime desc",
+      pageSize: 100,
+      pageToken,
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
+      corpora: "allDrives",
+    });
+    for (const f of res.data.files ?? []) {
+      if (f.id) out.push({ id: f.id, name: f.name ?? "", createdTime: f.createdTime ?? "", size: Number(f.size ?? 0) });
+    }
+    pageToken = res.data.nextPageToken ?? undefined;
+  } while (pageToken);
+  return out;
+}

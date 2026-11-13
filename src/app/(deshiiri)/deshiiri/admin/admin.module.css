@@ -1,0 +1,390 @@
+/* 編集部の管理画面。色・書体は公開中のデシイリの変数をそのまま使う。 */
+.page {
+  padding-top: 56px;
+  padding-bottom: 96px;
+  max-width: 880px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin: 8px 0 40px;
+  color: var(--sub);
+  font-size: 14px;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+.section h2 {
+  font: 700 20px/1.5 var(--f-head);
+  margin: 0 0 14px;
+}
+
+.note {
+  color: var(--sub);
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 700;
+  white-space: nowrap;
+  width: 9em;
+}
+
+.vars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-family: var(--f-en);
+  font-size: 12.5px;
+  word-break: break-all;
+}
+
+.ok {
+  color: var(--moegi);
+}
+
+.ng {
+  color: var(--kaki);
+}
+
+.button {
+  font: 700 14px/1 var(--f-body);
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.button.ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--kaki);
+  outline-offset: 2px;
+}
+
+.checks {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.checkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 14px;
+}
+
+.checkRow strong {
+  min-width: 9em;
+}
+
+.error {
+  border-left: 3px solid var(--kaki);
+  padding: 8px 14px;
+  margin: 0 0 24px;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .table th {
+    width: auto;
+  }
+  .table th,
+  .table td {
+    display: block;
+    padding: 6px 0;
+  }
+  .table th {
+    border-bottom: 0;
+    padding-top: 14px;
+  }
+}
+
+.crumb {
+  font-size: 13px;
+  color: var(--sub);
+  margin: 0 0 12px;
+}
+
+.crumb a,
+.nav a {
+  color: inherit;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: 16px/1.6 var(--f-body);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  min-width: 0;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid var(--kaki);
+  outline-offset: 1px;
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  background: var(--card);
+}
+
+.card h3 {
+  font: 700 17px/1.5 var(--f-body);
+  margin: 0 0 4px;
+}
+
+.card h3 small {
+  font-weight: 400;
+  color: var(--sub);
+  margin-left: 6px;
+  font-size: 13px;
+}
+
+.card p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.code {
+  font-family: var(--f-en);
+  font-size: 20px;
+  letter-spacing: 0.12em;
+}
+
+.words {
+  white-space: pre-wrap;
+}
+
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.thumbs img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--ph);
+}
+
+.cardLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardLink:hover {
+  border-color: var(--ink);
+}
+
+.altGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.altItem {
+  display: grid;
+  gap: 6px;
+}
+
+.altItem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--ph);
+}
+
+.problems {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 14px;
+}
+
+.field textarea:disabled,
+.field input:disabled {
+  opacity: 0.7;
+}
+
+fieldset.field {
+  padding: 0;
+  margin: 0;
+}
+
+fieldset.field legend {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.card h3 a {
+  color: inherit;
+}
+
+/* S-6 見学の進行 */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 12px;
+  font-size: 12px;
+}
+
+.flow li {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  margin-right: -1px;
+  color: var(--sub);
+}
+
+.flow li[data-state="done"] {
+  color: var(--ink);
+  background: var(--bg-2);
+}
+
+.flow li[data-state="now"] {
+  color: #fff;
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.inline form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.inline input[type="date"] {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+/* 最近の投稿を並べて見る */
+.phrases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.phrases small,
+.openers small {
+  color: var(--sub);
+  margin-left: 4px;
+}
+
+.openers {
+  padding-left: 1.4em;
+  line-height: 2;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.compare p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.alert {
+  border: 1px solid var(--kaki);
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}

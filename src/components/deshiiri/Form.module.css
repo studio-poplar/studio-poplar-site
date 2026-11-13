@@ -178,3 +178,23 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 見学の同意など、ボタンを横に並べるとき */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.plain {
+  font: inherit;
+  font-size: 14px;
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  color: var(--sub);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}

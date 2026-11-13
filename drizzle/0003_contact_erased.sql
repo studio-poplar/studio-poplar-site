@@ -1,0 +1,1 @@
+ALTER TABLE "visit_requests" ADD COLUMN "contact_erased_at" timestamp with time zone;

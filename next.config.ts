@@ -26,6 +26,10 @@ const legacyWixRedirects = [
 ];
 
 const nextConfig: NextConfig = {
+  // 管理画面の「表を作る・更新する」が drizzle/ のマイグレーションを読むので、関数に同梱する。
+  outputFileTracingIncludes: {
+    "/deshiiri/admin": ["./drizzle/**/*", "./src/lib/deshiiri/line/richmenu.png"],
+  },
   async redirects() {
     return [
       // Requests arrive percent-encoded, so the Japanese sources have to be encoded to match.

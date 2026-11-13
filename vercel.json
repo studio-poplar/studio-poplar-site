@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/deshiiri/api/cron/drafts-submit",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/deshiiri/api/cron/drafts-collect",
+      "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/deshiiri/api/cron/hourly",
+      "schedule": "5 * * * *"
+    },
+    {
+      "path": "/deshiiri/api/cron/nightly",
+      "schedule": "0 18 * * *"
+    },
+    {
+      "path": "/deshiiri/api/cron/morning",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
