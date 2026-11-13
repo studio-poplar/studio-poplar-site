@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { assertAdmin } from "@/lib/deshiiri/admin-auth";
 import { db, schema } from "@/lib/deshiiri/db";
+import { refreshPublic } from "@/lib/deshiiri/publish";
 import { issueInviteCode } from "@/lib/deshiiri/line/intake";
 import { TRADES } from "@/lib/deshiiri/trades";
 
@@ -94,6 +95,14 @@ export async function updateCraftsperson(_prev: FormState, form: FormData): Prom
   if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "入力を確かめてください" };
   const v = parsed.data;
   const opt = (s?: string) => (s ? s : undefined);
+  const [before] = await db()
+    .select({ slug: schema.craftspeople.slug, trade: schema.craftspeople.trade, consentAt: schema.craftspeople.consentAt })
+    .from(schema.craftspeople)
+    .where(eq(schema.craftspeople.id, v.id))
+    .limit(1);
+  if (!before) return { ok: false, message: "職人が見つかりません" };
+  // 規約への同意：チェックを入れた日時を残す（入れ直しても最初の日時のまま）。外すと消す。
+  const consented = form.get("consented") === "on";
   await db()
     .update(schema.craftspeople)
     .set({
@@ -104,6 +113,8 @@ export async function updateCraftsperson(_prev: FormState, form: FormData): Prom
       intro: v.intro || null,
       proxyRegistrant: v.proxyRegistrant || null,
       featured: form.get("featured") === "on",
+      foundingMember: form.get("foundingMember") === "on",
+      consentAt: consented ? (before.consentAt ?? new Date()) : null,
       voiceNotes: {
         firstPerson: opt(v.firstPerson),
         endings: opt(v.endings),
@@ -117,5 +128,8 @@ export async function updateCraftsperson(_prev: FormState, form: FormData): Prom
     .where(eq(schema.craftspeople.id, v.id));
   revalidatePath("/deshiiri/admin/craftspeople");
   revalidatePath(`/deshiiri/admin/craftspeople/${v.id}`);
+  // 名前・紹介文・名刺の項目は公開ページに出るので、職人ページと職種一覧も作り直す（職種を変えたら前の一覧も）。
+  refreshPublic({ slug: before.slug, trade: v.trade });
+  if (before.trade !== v.trade) refreshPublic(before);
   return { ok: true, message: "保存しました" };
 }

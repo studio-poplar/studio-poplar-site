@@ -7,6 +7,9 @@ import { db, schema } from "@/lib/deshiiri/db";
 import EditForm from "./EditForm";
 import styles from "../../admin.module.css";
 
+const fmtDate = (d: Date) =>
+  d.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo", year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+
 export default async function EditCraftspersonPage({ params }: PageProps<"/deshiiri/admin/craftspeople/[id]">) {
   await requireAdminPage();
   const { id } = await params;
@@ -40,6 +43,8 @@ export default async function EditCraftspersonPage({ params }: PageProps<"/deshi
         intro={p.intro}
         proxyRegistrant={p.proxyRegistrant}
         featured={p.featured}
+        foundingMember={p.foundingMember}
+        consentAt={p.consentAt ? fmtDate(p.consentAt) : null}
         voiceNotes={p.voiceNotes}
         cardInfo={p.cardInfo}
       />

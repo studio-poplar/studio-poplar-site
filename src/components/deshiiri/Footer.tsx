@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { saasPagesIndexed } from "@/lib/deshiiri/saas-public";
 import Logo from "./Logo";
 import styles from "./Footer.module.css";
 
@@ -16,7 +17,11 @@ const INFO_LINKS = [
   { href: "/deshiiri/privacy", label: "個人情報の取り扱い" },
 ];
 
+// 職種一覧（LINE で仕事の一日を送っている職人）は、正式に案内するまで出さない（DESHIIRI_SAAS_PUBLIC=1 で出る）。
+const SHOKUSHU_LINK = { href: "/deshiiri/shokushu", label: "職種から職人を探す" };
+
 export default function Footer() {
+  const readLinks = saasPagesIndexed() ? [READ_LINKS[0], READ_LINKS[1], SHOKUSHU_LINK, ...READ_LINKS.slice(2)] : READ_LINKS;
   return (
     <footer className={styles.footer}>
       <div className="d-maku" />
@@ -30,7 +35,7 @@ export default function Footer() {
         <div>
           <span className={styles.head}>読む・探す</span>
           <ul className={styles.list}>
-            {READ_LINKS.map((link) => (
+            {readLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href}>{link.label}</Link>
               </li>

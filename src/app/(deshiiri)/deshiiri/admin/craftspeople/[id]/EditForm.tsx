@@ -15,6 +15,8 @@ type Props = {
   intro: string | null;
   proxyRegistrant: string | null;
   featured: boolean;
+  foundingMember: boolean;
+  consentAt: string | null;
   voiceNotes: VoiceNotes;
   cardInfo: CardInfo;
 };
@@ -59,6 +61,13 @@ export default function EditForm(p: Props) {
       </label>
       <label className={styles.check}>
         <input type="checkbox" name="featured" defaultChecked={p.featured} /> 職種一覧で先頭に出す（編集部が選んだ人）
+      </label>
+      <label className={styles.check}>
+        <input type="checkbox" name="consented" defaultChecked={Boolean(p.consentAt)} /> 規約への同意をもらった
+        {p.consentAt ? `（${p.consentAt} に記録）` : "（入れると、保存した日時を記録します）"}
+      </label>
+      <label className={styles.check}>
+        <input type="checkbox" name="foundingMember" defaultChecked={p.foundingMember} /> 創業メンバー
       </label>
 
       <fieldset className={styles.field}>

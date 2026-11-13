@@ -5,7 +5,7 @@ import { useActionState, useState } from "react";
 import styles from "@/components/deshiiri/Form.module.css";
 import { submitVisit, type VisitFormState } from "./actions";
 
-export default function VisitForm({ slug, name }: { slug: string; name: string }) {
+export default function VisitForm({ slug, name, privacyHref }: { slug: string; name: string; privacyHref: string }) {
   const [state, action, pending] = useActionState(submitVisit.bind(null, slug), { status: "idle" } as VisitFormState);
   const [under18, setUnder18] = useState("");
   const err = (k: string) =>
@@ -128,7 +128,7 @@ export default function VisitForm({ slug, name }: { slug: string; name: string }
       <label className={styles.agree}>
         <input type="checkbox" name="agree" required />
         <span>
-          <Link href="/deshiiri/privacy" target="_blank">
+          <Link href={privacyHref} target="_blank">
             個人情報の取り扱い
           </Link>
           に同意します <em>必須</em>
