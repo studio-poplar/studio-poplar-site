@@ -4,8 +4,10 @@ import { tradeCounts } from "@/lib/deshiiri/public-queries";
 import { saasPagesIndexed } from "@/lib/deshiiri/saas-public";
 import { deshiiriMetadata } from "@/lib/deshiiri/seo";
 import { TRADES, tradeLabel } from "@/lib/deshiiri/trades";
-// 90日更新がない人を外すため、公開・取り下げがなくても1日1回は作り直す。
-export const revalidate = 86400;
+// 公開・取り下げ・受付の休止がすぐ反映されるよう、ページは毎回その場で組み立てる（作り置きのページは、
+// 作り直しの合図のあとも古いものを1回出してしまうため）。DB の結果は lib/deshiiri/public-queries.ts で
+// タグ付きでキャッシュし、公開・取り下げのときに即時に捨てる（{ expire: 0 }）ので、毎回 DB を読むわけではない。
+export const dynamic = "force-dynamic";
 
 import styles from "../list.module.css";
 import own from "./shokushu.module.css";
