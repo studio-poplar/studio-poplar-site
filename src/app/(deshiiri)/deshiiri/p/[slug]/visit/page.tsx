@@ -8,10 +8,10 @@ import VisitForm from "./VisitForm";
 import styles from "../page.module.css";
 
 // S-3 見学の申し込み。フォームのページは検索に出さない。
-export const dynamicParams = true;
-export function generateStaticParams() {
-  return [];
-}
+// 公開・取り下げ・受付の休止がすぐ反映されるよう、ページは毎回その場で組み立てる（作り置きのページは、
+// 作り直しの合図のあとも古いものを1回出してしまうため）。DB の結果は lib/deshiiri/public-queries.ts で
+// タグ付きでキャッシュし、公開・取り下げのときに即時に捨てる（{ expire: 0 }）ので、毎回 DB を読むわけではない。
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps<"/deshiiri/p/[slug]/visit">) {
   const { slug } = await params;

@@ -7,11 +7,11 @@ import { deshiiriMetadata } from "@/lib/deshiiri/seo";
 import { tradeLabel } from "@/lib/deshiiri/trades";
 import styles from "./page.module.css";
 
-// S-2 職人ページ。最初に開かれたときに作って保存し、公開・取り下げのときに作り直す（lib/deshiiri/publish.ts）。
-export const dynamicParams = true;
-export function generateStaticParams() {
-  return [];
-}
+// S-2 職人ページ。
+// 公開・取り下げ・受付の休止がすぐ反映されるよう、ページは毎回その場で組み立てる（作り置きのページは、
+// 作り直しの合図のあとも古いものを1回出してしまうため）。DB の結果は lib/deshiiri/public-queries.ts で
+// タグ付きでキャッシュし、公開・取り下げのときに即時に捨てる（{ expire: 0 }）ので、毎回 DB を読むわけではない。
+export const dynamic = "force-dynamic";
 
 const fmtDate = (iso: string) =>
   new Date(iso).toLocaleDateString("ja-JP", { timeZone: "Asia/Tokyo", year: "numeric", month: "long", day: "numeric" });
